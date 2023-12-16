@@ -7,9 +7,9 @@ import { IonicModule } from '@ionic/angular';
 import { HomePageRoutingModule } from './home-routing.module';
 
 import { HomePage } from './home.page';
-import { ShipmentsComponent } from '../tabs/shipments/shipments.component';
-import { VehiclesComponent } from '../tabs/vehicles/vehicles.component';
-import { VendorsComponent } from '../tabs/vendors/vendors.component';
+import { ShipmentsComponent } from './tabs/shipments/shipments.component';
+import { VehiclesComponent } from './tabs/vehicles/vehicles.component';
+import { VendorsComponent } from './tabs/vendors/vendors.component';
 
 @NgModule({
   imports: [

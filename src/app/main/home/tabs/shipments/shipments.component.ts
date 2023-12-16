@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DayWiseSummaryComponent } from 'src/app/components/day-wise-summary/day-wise-summary.component';
 import { IonicModule } from '@ionic/angular';
-import { VoucherComponent } from 'src/app/components/voucher/voucher.component';
+import { DayWiseSummaryComponent } from './day-wise-summary/day-wise-summary.component';
+import { VoucherComponent } from './voucher/voucher.component';
 
 @Component({
   selector: 'app-shipments',
