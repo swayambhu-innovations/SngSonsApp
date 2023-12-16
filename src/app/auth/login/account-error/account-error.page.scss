@@ -1,0 +1,68 @@
+* {
+  font-family: "NATS";
+  --background: linear-gradient(
+    180deg,
+    #ffefdf -8.94%,
+    #fff 27.36%,
+    #fff 61.93%,
+    #ffeede 101.69%
+  );
+
+  ion-icon {
+    color: #f2825c;
+  }
+}
+
+ion-content {
+  .heading {
+    ion-text {
+      color: #f2825c;
+      font-size: 20px;
+      font-weight: 400;
+    }
+  }
+
+  .notice-section {
+    ion-text {
+      color: #f2825c;
+      font-size: 20px;
+      font-weight: 400;
+    }
+
+    p {
+      color: var(--Text1, #505e86);
+      text-align: center;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .tab-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: fit-content;
+      padding: 8px;
+      margin-top: 50px;
+      height: 56px;
+      border-radius: 60px;
+      background: #ffe7d0;
+      backdrop-filter: blur(15px);
+
+      ion-button {
+        display: flex;
+        width: 100px;
+        height: 40px;
+        justify-content: center;
+        align-items: center;
+        --border-radius: 50px;
+        --background: #fff;
+        --color: #f2825c;
+      }
+
+      .active-btn {
+        --background: #f2825c !important;
+        --color: #fff !important;
+      }
+    }
+  }
+}

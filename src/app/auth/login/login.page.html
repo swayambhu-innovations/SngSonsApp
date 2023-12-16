@@ -1,0 +1,62 @@
+<ion-content [fullscreen]="true">
+  <div class="ion-padding">
+    <a routerLink="error" routerLinkActive="active" ariaCurrentWhenActive="page"
+      ><ion-icon name="arrow-forward-outline"></ion-icon
+    ></a>
+  </div>
+
+  <div class="login-section ion-padding">
+    <div align="center" class="ion-padding ion-margin-bottom">
+      <img src="../assets/images/logo.png" alt="Logo" />
+    </div>
+
+    <div align="center" class="login-credentials ion-padding">
+      <form [formGroup]="loginForm">
+        <!-- Email -->
+        <ion-item class="ion-margin-vertical input-text">
+          <ion-icon name="person"></ion-icon>
+          <ion-input
+            class="ion-margin-start"
+            formControlName="email"
+            placeholder="Email ID"
+          ></ion-input>
+        </ion-item>
+
+        <!-- Password -->
+        <ion-item class="ion-margin-vertical input-text">
+          <ion-icon name="lock-open"></ion-icon>
+          <ion-input
+            class="ion-margin-start"
+            formControlName="password"
+            placeholder="Password"
+          ></ion-input>
+        </ion-item>
+
+        <!-- Submit -->
+        <ion-item>
+          <ion-button shape="round">Log In</ion-button>
+        </ion-item>
+
+        <span class="ion-margin-vertical ion-padding-vertical"
+          >Forgot Password?</span
+        >
+
+        <p class="ion-margin-vertical ion-padding-vertical">
+          <ion-text color="medium">or sign in with</ion-text>
+        </p>
+
+        <ion-button large fill="clear" shape="circle" class="ion-margin">
+          <ion-icon size="large" slot="icon-only" name="logo-google"></ion-icon>
+        </ion-button>
+
+        <ion-button large fill="clear" shape="circle" class="ion-margin">
+          <ion-icon
+            size="large"
+            slot="icon-only"
+            name="logo-facebook"
+          ></ion-icon>
+        </ion-button>
+      </form>
+    </div>
+  </div>
+</ion-content>

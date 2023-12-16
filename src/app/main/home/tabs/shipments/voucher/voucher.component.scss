@@ -1,0 +1,40 @@
+ion-card {
+  ion-icon {
+    color: #1540bd;
+    cursor: pointer;
+  }
+
+  .head {
+    ion-col {
+      display: flex;
+      align-items: center;
+      color: #1540bd;
+      font-size: 16px;
+      font-weight: 400;
+      svg {
+        margin: 0 16px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  ion-searchbar.custom {
+    --placeholder-color: #1540bd;
+    --icon-color: #1540bd;
+    --clear-button-color: #1540bd;
+    --background: #fff;
+    --box-shadow: 0px 0px 0px 1px #1540bd;
+    --border-radius: 12px;
+    --color: #1540bd;
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  ion-grid {
+    .disabled-row {
+      color: var(--Text3, #9fa7b2);
+      font-size: 14px;
+      font-weight: 400;
+    }
+  }
+}

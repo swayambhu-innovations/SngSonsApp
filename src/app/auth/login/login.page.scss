@@ -1,0 +1,71 @@
+* {
+  font-family: "Merge One";
+
+  ion-icon {
+    color: #1540bd;
+  }
+
+  ion-input {
+    width: 100%;
+  }
+}
+
+ion-content {
+  --background: linear-gradient(
+    164deg,
+    #d5e6ff -0.3%,
+    #fff 31.71%,
+    #fff 62.19%,
+    #c9deff 97.25%
+  );
+
+  .login-section {
+    ion-item {
+      width: 300px;
+      height: 50px;
+      border-radius: 30px;
+      margin: 20px 0;
+
+      ion-button {
+        width: 300px;
+        height: fit-content;
+        color: #fff;
+
+        --background: #1540bd;
+        --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+
+        --ripple-color: #c9deff;
+
+        --border-color: #b1c3cb;
+        --border-style: solid;
+        --border-width: 1px;
+
+        --padding-top: 16px;
+        --padding-bottom: 16px;
+      }
+    }
+
+    .input-text {
+      border: 1px solid var(--Secondary, #b1c3cb);
+      margin: 16px 0;
+    }
+
+    span {
+      color: var(--Buttons, #1659be);
+      font-family: Merge One;
+      font-size: 16px;
+      font-weight: 400;
+      margin: 100px 0;
+    }
+
+    ion-button[shape="circle"] {
+      --border-radius: 50%;
+      width: 50px;
+      height: 50px;
+
+      --border-color: #1540bd;
+      --border-style: solid;
+      --border-width: 2px;
+    }
+  }
+}
