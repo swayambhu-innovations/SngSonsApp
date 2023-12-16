@@ -1,0 +1,54 @@
+ion-col {
+  color: var(--Primary, #1540bd);
+  font-size: 16px;
+  font-weight: 500;
+
+  ion-button {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    --border-color: #1540bd;
+    --border-style: solid;
+    --border-width: 1px;
+
+    span {
+      color: var(--Primary, #1540bd);
+      text-align: center;
+      font-size: 12px;
+      font-weight: 400;
+    }
+
+    svg {
+      margin: 0 4px;
+    }
+  }
+}
+
+#data {
+  ion-col {
+    color: var(--Text1, #505e86);
+    font-size: 14px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+
+    .circle {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      margin: 0 5px;
+    }
+    .dispatch {
+      background: #dbe5f7;
+    }
+    .post-delivery {
+      background: #aacbff;
+    }
+    .completed {
+      background: #1540bd;
+    }
+    .suspended {
+      background: #243873;
+    }
+  }
+}
