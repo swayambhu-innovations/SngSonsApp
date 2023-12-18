@@ -1,4 +1,7 @@
 ion-card {
+  border-radius: 16px;
+  box-shadow: 2px 2px 5px 2px rgba(53, 122, 248, 0.1);
+
   ion-icon {
     color: #1540bd;
     cursor: pointer;
@@ -36,10 +39,12 @@ ion-card {
       color: var(--Text1, #505e86);
       font-size: 14px;
       font-weight: 400;
+      margin-bottom: 8px;
 
       span {
         position: absolute;
         top: 7px;
+        color: #1540bd;
       }
 
       ion-progress-bar {
@@ -49,6 +54,7 @@ ion-card {
           #1540bd 0%,
           #1786ed 100%
         );
+        border-radius: 10px;
       }
     }
   }

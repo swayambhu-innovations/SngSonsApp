@@ -10,6 +10,7 @@ export class ResetPasswordPage implements OnInit {
   resetForm = new FormGroup({
     email: new FormControl(''),
   });
+  picker: boolean = false;
 
   constructor() {}
 

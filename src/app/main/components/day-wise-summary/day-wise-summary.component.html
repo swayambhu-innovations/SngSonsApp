@@ -3,8 +3,9 @@
     <ion-row class="ion-justify-content-between ion-align-items-center">
       <ion-col size="auto">Day Wise Summary</ion-col>
       <ion-col size="auto">
-        <ion-button fill="clear" shape="round">
-          <span>13 Aug</span>
+        <button>
+          <span>{{ date }}</span>
+          <!-- <input type="date" onchange="dispDate($event)" /> -->
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="15"
@@ -19,10 +20,18 @@
               fill="#1540BD"
             />
           </svg>
-        </ion-button>
+        </button>
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <!-- <ion-datetime-button datetime="datetime"></ion-datetime-button>
+
+  <ion-modal [keepContentsMounted]="true">
+    <ng-template>
+      <ion-datetime id="datetime"></ion-datetime>
+    </ng-template>
+  </ion-modal> -->
 
   <ion-grid id="data">
     <ion-row class="ion-justify-content-between ion-align-items-center">

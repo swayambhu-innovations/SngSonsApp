@@ -1,54 +1,84 @@
-ion-col {
-  color: var(--Primary, #1540bd);
-  font-size: 16px;
-  font-weight: 500;
+ion-card {
+  border-radius: 16px;
+  box-shadow: 2px 2px 5px 2px rgba(53, 122, 248, 0.1);
 
-  ion-button {
-    display: flex;
-    align-items: center;
-    width: fit-content;
-    --border-color: #1540bd;
-    --border-style: solid;
-    --border-width: 1px;
+  ion-col {
+    color: var(--Primary, #1540bd);
+    font-size: 16px;
+    font-weight: 500;
 
-    span {
-      color: var(--Primary, #1540bd);
-      text-align: center;
-      font-size: 12px;
-      font-weight: 400;
-    }
+    button {
+      display: flex;
+      padding: 6px 8px;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #1540bd;
+      border-radius: 12px;
+      background-color: transparent;
+      position: relative;
 
-    svg {
-      margin: 0 4px;
+      span {
+        color: var(--Primary, #1540bd);
+        font-size: 12px;
+        margin-top: 2px;
+        font-weight: 400;
+      }
+
+      input[type="date"]::-webkit-calendar-picker-indicator {
+        background: transparent;
+        bottom: 0;
+        color: transparent;
+        cursor: pointer;
+        height: auto;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: auto;
+      }
+
+      // .calender {
+      //   margin-top: 12.25px;
+      //   position: relative;
+      //   text-align: center;
+      input[type="date"] {
+        // display: none;
+        opacity: 0;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+      // }
     }
   }
-}
 
-#data {
-  ion-col {
-    color: var(--Text1, #505e86);
-    font-size: 14px;
-    font-weight: 400;
-    display: flex;
-    align-items: center;
+  #data {
+    ion-col {
+      color: var(--Text1, #505e86);
+      font-size: 14px;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
 
-    .circle {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      margin-right: 5px;
-    }
-    .dispatch {
-      background: #dbe5f7;
-    }
-    .post-delivery {
-      background: #aacbff;
-    }
-    .completed {
-      background: #1540bd;
-    }
-    .suspended {
-      background: #243873;
+      .circle {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        margin-right: 5px;
+      }
+      .dispatch {
+        background: #dbe5f7;
+      }
+      .post-delivery {
+        background: #aacbff;
+      }
+      .completed {
+        background: #1540bd;
+      }
+      .suspended {
+        background: #243873;
+      }
     }
   }
 }
