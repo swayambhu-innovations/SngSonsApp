@@ -12,7 +12,11 @@ const routes: Routes = [
           loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
         },     
       ]
+  },  {
+    path: 'history',
+    loadChildren: () => import('./history/history.module').then( m => m.HistoryPageModule)
   },
+
   
 ];
 
