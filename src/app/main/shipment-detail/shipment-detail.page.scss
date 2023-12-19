@@ -24,6 +24,7 @@ ion-content {
 
       svg {
         margin-inline: 10px;
+        cursor: pointer;
 
         &:focus {
           border: none;
@@ -58,5 +59,74 @@ ion-content {
     background-color: rgb(254, 254, 254);
     filter: drop-shadow(0px 4px 10px rgba(53, 122, 248, 0.1));
     backdrop-filter: blur(25px);
+
+    .heading {
+      color: var(--Primary, #1540bd);
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    ion-grid {
+      ion-col {
+        color: var(--Primary, #1540bd);
+        text-align: right;
+        font-size: 14px;
+        font-weight: 400;
+      }
+
+      .col-head {
+        color: var(--Text1, #505e86) !important;
+      }
+
+      .to-be-filled {
+        color: var(--Waiting-Post-Delivery-Vehicles, #d97a07);
+      }
+    }
+
+    div {
+      img {
+        height: 151px;
+        width: 100%;
+        border-radius: 12px;
+        border: 1px solid rgba(206, 211, 241, 0.62);
+        object-fit: cover;
+      }
+    }
+
+    .last-div {
+      margin-bottom: 50px;
+    }
+
+    .tab-bar {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 226px;
+      height: 56px;
+      padding: 8px;
+      border-radius: 60px;
+      background: #fff;
+      backdrop-filter: blur(15px);
+
+      ion-button {
+        display: flex;
+        width: 100px;
+        height: 40px;
+        justify-content: center;
+        align-items: center;
+        --border-radius: 50px;
+        --background: #fff;
+        --color: #1540bd;
+      }
+
+      .active-btn {
+        --background: #1540bd !important;
+        --color: #fff !important;
+      }
+    }
   }
 }
