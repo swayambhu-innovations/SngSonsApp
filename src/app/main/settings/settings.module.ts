@@ -4,10 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { HistoryPageRoutingModule } from './history-routing.module';
+import { SettingsPageRoutingModule } from './settings-routing.module';
 
-import { HistoryPage } from './history.page';
-import { VoucherComponent } from '../components/voucher/voucher.component';
+import { SettingsPage } from './settings.page';
 import { HeadUserBarComponent } from '../components/head-user-bar/head-user-bar.component';
 
 @NgModule({
@@ -15,10 +14,9 @@ import { HeadUserBarComponent } from '../components/head-user-bar/head-user-bar.
     CommonModule,
     FormsModule,
     IonicModule,
-    HistoryPageRoutingModule,
-    VoucherComponent,
+    SettingsPageRoutingModule,
     HeadUserBarComponent,
   ],
-  declarations: [HistoryPage],
+  declarations: [SettingsPage],
 })
-export class HistoryPageModule {}
+export class SettingsPageModule {}

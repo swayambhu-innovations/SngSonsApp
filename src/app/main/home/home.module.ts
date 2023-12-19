@@ -10,6 +10,7 @@ import { HomePage } from './home.page';
 import { ShipmentsComponent } from './tabs/shipments/shipments.component';
 import { VehiclesComponent } from './tabs/vehicles/vehicles.component';
 import { VendorsComponent } from './tabs/vendors/vendors.component';
+import { HeadUserBarComponent } from '../components/head-user-bar/head-user-bar.component';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { VendorsComponent } from './tabs/vendors/vendors.component';
     ShipmentsComponent,
     VehiclesComponent,
     VendorsComponent,
+    HeadUserBarComponent,
   ],
   declarations: [HomePage],
 })
