@@ -6,24 +6,39 @@ const routes: Routes = [
   {
     path: '',
     component: MainComponent,
-    children:[
-        {
-          path: 'home',
-          loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-        },     
-      ]
-  },  {
+    children: [
+      {
+        path: 'home',
+        loadChildren: () =>
+          import('./home/home.module').then((m) => m.HomePageModule),
+      },
+    ],
+  },
+  {
     path: 'history',
-    loadChildren: () => import('./history/history.module').then( m => m.HistoryPageModule)
+    loadChildren: () =>
+      import('./history/history.module').then((m) => m.HistoryPageModule),
   },
   {
     path: 'settings',
-    loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
+    loadChildren: () =>
+      import('./settings/settings.module').then((m) => m.SettingsPageModule),
   },
-
-  
+  {
+    path: 'notifications',
+    loadChildren: () =>
+      import('./notifications/notifications.module').then(
+        (m) => m.NotificationsPageModule
+      ),
+  },
+  {
+    path: 'shipment/:id',
+    loadChildren: () =>
+      import('./shipment-detail/shipment-detail.module').then(
+        (m) => m.ShipmentDetailPageModule
+      ),
+  },
 ];
-
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
