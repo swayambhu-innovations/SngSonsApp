@@ -1,0 +1,112 @@
+* {
+  font-family: "NATS";
+}
+
+.wrapper-settings {
+  --background: linear-gradient(
+    180deg,
+    #d5e6ff -8.94%,
+    #fff 27.36%,
+    #fff 61.93%,
+    #c9deff 101.69%
+  );
+
+  .head {
+    width: 100%;
+    height: 129px;
+    border-radius: 0px 0px 8px 8px;
+    background: rgba(234, 243, 255, 0.75);
+    backdrop-filter: blur(15px);
+
+    .user-settings {
+      .user-profile {
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+
+        .user-avatar {
+          width: 180px;
+          height: 180px;
+          background-color: transparent;
+          border-radius: 1655px;
+          border: 2px solid var(--Tab-gradient, #1540bd);
+          box-shadow: 0px 4px 30px 0px #c6e0ff;
+
+          img {
+            width: 180px;
+            height: 180px;
+            border-radius: 1655px;
+            object-fit: cover;
+          }
+        }
+
+        svg {
+          cursor: pointer;
+        }
+      }
+
+      #user-name {
+        color: var(--Primary, #1540bd);
+        text-align: center;
+        font-size: 26px;
+        font-weight: 400;
+        margin-top: 10px;
+      }
+
+      p {
+        color: var(--Text1, #505e86);
+        text-align: center;
+        font-size: 16px;
+        font-weight: 400;
+      }
+
+      ion-button {
+        width: fit-content;
+        height: fit-content;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 400;
+
+        --background: #1540bd;
+        --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+
+        --ripple-color: #c9deff;
+
+        --padding-top: 16px;
+        --padding-bottom: 16px;
+
+        ion-icon {
+          cursor: pointer;
+          margin-left: 10px;
+        }
+      }
+
+      ion-card {
+        width: 100%;
+        height: 455px;
+        border-radius: 12px;
+        border: 1px solid rgba(206, 211, 241, 0.5);
+        background: rgba(234, 242, 255, 0.61);
+        box-shadow: 0px 4px 10px 0px rgba(53, 122, 248, 0.1);
+        backdrop-filter: blur(25px);
+
+        p {
+          display: flex;
+          align-items: center;
+          padding: 14px;
+          color: var(--Primary, #1540bd);
+          cursor: pointer;
+          font-feature-settings: "clig" off, "liga" off;
+          font-family: Lato;
+          font-size: 14px;
+          font-weight: 500;
+          border-bottom: 1px solid #e8dede;
+
+          svg {
+            margin-inline: 15px;
+          }
+        }
+      }
+    }
+  }
+}

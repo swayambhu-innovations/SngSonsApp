@@ -1,0 +1,124 @@
+* {
+  font-family: "NATS";
+}
+
+.wrapper-history {
+  --background: linear-gradient(
+    180deg,
+    #d5e6ff -2.75%,
+    #fff 31.52%,
+    #fff 64.16%,
+    #c9deff 101.69%
+  );
+
+  .head {
+    width: 100%;
+    height: 129px;
+    border-radius: 0px 0px 8px 8px;
+    background: rgba(234, 243, 255, 0.75);
+    backdrop-filter: blur(15px);
+
+    ion-card {
+      border-radius: 50px;
+      height: fit-content;
+      box-shadow: 2px 2px 5px 2px rgba(53, 122, 248, 0.1);
+
+      .upload-text {
+        display: flex;
+        align-items: flex-start;
+        margin-left: 10px;
+        flex-direction: column;
+        color: var(--Primary, #1540bd);
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      ion-button {
+        width: fit-content;
+        height: fit-content;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 400;
+
+        --background: #1540bd;
+        --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+
+        --ripple-color: #c9deff;
+
+        --padding-top: 16px;
+        --padding-bottom: 16px;
+
+        label {
+          position: relative;
+        }
+
+        svg {
+          margin-left: 10px;
+        }
+
+        input[type="date"] {
+          position: absolute;
+          opacity: 0;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    #icon-cards {
+      ion-card {
+        width: 155px;
+        height: fit-content;
+        border-radius: 16px;
+        box-shadow: 2px 2px 5px 2px rgba(53, 122, 248, 0.1);
+        background-color: rgba(255, 255, 255, 0.62);
+        filter: drop-shadow(0px 4px 10px rgba(53, 122, 248, 0.1));
+        backdrop-filter: blur(25px);
+        padding-top: 10px;
+
+        #KOT {
+          color: #0062ff;
+          font-size: 20px;
+          font-weight: 400;
+        }
+
+        #Vendor {
+          color: #8237ff;
+          font-size: 20px;
+          font-weight: 400;
+        }
+
+        #Shipments {
+          color: #f2825c;
+          font-size: 20px;
+          font-weight: 400;
+        }
+
+        #Sales {
+          color: #29d25f;
+          font-size: 20px;
+          font-weight: 400;
+        }
+
+        p {
+          text-align: center;
+          font-size: 14px;
+          font-weight: 400;
+          color: var(--Text1, #505e86);
+        }
+      }
+    }
+
+    @media only screen and (max-width: 400px) {
+      ion-col {
+        ion-card {
+          width: fit-content;
+          margin: 0;
+          padding: 10px 7.7px;
+        }
+      }
+    }
+  }
+}

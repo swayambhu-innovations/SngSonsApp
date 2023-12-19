@@ -1,0 +1,32 @@
+.user-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    img {
+      width: 47.442px;
+      height: 40px;
+    }
+
+    div {
+      p {
+        color: var(--Primary, #1540bd);
+        font-size: 20px;
+        font-weight: 400;
+        margin: 0;
+      }
+
+      .sub {
+        color: var(--Buttons, #1659be);
+        text-align: left;
+        font-size: 12px;
+        font-weight: 400;
+      }
+    }
+  }
+}

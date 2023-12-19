@@ -1,30 +1,40 @@
-.upload-text {
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  color: var(--Primary, #1540bd);
-  font-size: 14px;
-  font-weight: 400;
-}
-
-ion-button {
-  width: 125px;
+ion-card {
+  border-radius: 50px;
   height: fit-content;
-  color: #fff;
+  box-shadow: 2px 2px 5px 2px rgba(53, 122, 248, 0.1);
+  background-color: rgb(254, 254, 254);
+  filter: drop-shadow(0px 4px 10px rgba(53, 122, 248, 0.1));
+  backdrop-filter: blur(25px);
 
-  --background: #1540bd;
-  --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+  .upload-text {
+    display: flex;
+    align-items: flex-start;
+    margin-left: 10px;
+    flex-direction: column;
+    color: var(--Primary, #1540bd);
+    font-size: 14px;
+    font-weight: 500;
+  }
 
-  --ripple-color: #c9deff;
+  ion-button {
+    width: 125px;
+    height: fit-content;
+    color: #fff;
 
-  --padding-top: 16px;
-  --padding-bottom: 16px;
+    --background: #1540bd;
+    --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
 
-  label {
-    cursor: pointer;
+    --ripple-color: #c9deff;
 
-    svg {
-      margin-left: 6px;
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+
+    label {
+      cursor: pointer;
+
+      svg {
+        margin-left: 6px;
+      }
     }
   }
 }

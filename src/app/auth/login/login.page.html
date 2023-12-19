@@ -1,10 +1,4 @@
 <ion-content [fullscreen]="true">
-  <div class="ion-padding">
-    <a routerLink="error" routerLinkActive="active" ariaCurrentWhenActive="page"
-      ><ion-icon name="arrow-forward-outline"></ion-icon
-    ></a>
-  </div>
-
   <div class="login-section ion-padding">
     <div align="center" class="ion-padding ion-margin-bottom">
       <img src="../assets/images/logo.png" alt="Logo" />
@@ -33,13 +27,19 @@
         </ion-item>
 
         <!-- Submit -->
-        <ion-item>
-          <ion-button shape="round">Log In</ion-button>
-        </ion-item>
-
-        <span class="ion-margin-vertical ion-padding-vertical"
-          >Forgot Password?</span
+        <ion-button id="sumbit" routerLink="error" shape="round"
+          >Log In</ion-button
         >
+
+        <p class="ion-margin-vertical ion-padding-vertical">
+          <a
+            routerLink="reset-password"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+          >
+            Forgot Password?
+          </a>
+        </p>
 
         <p class="ion-margin-vertical ion-padding-vertical">
           <ion-text color="medium">or sign in with</ion-text>

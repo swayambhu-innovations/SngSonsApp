@@ -23,10 +23,12 @@ ion-content {
   }
 
   .notice-section {
-    ion-text {
+    .notice-head {
       color: #f2825c;
       font-size: 20px;
       font-weight: 400;
+      padding: 0;
+      margin-bottom: 35px;
     }
 
     p {
@@ -34,16 +36,21 @@ ion-content {
       text-align: center;
       font-size: 14px;
       font-weight: 400;
+      padding: 0;
+      margin-bottom: 5px;
     }
 
     .tab-bar {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translate(-50%, -50%);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      width: fit-content;
-      padding: 8px;
-      margin-top: 50px;
+      width: 224px;
       height: 56px;
+      padding: 8px;
       border-radius: 60px;
       background: #ffe7d0;
       backdrop-filter: blur(15px);

@@ -1,0 +1,204 @@
+<ion-card>
+  <ion-grid>
+    <ion-row class="head ion-justify-content-between ion-align-items-center">
+      <ion-col size="auto">Vehicle Type Wise Expenses</ion-col>
+      <ion-col size="auto">
+        <ion-icon name="calendar-clear-outline"></ion-icon>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="19"
+          height="17"
+          viewBox="0 0 19 17"
+          fill="none"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M10.0268 3.42093C10.366 1.91471 11.5623 0.801758 12.9861 0.801758C14.4099 0.801758 15.6062 1.91471 15.9454 3.42093H17.5689C17.9911 3.42093 18.3333 3.80845 18.3333 4.29399C18.3333 4.77617 17.9915 5.16705 17.5689 5.16705H15.9454C15.6062 6.67327 14.4099 7.78622 12.9861 7.78622C11.5623 7.78622 10.366 6.67327 10.0268 5.16705H0.764419C0.342242 5.16705 0 4.77953 0 4.29399C0 3.81181 0.341817 3.42093 0.764419 3.42093H10.0268ZM2.38793 12.1515C2.72713 10.6453 3.92346 9.53234 5.34722 9.53234C6.77099 9.53234 7.96732 10.6453 8.30651 12.1515H17.5689C17.9911 12.1515 18.3333 12.539 18.3333 13.0246C18.3333 13.5067 17.9915 13.8976 17.5689 13.8976H8.30651C7.96732 15.4038 6.77099 16.5168 5.34722 16.5168C3.92346 16.5168 2.72713 15.4038 2.38793 13.8976H0.764419C0.342242 13.8976 0 13.5101 0 13.0246C0 12.5424 0.341817 12.1515 0.764419 12.1515H2.38793ZM5.34722 14.7707C6.19099 14.7707 6.875 13.9889 6.875 13.0246C6.875 12.0602 6.19099 11.2785 5.34722 11.2785C4.50345 11.2785 3.81944 12.0602 3.81944 13.0246C3.81944 13.9889 4.50345 14.7707 5.34722 14.7707ZM12.9861 6.0401C13.8299 6.0401 14.5139 5.25834 14.5139 4.29399C14.5139 3.32964 13.8299 2.54787 12.9861 2.54787C12.1423 2.54787 11.4583 3.32964 11.4583 4.29399C11.4583 5.25834 12.1423 6.0401 12.9861 6.0401Z"
+            fill="#1540BD"
+          />
+        </svg>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-searchbar
+    class="ion-text-start custom"
+    animated="true"
+    placeholder="Search Vehicle No."
+  ></ion-searchbar>
+
+  <ion-grid>
+    <ion-row
+      class="disabled-row ion-justify-content-between ion-align-items-center"
+    >
+      <ion-col size="3">Vehicle Type</ion-col>
+      <ion-col size="3">Shipment Cost</ion-col>
+      <ion-col size="3">Amount</ion-col>
+      <ion-col size="0.75"></ion-col>
+    </ion-row>
+
+    <ion-accordion-group
+      style="background-color: transparent"
+      [multiple]="true"
+    >
+      <ion-accordion value="first">
+        <ion-item slot="header">
+          <ion-label>
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="4">TATA Ace 407</ion-col>
+              <ion-col size="3">₹ 3400</ion-col>
+              <ion-col size="3">₹ 183400</ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Vehicle Number</ion-col>
+            <ion-col size="auto">UP70 UL 5433</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Diesel Expense</ion-col>
+            <ion-col size="auto">₹ 3400</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Frieght Expense</ion-col>
+            <ion-col size="auto">₹ 3400</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Toll Expense</ion-col>
+            <ion-col size="auto">₹ 3400</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Repair Expense</ion-col>
+            <ion-col size="auto">₹ 3400</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Other Expense</ion-col>
+            <ion-col size="auto">₹ 3400</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Khuraki Expense</ion-col>
+            <ion-col size="auto">₹ 3400</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Shipment Cost</ion-col>
+            <ion-col size="auto">₹ 3400</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Amount</ion-col>
+            <ion-col size="auto">₹ 3400</ion-col>
+          </ion-row>
+        </div>
+      </ion-accordion>
+
+      <ion-accordion value="second">
+        <ion-item slot="header">
+          <ion-label>
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="4">TATA Ace 407</ion-col>
+              <ion-col size="3">₹ 3400</ion-col>
+              <ion-col size="3">₹ 183400</ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Vehicle Number</ion-col>
+            <ion-col size="auto">UP70 UL 5433</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Diesel Expense</ion-col>
+            <ion-col size="auto">₹ 3400</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Frieght Expense</ion-col>
+            <ion-col size="auto">₹ 3400</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Toll Expense</ion-col>
+            <ion-col size="auto">₹ 3400</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Repair Expense</ion-col>
+            <ion-col size="auto">₹ 3400</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Other Expense</ion-col>
+            <ion-col size="auto">₹ 3400</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Khuraki Expense</ion-col>
+            <ion-col size="auto">₹ 3400</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Shipment Cost</ion-col>
+            <ion-col size="auto">₹ 3400</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Amount</ion-col>
+            <ion-col size="auto">₹ 3400</ion-col>
+          </ion-row>
+        </div>
+      </ion-accordion>
+
+      <ion-accordion value="third">
+        <ion-item slot="header">
+          <ion-label>
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="4">TATA Ace 407</ion-col>
+              <ion-col size="3">₹ 3400</ion-col>
+              <ion-col size="3">₹ 183400</ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Vehicle Number</ion-col>
+            <ion-col size="auto">UP70 UL 5433</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Diesel Expense</ion-col>
+            <ion-col size="auto">₹ 3400</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Frieght Expense</ion-col>
+            <ion-col size="auto">₹ 3400</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Toll Expense</ion-col>
+            <ion-col size="auto">₹ 3400</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Repair Expense</ion-col>
+            <ion-col size="auto">₹ 3400</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Other Expense</ion-col>
+            <ion-col size="auto">₹ 3400</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Khuraki Expense</ion-col>
+            <ion-col size="auto">₹ 3400</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Shipment Cost</ion-col>
+            <ion-col size="auto">₹ 3400</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">Amount</ion-col>
+            <ion-col size="auto">₹ 3400</ion-col>
+          </ion-row>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+
+    <ion-row class="ion-justify-content-between ion-align-items-center">
+      <ion-col size="auto"></ion-col>
+      <ion-col style="cursor: pointer" size="auto">
+        View More
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-card>
