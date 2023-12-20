@@ -1,0 +1,35 @@
+.footer{
+    .footer-container{
+        justify-content: space-between;
+        width: 70%;
+        margin: 0 auto;
+        padding: 8px;
+        border-radius: 60px;
+        background: rgba(168, 205, 255, 0.29);
+        backdrop-filter: blur(15px);
+        position: absolute;
+        bottom: 3%;
+        left: 12%;
+
+        div{
+            display: flex;
+            width: 56px;
+            height: 56px;
+            justify-content: center;
+            align-items: center;
+            align-self: stretch;
+            border-radius: 50%;
+        }
+
+        .active{
+            
+            background: var(--Primary, #1540BD);
+
+            svg{
+                path{
+                fill: white;
+                }   
+            }
+        }
+    }
+}
