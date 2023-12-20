@@ -93,24 +93,18 @@ ion-content {
       }
     }
 
-    .last-div {
-      margin-bottom: 50px;
-    }
-
     .tab-bar {
-      position: fixed;
-      bottom: 25px;
-      left: 50%;
-      transform: translate(-50%, -50%);
       display: flex;
       justify-content: space-between;
       align-items: center;
       width: 226px;
       height: 56px;
       padding: 8px;
+      margin-inline: auto;
       border-radius: 60px;
       background: #fff;
       backdrop-filter: blur(15px);
+      margin-top: 20px;
 
       ion-button {
         display: flex;
