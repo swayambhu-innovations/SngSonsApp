@@ -14,11 +14,14 @@ const routes: Routes = [
       import('./account-error/account-error.module').then(
         (m) => m.AccountErrorPageModule
       ),
-  },  {
-    path: 'reset-password',
-    loadChildren: () => import('./reset-password/reset-password.module').then( m => m.ResetPasswordPageModule)
   },
-
+  {
+    path: 'reset-password',
+    loadChildren: () =>
+      import('./reset-password/reset-password.module').then(
+        (m) => m.ResetPasswordPageModule
+      ),
+  },
 ];
 
 @NgModule({
