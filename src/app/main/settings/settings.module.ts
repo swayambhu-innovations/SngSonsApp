@@ -8,6 +8,8 @@ import { SettingsPageRoutingModule } from './settings-routing.module';
 
 import { SettingsPage } from './settings.page';
 import { HeadUserBarComponent } from 'src/app/shared/components/head-user-bar/head-user-bar.component';
+import { FormSettingsPageModule } from './component/form-settings/form-settings.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
