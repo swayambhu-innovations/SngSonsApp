@@ -1,0 +1,129 @@
+* {
+  box-sizing: border-box;
+}
+
+ion-col {
+  padding: 0;
+}
+
+.drop-down-color {
+  color: var(--Primary, #1540bd) !important;
+}
+
+.wrapper-settings {
+  --background: linear-gradient(
+    180deg,
+    #d5e6ff -8.94%,
+    #fff 27.36%,
+    #fff 61.93%,
+    #c9deff 101.69%
+  );
+
+  .wrapper-container {
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px 2px rgba(53, 122, 248, 0.1);
+    background-color: rgb(254, 254, 254);
+    filter: drop-shadow(0px 4px 10px rgba(53, 122, 248, 0.1));
+    margin: 15px;
+  }
+
+  ion-grid {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 15px;
+
+    ion-item {
+      --padding-end: 0px;
+      --inner-padding-end: 0px;
+      --padding-start: 0px;
+      --inner-padding-start: 0px;
+    }
+
+    .label {
+      .head {
+        color: var(--Primary, #1540bd);
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+
+      .add-variable {
+        display: flex;
+        border-radius: 25.938px;
+        background: var(--Primary, #1540bd);
+        display: flex;
+        width: 105px;
+        height: 27px;
+        padding: 8.3px;
+        justify-content: center;
+        align-items: center;
+
+        .text {
+          color: var(--Text2, #fff);
+          font-size: 11px;
+          font-weight: 400;
+          margin: 0px;
+        }
+
+        .img {
+          margin: 0px;
+        }
+      }
+    }
+
+    .content {
+      .actions {
+        display: flex;
+        justify-content: end;
+      }
+    }
+
+    .content-container {
+      padding-top: 6px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e0e8f8;
+
+      .text {
+        color: var(--Text1, #505e86);
+        font-size: 13px;
+        font-weight: 400;
+        text-wrap: wrap;
+      }
+
+      .type-select {
+        color: #31bd58;
+        font-size: 13px;
+        font-weight: 400;
+      }
+      .action {
+        .edit-button {
+          img {
+            margin-left: 9px;
+            margin-right: 9px;
+          }
+        }
+      }
+    }
+
+    .disabled-row {
+      color: var(--Text3, #9fa7b2);
+      font-size: 13px;
+      font-weight: 400;
+    }
+
+    ion-row {
+      color: var(--Text1, #505e86);
+      font-size: 13px;
+      font-weight: 400;
+      background-color: transparent;
+      filter: drop-shadow(0px 4px 10px rgba(53, 122, 248, 0.1));
+      backdrop-filter: blur(25px);
+
+      ion-col {
+        text-overflow: ellipsis;
+        text-wrap: nowrap;
+      }
+    }
+  }
+}
