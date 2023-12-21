@@ -57,7 +57,7 @@
       ></ion-input>
     </ion-item>
 
-    <ion-accordion-group id="input-accordion">
+    <ion-accordion-group>
       <ion-accordion value="first">
         <ion-item slot="header" color="light">
           <ion-input
@@ -246,24 +246,320 @@
 
     <p class="heading ion-margin-vertical">Cash Expense</p>
 
-    <ion-accordion-group id="input-accordion">
+    <!-- Diesel Expenses -->
+    <ion-accordion-group>
       <ion-accordion value="first">
         <ion-item slot="header" color="light">
           <ion-label>Diesel Expense (₹)</ion-label>
         </ion-item>
         <div class="ion-padding" slot="content">
-          <ion-list>
-            <ion-item>
-              <ion-select>
-                <div slot="label">HDFC Fuel Account</div>
-                <ion-select-option value="Sample">Sample</ion-select-option>
-                <ion-select-option value="Sample">Sample</ion-select-option>
-              </ion-select>
-            </ion-item>
-          </ion-list>
+          <ion-grid>
+            <ion-row
+              class="input-head ion-justify-content-between ion-align-items-center"
+            >
+              <ion-col size="auto">HDFC Fuel Account</ion-col>
+              <ion-col size="auto">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M10.0006 10.9762L14.1254 6.85144L15.3039 8.02995L10.0006 13.3333L4.69727 8.02995L5.87578 6.85144L10.0006 10.9762Z"
+                    fill="#1540BD"
+                  />
+                </svg>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <div class="input-box">
+            <input type="number" placeholder="Enter Amount" />
+            <button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="26"
+                height="26"
+                viewBox="0 0 26 26"
+                fill="none"
+              >
+                <path
+                  d="M14.2699 13.0008L8.9076 18.3629L10.4397 19.895L17.334 13.0008L10.4397 6.10645L8.9076 7.63851L14.2699 13.0008Z"
+                  fill="white"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
       </ion-accordion>
     </ion-accordion-group>
+
+    <!-- Labour Expenses -->
+    <ion-accordion-group>
+      <ion-accordion value="first">
+        <ion-item slot="header" color="light">
+          <ion-label>Labour Expense (₹)</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <ion-grid>
+            <ion-row
+              class="input-head ion-justify-content-between ion-align-items-center ion-margin-bottom"
+            >
+              <ion-col size="auto">
+                <img
+                  src="https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697"
+                  alt="Labours"
+                />
+                &nbsp;&nbsp; UP Shippers Labours
+              </ion-col>
+              <ion-col size="auto">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M10.0006 10.9762L14.1254 6.85144L15.3039 8.02995L10.0006 13.3333L4.69727 8.02995L5.87578 6.85144L10.0006 10.9762Z"
+                    fill="#1540BD"
+                  />
+                </svg>
+              </ion-col>
+            </ion-row>
+
+            <ion-row
+              class="input-head ion-justify-content-between ion-align-items-center ion-margin-bottom"
+            >
+              <ion-col size="auto"> Kotak 811 </ion-col>
+              <ion-col size="auto">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M10.0006 10.9762L14.1254 6.85144L15.3039 8.02995L10.0006 13.3333L4.69727 8.02995L5.87578 6.85144L10.0006 10.9762Z"
+                    fill="#1540BD"
+                  />
+                </svg>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <div class="input-box">
+            <input type="number" placeholder="Enter Amount" />
+            <button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="26"
+                height="26"
+                viewBox="0 0 26 26"
+                fill="none"
+              >
+                <path
+                  d="M14.2699 13.0008L8.9076 18.3629L10.4397 19.895L17.334 13.0008L10.4397 6.10645L8.9076 7.63851L14.2699 13.0008Z"
+                  fill="white"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+
+    <!-- Khuraki Expenses -->
+    <ion-accordion-group>
+      <ion-accordion value="first">
+        <ion-item slot="header" color="light">
+          <ion-label>Khuraki Expense (₹)</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <ion-grid>
+            <ion-row
+              class="input-head ion-justify-content-between ion-align-items-center"
+            >
+              <ion-col size="auto"> HDFC (Khuraki Only) </ion-col>
+              <ion-col size="auto">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M10.0006 10.9762L14.1254 6.85144L15.3039 8.02995L10.0006 13.3333L4.69727 8.02995L5.87578 6.85144L10.0006 10.9762Z"
+                    fill="#1540BD"
+                  />
+                </svg>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <div class="input-box">
+            <input type="number" placeholder="Enter Amount" />
+            <button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="26"
+                height="26"
+                viewBox="0 0 26 26"
+                fill="none"
+              >
+                <path
+                  d="M14.2699 13.0008L8.9076 18.3629L10.4397 19.895L17.334 13.0008L10.4397 6.10645L8.9076 7.63851L14.2699 13.0008Z"
+                  fill="white"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+
+    <!-- Other Expenses -->
+    <ion-accordion-group>
+      <ion-accordion value="first">
+        <ion-item slot="header" color="light">
+          <ion-label>Other Expense (₹)</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <ion-grid>
+            <ion-row
+              class="input-head ion-justify-content-between ion-align-items-center"
+            >
+              <ion-col size="auto"> Kotak 811 </ion-col>
+              <ion-col size="auto">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M10.0006 10.9762L14.1254 6.85144L15.3039 8.02995L10.0006 13.3333L4.69727 8.02995L5.87578 6.85144L10.0006 10.9762Z"
+                    fill="#1540BD"
+                  />
+                </svg>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <div class="input-box">
+            <input type="number" placeholder="Enter Amount" />
+            <button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="26"
+                height="26"
+                viewBox="0 0 26 26"
+                fill="none"
+              >
+                <path
+                  d="M14.2699 13.0008L8.9076 18.3629L10.4397 19.895L17.334 13.0008L10.4397 6.10645L8.9076 7.63851L14.2699 13.0008Z"
+                  fill="white"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+
+    <!-- Freight -->
+    <ion-accordion-group>
+      <ion-accordion value="first">
+        <ion-item slot="header" color="light">
+          <ion-label>Freight</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">Content</div>
+      </ion-accordion>
+    </ion-accordion-group>
+
+    <!-- Toll Expenses -->
+    <ion-accordion-group>
+      <ion-accordion value="first">
+        <ion-item slot="header" color="light">
+          <ion-label>Toll Expenses</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">Content</div>
+      </ion-accordion>
+    </ion-accordion-group>
+
+    <!-- Repair Expenses -->
+    <ion-accordion-group>
+      <ion-accordion value="first">
+        <ion-item slot="header" color="light">
+          <ion-label>Repair Expenses</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">Content</div>
+      </ion-accordion>
+    </ion-accordion-group>
+
+    <!-- Other Expenses -->
+    <ion-accordion-group>
+      <ion-accordion value="first">
+        <ion-item slot="header" color="light">
+          <ion-label>Other Expenses</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">Content</div>
+      </ion-accordion>
+    </ion-accordion-group>
+
+    <!-- Total Expense -->
+    <ion-item lines="none">
+      <ion-input
+        lines="none"
+        label="Total Expense"
+        fill="solid"
+        class="custom"
+        labelPlacement="floating"
+        placeholder="Total Expense"
+        value="*Fill up to Calculate by System"
+      ></ion-input>
+    </ion-item>
+
+    <!-- Remark -->
+    <ion-accordion-group>
+      <ion-accordion value="first">
+        <ion-item slot="header" color="light">
+          <ion-label>Remark</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">Content</div>
+      </ion-accordion>
+    </ion-accordion-group>
+
+    <!-- Time Stamp -->
+    <ion-item lines="none">
+      <ion-input
+        lines="none"
+        label="Time Stamp"
+        fill="solid"
+        class="custom"
+        labelPlacement="floating"
+        placeholder="Time Stamp"
+        value="*Auto Genrated by System"
+      ></ion-input>
+    </ion-item>
+
+    <!-- Filled By -->
+    <ion-item lines="none">
+      <ion-input
+        lines="none"
+        label="Filled By"
+        fill="solid"
+        class="custom"
+        labelPlacement="floating"
+        placeholder="Filled By"
+        value="*Auto Genrated by System"
+      ></ion-input>
+    </ion-item>
   </ion-card>
 
   <div class="tab-bar">
