@@ -16,6 +16,8 @@ import { HeadUserBarComponent } from 'src/app/shared/components/head-user-bar/he
     IonicModule,
     SettingsPageRoutingModule,
     HeadUserBarComponent,
+    FormSettingsPageModule,
+    RouterModule,
   ],
   declarations: [SettingsPage],
 })
