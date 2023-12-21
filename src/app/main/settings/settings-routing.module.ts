@@ -7,7 +7,12 @@ const routes: Routes = [
   {
     path: '',
     component: SettingsPage
-  }
+  },
+  {
+    path: 'form-settings',
+    loadChildren: () =>
+      import('./component/form-settings/form-settings.module').then((m) => m.FormSettingsPageModule),
+  },
 ];
 
 @NgModule({
