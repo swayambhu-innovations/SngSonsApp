@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-head-user-bar',
@@ -9,7 +9,11 @@ import { IonicModule } from '@ionic/angular';
   standalone: true,
 })
 export class HeadUserBarComponent implements OnInit {
-  constructor() {}
+  constructor(private navCtrl: NavController) {}
 
   ngOnInit() {}
+
+  goHome() {
+    this.navCtrl.navigateForward('main/home');
+  }
 }

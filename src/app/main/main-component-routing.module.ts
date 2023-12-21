@@ -1,18 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from './main.component';
+import { HomePage } from './home/home.page';
 
 const routes: Routes = [
+  { path: '', component: MainComponent },
   {
-    path: '',
-    component: MainComponent,
-    children: [
-      {
-        path: 'home',
-        loadChildren: () =>
-          import('./home/home.module').then((m) => m.HomePageModule),
-      },
-    ],
+    path: 'home',
+    loadChildren: () =>
+      import('./home/home.module').then((m) => m.HomePageModule),
   },
   {
     path: 'history',
@@ -36,6 +32,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./shipment-detail/shipment-detail.module').then(
         (m) => m.ShipmentDetailPageModule
+      ),
+  },
+  {
+    path: 'voucher/:id',
+    loadChildren: () =>
+      import('./generate-voucher/generate-voucher.module').then(
+        (m) => m.GenerateVoucherPageModule
       ),
   },
 ];

@@ -3,22 +3,16 @@ import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-shipment-detail',
-  templateUrl: './shipment-detail.page.html',
-  styleUrls: ['./shipment-detail.page.scss'],
+  selector: 'app-generate-voucher',
+  templateUrl: './generate-voucher.page.html',
+  styleUrls: ['./generate-voucher.page.scss'],
 })
-export class ShipmentDetailPage implements OnInit {
+export class GenerateVoucherPage implements OnInit {
   id: any;
   constructor(private navCtrl: NavController, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
-  }
-
-  openFillVoucherPage() {
-    this.navCtrl.navigateForward(`main/voucher/${this.id}`, {
-      state: { id: this.id },
-    });
   }
 
   goBack() {

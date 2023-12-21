@@ -45,10 +45,20 @@ ion-card {
       font-weight: 400;
     }
 
+    #view-more:hover {
+      background-color: transparent !important;
+      cursor: auto !important;
+    }
+
     ion-row {
       color: var(--Text1, #505e86);
       font-size: 14px;
       font-weight: 400;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #e2e8ee;
+      }
 
       ion-col {
         text-overflow: ellipsis;
