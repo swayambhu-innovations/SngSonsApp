@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-voucher',
@@ -9,7 +10,15 @@ import { IonicModule } from '@ionic/angular';
   standalone: true,
 })
 export class VoucherComponent implements OnInit {
-  constructor() {}
+  constructor(private navCtrl: NavController) {}
+
+  id: string = '1305984445';
 
   ngOnInit() {}
+
+  openShipmentDetail() {
+    this.navCtrl.navigateForward(`main/shipment/${this.id}`, {
+      state: { id: this.id },
+    });
+  }
 }

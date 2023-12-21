@@ -10,7 +10,7 @@
               height="30"
               viewBox="0 0 26 26"
               fill="none"
-              routerLink=""
+              (click)="goBack()"
             >
               <path
                 d="M11.7301 13.0008L17.0924 18.3629L15.5603 19.895L8.66602 13.0008L15.5603 6.10645L17.0924 7.63851L11.7301 13.0008Z"
@@ -288,8 +288,13 @@
     </div>
 
     <div class="tab-bar">
-      <ion-button shape="round" class="active-btn">Refresh</ion-button>
-      <ion-button shape="round">Logout</ion-button>
+      <ion-button
+        (click)="openFillVoucherPage()"
+        shape="round"
+        class="active-btn"
+        >Fill Voucher</ion-button
+      >
+      <ion-button shape="round">Suspend</ion-button>
     </div>
   </ion-card>
 </ion-content>

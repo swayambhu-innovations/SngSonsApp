@@ -97,7 +97,7 @@ ion-content {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      width: 226px;
+      width: fit-content;
       height: 56px;
       padding: 8px;
       margin-inline: auto;
@@ -108,7 +108,8 @@ ion-content {
 
       ion-button {
         display: flex;
-        width: 100px;
+        width: fit-content;
+        font-size: 14px;
         height: 40px;
         justify-content: center;
         align-items: center;
