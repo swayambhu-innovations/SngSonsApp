@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { SettingsPageRoutingModule } from './settings-routing.module';
 
 import { SettingsPage } from './settings.page';
-import { HeadUserBarComponent } from '../components/head-user-bar/head-user-bar.component';
+import { HeadUserBarComponent } from 'src/app/shared/components/head-user-bar/head-user-bar.component';
 
 @NgModule({
   imports: [

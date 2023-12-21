@@ -7,8 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { HistoryPageRoutingModule } from './history-routing.module';
 
 import { HistoryPage } from './history.page';
-import { VoucherComponent } from '../components/voucher/voucher.component';
-import { HeadUserBarComponent } from '../components/head-user-bar/head-user-bar.component';
+import { VoucherComponent } from 'src/app/shared/components/voucher/voucher.component';
+import { HeadUserBarComponent } from 'src/app/shared/components/head-user-bar/head-user-bar.component';
 
 @NgModule({
   imports: [
