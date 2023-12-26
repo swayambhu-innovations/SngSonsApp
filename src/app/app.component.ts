@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-import { FormControl, FormGroup } from '@angular/forms';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +7,15 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  loginForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
-  });
   constructor() {}
-  ngOnInit() {}
+  ngOnInit() {
+    this.splash();
+  }
+
+  async splash() {
+    await SplashScreen.show({
+      showDuration: 2000,
+      autoHide: true,
+    });
+  }
 }

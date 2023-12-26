@@ -127,12 +127,12 @@
 .row-data-wrapper-container {
   padding: 15px 10px 10px 10px;
   background-color: rgba(255, 255, 255, 0.62);
-  border:  1px solid rgba(206, 211, 241, 0.50);
-  filter: drop-shadow(0px 4px 10px rgba(53, 122, 248, 0.10));
+  border: 1px solid rgba(206, 211, 241, 0.5);
+  filter: drop-shadow(0px 4px 10px rgba(53, 122, 248, 0.1));
   backdrop-filter: blur(25px);
   border-radius: 15px;
   margin-top: 10px;
-  
+
   .inner-container {
     display: flex;
     justify-content: space-between;
@@ -141,46 +141,48 @@
       div {
         height: 36px;
         width: 36px;
-        border: 2px solid var(--Tab-gradient, #1540BD);
-        box-shadow: 0px 4px 60px 0px #C6E0FF;
+        border: 2px solid var(--Tab-gradient, #1540bd);
+        box-shadow: 0px 4px 60px 0px #c6e0ff;
         border-radius: 50%;
       }
     }
 
     .data-text {
       width: 60%;
-      p{
+      p {
         margin: 0px;
       }
 
-      .address{
+      .address {
         display: flex;
         align-items: center;
       }
 
-      .text-name{
-        color: var(--Primary, #1540BD);
+      .text-name {
+        color: var(--Primary, #1540bd);
         font-size: 16px;
         font-weight: 400;
       }
 
-      .address-name , .no , .price{
-        color: var(--Text1, #505E86);
+      .address-name,
+      .no,
+      .price {
+        color: var(--Text1, #505e86);
         font-size: 12px;
         font-weight: 400;
       }
 
-      .address-name{
+      .address-name {
         padding-right: 3px;
       }
 
-      .no{
+      .no {
         padding-left: 2px;
         padding-right: 2px;
       }
 
-      .price{
-        color: #14AE5C;
+      .price {
+        color: #14ae5c;
         padding-left: 3px;
       }
     }
@@ -190,14 +192,90 @@
       justify-content: center;
       align-items: center;
 
-      .toogle{
+      .toogle {
         padding-top: 5px;
       }
 
-      .edit-button{
+      .edit-button {
         margin-left: 7px;
         margin-right: 7px;
       }
     }
   }
+}
+
+ion-modal {
+  --border-radius: 16px;
+  --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  overflow-y: auto !important;
+  --background: linear-gradient(
+    180deg,
+    #e8f2ff -14.44%,
+    #fff 13.92%,
+    #fff 88.77%,
+    #dbe9ff 110.22%
+  );
+  backdrop-filter: blur(10px);
+}
+
+ion-modal ion-content {
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-inline: auto;
+
+    ion-item {
+      margin: 8px 0;
+      --background: transparent;
+      --border-bottom: none;
+
+      ion-text {
+        color: var(--Primary, #1540bd);
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 100%; /* 20px */
+        letter-spacing: -0.22px;
+      }
+    }
+
+    .tab-bar {
+      width: 226px;
+      height: 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
+      padding: 8px;
+      border-radius: 60px;
+      background: rgba(168, 205, 255, 0.29);
+      backdrop-filter: blur(15px);
+      margin-top: 5px;
+
+      button {
+        height: 40px;
+        width: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50px;
+        font-size: 14px;
+        background: #fff;
+        color: #1540bd;
+      }
+
+      .active-btn {
+        background: #1540bd !important;
+        color: #fff !important;
+      }
+    }
+  }
+}
+
+ion-modal::part(backdrop) {
+  background: #b3c5dd;
+  opacity: 1;
 }

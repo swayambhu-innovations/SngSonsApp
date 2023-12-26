@@ -1,0 +1,41 @@
+ion-content {
+  --background: linear-gradient(
+    164deg,
+    #d5e6ff 0.76%,
+    #fff 31.89%,
+    #fff 61.54%,
+    #c9deff 95.64%
+  );
+
+  -webkit-animation: fade-in 1.8s cubic-bezier(0.23, 1, 0.32, 1) 0.5s both;
+  animation: fade-in 1.8s cubic-bezier(0.23, 1, 0.32, 1) 0.5s both;
+
+  -webkit-animation: rotate-out-2-cw 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+  animation: rotate-out-2-cw 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+
+  .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+
+    -webkit-animation: fade-in 1.8s cubic-bezier(0.23, 1, 0.32, 1) 0.5s both;
+    animation: fade-in 1.8s cubic-bezier(0.23, 1, 0.32, 1) 0.5s both;
+
+    -webkit-animation: rotate-out-2-cw 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+      both;
+    animation: rotate-out-2-cw 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    p {
+      color: var(--Primary, #1540bd);
+      font-family: NATS;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 100%; /* 24px */
+      letter-spacing: 5.76px;
+    }
+  }
+}

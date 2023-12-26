@@ -1,0 +1,124 @@
+.user-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    img {
+      width: 47.442px;
+      height: 40px;
+      cursor: pointer;
+    }
+
+    div {
+      p {
+        color: var(--Primary, #1540bd);
+        font-size: 20px;
+        font-weight: 400;
+        margin: 0;
+      }
+
+      .sub {
+        color: var(--Buttons, #1659be);
+        text-align: left;
+        font-size: 12px;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    svg {
+      cursor: pointer;
+    }
+  }
+}
+
+ion-modal ion-content {
+  p {
+    color: var(--Primary, #1540bd);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 100%; /* 20px */
+    letter-spacing: -0.22px;
+  }
+
+  .head {
+    text-align: left;
+    color: var(--Primary, #1540bd);
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  #boxes {
+    .icon-box {
+      width: 80px;
+      height: 80px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 8px;
+      border-radius: 20px;
+      background-color: #fff;
+      border: 2px solid var(--Buttons, #1659be);
+
+      p {
+        color: var(--Buttons, #1659be);
+        font-size: 14px;
+        font-weight: 400;
+        margin-top: 10px;
+      }
+    }
+
+    .active-box {
+      background-color: linear-gradient(
+        266deg,
+        #1540bd 0%,
+        #1786ed 100%
+      ) !important;
+      border: none;
+
+      p {
+        color: #fff;
+      }
+    }
+  }
+
+  ion-item {
+    .chart {
+      height: 56px;
+      border-radius: 16px;
+      border: 2px solid #9fa7b2;
+
+      ion-grid {
+        div {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          text-align: left;
+
+          p {
+            color: var(--Primary, #1540bd);
+            font-size: 16px;
+            font-weight: 400;
+          }
+
+          #sub-text {
+            color: var(--Text1, #505e86);
+            font-size: 12px;
+            font-weight: 400;
+          }
+        }
+      }
+    }
+  }
+}
