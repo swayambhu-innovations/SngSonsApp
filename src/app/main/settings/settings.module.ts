@@ -10,16 +10,18 @@ import { SettingsPage } from './settings.page';
 import { HeadUserBarComponent } from '../components/head-user-bar/head-user-bar.component';
 import { FormSettingsPageModule } from './component/form-settings/form-settings.module';
 import { RouterModule } from '@angular/router';
+import { VendorMasterModule } from './component/vendor-master/vendor-master.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    RouterModule,
     SettingsPageRoutingModule,
     HeadUserBarComponent,
     FormSettingsPageModule,
-    RouterModule
+    VendorMasterModule
   ],
   declarations: [SettingsPage],
 })

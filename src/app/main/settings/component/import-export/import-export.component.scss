@@ -1,0 +1,59 @@
+* {
+    box-sizing: border-box;
+  }
+.vendor-container{
+    --background: linear-gradient(180deg, #D5E6FF -8.94%, #FFF 27.36%, #FFF 61.93%, #C9DEFF 101.69%);
+    --padding-top: 15px;
+    --padding-bottom: 15px;
+    --padding-start: 15px;
+    --padding-end: 15px;
+}
+
+.container{
+    background-color: rgba(255, 255, 255, 0.62);
+    border:1px solid rgba(206, 211, 241, 0.50);
+    filter: drop-shadow(0px 4px 10px rgba(53, 122, 248, 0.10));
+    backdrop-filter: blur(25px);
+    padding: 15px;
+    border-radius: 15px;
+
+    .text{
+        color: var(--Primary, #1540BD);
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+    .import-container{
+        display: flex;
+        justify-content: space-between;
+
+        .import{
+
+        }
+
+        .export{
+
+        }
+
+    }
+}
+
+ion-button {
+    width: 125px;
+    height: fit-content;
+    color: #1540BD;
+    --background:white;
+    --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+    --ripple-color: #c9deff;
+
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+
+    label {
+      cursor: pointer;
+
+      svg {
+        margin-left: 6px;
+      }
+    }
+  }

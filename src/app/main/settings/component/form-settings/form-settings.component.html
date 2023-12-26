@@ -1,5 +1,13 @@
-<ion-content class="wrapper-settings" [fullscreen]="true">
-  <div class="wrapper-container">
+<ion-content class="wrapper-settings ion-page" [fullscreen]="true">
+  <header>
+    <div class="header" >
+      <div class="d-flex" routerLink="/main/settings">
+        <div class="img" ><img src="assets/icon/back-button.svg" alt=""></div>
+        <div class="head">Form Settings</div>
+      </div>
+    </div>
+  </header>
+  <div class="wrapper-container first">
     <ion-grid>
       <ion-accordion-group
         style="background-color: transparent"
@@ -12,11 +20,12 @@
                 class="ion-justify-content-between ion-align-items-center"
               >
                 <ion-col size="7" class="head">Voucher Pending Form</ion-col>
-                <ion-col size="5" class="add-variable"
-                  ><p class="text">Add Variable</p>
+                <ion-col size="5" class="add-variable" id="open-modal" expand="block" (click)="$event.stopPropagation()">
+                  <p class="text">Add Variable</p>
                   <p class="img">
-                    <img src="assets/icon/plusIcon.svg" alt="" /></p
-                ></ion-col>
+                    <img src="assets/icon/plusIcon.svg" alt="" />
+                  </p>
+                </ion-col>
               </ion-row>
             </ion-label>
           </ion-item>
@@ -34,7 +43,10 @@
               <ion-col size="5" class="text">Vehicle Fuel Capacity</ion-col>
               <ion-col size="3" class="type-select drop-down-color">Drop Down</ion-col>
               <ion-col size="3" class="action">
-                <ion-col><img src="assets/icon/disable-toggle-button.svg" alt=""></ion-col>
+                <ion-col><label class="switch">
+                  <input type="checkbox" [checked]="true" />
+                  <span class="slider round"></span>
+                </label></ion-col>
                 <ion-col class="edit-button"><img src="assets/icon/enable-edit-button.svg" alt=""></ion-col>
                 <ion-col><img src="assets/icon/disable-delete-button.svg" alt=""></ion-col>
               </ion-col>
@@ -45,7 +57,10 @@
               <ion-col size="5" class="text">Vehicle Fuel Capacity</ion-col>
               <ion-col size="3" class="type-select drop-down-color">Drop Down</ion-col>
               <ion-col size="3" class="action">
-                <ion-col><img src="assets/icon/enable-toggle-button.svg" alt=""></ion-col>
+                <ion-col><label class="switch">
+                  <input type="checkbox" [checked]="false" />
+                  <span class="slider round"></span>
+                </label></ion-col>
                 <ion-col class="edit-button"><img src="assets/icon/disable-edit-button.svg" alt=""></ion-col>
                 <ion-col><img src="assets/icon/enable-delete-button.svg" alt=""></ion-col>
               </ion-col>
@@ -56,7 +71,10 @@
               <ion-col size="5" class="text">Vehicle Fuel Capacity</ion-col>
               <ion-col size="3" class="type-select">Number</ion-col>
               <ion-col size="3" class="action">
-                <ion-col><img src="assets/icon/disable-toggle-button.svg" alt=""></ion-col>
+                <ion-col><label class="switch">
+                  <input type="checkbox" [checked]="true" />
+                  <span class="slider round"></span>
+                </label></ion-col>
                 <ion-col class="edit-button"><img src="assets/icon/disable-edit-button.svg" alt=""></ion-col>
                 <ion-col><img src="assets/icon/enable-delete-button.svg" alt=""></ion-col>
               </ion-col>
@@ -67,7 +85,10 @@
               <ion-col size="5" class="text">Vehicle Fuel Capacity</ion-col>
               <ion-col size="3" class="type-select">Number</ion-col>
               <ion-col size="3" class="action">
-                <ion-col><img src="assets/icon/enable-toggle-button.svg" alt=""></ion-col>
+                <ion-col><label class="switch">
+                  <input type="checkbox" [checked]="false" />
+                  <span class="slider round"></span>
+                </label></ion-col>
                 <ion-col class="edit-button"><img src="assets/icon/disable-edit-button.svg" alt=""></ion-col>
                 <ion-col><img src="assets/icon/disable-delete-button.svg" alt=""></ion-col>
               </ion-col>
@@ -90,8 +111,8 @@
                 class="ion-justify-content-between ion-align-items-center"
               >
                 <ion-col size="7" class="head">Voucher Pending Form</ion-col>
-                <ion-col size="5" class="add-variable"
-                  ><p class="text">Add Variable</p>
+                <ion-col size="5" class="add-variable" id="open-modal" expand="block" (click)="$event.stopPropagation()">
+                  <p class="text">Add Variable</p>
                   <p class="img">
                     <img src="assets/icon/plusIcon.svg" alt="" /></p
                 ></ion-col>
@@ -112,7 +133,10 @@
               <ion-col size="5" class="text">Shipment Number</ion-col>
               <ion-col size="3" class="type-select">Number</ion-col>
               <ion-col size="3" class="action">
-                <ion-col><img src="assets/icon/disable-toggle-button.svg" alt=""></ion-col>
+                <ion-col><label class="switch">
+                  <input type="checkbox" [checked]="true" />
+                  <span class="slider round"></span>
+                </label></ion-col>
                 <ion-col class="edit-button"><img src="assets/icon/disable-edit-button.svg" alt=""></ion-col>
                 <ion-col><img src="assets/icon/disable-delete-button.svg" alt=""></ion-col>
               </ion-col>
@@ -123,7 +147,10 @@
               <ion-col size="5" class="text">Vehicle Fuel Capacity</ion-col>
               <ion-col size="3" class="type-select drop-down-color">Drop Down</ion-col>
               <ion-col size="3" class="action">
-                <ion-col><img src="assets/icon/disable-toggle-button.svg" alt=""></ion-col>
+                <ion-col><label class="switch">
+                  <input type="checkbox" [checked]="false" />
+                  <span class="slider round"></span>
+                </label></ion-col>
                 <ion-col class="edit-button"><img src="assets/icon/disable-edit-button.svg" alt=""></ion-col>
                 <ion-col><img src="assets/icon/disable-delete-button.svg" alt=""></ion-col>
               </ion-col>
@@ -134,7 +161,10 @@
               <ion-col size="5" class="text">Vehicle Number</ion-col>
               <ion-col size="3" class="type-select">Number</ion-col>
               <ion-col size="3" class="action">
-                <ion-col><img src="assets/icon/disable-toggle-button.svg" alt=""></ion-col>
+                <ion-col><label class="switch">
+                  <input type="checkbox" [checked]="true" />
+                  <span class="slider round"></span>
+                </label></ion-col>
                 <ion-col class="edit-button"><img src="assets/icon/enable-edit-button.svg" alt=""></ion-col>
                 <ion-col><img src="assets/icon/enable-delete-button.svg" alt=""></ion-col>
               </ion-col>
@@ -145,7 +175,10 @@
               <ion-col size="5" class="text">Vehicle Ownership</ion-col>
               <ion-col size="3" class="type-select drop-down-color">Drop Down</ion-col>
               <ion-col size="3" class="action">
-                <ion-col><img src="assets/icon/enable-toggle-button.svg" alt=""></ion-col>
+                <ion-col><label class="switch">
+                  <input type="checkbox" [checked]="false" />
+                  <span class="slider round"></span>
+                </label></ion-col>
                 <ion-col class="edit-button"><img src="assets/icon/disable-edit-button.svg" alt=""></ion-col>
                 <ion-col><img src="assets/icon/disable-delete-button.svg" alt=""></ion-col>
               </ion-col>
@@ -155,4 +188,59 @@
       </ion-accordion-group>
     </ion-grid>
   </div>
+
+  <ion-modal #modal trigger="open-modal" [presentingElement]="presentingElement" class="model">
+    <ng-template>
+      <section>
+        <header>
+          <div class="header">
+            <div class="img" (click)="modal.dismiss()"><img src="assets/icon/back-button.svg" alt=""></div>
+            <div class="head">Add New Variable</div>
+          </div>
+        </header>
+        <div class="container">
+          <ion-item lines="none" class="Variable">
+            <ion-input
+              lines="none"
+              label="Variable Name"
+              class="custom"
+              labelPlacement="floating"
+            ></ion-input>
+          </ion-item>
+          <ion-item class="dropdown">
+            <ion-select label="Type">
+              <ion-select-option value="Drop Down">Drop Down</ion-select-option>
+              <ion-select-option value="Number">Number</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div class="limit">
+            <ion-item lines="none" class="lower">
+              <ion-input
+                lines="none"
+                fill="solid"
+                label="Lower Limit"
+                class="custom"
+                labelPlacement="floating"
+              ></ion-input>
+            </ion-item>
+            <ion-item lines="none" class="upper">
+              <ion-input
+                lines="none"
+                label="Upper Limit"
+                fill="solid"
+                class="custom"
+                labelPlacement="floating"
+              ></ion-input>
+            </ion-item>
+          </div>
+        </div>
+        <div class="tab-bar">
+          <div>
+            <ion-button shape="round" class="active-btn">Submit</ion-button>
+            <ion-button shape="round" (click)="modal.dismiss()">Cancel</ion-button>
+          </div>
+        </div>
+      </section>
+    </ng-template>
+  </ion-modal>
 </ion-content>
