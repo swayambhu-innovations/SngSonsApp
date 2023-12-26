@@ -16,6 +16,7 @@
     backdrop-filter: blur(25px);
     padding: 15px;
     border-radius: 15px;
+    margin-top: 15px;
 
     .text{
         color: var(--Primary, #1540BD);
@@ -28,18 +29,22 @@
         justify-content: space-between;
 
         .import{
-
+            width: 48%;
         }
 
         .export{
-
+            width: 48%;
         }
 
     }
 }
 
+.margin-top-0{
+    margin-top: 0px;
+}
+
 ion-button {
-    width: 125px;
+    width: 100%;
     height: fit-content;
     color: #1540BD;
     --background:white;
