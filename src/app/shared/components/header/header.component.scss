@@ -1,0 +1,30 @@
+.d-flex{
+  display: flex;
+}
+
+.header{
+  display: flex;
+  padding: 10px 10px 10px 7px;
+  justify-content: space-between;
+  .img{
+    padding-top: 6px;
+  }
+  .head{  
+    color: var(--Primary, #1540BD);
+    font-size: 20px;
+    font-weight: 400;
+    padding-left: 8px;
+  }
+
+  .refresh{
+    color: var(--Buttons, #1659BE);
+    font-size: 12px;
+    font-weight: 400;
+    padding-left: 10px;
+  }
+
+  .refresh-icon{
+    padding-top: 5px;
+  }
+}
+  

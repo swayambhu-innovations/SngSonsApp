@@ -7,7 +7,8 @@ import { Component, OnInit } from "@angular/core";
 })
 
 export class FormSettingComponent implements OnInit{
+    presentingElement:any = '' || null;
     ngOnInit(): void {
-        
+        this.presentingElement = document.querySelector('.ion-page');   
     }
 } 
