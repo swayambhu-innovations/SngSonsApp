@@ -1,0 +1,94 @@
+<ion-content class="vendor-container">
+  <app-header headerName="Vendors"></app-header>
+  <section>
+    <div class="add-vehicle-wrapper-container">
+      <div class="inner-container">
+        <div class="label">Create New Vehicle</div>
+        <div class="button">
+          <p class="button-name">Add Vehicle</p>
+          <p class="symbol"><img src="assets/icon/plus-button.svg" alt="" /></p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="wrapper-container">
+      <ion-grid>
+        <ion-accordion-group
+          style="background-color: transparent"
+          [multiple]="true"
+        >
+          <ion-accordion value="first">
+            <ion-item slot="header">
+              <ion-label class="label">
+                <ion-row class="ion-align-items-center">
+                  <ion-col size="1"
+                    ><img src="assets/icon/red-exclamation.svg" alt=""
+                  /></ion-col>
+                  <ion-col size="7" class="head"
+                    >Pending For Data Entry</ion-col
+                  >
+                  <ion-col size="4" style="text-align: end; color: #1540bd"
+                    >2</ion-col
+                  >
+                </ion-row>
+              </ion-label>
+            </ion-item>
+            <div
+              class="content-container"
+              slot="content"
+              *ngFor="let number of [0, 1]"
+            >
+              <ion-row
+                class="ion-justify-content-between ion-align-items-center"
+              >
+                <ion-col size="auto" class="profile-img"><div></div></ion-col>
+                <ion-col size="7" class="text">Sri Ram Ltd.</ion-col>
+                <ion-col size="3" class="action">
+                  <ion-col class="edit-button"
+                    ><img src="assets/icon/enable-edit-button.svg" alt=""
+                  /></ion-col>
+                  <ion-col
+                    ><img src="assets/icon/enable-delete-button.svg" alt=""
+                  /></ion-col>
+                </ion-col>
+              </ion-row>
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
+      </ion-grid>
+    </div>
+  </section>
+  <section>
+    <div class="search-bar">
+      <ion-searchbar
+        class="ion-text-start custom"
+        animated="true"
+        placeholder="Search Vehicle..."
+      ></ion-searchbar>
+    </div>  
+  </section>
+  <section>
+    <div class="row-data-wrapper-container" *ngFor="let number of [0,1,2,3]">
+      <div class="inner-container">
+        <div class="img">
+          <div>
+
+          </div>
+        </div>
+        <div class="data-text">
+          <p class="text-name">GX Express LLC</p>
+          <p class="address"><span class="address-name">Lakhaniyapur</span> | <span><img src="assets/icon/notes.svg" alt=""></span><span class="no">33</span> | <span class="price">₹ 26110</span></p>
+        </div>
+        <div class="action-button">
+          <div class="toogle"><label class="switch">
+            <input type="checkbox" [checked]="true" />
+            <span class="slider round"></span>
+          </label></div>
+          <div class="edit-button"><img src="assets/icon/enable-edit-button.svg" alt=""></div>
+          <div class="delete"><img src="assets/icon/enable-delete-button.svg" alt=""></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ion-content>
