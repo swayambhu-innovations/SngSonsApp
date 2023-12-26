@@ -11,6 +11,8 @@ import { IonicModule, NavController } from '@ionic/angular';
 export class HeadUserBarComponent implements OnInit {
   constructor(private navCtrl: NavController) {}
 
+  openMode: boolean = false;
+
   ngOnInit() {}
 
   goHome() {

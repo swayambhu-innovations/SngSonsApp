@@ -45,6 +45,8 @@
 
   <ion-card class="ion-padding">
     <p class="heading">Shipment ID : {{id}}</p>
+
+    <!-- Invoice Number -->
     <ion-item lines="none">
       <ion-input
         lines="none"
@@ -57,6 +59,7 @@
       ></ion-input>
     </ion-item>
 
+    <!-- Vehicle Number-->
     <ion-accordion-group>
       <ion-accordion value="first">
         <ion-item slot="header" color="light">
@@ -116,6 +119,7 @@
       </ion-accordion>
     </ion-accordion-group>
 
+    <!-- GST Invoice Number -->
     <ion-item lines="none">
       <ion-input
         lines="none"
@@ -130,6 +134,7 @@
 
     <p class="heading ion-margin-vertical">W/S Details</p>
 
+    <!-- W/S Code -->
     <ion-item lines="none">
       <ion-input
         lines="none"
@@ -142,6 +147,7 @@
       ></ion-input>
     </ion-item>
 
+    <!-- W/S Name -->
     <ion-item lines="none">
       <ion-input
         lines="none"
@@ -154,6 +160,7 @@
       ></ion-input>
     </ion-item>
 
+    <!-- W/S Pan Number -->
     <ion-item lines="none">
       <ion-input
         lines="none"
@@ -166,6 +173,7 @@
       ></ion-input>
     </ion-item>
 
+    <!-- W/S Phone no -->
     <ion-item lines="none">
       <ion-input
         lines="none"
@@ -178,6 +186,7 @@
       ></ion-input>
     </ion-item>
 
+    <!-- W/S Postal Code -->
     <ion-item lines="none">
       <ion-input
         lines="none"
@@ -190,6 +199,7 @@
       ></ion-input>
     </ion-item>
 
+    <!-- Distance -->
     <ion-item lines="none">
       <ion-input
         lines="none"
@@ -204,6 +214,7 @@
 
     <p class="heading ion-margin-vertical">Shipment Details</p>
 
+    <!-- KOT -->
     <ion-item lines="none">
       <ion-input
         lines="none"
@@ -216,6 +227,7 @@
       ></ion-input>
     </ion-item>
 
+    <!-- MLR Number -->
     <ion-item lines="none">
       <ion-input
         lines="none"
@@ -228,6 +240,7 @@
       ></ion-input>
     </ion-item>
 
+    <!-- Diesel Voucher Number -->
     <ion-item lines="none">
       <ion-input
         lines="none"
@@ -563,8 +576,11 @@
   </ion-card>
 
   <div class="tab-bar">
-    <ion-button shape="round" class="active-btn">Submit</ion-button>
+    <button class="active-btn">Submit</button>
+    <button>Save Draft</button>
+    <button>Cancel</button>
+    <!-- <ion-button shape="round" class="active-btn">Submit</ion-button>
     <ion-button shape="round">Save Draft</ion-button>
-    <ion-button shape="round">Cancel</ion-button>
+    <ion-button shape="round">Cancel</ion-button> -->
   </div>
 </ion-content>

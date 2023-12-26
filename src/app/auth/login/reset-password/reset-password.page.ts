@@ -10,9 +10,14 @@ export class ResetPasswordPage implements OnInit {
   resetForm = new FormGroup({
     email: new FormControl(''),
   });
-  picker: boolean = false;
+  isPassReset: boolean = false;
+  isError: boolean = false;
 
   constructor() {}
 
   ngOnInit() {}
+
+  resetPassword(): void {
+    this.isPassReset = !this.isPassReset;
+  }
 }

@@ -23,7 +23,7 @@ ion-content {
       }
 
       svg {
-        margin-inline: 10px;
+        margin-inline: 5px;
         cursor: pointer;
 
         &:focus {
@@ -48,7 +48,8 @@ ion-content {
 
     #nav {
       svg {
-        margin-inline-end: 5px !important;
+        margin-inline: 0 !important;
+        margin-inline-end: 1.5px !important;
       }
     }
   }

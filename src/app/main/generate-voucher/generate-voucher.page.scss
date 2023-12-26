@@ -154,11 +154,11 @@ ion-content {
   }
 
   .tab-bar {
+    width: 332px;
+    height: 56px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: fit-content;
-    height: 56px;
     padding: 8px;
     margin-inline: auto;
     border-radius: 60px;
@@ -166,21 +166,20 @@ ion-content {
     backdrop-filter: blur(15px);
     margin-top: 20px;
 
-    ion-button {
+    button {
       display: flex;
-      width: fit-content;
-      font-size: 14px;
-      height: 40px;
+      padding: 12px 24px;
       justify-content: center;
       align-items: center;
-      --border-radius: 50px;
-      --background: #fff;
-      --color: #1540bd;
+      border-radius: 50px;
+      font-size: 14px;
+      background: #fff;
+      color: #1540bd;
     }
 
     .active-btn {
-      --background: #1540bd !important;
-      --color: #fff !important;
+      background: #1540bd !important;
+      color: #fff !important;
     }
   }
 }

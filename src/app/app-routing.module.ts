@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'welcome', pathMatch: 'full' },
   {
     path: 'login',
     loadChildren: () =>
@@ -13,6 +12,13 @@ const routes: Routes = [
     path: 'main',
     loadChildren: () =>
       import('./main/main.module').then((m) => m.MainComponentModule),
+  },
+  {
+    path: 'welcome',
+    loadChildren: () =>
+      import('./splash-screen/splash-screen.module').then(
+        (m) => m.SplashScreenPageModule
+      ),
   },
 ];
 
