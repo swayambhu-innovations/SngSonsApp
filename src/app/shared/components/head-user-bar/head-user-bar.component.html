@@ -62,7 +62,11 @@
         <p>Select View Mode</p>
 
         <div class="tabs-array">
-          <div class="icon-box">
+          <div
+            (click)="changeTab('simple')"
+            [ngClass]="{ active: tabStatus.simple }"
+            class="icon-box"
+          >
             <!-- icon: simple -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +83,11 @@
             <p>Simple</p>
           </div>
 
-          <div class="icon-box">
+          <div
+            (click)="changeTab('expert')"
+            [ngClass]="{ active: tabStatus.expert }"
+            class="icon-box"
+          >
             <!-- icon: expert -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +104,11 @@
             <p>Expert</p>
           </div>
 
-          <div class="icon-box">
+          <div
+            (click)="changeTab('custom')"
+            [ngClass]="{ active: tabStatus.custom }"
+            class="icon-box"
+          >
             <!-- icon: custom -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -112,6 +124,12 @@
             </svg>
             <p>Custom</p>
           </div>
+        </div>
+
+        <div class="ion-padding-vertical">
+          <app-simple *ngIf="tabStatus.simple"></app-simple>
+          <app-expert *ngIf="tabStatus.expert"></app-expert>
+          <app-custom *ngIf="tabStatus.custom"></app-custom>
         </div>
       </div>
     </ion-content>

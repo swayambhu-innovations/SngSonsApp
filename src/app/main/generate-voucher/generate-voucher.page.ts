@@ -9,6 +9,8 @@ import { NavController } from '@ionic/angular';
 })
 export class GenerateVoucherPage implements OnInit {
   id: any;
+  isDone: boolean = false;
+  isSuspended: boolean = false;
   constructor(private navCtrl: NavController, private route: ActivatedRoute) {}
 
   ngOnInit() {

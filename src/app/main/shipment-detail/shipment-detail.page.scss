@@ -126,3 +126,25 @@ ion-content {
     }
   }
 }
+
+ion-modal ion-content {
+  .data-box {
+    display: flex;
+    padding: 13px;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px;
+    border: 1px solid rgba(206, 211, 241, 0.62);
+    background: #fff;
+
+    span {
+      color: var(--Text1, #505e86);
+      font-size: 14px;
+      font-weight: 400;
+    }
+  }
+
+  .tab-bar {
+    margin-top: 20px !important;
+  }
+}

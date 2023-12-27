@@ -40,12 +40,14 @@
         </ion-row>
       </ion-col>
       <ion-col size="auto">
+        <!-- PDF Download -->
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="26"
           height="26"
           viewBox="0 0 26 26"
           fill="none"
+          (click)="isPDF=!isPDF"
         >
           <path
             d="M5.41667 4.33333H16.25V8.66666H20.5833V21.6667H5.41667V4.33333ZM4.33171 2.16666C3.73478 2.16666 3.25 2.64772 3.25 3.24111V22.7589C3.25 23.3401 3.73182 23.8333 4.32618 23.8333H21.6738C22.268 23.8333 22.75 23.3446 22.75 22.7419L22.7497 7.58333L17.3333 2.16666H4.33171ZM11.3749 8.125C11.3749 9.83394 10.8812 11.8487 10.0478 13.7078C9.21144 15.5737 8.08322 17.171 6.90651 18.1124L8.18419 19.8598C11.3556 17.7454 14.8669 16.2956 18.2634 16.7808L18.7592 14.6806C15.8638 13.7154 13.5416 10.8224 13.5416 8.125H11.3749ZM12.0249 14.5942C12.3146 13.9481 12.5712 13.2777 12.7873 12.5975C13.2982 13.3825 13.9266 14.103 14.6359 14.7282C13.5723 14.9187 12.5304 15.2312 11.5215 15.6299C11.6999 15.2905 11.868 14.9444 12.0249 14.5942Z"
@@ -53,12 +55,14 @@
           />
         </svg>
 
+        <!-- Excel Download -->
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="26"
           height="26"
           viewBox="0 0 26 26"
           fill="none"
+          (click)="isExcel=!isExcel"
         >
           <path
             d="M3.09614 3.11709L16.7144 1.17162C17.0106 1.12932 17.2849 1.33509 17.3273 1.63125C17.3308 1.65662 17.3327 1.68222 17.3327 1.70785V24.2921C17.3327 24.5912 17.0901 24.8338 16.791 24.8338C16.7653 24.8338 16.7398 24.8319 16.7144 24.8283L3.09614 22.8828C2.56244 22.8065 2.16602 22.3495 2.16602 21.8104V4.18954C2.16602 3.65042 2.56244 3.19334 3.09614 3.11709ZM4.33268 5.12911V20.8708L15.166 22.4185V3.58148L4.33268 5.12911ZM18.416 20.5833H21.666V5.41663H18.416V3.24996H22.7493C23.3477 3.24996 23.8327 3.73499 23.8327 4.3333V21.6667C23.8327 22.265 23.3477 22.75 22.7493 22.75H18.416V20.5833ZM11.0493 13L14.0827 17.3333H11.4827L9.74935 14.8572L8.016 17.3333H5.41602L8.44935 13L5.41602 8.66663H8.016L9.74935 11.1428L11.4827 8.66663H14.0827L11.0493 13Z"
@@ -298,3 +302,509 @@
     </div>
   </ion-card>
 </ion-content>
+
+<!-- pdf-export-modal -->
+<ion-modal
+  #modal
+  trigger="pdf-export-modal"
+  [isOpen]="isPDF"
+  [initialBreakpoint]="0.65"
+  [breakpoints]="[0, 0.25, 0.5, 0.75]"
+>
+  <ng-template>
+    <ion-content>
+      <div class="ion-padding ion-margin">
+        <ion-item lines="none">
+          <ion-text>Export Or Share PDF</ion-text>
+        </ion-item>
+
+        <ion-item lines="none">
+          <svg
+            width="123"
+            height="133"
+            viewBox="0 0 123 133"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M4.00034 24.1293C4.01066 10.8 14.7101 -1.15396e-06 27.9099 0L70.2973 3.70563e-06C84.1425 4.91602e-06 95.4316 11.3482 95.4316 25.3318L95.4316 83.31C95.4316 83.3525 95.4315 83.3949 95.4313 83.4373C95.4219 96.7674 84.7221 107.568 71.5218 107.568H29.1343C15.2891 107.568 4 96.2201 4 82.2364V24.2582C4 24.2152 4.00011 24.1723 4.00034 24.1293Z"
+              fill="url(#paint0_linear_351_1655)"
+            />
+            <g opacity="0.5" filter="url(#filter0_f_351_1655)">
+              <rect
+                x="21.2852"
+                y="77.3394"
+                width="55.8427"
+                height="47.8652"
+                rx="5"
+                transform="rotate(-90 21.2852 77.3394)"
+                fill="#E46800"
+                fill-opacity="0.5"
+              />
+            </g>
+            <g filter="url(#filter1_b_351_1655)">
+              <path
+                d="M48.0063 24.4338L87.5471 24.4338L115.422 54.4175L115.422 107.851C115.422 121.19 104.718 132 91.512 132H49.1245C35.2794 132 23.9902 120.652 23.9902 106.668L23.9902 48.69C23.9902 35.3518 34.7469 24.4338 48.0063 24.4338Z"
+                fill="#FFB581"
+                fill-opacity="0.29"
+              />
+              <path
+                d="M87.9133 24.0934C87.8187 23.9916 87.6861 23.9338 87.5471 23.9338L48.0063 23.9338C34.4653 23.9338 23.4902 35.0811 23.4902 48.69L23.4902 106.668C23.4902 120.925 34.9999 132.5 49.1245 132.5H91.512C104.999 132.5 115.922 121.461 115.922 107.851L115.922 54.4175C115.922 54.2912 115.874 54.1696 115.788 54.0771L87.9133 24.0934Z"
+                stroke="url(#paint1_linear_351_1655)"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </g>
+            <g opacity="0.3" filter="url(#filter2_bd_351_1655)">
+              <mask id="path-5-inside-1_351_1655" fill="white">
+                <path
+                  d="M95.5009 55.9651C98.4384 55.995 102.522 56.0079 105.987 55.995C107.761 55.9908 108.663 53.8389 107.432 52.5427C102.982 47.8455 95.0204 39.4392 90.4644 34.6308C89.2042 33.3003 87 34.2158 87 36.0596V47.3364C87 52.0679 90.8395 55.9651 95.5009 55.9651Z"
+                />
+              </mask>
+              <path
+                d="M95.5009 55.9651C98.4384 55.995 102.522 56.0079 105.987 55.995C107.761 55.9908 108.663 53.8389 107.432 52.5427C102.982 47.8455 95.0204 39.4392 90.4644 34.6308C89.2042 33.3003 87 34.2158 87 36.0596V47.3364C87 52.0679 90.8395 55.9651 95.5009 55.9651Z"
+                fill="url(#paint2_linear_351_1655)"
+              />
+              <path
+                d="M105.987 55.995L105.986 55.595L105.985 55.595L105.987 55.995ZM107.432 52.5427L107.142 52.8178L107.142 52.8181L107.432 52.5427ZM90.4644 34.6308L90.174 34.9058L90.174 34.9059L90.4644 34.6308ZM95.4968 56.3651C98.4364 56.395 102.522 56.4079 105.988 56.395L105.985 55.595C102.523 55.6079 98.4405 55.595 95.5049 55.5651L95.4968 56.3651ZM105.988 56.395C108.123 56.3899 109.188 53.8104 107.722 52.2673L107.142 52.8181C108.139 53.8675 107.399 55.5916 105.986 55.595L105.988 56.395ZM107.723 52.2676C103.269 47.5673 95.3137 39.1673 90.7548 34.3557L90.174 34.9059C94.7271 39.7112 102.694 48.1236 107.142 52.8178L107.723 52.2676ZM90.7548 34.3557C89.2331 32.7491 86.6 33.873 86.6 36.0596H87.4C87.4 34.5586 89.1754 33.8515 90.174 34.9058L90.7548 34.3557ZM86.6 36.0596V47.3364H87.4V36.0596H86.6ZM86.6 47.3364C86.6 52.2831 90.613 56.3651 95.5009 56.3651V55.5651C91.066 55.5651 87.4 51.8526 87.4 47.3364H86.6Z"
+                fill="url(#paint3_linear_351_1655)"
+                mask="url(#path-5-inside-1_351_1655)"
+              />
+            </g>
+            <path
+              d="M52 58H77V68H87V98H52V58ZM49.4963 53C48.1187 53 47 54.1101 47 55.4795V100.521C47 101.862 48.1119 103 49.4835 103H89.5165C90.8877 103 92 101.872 92 100.481L91.9993 65.5L79.5 53H49.4963ZM65.7498 66.75C65.7498 70.6937 64.6105 75.3433 62.6873 79.6335C60.7572 83.9393 58.1536 87.6255 55.4381 89.7978L58.3866 93.8302C65.7052 88.951 73.8082 85.6053 81.6462 86.725L82.7905 81.8783C76.1088 79.651 70.7498 72.9748 70.7498 66.75H65.7498ZM67.2498 81.679C67.9183 80.188 68.5105 78.6408 69.0093 77.0713C70.1883 78.8827 71.6383 80.5455 73.2753 81.9882C70.8208 82.4277 68.4162 83.149 66.088 84.069C66.4997 83.2857 66.8878 82.487 67.2498 81.679Z"
+              fill="url(#paint4_linear_351_1655)"
+            />
+            <path
+              d="M52 57.8H51.8V58V98V98.2H52H87H87.2V98V68V67.8H87H77.2V58V57.8H77H52ZM67.0673 81.5972L67.0672 81.5972C66.7069 82.4015 66.3207 83.1964 65.911 83.9759L65.6601 84.4531L66.1615 84.255C68.4793 83.3391 70.871 82.6219 73.3105 82.1851L73.7183 82.1121L73.4075 81.8382C71.7836 80.407 70.3456 78.7579 69.1769 76.9622L68.9465 76.6082L68.8186 77.0107C68.3222 78.5729 67.7327 80.113 67.0673 81.5972ZM47.2 55.4795C47.2 54.2219 48.2279 53.2 49.4963 53.2H79.4172L91.7993 65.5828L91.8 100.481C91.8 101.764 90.7747 102.8 89.5165 102.8H49.4835C48.2235 102.8 47.2 101.752 47.2 100.521V55.4795ZM62.8698 79.7153C64.7694 75.4778 65.9112 70.8844 65.9488 66.95H70.5516C70.6074 70.0555 71.9584 73.2441 74.1081 75.938C76.2672 78.6436 79.2424 80.8639 82.5541 82.0092L81.4934 86.5019C73.6965 85.4562 65.671 88.7633 58.4352 93.5578L55.7119 89.8333C58.4057 87.621 60.9666 83.961 62.8698 79.7153Z"
+              stroke="url(#paint5_linear_351_1655)"
+              stroke-opacity="0.5"
+              stroke-width="0.4"
+            />
+            <defs>
+              <filter
+                id="filter0_f_351_1655"
+                x="0.285156"
+                y="0.496582"
+                width="89.8652"
+                height="97.8428"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+              >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feBlend
+                  mode="normal"
+                  in="SourceGraphic"
+                  in2="BackgroundImageFix"
+                  result="shape"
+                />
+                <feGaussianBlur
+                  stdDeviation="10.5"
+                  result="effect1_foregroundBlur_351_1655"
+                />
+              </filter>
+              <filter
+                id="filter1_b_351_1655"
+                x="-1.00977"
+                y="-0.566162"
+                width="141.432"
+                height="157.566"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+              >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feGaussianBlur in="BackgroundImageFix" stdDeviation="12" />
+                <feComposite
+                  in2="SourceAlpha"
+                  operator="in"
+                  result="effect1_backgroundBlur_351_1655"
+                />
+                <feBlend
+                  mode="normal"
+                  in="SourceGraphic"
+                  in2="effect1_backgroundBlur_351_1655"
+                  result="shape"
+                />
+              </filter>
+              <filter
+                id="filter2_bd_351_1655"
+                x="72"
+                y="19"
+                width="51"
+                height="52"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+              >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feGaussianBlur in="BackgroundImageFix" stdDeviation="7.5" />
+                <feComposite
+                  in2="SourceAlpha"
+                  operator="in"
+                  result="effect1_backgroundBlur_351_1655"
+                />
+                <feColorMatrix
+                  in="SourceAlpha"
+                  type="matrix"
+                  values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                  result="hardAlpha"
+                />
+                <feOffset dx="5" dy="5" />
+                <feGaussianBlur stdDeviation="5" />
+                <feColorMatrix
+                  type="matrix"
+                  values="0 0 0 0 0.9375 0 0 0 0 0.602188 0 0 0 0 0.359375 0 0 0 0.25 0"
+                />
+                <feBlend
+                  mode="normal"
+                  in2="effect1_backgroundBlur_351_1655"
+                  result="effect2_dropShadow_351_1655"
+                />
+                <feBlend
+                  mode="normal"
+                  in="SourceGraphic"
+                  in2="effect2_dropShadow_351_1655"
+                  result="shape"
+                />
+              </filter>
+              <linearGradient
+                id="paint0_linear_351_1655"
+                x1="69.6256"
+                y1="0"
+                x2="69.6256"
+                y2="107.568"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stop-color="#FF9573" />
+                <stop offset="1" stop-color="#FF6523" />
+              </linearGradient>
+              <linearGradient
+                id="paint1_linear_351_1655"
+                x1="38.5446"
+                y1="36.9654"
+                x2="108.644"
+                y2="110.762"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stop-color="white" stop-opacity="0.25" />
+                <stop offset="1" stop-color="white" stop-opacity="0" />
+              </linearGradient>
+              <linearGradient
+                id="paint2_linear_351_1655"
+                x1="106.511"
+                y1="37.9728"
+                x2="83.1169"
+                y2="38.7008"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stop-color="white" />
+                <stop offset="1" stop-color="white" stop-opacity="0.2" />
+              </linearGradient>
+              <linearGradient
+                id="paint3_linear_351_1655"
+                x1="90.3429"
+                y1="36.563"
+                x2="104.5"
+                y2="53.3"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stop-color="white" stop-opacity="0.25" />
+                <stop offset="1" stop-color="white" stop-opacity="0" />
+              </linearGradient>
+              <linearGradient
+                id="paint4_linear_351_1655"
+                x1="88.8095"
+                y1="62.029"
+                x2="38.6737"
+                y2="63.5002"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stop-color="white" />
+                <stop offset="1" stop-color="white" stop-opacity="0.2" />
+              </linearGradient>
+              <linearGradient
+                id="paint5_linear_351_1655"
+                x1="54.1633"
+                y1="58.8251"
+                x2="86.5992"
+                y2="94.9805"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stop-color="white" stop-opacity="0.25" />
+                <stop offset="1" stop-color="white" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </ion-item>
+
+        <div class="data-box">
+          <span>Voucher_1341375.pdf</span>
+          <span></span>
+        </div>
+
+        <div class="data-box">
+          <span>Internal Storage / Download</span>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M2 4C2 3.44772 2.44772 3 3 3H10.4142L12.4142 5H21C21.5523 5 22 5.44772 22 6V20C22 20.5523 21.5523 21 21 21H3C2.45 21 2 20.55 2 20V4ZM10.5858 6L9.58579 5H4V7H9.58579L10.5858 6ZM4 9V19H20V7H12.4142L10.4142 9H4Z"
+              fill="#1540BD"
+            />
+          </svg>
+        </div>
+
+        <div class="tab-bar">
+          <button class="active-btn">Download</button>
+          <button>Share</button>
+        </div>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<!-- excel-export-modal -->
+<ion-modal
+  #modal
+  trigger="excel-export-modal"
+  [isOpen]="isExcel"
+  [initialBreakpoint]="0.65"
+  [breakpoints]="[0, 0.25, 0.5, 0.75]"
+>
+  <ng-template>
+    <ion-content>
+      <div class="ion-padding ion-margin">
+        <ion-item lines="none">
+          <ion-text>Export Or Share Excel</ion-text>
+        </ion-item>
+
+        <ion-item lines="none">
+          <svg
+            width="137"
+            height="133"
+            viewBox="0 0 137 133"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M24.134 17.8278L66.481 6.4789C81.9129 2.3432 93.0915 9.08995 97.3895 25.1335L109.173 69.1171C113.471 85.1607 107.163 96.5938 91.7309 100.73L49.3839 112.078C33.952 116.214 22.8137 109.457 18.5157 93.413L6.73238 49.4294C2.43429 33.3858 8.70217 21.9635 24.134 17.8278Z"
+              fill="url(#paint0_linear_351_1617)"
+            />
+            <g filter="url(#filter0_f_351_1617)">
+              <path
+                d="M35.0675 31.4019L63.8175 23.697C74.2944 20.8892 81.8012 25.1615 84.5735 35.5098L92.1739 63.8799C94.9463 74.2283 90.581 81.6822 80.1041 84.49L51.354 92.195C40.8771 95.0028 33.3977 90.7231 30.6253 80.3748L23.0249 52.0047C20.2526 41.6563 24.5905 34.2097 35.0675 31.4019Z"
+                fill="#1DAE3D"
+                fill-opacity="0.5"
+              />
+            </g>
+            <g filter="url(#filter1_b_351_1617)">
+              <mask
+                id="path-3-outside-1_351_1617"
+                maskUnits="userSpaceOnUse"
+                x="29.9629"
+                y="25.9434"
+                width="108"
+                height="108"
+                fill="black"
+              >
+                <rect
+                  fill="white"
+                  x="29.9629"
+                  y="25.9434"
+                  width="108"
+                  height="108"
+                />
+                <path
+                  d="M107.956 26.9434H58.9555C41.0465 26.9434 30.9629 37.0288 30.9629 54.941V104.002C30.9629 121.81 41.0465 132 58.9555 132H108.008C125.865 132 136.001 121.81 136.001 104.002V54.941C136.001 37.0288 125.812 26.9434 107.956 26.9434Z"
+                />
+              </mask>
+              <path
+                d="M107.956 26.9434H58.9555C41.0465 26.9434 30.9629 37.0288 30.9629 54.941V104.002C30.9629 121.81 41.0465 132 58.9555 132H108.008C125.865 132 136.001 121.81 136.001 104.002V54.941C136.001 37.0288 125.812 26.9434 107.956 26.9434Z"
+                fill="#0AD72B"
+                fill-opacity="0.4"
+              />
+              <path
+                d="M107.956 27.9434C108.508 27.9434 108.956 27.4956 108.956 26.9434C108.956 26.3911 108.508 25.9434 107.956 25.9434V27.9434ZM107.956 25.9434C107.403 25.9434 106.956 26.3911 106.956 26.9434C106.956 27.4956 107.403 27.9434 107.956 27.9434V25.9434ZM107.956 25.9434H58.9555V27.9434H107.956V25.9434ZM58.9555 25.9434C49.8166 25.9434 42.5336 28.5197 37.5362 33.5181C32.5388 38.5163 29.9629 45.8006 29.9629 54.941H31.9629C31.9629 46.1692 34.4288 39.4546 38.9505 34.9321C43.4721 30.4097 50.1854 27.9434 58.9555 27.9434V25.9434ZM29.9629 54.941V104.002H31.9629V54.941H29.9629ZM29.9629 104.002C29.9629 113.092 32.5395 120.375 37.5352 125.385C42.5314 130.396 49.8139 133 58.9555 133V131C50.1881 131 43.4744 128.509 38.9515 123.973C34.4281 119.436 31.9629 112.72 31.9629 104.002H29.9629ZM58.9555 133H108.008V131H58.9555V133ZM108.008 133C117.124 133 124.406 130.395 129.408 125.385C134.41 120.376 137.001 113.093 137.001 104.002H135.001C135.001 112.719 132.523 119.435 127.993 123.972C123.463 128.509 116.749 131 108.008 131V133ZM137.001 104.002V54.941H135.001V104.002H137.001ZM137.001 54.941C137.001 45.7978 134.397 38.5138 129.38 33.5166C124.364 28.52 117.069 25.9434 107.956 25.9434V27.9434C116.699 27.9434 123.427 30.4094 127.969 34.9336C132.51 39.4572 135.001 46.1719 135.001 54.941H137.001Z"
+                fill="url(#paint1_linear_351_1617)"
+                mask="url(#path-3-outside-1_351_1617)"
+              />
+            </g>
+            <g filter="url(#filter2_bd_351_1617)">
+              <path
+                d="M62.965 58.1216L91.7348 54.0116C92.3605 53.9223 92.94 54.357 93.0294 54.9826C93.037 55.0362 93.0409 55.0903 93.0409 55.1445V102.856C93.0409 103.488 92.5285 104 91.8966 104C91.8423 104 91.7883 103.996 91.7348 103.988L62.965 99.8784C61.8375 99.7173 61 98.7517 61 97.6129V60.3873C61 59.2483 61.8375 58.2827 62.965 58.1216ZM65.5773 62.3722V95.6279L88.4636 98.8975V59.1027L65.5773 62.3722ZM95.3295 95.0205H102.195V62.9796H95.3295V58.4023H104.484C105.748 58.4023 106.773 59.427 106.773 60.691V97.3092C106.773 98.5732 105.748 99.5978 104.484 99.5978H95.3295V95.0205ZM79.7668 79.0001L86.175 88.1546H80.6823L77.0204 82.9235L73.3586 88.1546H67.8659L74.2741 79.0001L67.8659 69.8455H73.3586L77.0204 75.0767L80.6823 69.8455H86.175L79.7668 79.0001Z"
+                fill="url(#paint2_linear_351_1617)"
+              />
+              <path
+                d="M91.7491 103.889L91.7489 103.889L62.9791 99.7794C61.9009 99.6253 61.1 98.7019 61.1 97.6129V60.3873C61.1 59.2981 61.9009 58.3747 62.9791 58.2206L91.7489 54.1106C92.3199 54.0291 92.8488 54.4258 92.9304 54.9968C92.9373 55.0458 92.9409 55.0952 92.9409 55.1445V102.856C92.9409 103.432 92.4732 103.9 91.8966 103.9C91.8471 103.9 91.7979 103.896 91.7491 103.889ZM65.5631 62.2732L65.4773 62.2855V62.3722V95.6279V95.7147L65.5631 95.7269L88.4495 98.9965L88.5636 99.0128V98.8975V59.1027V58.9874L88.4495 59.0037L65.5631 62.2732ZM102.195 62.8796H95.4295V58.5023H104.484C105.693 58.5023 106.673 59.4822 106.673 60.691V97.3092C106.673 98.518 105.693 99.4978 104.484 99.4978H95.4295V95.1205H102.195H102.295V95.0205V62.9796V62.8796H102.195ZM79.6849 78.9428L79.6447 79.0001L79.6849 79.0574L85.9829 88.0546H80.7343L77.1024 82.8662L77.0204 82.7491L76.9385 82.8662L73.3065 88.0546H68.058L74.356 79.0574L74.3961 79.0001L74.356 78.9428L68.058 69.9455H73.3065L76.9385 75.134L77.0204 75.2511L77.1024 75.134L80.7343 69.9455H85.9829L79.6849 78.9428Z"
+                stroke="url(#paint3_linear_351_1617)"
+                stroke-opacity="0.5"
+                stroke-width="0.2"
+              />
+            </g>
+            <defs>
+              <filter
+                id="filter0_f_351_1617"
+                x="6.20703"
+                y="6.85376"
+                width="102.781"
+                height="102.184"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+              >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feBlend
+                  mode="normal"
+                  in="SourceGraphic"
+                  in2="BackgroundImageFix"
+                  result="shape"
+                />
+                <feGaussianBlur
+                  stdDeviation="8"
+                  result="effect1_foregroundBlur_351_1617"
+                />
+              </filter>
+              <filter
+                id="filter1_b_351_1617"
+                x="5.96289"
+                y="1.94336"
+                width="155.037"
+                height="155.057"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+              >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feGaussianBlur in="BackgroundImageFix" stdDeviation="12" />
+                <feComposite
+                  in2="SourceAlpha"
+                  operator="in"
+                  result="effect1_backgroundBlur_351_1617"
+                />
+                <feBlend
+                  mode="normal"
+                  in="SourceGraphic"
+                  in2="effect1_backgroundBlur_351_1617"
+                  result="shape"
+                />
+              </filter>
+              <filter
+                id="filter2_bd_351_1617"
+                x="46"
+                y="39"
+                width="75.7734"
+                height="80"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+              >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feGaussianBlur in="BackgroundImageFix" stdDeviation="7.5" />
+                <feComposite
+                  in2="SourceAlpha"
+                  operator="in"
+                  result="effect1_backgroundBlur_351_1617"
+                />
+                <feColorMatrix
+                  in="SourceAlpha"
+                  type="matrix"
+                  values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                  result="hardAlpha"
+                />
+                <feOffset dx="5" dy="5" />
+                <feGaussianBlur stdDeviation="5" />
+                <feColorMatrix
+                  type="matrix"
+                  values="0 0 0 0 0.265535 0 0 0 0 0.839746 0 0 0 0 0.157193 0 0 0 0.48 0"
+                />
+                <feBlend
+                  mode="normal"
+                  in2="effect1_backgroundBlur_351_1617"
+                  result="effect2_dropShadow_351_1617"
+                />
+                <feBlend
+                  mode="normal"
+                  in="SourceGraphic"
+                  in2="effect2_dropShadow_351_1617"
+                  result="shape"
+                />
+              </filter>
+              <linearGradient
+                id="paint0_linear_351_1617"
+                x1="-0.000917387"
+                y1="24.2959"
+                x2="86.9414"
+                y2="81.5493"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stop-color="#75D178" />
+                <stop offset="1" stop-color="#20DF6D" />
+              </linearGradient>
+              <linearGradient
+                id="paint1_linear_351_1617"
+                x1="47.6832"
+                y1="39.1826"
+                x2="114.701"
+                y2="122.171"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stop-color="white" stop-opacity="0.25" />
+                <stop offset="1" stop-color="white" stop-opacity="0" />
+              </linearGradient>
+              <linearGradient
+                id="paint2_linear_351_1617"
+                x1="103.527"
+                y1="63.029"
+                x2="52.5322"
+                y2="64.5511"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stop-color="white" />
+                <stop offset="1" stop-color="white" stop-opacity="0.36" />
+              </linearGradient>
+              <linearGradient
+                id="paint3_linear_351_1617"
+                x1="65.9307"
+                y1="70.7726"
+                x2="104.798"
+                y2="70.969"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stop-color="white" />
+                <stop offset="1" stop-color="white" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </ion-item>
+
+        <div class="data-box">
+          <span>Voucher_1341375.pdf</span>
+          <span></span>
+        </div>
+
+        <div class="data-box">
+          <span>Internal Storage / Download</span>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M2 4C2 3.44772 2.44772 3 3 3H10.4142L12.4142 5H21C21.5523 5 22 5.44772 22 6V20C22 20.5523 21.5523 21 21 21H3C2.45 21 2 20.55 2 20V4ZM10.5858 6L9.58579 5H4V7H9.58579L10.5858 6ZM4 9V19H20V7H12.4142L10.4142 9H4Z"
+              fill="#1540BD"
+            />
+          </svg>
+        </div>
+
+        <div class="tab-bar">
+          <button class="active-btn">Download</button>
+          <button>Share</button>
+        </div>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>

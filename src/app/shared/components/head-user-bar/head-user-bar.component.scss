@@ -74,7 +74,7 @@ ion-modal ion-content {
       align-items: center;
       padding: auto;
       border-radius: 20px;
-      background-color: #fff;
+      cursor: pointer;
       border: 2px solid var(--Buttons, #1659be);
 
       p {
@@ -83,18 +83,21 @@ ion-modal ion-content {
         font-weight: 400;
         margin-top: 10px;
       }
-    }
 
-    .active-box {
-      background-color: linear-gradient(
-        266deg,
-        #1540bd 0%,
-        #1786ed 100%
-      ) !important;
-      border: none;
+      &.active {
+        border: none;
+        border-radius: 20px;
+        background: linear-gradient(266deg, #1540bd 0%, #1786ed 100%);
 
-      p {
-        color: #fff;
+        svg {
+          path {
+            fill: #fff;
+          }
+        }
+
+        p {
+          color: #fff;
+        }
       }
     }
   }
