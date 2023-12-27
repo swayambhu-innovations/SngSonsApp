@@ -18,4 +18,17 @@ export class HeadUserBarComponent implements OnInit {
   goHome() {
     this.navCtrl.navigateForward('main/home');
   }
+
+  tabStatus: any = {
+    simple: true,
+    expert: false,
+    custom: false,
+  };
+
+  changeTab(id: string) {
+    Object.keys(this.tabStatus).forEach((key) => {
+      this.tabStatus[key] = false;
+    });
+    this.tabStatus[id] = true;
+  }
 }

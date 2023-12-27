@@ -20,4 +20,9 @@ export class ResetPasswordPage implements OnInit {
   resetPassword(): void {
     this.isPassReset = !this.isPassReset;
   }
+
+  raiseError(): void {
+    this.isPassReset = !this.isPassReset;
+    this.isError = !this.isError;
+  }
 }
