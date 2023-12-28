@@ -41,6 +41,13 @@ const routes: Routes = [
         (m) => m.GenerateVoucherPageModule
       ),
   },
+  {
+    path: 'voucher/post-delivery/:id',
+    loadChildren: () =>
+      import('./post-delivery/post-delivery.module').then(
+        (m) => m.PostDeliveryPageModule
+      ),
+  },
 ];
 
 @NgModule({
