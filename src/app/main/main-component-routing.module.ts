@@ -47,6 +47,18 @@ const routes: Routes = [
         (m) => m.PostDeliveryPageModule
       ),
   },
+  {
+    path: 'reports',
+    loadChildren: () =>
+      import('./reports/reports.module').then((m) => m.ReportsPageModule),
+  },
+  {
+    path: 'reports/:id',
+    loadChildren: () =>
+      import('./report-details/report-details.module').then(
+        (m) => m.ReportDetailsPageModule
+      ),
+  },
 ];
 
 @NgModule({
