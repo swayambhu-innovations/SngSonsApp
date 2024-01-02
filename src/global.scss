@@ -221,17 +221,17 @@ ion-modal {
 
 ion-modal ion-content {
   div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
     margin-top: 20px;
     margin-inline: auto;
 
     ion-item {
-      margin: 8px 0;
+      margin: 8px auto;
       --background: transparent;
       --border-bottom: none;
+
+      svg {
+        margin-inline: auto;
+      }
 
       ion-text {
         color: var(--Primary, #1540bd);
@@ -239,6 +239,7 @@ ion-modal ion-content {
         font-weight: 400;
         line-height: 100%; /* 20px */
         letter-spacing: -0.22px;
+        margin: 0 auto;
       }
     }
 

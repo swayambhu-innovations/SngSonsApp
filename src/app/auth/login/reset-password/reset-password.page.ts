@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-reset-password',
@@ -13,11 +14,21 @@ export class ResetPasswordPage implements OnInit {
   isPassReset: boolean = false;
   isError: boolean = false;
 
-  constructor() {}
+  constructor(private navCtrl: NavController) {}
 
   ngOnInit() {}
 
   resetPassword(): void {
     this.isPassReset = !this.isPassReset;
+  }
+
+  raiseError(): void {
+    this.isPassReset = !this.isPassReset;
+    this.isError = !this.isError;
+  }
+
+  openHome(): void {
+    this.isPassReset = !this.isPassReset;
+    this.navCtrl.navigateForward('main/home');
   }
 }

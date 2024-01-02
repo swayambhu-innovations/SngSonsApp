@@ -9,6 +9,8 @@ import { NavController } from '@ionic/angular';
 })
 export class ShipmentDetailPage implements OnInit {
   id: any;
+  isPDF: boolean = false;
+  isExcel: boolean = false;
   constructor(private navCtrl: NavController, private route: ActivatedRoute) {}
 
   ngOnInit() {
