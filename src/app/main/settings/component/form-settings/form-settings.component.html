@@ -198,48 +198,54 @@
             <div class="head">Add New Variable</div>
           </div>
         </header>
-        <div class="container">
-          <ion-item lines="none" class="Variable">
-            <ion-input
-              lines="none"
-              label="Variable Name"
-              class="custom"
-              labelPlacement="floating"
-            ></ion-input>
-          </ion-item>
-          <ion-item class="dropdown">
-            <ion-select label="Type">
-              <ion-select-option value="Drop Down">Drop Down</ion-select-option>
-              <ion-select-option value="Number">Number</ion-select-option>
-            </ion-select>
-          </ion-item>
-          <div class="limit">
-            <ion-item lines="none" class="lower">
+        <form [formGroup]="formSettings" (ngSubmit)="formSettings.valid && submitForm()">
+          <div class="container">
+            <ion-item lines="none" class="Variable">
               <ion-input
                 lines="none"
-                fill="solid"
-                label="Lower Limit"
+                label="Variable Name"
+                formControlName="variableName"
                 class="custom"
                 labelPlacement="floating"
+                required
               ></ion-input>
             </ion-item>
-            <ion-item lines="none" class="upper">
-              <ion-input
-                lines="none"
-                label="Upper Limit"
-                fill="solid"
-                class="custom"
-                labelPlacement="floating"
-              ></ion-input>
+            <ion-item class="dropdown">
+              <ion-select label="Type" formControlName="variableType">
+                <ion-select-option value="Drop Down">Drop Down</ion-select-option>
+                <ion-select-option value="Number">Number</ion-select-option>
+              </ion-select>
             </ion-item>
+            <div class="limit">
+              <ion-item lines="none" class="lower">
+                <ion-input
+                  lines="none"
+                  fill="solid"
+                  label="Lower Limit"
+                  formControlName="lowerLimit"
+                  class="custom"
+                  labelPlacement="floating"
+                ></ion-input>
+              </ion-item>
+              <ion-item lines="none" class="upper">
+                <ion-input
+                  lines="none"
+                  label="Upper Limit"
+                  fill="solid"
+                  formControlName="upperLimit"
+                  class="custom"
+                  labelPlacement="floating"
+                ></ion-input>
+              </ion-item>
+            </div>
           </div>
-        </div>
-        <div class="tab-bar">
-          <div>
-            <ion-button shape="round" class="active-btn">Submit</ion-button>
-            <ion-button shape="round" (click)="modal.dismiss()">Cancel</ion-button>
+          <div class="tab-bar">
+            <div>
+              <ion-button type="submit" shape="round" class="active-btn">Submit</ion-button>
+              <ion-button shape="round" (click)="modal.dismiss()">Cancel</ion-button>
+            </div>
           </div>
-        </div>
+        </form>        
       </section>
     </ng-template>
   </ion-modal>

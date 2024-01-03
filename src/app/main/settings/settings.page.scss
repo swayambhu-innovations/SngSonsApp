@@ -1,5 +1,5 @@
 * {
-  font-family: "NATS";
+  box-sizing: border-box;
 }
 
 .wrapper-settings {
@@ -95,7 +95,6 @@
           color: var(--Primary, #1540bd);
           cursor: pointer;
           font-feature-settings: "clig" off, "liga" off;
-          font-family: Lato;
           font-size: 14px;
           font-weight: 500;
           border-bottom: 1px solid #e8dede;
@@ -105,6 +104,64 @@
           }
         }
       }
+    }
+  }
+}
+
+.model{
+  --background: white;
+  section{
+    padding: 15px; 
+  }
+
+  .img{
+    text-align: center;
+    margin-top: 25px;
+
+    .text{
+      color: var(--Primary, #1540BD);
+      font-weight: 400;
+      font-size: 20px;
+      margin-top: 10px;
+    }
+  }
+  
+  .tab-bar {
+    position: absolute;
+    width: calc(100% - 20px);
+    bottom: 59%;
+
+    div{
+      display: flex;
+      justify-content: center;
+      background: rgba(168, 205, 255, 0.29);
+      align-items: center;
+      width: fit-content;
+      height: 56px;
+      padding: 8px;
+      margin-inline: auto; 
+      backdrop-filter: blur(15px);
+      margin-top: 20px;
+      border-radius: 60px;
+    }
+
+    ion-button {
+      display: flex;
+      width: fit-content;
+      font-size: 14px;
+      height: 40px;
+      justify-content: center;
+      align-items: center;
+      --border-radius: 50px;
+      --background: #fff;
+      --color: #1540bd;
+      text-transform: none;
+    }
+
+    .active-btn {
+      --background: #1540bd !important;
+      --color: #fff !important;
+      margin-right: 10px;
     }
   }
 }
