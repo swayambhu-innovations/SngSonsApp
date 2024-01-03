@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from './main.component';
-import { HomePage } from './home/home.page';
 
 const routes: Routes = [
   { path: '', component: MainComponent ,
@@ -40,6 +39,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('./generate-voucher/generate-voucher.module').then(
             (m) => m.GenerateVoucherPageModule
+          ),
+      },
+      {
+        path: 'voucher/post-delivery/:id',
+        loadChildren: () =>
+          import('./post-delivery/post-delivery.module').then(
+            (m) => m.PostDeliveryPageModule
           ),
       },
     ]
