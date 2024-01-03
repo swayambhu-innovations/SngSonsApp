@@ -184,3 +184,155 @@ ion-grid {
   }
 }
 
+.model{
+  --background: white;
+    section{
+      padding: 15px; 
+    }
+  
+  .header{
+    padding: 5px 10px 20px 10px;
+    text-align: center;
+  
+    .head{
+      color: var(--Primary, #1540BD);
+      font-size: 20px;
+      font-weight: 400;
+      padding-top: 8px;
+      padding-left: 10px;
+    }
+  }
+  
+  .container{
+    ion-input.custom {
+      --background: transparent;
+      --color: var(--Text3, #9FA7B2);
+      --placeholder-color: #ddd;
+      --placeholder-opacity: 0.8;
+    }
+  
+    .Variable{  
+      margin-bottom: 15px;
+    }
+  
+    ion-item{
+      border-radius:12px;
+      --background:#fff;
+      border:1px solid rgba(206, 211, 241, 0.62);
+    }
+  
+    .dropdown{
+      margin-bottom: 15px;
+      height: 48px;
+      color: var(--Text3, #9FA7B2);
+    }
+  
+    .limit{
+      display: flex;
+      justify-content: space-between;
+  
+      .lower{
+        width: 48%;
+        height: 56px;
+      } 
+  
+      .upper{
+        width: 48%;
+        height: 56px;
+      } 
+    }
+  
+  }
+    
+    .tab-bar {
+      position: absolute;
+      width: calc(100% - 20px);
+      bottom: 42%;
+  
+      div{
+        display: flex;
+        justify-content: center;
+        background: rgba(168, 205, 255, 0.29);
+        align-items: center;
+        width: fit-content;
+        height: 56px;
+        padding: 8px;
+        margin-inline: auto; 
+        backdrop-filter: blur(15px);
+        margin-top: 20px;
+        border-radius: 60px;
+      }
+  
+      ion-button {
+        display: flex;
+        width: fit-content;
+        font-size: 14px;
+        height: 40px;
+        justify-content: center;
+        align-items: center;
+        --border-radius: 50px;
+        --background: #fff;
+        --color: #1540bd;
+      }
+  
+      .active-btn {
+        --background: #1540bd !important;
+        --color: #fff !important;
+        margin-right: 10px;
+      }
+    }
+  
+  }
+
+
+  .container{
+
+    .text{
+        color: var(--Primary, #1540BD);
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+    .import-container{
+        display: flex;
+        justify-content: space-between;
+
+        .import{
+            width: 61%;
+        }
+
+        .export{
+            width: 35%;
+        }
+
+    }
+
+    ion-button {
+      width: 100%;
+      height: fit-content;
+      color: #1540BD;
+      --background:white;
+      --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+      --ripple-color: #c9deff;
+    
+      --padding-top: 16px;
+      --padding-bottom: 16px;
+    
+      label {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        text-transform: none;
+    
+        svg {
+          margin-left: 6px;
+        }
+      }
+    }
+}
+
+.margin-top-0{
+    margin-top: 0px;
+}
+
+

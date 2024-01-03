@@ -72,7 +72,7 @@
           Vendor Master
         </p>
 
-        <p routerLink="/main/settings/vehicle-master">
+        <p routerLink="/main/settings/vehicle-category">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="22"
@@ -122,7 +122,7 @@
           Import & Export
         </p>
 
-        <p>
+        <p routerLink="/main/settings/user-permission">
           <svg
             width="22"
             height="22"
@@ -138,7 +138,7 @@
           Users & Permission
         </p>
 
-        <p>
+        <p routerLink="/main/settings/account-expense">
           <svg
             width="22"
             height="22"
@@ -154,7 +154,7 @@
           Account Expense
         </p>
 
-        <p>
+        <p id="set-log-out-modal">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="21"
@@ -172,4 +172,26 @@
       </ion-card>
     </div>
   </div>
+  <ion-modal
+  #modal
+  trigger="set-log-out-modal"
+  [initialBreakpoint]="0.45"
+  [breakpoints]="[0.45, 0.45, 0.45, 0.45]"
+  class="model"
+>
+    <ng-template>
+    <section>
+      <div class="img">
+        <img src="assets/icon/log-out-key.svg" alt="">
+        <p class="text">You Will Be Logged Out</p>
+      </div>
+      <div class="tab-bar">
+        <div>
+          <ion-button shape="round" class="active-btn">Logout</ion-button>
+          <ion-button shape="round" (click)="modal.dismiss()">Cancel</ion-button>
+        </div>
+      </div>
+    </section>
+    </ng-template>
+    </ion-modal>
 </ion-content>

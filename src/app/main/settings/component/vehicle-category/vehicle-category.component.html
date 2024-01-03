@@ -1,10 +1,10 @@
-<ion-content class="vendor-container">
+<ion-content class="vendor-container ion-category-page">
   <app-header headerName="Vehicle Categories"></app-header>
   <section>
     <div class="add-vehicle-wrapper-container">
       <div class="inner-container">
         <div class="label">Create New Vehicle Category</div>
-        <div class="button">
+        <div class="button" id="category-modal">
           <p class="button-name">Add Category</p>
           <p class="symbol"><img src="assets/icon/plus-button.svg" alt="" /></p>
         </div>
@@ -71,7 +71,7 @@
     <div class="row-data-wrapper-container" *ngFor="let number of [0, 1, 2, 3]">
       <div class="inner-container">
         <div class="data-text">
-          <p class="text-name">GX Express LLC</p>
+          <p class="text-name">Tata Ace 407</p>
           <p class="address">
             <span class="address-name">10 Ton</span> |
             <span class="no">100 Shipments</span>
@@ -90,7 +90,7 @@
           <div class="delete">
             <img src="assets/icon/enable-delete-button.svg" alt="" />
           </div>
-          <div class="forward-icon">
+          <div class="forward-icon" routerLink="/main/settings/vehicle-master">
             <ion-col size="0.75">
                 <ion-icon name="chevron-forward-outline"></ion-icon>
             </ion-col>
@@ -99,4 +99,94 @@
       </div>
     </div>
   </section>
+  <ion-modal #modal trigger="category-modal" [presentingElement]="presentingElement" class="model">
+    <ng-template>
+      <section>
+        <header>
+          <div class="header">
+            <div class="img" (click)="modal.dismiss()"><img src="assets/icon/back-button.svg" alt=""></div>
+            <div class="head">Add New Vehicle Category</div>
+          </div>
+        </header>
+        <div class="container">
+          <ion-item lines="none" class="Variable">
+            <ion-input
+              lines="none"
+              label="Category Name"
+              class="custom"
+              labelPlacement="floating"
+            ></ion-input>
+          </ion-item>
+          <ion-item lines="none" class="Variable">
+            <ion-input
+              lines="none"
+              label="Weight Capacity (Ton)"
+              class="custom"
+              labelPlacement="floating"
+            ></ion-input>
+          </ion-item>
+          <div class="limit">
+            <ion-item lines="none" class="lower">
+              <ion-input
+                lines="none"
+                fill="solid"
+                label="Minimum Fuel (Ltr)"
+                class="custom"
+                labelPlacement="floating"
+              ></ion-input>
+            </ion-item>
+            <ion-item lines="none" class="upper">
+              <ion-input
+                lines="none"
+                label="Maximum Fuel (Ltr)"
+                fill="solid"
+                class="custom"
+                labelPlacement="floating"
+              ></ion-input>
+            </ion-item>
+          </div>
+          <div class="limit">
+            <ion-item lines="none" class="lower">
+              <ion-input
+                lines="none"
+                fill="solid"
+                label="Minimum Toll"
+                class="custom"
+                labelPlacement="floating"
+              ></ion-input>
+            </ion-item>
+            <ion-item lines="none" class="upper">
+              <ion-input
+                lines="none"
+                label="Maximum Toll"
+                fill="solid"
+                class="custom"
+                labelPlacement="floating"
+              ></ion-input>
+            </ion-item>
+          </div>
+          <ion-item lines="none" class="Variable">
+            <ion-input
+              lines="none"
+              label="Default KOT Capacity"
+              class="custom"
+              labelPlacement="floating"
+            ></ion-input>
+          </ion-item>          
+          <ion-item class="dropdown">
+            <ion-select label="Default Fuel Type">
+              <ion-select-option value="Drop Down">Drop Down</ion-select-option>
+              <ion-select-option value="Number">Number</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+        <div class="tab-bar">
+          <div>
+            <ion-button shape="round" class="active-btn">Submit</ion-button>
+            <ion-button shape="round" (click)="modal.dismiss()">Cancel</ion-button>
+          </div>
+        </div>
+      </section>
+    </ng-template>
+  </ion-modal>
 </ion-content>

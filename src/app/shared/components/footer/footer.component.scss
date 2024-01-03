@@ -1,4 +1,7 @@
-.footer{
+.footer {
+    position: absolute;
+    width: 100%;
+    bottom: 15px;
     .footer-container{
         justify-content: space-between;
         width: 70%;
@@ -7,9 +10,6 @@
         border-radius: 60px;
         background: rgba(168, 205, 255, 0.29);
         backdrop-filter: blur(15px);
-        position: absolute;
-        bottom: 3%;
-        left: 12%;
 
         div{
             display: flex;
@@ -17,8 +17,7 @@
             height: 56px;
             justify-content: center;
             align-items: center;
-            align-self: stretch;
-            border-radius: 50%;
+            border-radius: 50%; 
         }
 
         .active{

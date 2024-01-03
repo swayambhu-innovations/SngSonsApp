@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 
 @Component({
     selector:'app-vehicle-category',
@@ -6,4 +6,9 @@ import { Component } from "@angular/core";
     styleUrls:['./vehicle-category.component.scss']
 })
 
-export class VehicleCategoryComponent{}
+export class VehicleCategoryComponent implements OnInit{
+    presentingElement:any = '' || null;
+    ngOnInit(): void {
+        this.presentingElement = document.querySelector('.ion-category-page');   
+    }
+}
