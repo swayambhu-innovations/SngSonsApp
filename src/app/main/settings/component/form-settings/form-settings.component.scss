@@ -54,7 +54,7 @@ ion-col {
   ion-grid {
     padding-left: 10px;
     padding-right: 10px;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
 
     ion-item {
       --padding-end: 0px;
@@ -288,4 +288,10 @@ ion-col {
       }
     }
   
+}
+
+.import-zsd-file{
+  color: var(--Waiting-Post-Delivery-Vehicles, #D97A07);
+  font-size: 8px;
+  font-weight: 400;
 }
