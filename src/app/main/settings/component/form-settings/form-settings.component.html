@@ -20,7 +20,7 @@
                 class="ion-justify-content-between ion-align-items-center"
               >
                 <ion-col size="7" class="head">Voucher Pending Form</ion-col>
-                <ion-col size="5" class="add-variable" id="open-modal" expand="block" (click)="$event.stopPropagation()">
+                <ion-col size="5" class="add-variable"  expand="block" (click)="openModal($event , config.formSettingVariable.VoucherPendingForm)">
                   <p class="text">Add Variable</p>
                   <p class="img">
                     <img src="assets/icon/plusIcon.svg" alt="" />
@@ -38,55 +38,21 @@
               <ion-col size="2" class="actions">Actions</ion-col>
             </ion-row>
           </div>
-          <div class="content-container" slot="content">
+          <div class="content-container" slot="content" *ngFor="let item of variableData['voucher-pending-form']">
             <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="5" class="text">Vehicle Fuel Capacity</ion-col>
-              <ion-col size="3" class="type-select drop-down-color">Drop Down</ion-col>
-              <ion-col size="3" class="action">
+              <ion-col size="5" class="text">{{item?.variableName}} <div class="import-zsd-file" *ngIf="item?.isZSD">*Imported from ZSD</div></ion-col>
+              <ion-col size="3" class="type-select drop-down-color">{{item?.variableType}}</ion-col>
+              <ion-col size="3" class="action" *ngIf="!item?.isZSD">
                 <ion-col><label class="switch">
                   <input type="checkbox" [checked]="true" />
                   <span class="slider round"></span>
                 </label></ion-col>
                 <ion-col class="edit-button"><img src="assets/icon/enable-edit-button.svg" alt=""></ion-col>
-                <ion-col><img src="assets/icon/disable-delete-button.svg" alt=""></ion-col>
-              </ion-col>
-            </ion-row>
-          </div>
-          <div class="content-container" slot="content">
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="5" class="text">Vehicle Fuel Capacity</ion-col>
-              <ion-col size="3" class="type-select drop-down-color">Drop Down</ion-col>
-              <ion-col size="3" class="action">
-                <ion-col><label class="switch">
-                  <input type="checkbox" [checked]="false" />
-                  <span class="slider round"></span>
-                </label></ion-col>
-                <ion-col class="edit-button"><img src="assets/icon/disable-edit-button.svg" alt=""></ion-col>
                 <ion-col><img src="assets/icon/enable-delete-button.svg" alt=""></ion-col>
               </ion-col>
-            </ion-row>
-          </div>
-          <div class="content-container" slot="content">
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="5" class="text">Vehicle Fuel Capacity</ion-col>
-              <ion-col size="3" class="type-select">Number</ion-col>
-              <ion-col size="3" class="action">
+              <ion-col size="3" class="action" *ngIf="item?.isZSD">
                 <ion-col><label class="switch">
-                  <input type="checkbox" [checked]="true" />
-                  <span class="slider round"></span>
-                </label></ion-col>
-                <ion-col class="edit-button"><img src="assets/icon/disable-edit-button.svg" alt=""></ion-col>
-                <ion-col><img src="assets/icon/enable-delete-button.svg" alt=""></ion-col>
-              </ion-col>
-            </ion-row>
-          </div>
-          <div class="content-container" slot="content">
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="5" class="text">Vehicle Fuel Capacity</ion-col>
-              <ion-col size="3" class="type-select">Number</ion-col>
-              <ion-col size="3" class="action">
-                <ion-col><label class="switch">
-                  <input type="checkbox" [checked]="false" />
+                  <input type="checkbox" [checked]="item?.active" [disabled]="true" />
                   <span class="slider round"></span>
                 </label></ion-col>
                 <ion-col class="edit-button"><img src="assets/icon/disable-edit-button.svg" alt=""></ion-col>
@@ -98,7 +64,7 @@
       </ion-accordion-group>
     </ion-grid>
   </div>
-  <div class="wrapper-container">
+  <div class="wrapper-container first">
     <ion-grid>
       <ion-accordion-group
         style="background-color: transparent"
@@ -110,12 +76,13 @@
               <ion-row
                 class="ion-justify-content-between ion-align-items-center"
               >
-                <ion-col size="7" class="head">Voucher Pending Form</ion-col>
-                <ion-col size="5" class="add-variable" id="open-modal" expand="block" (click)="$event.stopPropagation()">
+                <ion-col size="7" class="head">Post Dlv. Pending Form</ion-col>
+                <ion-col size="5" class="add-variable" id="open-modal" expand="block" (click)="openModal($event , config.formSettingVariable.PostDlvPendingForm)">
                   <p class="text">Add Variable</p>
                   <p class="img">
-                    <img src="assets/icon/plusIcon.svg" alt="" /></p
-                ></ion-col>
+                    <img src="assets/icon/plusIcon.svg" alt="" />
+                  </p>
+                </ion-col>
               </ion-row>
             </ion-label>
           </ion-item>
@@ -128,39 +95,11 @@
               <ion-col size="2" class="actions">Actions</ion-col>
             </ion-row>
           </div>
-          <div class="content-container" slot="content">
+          <div class="content-container" slot="content" *ngFor="let item of variableData['post-dlv-pending-form']">
             <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="5" class="text">Shipment Number</ion-col>
-              <ion-col size="3" class="type-select">Number</ion-col>
-              <ion-col size="3" class="action">
-                <ion-col><label class="switch">
-                  <input type="checkbox" [checked]="true" />
-                  <span class="slider round"></span>
-                </label></ion-col>
-                <ion-col class="edit-button"><img src="assets/icon/disable-edit-button.svg" alt=""></ion-col>
-                <ion-col><img src="assets/icon/disable-delete-button.svg" alt=""></ion-col>
-              </ion-col>
-            </ion-row>
-          </div>
-          <div class="content-container" slot="content">
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="5" class="text">Vehicle Fuel Capacity</ion-col>
-              <ion-col size="3" class="type-select drop-down-color">Drop Down</ion-col>
-              <ion-col size="3" class="action">
-                <ion-col><label class="switch">
-                  <input type="checkbox" [checked]="false" />
-                  <span class="slider round"></span>
-                </label></ion-col>
-                <ion-col class="edit-button"><img src="assets/icon/disable-edit-button.svg" alt=""></ion-col>
-                <ion-col><img src="assets/icon/disable-delete-button.svg" alt=""></ion-col>
-              </ion-col>
-            </ion-row>
-          </div>
-          <div class="content-container" slot="content">
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="5" class="text">Vehicle Number</ion-col>
-              <ion-col size="3" class="type-select">Number</ion-col>
-              <ion-col size="3" class="action">
+              <ion-col size="5" class="text">{{item?.variableName}}</ion-col>
+              <ion-col size="3" class="type-select drop-down-color">{{item?.variableType}}</ion-col>
+              <ion-col size="3" class="action" *ngIf="!item?.isZSD">
                 <ion-col><label class="switch">
                   <input type="checkbox" [checked]="true" />
                   <span class="slider round"></span>
@@ -168,15 +107,9 @@
                 <ion-col class="edit-button"><img src="assets/icon/enable-edit-button.svg" alt=""></ion-col>
                 <ion-col><img src="assets/icon/enable-delete-button.svg" alt=""></ion-col>
               </ion-col>
-            </ion-row>
-          </div>
-          <div class="content-container" slot="content">
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="5" class="text">Vehicle Ownership</ion-col>
-              <ion-col size="3" class="type-select drop-down-color">Drop Down</ion-col>
-              <ion-col size="3" class="action">
+              <ion-col size="3" class="action" *ngIf="item?.isZSD">
                 <ion-col><label class="switch">
-                  <input type="checkbox" [checked]="false" />
+                  <input type="checkbox" [checked]="true" />
                   <span class="slider round"></span>
                 </label></ion-col>
                 <ion-col class="edit-button"><img src="assets/icon/disable-edit-button.svg" alt=""></ion-col>
@@ -189,16 +122,16 @@
     </ion-grid>
   </div>
 
-  <ion-modal #modal trigger="open-modal" [presentingElement]="presentingElement" class="model">
+  <ion-modal #modal [isOpen]="isModalOpen"  [presentingElement]="presentingElement" class="model">
     <ng-template>
       <section>
         <header>
           <div class="header">
-            <div class="img" (click)="modal.dismiss()"><img src="assets/icon/back-button.svg" alt=""></div>
+            <div class="img" (click)="closeModal();modal.dismiss()"><img src="assets/icon/back-button.svg" alt=""></div>
             <div class="head">Add New Variable</div>
           </div>
         </header>
-        <form [formGroup]="formSettings" (ngSubmit)="formSettings.valid && submitForm()">
+        <form [formGroup]="formSettings" (ngSubmit)="formSettings.valid && submitForm($event)">
           <div class="container">
             <ion-item lines="none" class="Variable">
               <ion-input
@@ -242,7 +175,7 @@
           <div class="tab-bar">
             <div>
               <ion-button type="submit" shape="round" class="active-btn">Submit</ion-button>
-              <ion-button shape="round" (click)="modal.dismiss()">Cancel</ion-button>
+              <ion-button shape="round" (click)="closeModal();modal.dismiss()">Cancel</ion-button>
             </div>
           </div>
         </form>        
