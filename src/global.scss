@@ -280,3 +280,11 @@ ion-modal::part(backdrop) {
   background: #b3c5dd;
   opacity: 1;
 }
+
+ion-modal {
+  --height: auto;
+}
+
+.d-flex {
+  display: flex;
+}

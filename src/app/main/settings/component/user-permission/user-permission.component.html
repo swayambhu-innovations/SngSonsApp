@@ -1,204 +1,218 @@
 <ion-content class="permission-container">
-    <app-header headerName="Users & Permissions"></app-header>
-    <section>
-        <div class="add-button">
-            <div class="account design" id="set-role-modal">
-                <p class="text">Add Role</p>
-                <p><img src="assets/icon/role-icon.svg" alt=""></p>
-            </div>
-            <div class="role design"  id="set-user-modal">
-                <p class="text">Add User</p>
-                <p><img src="assets/icon/user-icon.svg" alt=""></p>
-            </div>
-        </div>
-    </section>
-    <div class="wrapper-container">
-        <ion-grid>
-          <ion-accordion-group
-            style="background-color: transparent"
-            [multiple]="true"
-          >
-            <ion-accordion value="first">
-              <ion-item slot="header">
-                <ion-label class="label">
-                  <ion-row
-                    class="ion-justify-content-between ion-align-items-center"
-                  >
-                    <ion-col size="7" class="head">Users</ion-col>
-                  </ion-row>
-                </ion-label>
-              </ion-item>
-              <div slot="content" class="content">
-                <ion-row
-                  class="disabled-row ion-justify-content-between ion-align-items-center"
-                >
-                  <ion-col size="5">User</ion-col>
-                  <ion-col size="4">Role</ion-col>
-                  <ion-col size="2" class="actions">Actions</ion-col>
-                </ion-row>
-              </div>
-              <div class="content-container" slot="content" *ngFor="let number of [0,1,2,3]">
-                <ion-row class="ion-justify-content-between ion-align-items-center">
-                  <ion-col size="5" class="text">KOTAK 811</ion-col>
-                  <ion-col size="3" class="type-select drop-down-color">Manager</ion-col>
-                  <ion-col size="3" class="action">
-                    <ion-col><label class="switch">
-                      <input type="checkbox" [checked]="true" />
-                      <span class="slider round"></span>
-                    </label></ion-col>
-                    <ion-col class="edit-button"><img src="assets/icon/enable-edit-button.svg" alt=""></ion-col>
-                    <ion-col><img src="assets/icon/enable-delete-button.svg" alt=""></ion-col>
-                  </ion-col>
-                </ion-row>
-              </div>
-            </ion-accordion>
-          </ion-accordion-group>
-        </ion-grid>
+  <app-header headerName="Users & Permissions"></app-header>
+  <section>
+    <div class="add-button">
+      <div class="account design" (click)="openRole=true">
+        <p class="text">Add Role</p>
+        <p><img src="assets/icon/role-icon.svg" alt=""></p>
       </div>
-      <div class="wrapper-container">
-        <ion-grid>
-          <ion-accordion-group
-            style="background-color: transparent"
-            [multiple]="true"
-          >
-            <ion-accordion value="first">
-              <ion-item slot="header">
-                <ion-label class="label">
-                  <ion-row
-                    class="ion-justify-content-between ion-align-items-center"
-                  >
-                    <ion-col size="7" class="head">Roles</ion-col>
-                  </ion-row>
-                </ion-label>
-              </ion-item>
-              <div slot="content" class="content">
-                <ion-row
-                  class="disabled-row ion-justify-content-between ion-align-items-center"
-                >
-                  <ion-col size="5">Name</ion-col>
-                  <ion-col size="2" class="actions">Actions</ion-col>
-                </ion-row>
-              </div>
-              <div class="content-container" slot="content" *ngFor="let number of [0,1,2,3]">
-                <ion-row class="ion-justify-content-between ion-align-items-center">
-                  <ion-col size="5" class="text">Khuraki</ion-col>
-                  <ion-col size="3" class="action">
-                    <ion-col><label class="switch">
-                      <input type="checkbox" [checked]="true" />
-                      <span class="slider round"></span>
-                    </label></ion-col>
-                    <ion-col class="edit-button"><img src="assets/icon/enable-edit-button.svg" alt=""></ion-col>
-                    <ion-col><img src="assets/icon/enable-delete-button.svg" alt=""></ion-col>
-                  </ion-col>
-                </ion-row>
-              </div>
-            </ion-accordion>
-          </ion-accordion-group>
-        </ion-grid>
+      <div class="role design" (click)="openUser=true">
+        <p class="text">Add User</p>
+        <p><img src="assets/icon/user-icon.svg" alt=""></p>
       </div>
+    </div>
+  </section>
+  <div class="wrapper-container">
+    <ion-grid>
+      <ion-accordion-group style="background-color: transparent" [multiple]="true">
+        <ion-accordion value="first">
+          <ion-item slot="header">
+            <ion-label class="label">
+              <ion-row class="ion-justify-content-between ion-align-items-center">
+                <ion-col size="7" class="head">Users</ion-col>
+              </ion-row>
+            </ion-label>
+          </ion-item>
+          <div slot="content" class="content">
+            <ion-row class="disabled-row ion-justify-content-between ion-align-items-center">
+              <ion-col size="5">User</ion-col>
+              <ion-col size="4">Role</ion-col>
+              <ion-col size="2" class="actions">Actions</ion-col>
+            </ion-row>
+          </div>
+          <div class="content-container" slot="content" *ngFor="let number of [0,1,2,3]">
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="5" class="text">KOTAK 811</ion-col>
+              <ion-col size="3" class="type-select drop-down-color">Manager</ion-col>
+              <ion-col size="3" class="action">
+                <ion-col><label class="switch">
+                    <input type="checkbox" [checked]="true" />
+                    <span class="slider round"></span>
+                  </label></ion-col>
+                <ion-col class="edit-button"><img src="assets/icon/enable-edit-button.svg" alt=""></ion-col>
+                <ion-col><img src="assets/icon/enable-delete-button.svg" alt=""></ion-col>
+              </ion-col>
+            </ion-row>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+    </ion-grid>
+  </div>
+  <div class="wrapper-container">
+    <ion-grid>
+      <ion-accordion-group style="background-color: transparent" [multiple]="true">
+        <ion-accordion value="first">
+          <ion-item slot="header">
+            <ion-label class="label">
+              <ion-row class="ion-justify-content-between ion-align-items-center">
+                <ion-col size="7" class="head">Roles</ion-col>
+              </ion-row>
+            </ion-label>
+          </ion-item>
+          <div slot="content" class="content">
+            <ion-row class="disabled-row ion-justify-content-between ion-align-items-center">
+              <ion-col size="5">Name</ion-col>
+              <ion-col size="2" class="actions">Actions</ion-col>
+            </ion-row>
+          </div>
+          <div class="content-container" slot="content" *ngFor="let number of [0,1,2,3]">
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="5" class="text">Khuraki</ion-col>
+              <ion-col size="3" class="action">
+                <ion-col><label class="switch">
+                    <input type="checkbox" [checked]="true" />
+                    <span class="slider round"></span>
+                  </label></ion-col>
+                <ion-col class="edit-button"><img src="assets/icon/enable-edit-button.svg" alt=""></ion-col>
+                <ion-col><img src="assets/icon/enable-delete-button.svg" alt=""></ion-col>
+              </ion-col>
+            </ion-row>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+    </ion-grid>
+  </div>
 
-    <ion-modal
-  #modal
-  trigger="set-user-modal"
-  [initialBreakpoint]="0.62"
-  [breakpoints]="[0.62, 0.62, 0.62, 0.62]"
-  class="model"
->
+  <ion-modal #modal [canDismiss]="dismissModal" [isOpen]="openUser" [initialBreakpoint]="1" [breakpoints]="[0, 1]"
+    class="model">
     <ng-template>
-    <section>
-      <header>
-        <div class="header">
-          <div class="head">Create New User</div>
-        </div>
-      </header>
-      <div class="container">
-        <ion-item lines="none" class="Variable">
-          <ion-input
-            lines="none"
-            label="Name of Expense Type"
-            class="custom"
-            labelPlacement="floating"
-          ></ion-input>
-        </ion-item>
-        <ion-item lines="none" class="Variable">
-            <ion-input
-              lines="none"
-              label="₹ Min Dispense limit per shipment"
-              class="custom"
-              labelPlacement="floating"
-            ></ion-input>
+      <section class="user-block">
+        <header>
+          <div class="header">
+            <div class="head">Create New User</div>
+          </div>
+        </header>
+        <div class="container">
+          <ion-item lines="none" class="Variable">
+            <ion-input lines="none" label="Name of user" class="custom" labelPlacement="floating"></ion-input>
           </ion-item>
           <ion-item lines="none" class="Variable">
-            <ion-input
-              lines="none"
-              label="₹ Max Dispense limit per shipment"
-              class="custom"
-              labelPlacement="floating"
-            ></ion-input>
+            <ion-input lines="none" label="Email" class="custom"
+              labelPlacement="floating"></ion-input>
           </ion-item>
-        <ion-item class="dropdown">
-          <ion-select label="Default Dispense Account">
-            <ion-select-option value="Drop Down">Drop Down</ion-select-option>
-            <ion-select-option value="Number">Number</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </div>
-      <div class="tab-bar">
-        <div>
-          <ion-button shape="round" class="active-btn">Submit</ion-button>
-          <ion-button shape="round" (click)="modal.dismiss()">Cancel</ion-button>
+          <ion-item lines="none" class="Variable noborder">
+            <ion-radio-group class="d-flex">
+              <ion-radio>Role Based</ion-radio>
+              <ion-radio style="margin-left: 5px;">Custom Permission</ion-radio>
+            </ion-radio-group>
+          </ion-item>
+          <ion-item class="dropdown">
+            <ion-select placeholder="Role">
+              <ion-select-option value="Drop Down">Drop Down</ion-select-option>
+              <ion-select-option value="Number">Number</ion-select-option>
+            </ion-select>
+          </ion-item>
         </div>
-      </div>
-    </section>
+        <div class="tab-bar" style="bottom: 5%;">
+          <div>
+            <ion-button shape="round" class="active-btn">Submit</ion-button>
+            <ion-button shape="round" (click)="openUser=false">Cancel</ion-button>
+          </div>
+        </div>
+      </section>
     </ng-template>
-    </ion-modal>
-    <ion-modal
-  #modal
-  trigger="set-role-modal"
-  [initialBreakpoint]="0.52"
-  [breakpoints]="[0.52, 0.52, 0.52, 0.52]"
-  class="model"
->
+  </ion-modal>
+  <ion-modal #modal [canDismiss]="dismissModal" [isOpen]="openRole" [initialBreakpoint]="1" [breakpoints]="[0, 1]"
+    class="model">
     <ng-template>
-    <section>
-      <header>
-        <div class="header">
-          <div class="head">Create New Role</div>
+      <section class="role-block">
+        <header>
+          <div class="header">
+            <div class="head">Create New Role</div>
+          </div>
+        </header>
+        <div class="container">
+          <form>
+            <ion-item lines="none" class="Variable">
+              <ion-input required lines="none" label="Name of Role" class="custom"
+                labelPlacement="floating"></ion-input>
+            </ion-item>
+            <div class="permission-container">
+              <div class="head">
+                <p>Permissions</p>
+              </div>
+              <div class="name-permit">
+                <div class="header-container"><p>Name</p><p>Permit</p></div>
+                <div class="data-container">
+                  <div class="data-name"><p class="name">Upload New ZSD file</p></div>
+                  <div class="toggle">
+                    <label class="switch">
+                      <input type="checkbox" [checked]="true" />
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
+                </div>
+                <hr>
+                <div class="data-container">
+                  <div class="data-name"><p class="name">Fill Shipment Voucher</p></div>
+                  <div class="toggle">
+                    <label class="switch">
+                      <input type="checkbox" [checked]="true" />
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
+                </div>
+                <hr>
+                <div class="data-container">
+                  <div class="data-name"><p class="name">Fill post Delivery Form</p></div>
+                  <div class="toggle">
+                    <label class="switch">
+                      <input type="checkbox" [checked]="true" />
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
+                </div>
+                <hr>
+                <div class="data-container">
+                  <div class="data-name"><p class="name">Discard Vouchers</p></div>
+                  <div class="toggle">
+                    <label class="switch">
+                      <input type="checkbox" [checked]="true" />
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
+                </div>
+                <hr>
+                <div class="data-container">
+                  <div class="data-name"><p class="name">Edit Account Settings</p></div>
+                  <div class="toggle">
+                    <label class="switch">
+                      <input type="checkbox" [checked]="true" />
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
+                </div>
+                <hr>
+                <div class="data-container">
+                  <div class="data-name"><p class="name">View reports</p></div>
+                  <div class="toggle">
+                    <label class="switch">
+                      <input type="checkbox" [checked]="true" />
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
-      </header>
-      <div class="container">
-        <ion-item lines="none" class="Variable">
-          <ion-input
-            lines="none"
-            label="Name of Account"
-            class="custom"
-            labelPlacement="floating"
-          ></ion-input>
-        </ion-item>
-        <ion-item lines="none" class="Variable">
-            <ion-input
-              lines="none"
-              label="₹ max limit of Dispense per Shipment"
-              class="custom"
-              labelPlacement="floating"
-            ></ion-input>
-          </ion-item>
-          <ion-item lines="none" class="Variable">
-            <ion-input
-              lines="none"
-              label="₹ max limit of Dispense per month"
-              class="custom"
-              labelPlacement="floating"
-            ></ion-input>
-          </ion-item>
-      </div>
-      <div class="tab-bar" style="bottom: 52%;">
-        <div>
-          <ion-button shape="round" class="active-btn">Submit</ion-button>
-          <ion-button shape="round" (click)="modal.dismiss()">Cancel</ion-button>
+        <div class="tab-bar" style="bottom: 5%;">
+          <div>
+            <ion-button shape="round" class="active-btn">Submit</ion-button>
+            <ion-button shape="round" (click)="openRole=false">Cancel</ion-button>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
     </ng-template>
-    </ion-modal>
+  </ion-modal>
 </ion-content>

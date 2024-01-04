@@ -68,6 +68,12 @@ export class AccountExpenseComponent implements OnInit {
         this.getExpense();
     }
 
+    dismissModal = async () => {
+        this.openAccount = false;
+        this.openExpense = false;
+        return true;
+    }
+
     async addAccount() {
         this.loader.present();
         const formData = this.accountForm.value;
