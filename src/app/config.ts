@@ -5,7 +5,14 @@ export const Config = {
         VoucherPendingForm : 'voucher-pending-form'
     },
     messages:{
-        addedSuccessfully : 'Added Successfully'
+        addedSuccessfully : 'Added Successfully',
+        updatedSuccessfully : 'Updated Successfully',
+        deletedSuccessfully : 'Deleted Successfully',
+        pleaseWait: 'Please wait...',
+    },
+    collection: {
+        account: 'account',
+        expenseType: 'expense-type',
     }
 
 }
