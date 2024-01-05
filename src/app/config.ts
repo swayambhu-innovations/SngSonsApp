@@ -12,8 +12,6 @@ export const Config = {
   collection: {
     account: 'account',
     expenseType: 'expense-type',
-  },
-  labourMasterVariable: {
     labourMaster: 'labour-master',
   },
   storage: {

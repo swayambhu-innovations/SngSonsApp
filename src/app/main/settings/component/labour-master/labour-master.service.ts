@@ -24,8 +24,8 @@ import { Config } from 'src/app/config';
 export class LabourMasterService {
   constructor(private storage: Storage, public firestore: Firestore) {}
 
-  getLabourParty(collectionID: string) {
-    return getDocs(collection(this.firestore, collectionID));
+  getLabourParty() {
+    return getDocs(collection(this.firestore, Config.collection.labourMaster));
   }
 
   async uploadFile(file: any, path?: string) {
@@ -43,40 +43,30 @@ export class LabourMasterService {
     return deleteObject(ref(this.storage, path));
   }
 
-  addLabourParty(labourPartyId: string, LabourFormData: any) {
-    if (labourPartyId !== '')
-      return updateDoc(
-        doc(
-          this.firestore,
-          Config.labourMasterVariable.labourMaster,
-          labourPartyId
-        ),
-        LabourFormData
-      );
-    else
-      return addDoc(
-        collection(this.firestore, Config.labourMasterVariable.labourMaster),
-        LabourFormData
-      );
+  updLabourType(labourPartyId: string, status: boolean) {
+    return updateDoc(
+      doc(this.firestore, Config.collection.labourMaster, labourPartyId),
+      { active: status }
+    );
   }
 
-  editLabourParty(labourPartyId: string) {
-    return getDoc(
-      doc(
-        this.firestore,
-        Config.labourMasterVariable.labourMaster,
-        labourPartyId
-      )
-    );
+  addLabourParty(labourData: any) {
+    if (!labourData.id) {
+      return addDoc(
+        collection(this.firestore, Config.collection.labourMaster),
+        labourData
+      );
+    } else {
+      return updateDoc(
+        doc(this.firestore, Config.collection.labourMaster, labourData.id),
+        labourData
+      );
+    }
   }
 
   deleteLabourParty(labourPartyId: string) {
     return deleteDoc(
-      doc(
-        this.firestore,
-        Config.labourMasterVariable.labourMaster,
-        labourPartyId
-      )
+      doc(this.firestore, Config.collection.labourMaster, labourPartyId)
     );
   }
 }

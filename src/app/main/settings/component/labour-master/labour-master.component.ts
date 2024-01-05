@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { LabourMasterService } from './labour-master.service';
 import { Config } from 'src/app/config';
 import { NotificationService } from 'src/app/utils/notification';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-labour-master',
@@ -16,22 +12,37 @@ import { NotificationService } from 'src/app/utils/notification';
   styleUrls: ['./labour-master.component.scss'],
 })
 export class LabourMasterComponent implements OnInit {
-  labourForm!: FormGroup;
-  presentingElement: any = '' || null;
   file: any;
   isModalOpen: boolean = false; // checking if ion-modal is open/close
   public labourData: any; // Store data of all Labour Parties
-  public labourPartyID = ''; // to stotre ID of labor-party selected
   public config = Config; // fetching constant from app config file
-  public memberData: any;
+  private loader: any;
+  public toDelete: any;
+  public showConfirm = false;
 
   constructor(
-    private formBuilder: FormBuilder,
     private labourMasterService: LabourMasterService,
     private loadingController: LoadingController,
     private notificationService: NotificationService,
-    private modalController: ModalController
-  ) {}
+    private modalController: ModalController,
+    private sharedService: SharedService
+  ) {
+    this.sharedService.refresh.subscribe((data) => {
+      if (data) {
+        this.init();
+      }
+    });
+  }
+
+  labourForm: FormGroup = new FormGroup({
+    labourPartyName: new FormControl('', [Validators.required]),
+    paymentDispenseLimits: new FormControl('', [Validators.required]),
+    paymentAcc: new FormControl(null, [Validators.required]),
+    labourProfileImg: new FormControl('', []),
+    active: new FormControl(true, []),
+    createdAt: new FormControl(new Date(), []),
+    id: new FormControl(''),
+  });
 
   paymentMethod: string[] = ['Paytm', 'PhonePe', 'Google Pay', 'Bhim UPI'];
 
@@ -39,25 +50,20 @@ export class LabourMasterComponent implements OnInit {
     'https://ik.imagekit.io/xji6otwwkb/default-image.jpg?updatedAt=1680849653455';
 
   async ngOnInit() {
-    this.presentingElement = document.querySelector('.ion-page');
-    let loader = await this.loadingController.create({
-      message: 'Please wait...',
+    this.loader = await this.loadingController.create({
+      message: Config.messages.pleaseWait,
     });
-    loader.present();
-    await this.getLabourParty(this.config.labourMasterVariable.labourMaster);
-    this.labourForm = this.formBuilder.group({
-      labourPartyName: new FormControl('', [Validators.required]),
-      paymentDispenseLimits: new FormControl('', [Validators.required]),
-      paymentAcc: new FormControl(null, [Validators.required]),
-      labourProfileImg: new FormControl('', []),
-      active: new FormControl(true, []),
-      createdAt: new FormControl(new Date(), []),
-    });
-    loader.dismiss();
+    this.init();
   }
 
   get f() {
     return this.labourForm.controls;
+  }
+
+  async init() {
+    this.loader.present();
+    await this.getLabourParty();
+    this.loader.dismiss();
   }
 
   async uploadPic(e: any) {
@@ -74,79 +80,79 @@ export class LabourMasterComponent implements OnInit {
       'https://ik.imagekit.io/xji6otwwkb/default-image.jpg?updatedAt=1680849653455';
   }
 
-  closeModal() {
+  closeModal = async () => {
     this.labourForm.reset();
     this.removePic();
     this.isModalOpen = false;
-    this.modalController.dismiss();
-  }
+    return true;
+  };
 
-  async getLabourParty(collectionID: string) {
-    const data = await this.labourMasterService.getLabourParty(collectionID);
-    this.labourData = data.docs.map((item) => {
-      return { ...item.data(), id: item.id };
+  async getLabourParty() {
+    const data = await this.labourMasterService.getLabourParty();
+    this.labourData = data.docs.map((labour) => {
+      return { ...labour.data(), id: labour.id };
     });
   }
 
-  async editDetails(event: any, labourPartyId: string) {
+  async updLabourStatus($event: any, labourId: string, status: boolean) {
+    $event.stopPropagation();
+    this.loader.present();
+    await this.labourMasterService.updLabourType(labourId, status);
+    await this.getLabourParty();
+    this.loader.dismiss();
+  }
+
+  async editDetails(event: any, labourParty: any) {
     event.stopPropagation();
+    this.labourForm.setValue(labourParty);
+    this.labourPicSrc = this.labourForm.controls['labourPicSrc'].value;
     this.isModalOpen = true;
-    this.labourPartyID = labourPartyId;
-    this.memberData = await this.labourMasterService.editLabourParty(
-      labourPartyId
-    );
   }
 
-  async deleteLabourParty(labourPartyId: string) {
-    await this.labourMasterService
-      .deleteLabourParty(labourPartyId)
-      .then((res) => {
-        this.notificationService.showSuccess(
-          this.config.messages.deletedSuccessfully
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-        this.notificationService.showError('Error deleting Image');
-      });
-    await this.getLabourParty(this.config.labourMasterVariable.labourMaster);
+  async deleteLabourParty(confirmation: any) {
+    if (confirmation) {
+      this.loader.present();
+      await this.labourMasterService.deleteLabourParty(this.toDelete.id);
+      await this.getLabourParty();
+      this.loader.dismiss();
+      this.notificationService.showSuccess(
+        this.config.messages.deletedSuccessfully
+      );
+    }
+    this.showConfirm = false;
   }
 
-  async onSubmit(labourPartyId: string) {
+  async onSubmit() {
     if (this.labourForm.invalid) return;
 
-    // if (this.labourForm.controls['labourPartyName'].value != '')
-    //   await this.labourMasterService
-    //     .uploadFile(this.file)
-    //     .then((url) => {
-    //       this.labourForm.setValue({ labourProfileImg: url });
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //       this.notificationService.showError('Error uploading Image');
-    //       return;
-    //     });
+    this.loader.present();
+    try {
+      const url = await this.labourMasterService.uploadFile(this.file);
+      this.labourForm.controls['labourProfileImg'].patchValue(url);
+      // this.labourForm.setValue({ labourProfileImg: url });
 
-    if (this.labourForm.controls['labourProfileImg'].value != '')
-      await this.labourMasterService
-        .addLabourParty(labourPartyId, this.labourForm.value)
-        .then((res) => {
-          this.labourForm.reset();
-          this.isModalOpen = false;
-          this.removePic();
-          this.modalController.dismiss();
-          this.notificationService.showSuccess(
-            labourPartyId === ''
-              ? this.config.messages.addedSuccessfully
-              : this.config.messages.updatedSuccessfully
-          );
-        })
-        .catch((err) => {
-          console.log(err);
-          this.notificationService.showError('Something Went Wrong');
-          return;
-        });
+      // if (this.labourForm.controls['labourProfileImg'].value != '')
 
-    await this.getLabourParty(this.config.labourMasterVariable.labourMaster);
+      await this.labourMasterService.addLabourParty(this.labourForm.value);
+
+      this.labourForm.reset();
+      this.removePic();
+      await this.getLabourParty();
+      if (this.labourForm.controls['id'].value == '')
+        this.notificationService.showSuccess(
+          this.config.messages.addedSuccessfully
+        );
+      else
+        this.notificationService.showSuccess(
+          this.config.messages.updatedSuccessfully
+        );
+      this.isModalOpen = false;
+      this.modalController.dismiss();
+    } catch (error) {
+      console.log(error);
+      this.notificationService.showError('Something Went Wrong');
+      return;
+    }
+    this.loader.dismiss();
   }
 }
