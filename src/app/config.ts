@@ -13,6 +13,8 @@ export const Config = {
     collection: {
         account: 'account',
         expenseType: 'expense-type',
+        settings : 'settings',
+        variables : 'variables',
         role: 'role',
         users: 'users',
     },
