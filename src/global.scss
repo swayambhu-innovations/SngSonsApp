@@ -288,3 +288,7 @@ ion-modal {
 .d-flex {
   display: flex;
 }
+
+ion-item.ion-invalid {
+  border: 1px solid red !important;
+}
