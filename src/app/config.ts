@@ -7,7 +7,11 @@ export const Config = {
     addedSuccessfully: 'Added Successfully',
     updatedSuccessfully: 'Updated Successfully',
     deletedSuccessfully: 'Deleted Successfully',
-    uploadedSuccessfully: 'Image Uploaded Successfully',
+    pleaseWait: 'Please wait...',
+  },
+  collection: {
+    account: 'account',
+    expenseType: 'expense-type',
   },
   labourMasterVariable: {
     labourMaster: 'labour-master',

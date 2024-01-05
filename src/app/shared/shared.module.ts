@@ -5,14 +5,25 @@ import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
 import { RouterModule } from "@angular/router";
 import { HeaderComponent } from "./components/header/header.component";
+import { ConfirmationComponent } from "../main/common/confirmation/confirmation.component";
 
 @NgModule({
-    declarations:[FooterComponent , HeaderComponent],
-    imports:[CommonModule,
+    declarations:[
+        FooterComponent,
+        HeaderComponent,
+        ConfirmationComponent
+    ],
+    imports:[
+        CommonModule,
         FormsModule,
         IonicModule,
-    RouterModule],
-    exports:[FooterComponent , HeaderComponent]
+        RouterModule
+    ],
+    exports:[
+        FooterComponent,
+        HeaderComponent,
+        ConfirmationComponent
+    ]
 })
 
 export class SharedModule{}
