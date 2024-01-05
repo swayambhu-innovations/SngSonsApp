@@ -102,7 +102,7 @@
           </div>
         </header>
         <div class="container">
-          <form [formGroup]="expenseForm" (ngSubmit)="expenseForm.valid && addExpense()">
+          <form [formGroup]="expenseForm" (ngSubmit)="addExpense()">
             <ion-item lines="none" class="Variable">
               <ion-input lines="none" label="Name of Expense Type" class="custom" formControlName="expenseName"
                 labelPlacement="floating"></ion-input>
@@ -124,7 +124,7 @@
             <div class="tab-bar" style="bottom: 5%;">
               <div>
                 <ion-button shape="round" type="submit" class="active-btn">Submit</ion-button>
-                <ion-button shape="round" (click)="openExpense = false; expenseForm.reset();">Cancel</ion-button>
+                <ion-button shape="round" (click)="openExpense = false; expenseForm.reset(initialExpenseValues);">Cancel</ion-button>
               </div>
             </div>
           </form>
@@ -141,7 +141,7 @@
           </div>
         </header>
         <div class="container">
-          <form [formGroup]="accountForm" (ngSubmit)="accountForm.valid && addAccount()">
+          <form [formGroup]="accountForm" (ngSubmit)="addAccount()">
             <ion-item lines="none" class="Variable">
               <ion-input lines="none" label="Name of Account" class="custom" type="text" formControlName="accountName"
                 labelPlacement="floating"></ion-input>
@@ -158,7 +158,7 @@
             <div class="tab-bar" style="bottom: 5%;">
               <div>
                 <ion-button shape="round" type="Submit" class="active-btn">Submit</ion-button>
-                <ion-button shape="round" (click)="openAccount = false; accountForm.reset();">Cancel</ion-button>
+                <ion-button shape="round" (click)="openAccount = false; accountForm.reset(initialAccountValues);">Cancel</ion-button>
               </div>
             </div>
           </form>

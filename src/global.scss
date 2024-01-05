@@ -289,6 +289,10 @@ ion-modal {
   display: flex;
 }
 
-ion-item.ion-invalid {
+ion-item.ion-touched.ion-invalid {
   border: 1px solid red !important;
+}
+
+.hidden {
+  visibility: hidden !important;
 }
