@@ -23,7 +23,6 @@ export class AccountExpenseComponent implements OnInit {
     ) {
         this.sharedService.refresh.subscribe((data) => {
             if (data) {
-                console.log(data);
                 this.init();
             }
         });
