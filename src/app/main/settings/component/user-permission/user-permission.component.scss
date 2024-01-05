@@ -313,6 +313,10 @@ ion-grid {
 .user-block {
   width: 100%;
   height: 440px;
+
+  &.custom {
+    height: 690px;
+  }
 }
 
 .permission-container {

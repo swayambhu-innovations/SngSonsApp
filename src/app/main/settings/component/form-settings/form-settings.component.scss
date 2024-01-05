@@ -7,7 +7,7 @@ ion-col {
 }
 
 .drop-down-color {
-  color: var(--Primary, #1540bd) !important;
+  color: var(--Primary, #1540bd);
 }
 .d-flex{
   display: flex;
@@ -119,7 +119,6 @@ ion-col {
       }
 
       .type-select {
-        color: #31bd58;
         font-size: 13px;
         font-weight: 400;
       }
