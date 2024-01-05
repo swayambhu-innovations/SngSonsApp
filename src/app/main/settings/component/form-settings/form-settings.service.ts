@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import {
     Firestore,
     addDoc,
+    updateDoc,
     collection,
     collectionData,
     collectionGroup,
@@ -10,6 +11,7 @@ import {
     getDocs,
     query,
     where,
+    deleteDoc
   } from '@angular/fire/firestore';
 
 @Injectable({
@@ -26,4 +28,12 @@ export class FormSettingService{
     addSettings(formId: string, settingData: any) {
         return addDoc(collection(this.firestore, 'settings', formId, 'variables'), settingData);
     }
+
+    updateSettings(formId: string , variableData : any){
+        return updateDoc(doc(this.firestore, 'settings', formId , 'variables', variableData?.id), {...variableData});
+      }
+    
+    deleteSettings(formId: string , variableId : string){
+        return deleteDoc(doc(this.firestore, 'settings', formId , 'variables' , variableId));
+    }  
 } 

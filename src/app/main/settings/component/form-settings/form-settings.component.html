@@ -44,11 +44,11 @@
               <ion-col size="3" class="type-select drop-down-color">{{item?.variableType}}</ion-col>
               <ion-col size="3" class="action" *ngIf="!item?.isZSD">
                 <ion-col><label class="switch">
-                  <input type="checkbox" [checked]="true" />
+                  <input type="checkbox" [checked]="item?.active" />
                   <span class="slider round"></span>
                 </label></ion-col>
-                <ion-col class="edit-button"><img src="assets/icon/enable-edit-button.svg" alt=""></ion-col>
-                <ion-col><img src="assets/icon/enable-delete-button.svg" alt=""></ion-col>
+                <ion-col class="edit-button" (click)="editVariable(item , config.formSettingVariable.VoucherPendingForm)"><img src="assets/icon/enable-edit-button.svg" alt=""></ion-col>
+                <ion-col (click)="deleteAlert=true;deleteVariable(item.id , config.formSettingVariable.VoucherPendingForm)"><img src="assets/icon/enable-delete-button.svg" alt=""></ion-col>
               </ion-col>
               <ion-col size="3" class="action" *ngIf="item?.isZSD">
                 <ion-col><label class="switch">
@@ -101,7 +101,7 @@
               <ion-col size="3" class="type-select drop-down-color">{{item?.variableType}}</ion-col>
               <ion-col size="3" class="action" *ngIf="!item?.isZSD">
                 <ion-col><label class="switch">
-                  <input type="checkbox" [checked]="true" />
+                  <input type="checkbox" [checked]="item?.active" />
                   <span class="slider round"></span>
                 </label></ion-col>
                 <ion-col class="edit-button"><img src="assets/icon/enable-edit-button.svg" alt=""></ion-col>
@@ -131,7 +131,7 @@
             <div class="head">Add New Variable</div>
           </div>
         </header>
-        <form [formGroup]="formSettings" (ngSubmit)="formSettings.valid && submitForm($event)">
+        <form [formGroup]="formSettings" (ngSubmit)="formSettings.valid && submitForm()">
           <div class="container">
             <ion-item lines="none" class="Variable">
               <ion-input
@@ -182,4 +182,10 @@
       </section>
     </ng-template>
   </ion-modal>
+
+  <ion-alert
+  [isOpen]="deleteAlert"
+  header="Are You Sure"
+  [buttons]='alertButtons'  
+></ion-alert>
 </ion-content>

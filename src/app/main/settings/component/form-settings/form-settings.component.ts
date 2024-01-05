@@ -30,6 +30,8 @@ export class FormSettingComponent implements OnInit{
         'post-dlv-pending-form': [],
         'voucher-pending-form': []
     }
+    deleteAlert:boolean=false;
+    variableId:string='';
 
     constructor(
         private formSettingService: FormSettingService,
@@ -66,11 +68,50 @@ export class FormSettingComponent implements OnInit{
         this.variableData[formId] = variables;
     }
 
-    async submitForm(event:any){         
-        await this.formSettingService.addSettings(this.formVariable, this.formSettings.value);
+    async submitForm(){          
+        console.log(this.formSettings);
+        if(this.formSettings.value.id==null) {
+            await this.formSettingService.addSettings(this.formVariable, this.formSettings.value);
+            this.notificationService.showSuccess(this.config.messages.addedSuccessfully);
+        } 
+        else {
+            await this.formSettingService.updateSettings(this.formVariable, this.formSettings.value);
+            this.notificationService.showSuccess(this.config.messages.updatedSuccessfully);
+        }   
         this.formSettings.reset();
         this.getSettings(this.formVariable);
-        this.notificationService.showSuccess(this.config.messages.addedSuccessfully);
-        this.modalCtrl.dismiss();
+        this.modalCtrl.dismiss();        
+        this.isModalOpen=false;
     }
+
+    editVariable(variableData:any , formId:string) {
+        this.isModalOpen=true;
+        this.formVariable=formId;
+        this.formSettings.setValue(variableData);
+    }
+
+    async deleteVariable(variableId : string , formVariable : string) {
+        this.formVariable = formVariable;
+        this.variableId = variableId;
+    }
+
+    public alertButtons = [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            this.deleteAlert=false
+          },
+        },
+        {
+          text: 'OK',
+          role: 'confirm',
+          handler: async () => {
+            await this.formSettingService.deleteSettings(this.formVariable , this.variableId)
+            this.deleteAlert=false
+            this.getSettings(this.formVariable);
+          },
+        },
+      ];
+    
 } 

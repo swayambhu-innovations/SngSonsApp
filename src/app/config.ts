@@ -5,7 +5,9 @@ export const Config = {
         VoucherPendingForm : 'voucher-pending-form'
     },
     messages:{
-        addedSuccessfully : 'Added Successfully'
+        addedSuccessfully : 'Added Successfully',
+        updatedSuccessfully : 'Updated Successfully',
+        areYouSure : 'Are You Sure'
     }
 
 }
