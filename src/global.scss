@@ -64,6 +64,10 @@
 
   input:checked + .slider {
     background: #1540bd;
+
+    &.disabled {
+      background: #adadad;
+    }
   }
 
   input:focus + .slider {
