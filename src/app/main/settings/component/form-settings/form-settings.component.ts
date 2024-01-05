@@ -23,6 +23,7 @@ export class FormSettingComponent implements OnInit{
         isZSD: new FormControl(false, []),
         id: new FormControl('')
     });
+    public formInitalValue = this.formSettings.value;
     isModalOpen:boolean=false;
     public config = Config;
     public formVariable='';
@@ -30,8 +31,10 @@ export class FormSettingComponent implements OnInit{
         'post-dlv-pending-form': [],
         'voucher-pending-form': []
     }
-    deleteAlert:boolean=false;
     variableId:string='';
+    public showConfirm = false;
+    public toDelete: any;
+    private loader: any;
 
     constructor(
         private formSettingService: FormSettingService,
@@ -42,11 +45,11 @@ export class FormSettingComponent implements OnInit{
     
     async ngOnInit() {
         this.presentingElement = document.querySelector('.ion-page');
-        let loader = await this.loadingController.create({message:'Please wait...'});
-        loader.present();
+        this.loader = await this.loadingController.create({message:'Please wait...'});
+        this.loader.present();
         await this.getSettings(this.config.formSettingVariable.PostDlvPendingForm);
         await this.getSettings(this.config.formSettingVariable.VoucherPendingForm);
-        loader.dismiss();
+        this.loader.dismiss();
     }
 
     openModal(event:any , formId:string) {
@@ -57,7 +60,7 @@ export class FormSettingComponent implements OnInit{
 
     closeModal(){
         this.isModalOpen=false;     
-        this.formSettings.reset();
+        this.formSettings.reset(this.formInitalValue);
     }
  
     async getSettings(formId: string) {
@@ -70,7 +73,7 @@ export class FormSettingComponent implements OnInit{
 
     async submitForm(){          
         console.log(this.formSettings);
-        if(this.formSettings.value.id==null) {
+        if(this.formSettings.value.id=='') {
             await this.formSettingService.addSettings(this.formVariable, this.formSettings.value);
             this.notificationService.showSuccess(this.config.messages.addedSuccessfully);
         } 
@@ -78,7 +81,7 @@ export class FormSettingComponent implements OnInit{
             await this.formSettingService.updateSettings(this.formVariable, this.formSettings.value);
             this.notificationService.showSuccess(this.config.messages.updatedSuccessfully);
         }   
-        this.formSettings.reset();
+        this.formSettings.reset(this.formInitalValue);
         this.getSettings(this.formVariable);
         this.modalCtrl.dismiss();        
         this.isModalOpen=false;
@@ -90,28 +93,23 @@ export class FormSettingComponent implements OnInit{
         this.formSettings.setValue(variableData);
     }
 
-    async deleteVariable(variableId : string , formVariable : string) {
-        this.formVariable = formVariable;
-        this.variableId = variableId;
+    async delete(confirmation: any) {
+        if (confirmation) {
+            this.loader.present();
+            await this.formSettingService.deleteSettings(this.toDelete.formSettingVariable , this.toDelete.id );
+            await this.getSettings(this.toDelete.formSettingVariable);            
+            this.loader.dismiss();
+            this.notificationService.showSuccess(this.config.messages.deletedSuccessfully);
+        }
+        this.showConfirm = false;
     }
 
-    public alertButtons = [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-            this.deleteAlert=false
-          },
-        },
-        {
-          text: 'OK',
-          role: 'confirm',
-          handler: async () => {
-            await this.formSettingService.deleteSettings(this.formVariable , this.variableId)
-            this.deleteAlert=false
-            this.getSettings(this.formVariable);
-          },
-        },
-      ];
+    async updAccountStatus($event: any, variableId: string, status: boolean , formVariable : string) {
+        $event.stopPropagation();
+        this.loader.present();
+        await this.formSettingService.updAccountStatus(formVariable, status , variableId);
+        await this.getSettings(formVariable);
+        this.loader.dismiss();
+    }
     
 } 

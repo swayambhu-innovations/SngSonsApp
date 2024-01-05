@@ -115,6 +115,7 @@ ion-col {
         font-size: 13px;
         font-weight: 400;
         text-wrap: wrap;
+        position: relative;
       }
 
       .type-select {
@@ -294,4 +295,10 @@ ion-col {
   color: var(--Waiting-Post-Delivery-Vehicles, #D97A07);
   font-size: 8px;
   font-weight: 400;
+  position:absolute;
+  bottom: -50%;
+}
+
+.disable input:checked + .slider{
+  background-color: #ADADAD;
 }
