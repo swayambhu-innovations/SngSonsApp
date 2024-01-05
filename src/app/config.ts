@@ -7,6 +7,7 @@ export const Config = {
     messages:{
         addedSuccessfully : 'Added Successfully',
         updatedSuccessfully : 'Updated Successfully',
+        areYouSure : 'Are You Sure',
         deletedSuccessfully : 'Deleted Successfully',
         pleaseWait: 'Please wait...',
     },
