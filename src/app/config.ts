@@ -7,7 +7,13 @@ export const Config = {
     messages:{
         addedSuccessfully : 'Added Successfully',
         updatedSuccessfully : 'Updated Successfully',
-        areYouSure : 'Are You Sure'
+        areYouSure : 'Are You Sure',
+        deletedSuccessfully : 'Deleted Successfully',
+        pleaseWait: 'Please wait...',
+    },
+    collection: {
+        account: 'account',
+        expenseType: 'expense-type',
     }
 
 }
