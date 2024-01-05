@@ -1,5 +1,4 @@
 export const Config = {
-
     formSettingVariable:{
         PostDlvPendingForm : 'post-dlv-pending-form',
         VoucherPendingForm : 'voucher-pending-form'
@@ -14,6 +13,15 @@ export const Config = {
     collection: {
         account: 'account',
         expenseType: 'expense-type',
+        role: 'role',
+        users: 'users',
+    },
+    permissions: {
+        upload_new_zsd_file: 'UPLOAD_NEW_ZSD_FILE',
+        fill_shipment_voucher: 'FILL_SHIPMENT_VOUCHER',
+        fill_post_delivery_form: 'FILL_POST_DELIVERY_FORM',
+        discard_vouchers: 'DISCARD_VOUCHERS',
+        edit_account_settings: 'EDIT_ACCOUNT_SETTINGS',
+        view_reports: 'VIEW_REPORTS',
     }
-
 }
