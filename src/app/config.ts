@@ -15,12 +15,14 @@ export const Config = {
     expenseType: 'expense-type',
     settings: 'settings',
     labourMaster: 'labour-master',
+    vendorMaster: 'vendor-master',
     variables: 'variables',
     role: 'role',
     users: 'users',
   },
   storage: {
     labourParty: 'labourParty-Library',
+    vendors: 'vendors-Library',
   },
   permissions: {
     upload_new_zsd_file: 'UPLOAD_NEW_ZSD_FILE',

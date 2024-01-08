@@ -6,7 +6,11 @@ const routes: Routes = [
   {
     path: '',
     component: VendorMasterComponent
+  },  {
+    path: 'add-vendor',
+    loadChildren: () => import('./add-vendor/add-vendor.module').then( m => m.AddVendorPageModule)
   }
+
 ];
 
 @NgModule({
