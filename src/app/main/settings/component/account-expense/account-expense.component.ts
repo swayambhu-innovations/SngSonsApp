@@ -17,13 +17,11 @@ export class AccountExpenseComponent implements OnInit {
     constructor(
         private notification: NotificationService,
         private loadingController: LoadingController,
-        private modalCtrl: ModalController,
         private accountExpenseService: AccountExpenseService,
         private sharedService: SharedService
     ) {
         this.sharedService.refresh.subscribe((data) => {
             if (data) {
-                console.log(data);
                 this.init();
             }
         });
@@ -47,6 +45,7 @@ export class AccountExpenseComponent implements OnInit {
         createdAt: new FormControl(new Date(), []),
         id: new FormControl('')
     });
+    public initialAccountValues = this.accountForm.value;
 
     expenseForm: FormGroup = new FormGroup({
         expenseName: new FormControl('', [Validators.required]),
@@ -57,6 +56,7 @@ export class AccountExpenseComponent implements OnInit {
         createdAt: new FormControl(new Date(), []),
         id: new FormControl('')
     });
+    public initialExpenseValues = this.expenseForm.value;
 
     async ngOnInit() {
         this.loader = await this.loadingController.create({ message: Config.messages.pleaseWait })
@@ -71,14 +71,20 @@ export class AccountExpenseComponent implements OnInit {
     dismissModal = async () => {
         this.openAccount = false;
         this.openExpense = false;
+        this.accountForm.reset(this.initialAccountValues);
+        this.expenseForm.reset(this.initialExpenseValues);
         return true;
     }
 
     async addAccount() {
+        if (!this.accountForm.valid) {
+            this.accountForm.markAllAsTouched();
+            return;
+        }
         this.loader.present();
         const formData = this.accountForm.value;
         await this.accountExpenseService.addAccounts(formData);
-        this.accountForm.reset();
+        this.accountForm.reset(this.initialAccountValues);
         this.getAccounts();
         this.notification.showSuccess(!formData.id ? this.config.messages.addedSuccessfully : this.config.messages.updatedSuccessfully);
         this.openAccount = false;
@@ -126,10 +132,14 @@ export class AccountExpenseComponent implements OnInit {
     }
 
     async addExpense() {
+        if (!this.expenseForm.valid) {
+            this.expenseForm.markAllAsTouched();
+            return;
+        }
         this.loader.present();
         const formData = this.expenseForm.value;
         await this.accountExpenseService.addExpenseType(formData);
-        this.expenseForm.reset();
+        this.expenseForm.reset(this.initialExpenseValues);
         this.getExpense();
         this.notification.showSuccess(!formData.id ? this.config.messages.addedSuccessfully : this.config.messages.updatedSuccessfully);
         this.openExpense = false;

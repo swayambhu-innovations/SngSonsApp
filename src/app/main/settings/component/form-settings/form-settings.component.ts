@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormSettingService } from './form-settings.service';
+import { Config } from 'src/app/config';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { NotificationService } from 'src/app/utils/notification';
-import { Config } from 'src/app/config';
 
 @Component({
   selector: 'app-form-setting',
@@ -22,6 +22,7 @@ export class FormSettingComponent implements OnInit {
     isZSD: new FormControl(false, []),
     id: new FormControl(''),
   });
+  public formInitalValue = this.formSettings.value;
   isModalOpen: boolean = false;
   public config = Config;
   public formVariable = '';
@@ -29,6 +30,10 @@ export class FormSettingComponent implements OnInit {
     'post-dlv-pending-form': [],
     'voucher-pending-form': [],
   };
+  variableId: string = '';
+  public showConfirm = false;
+  public toDelete: any;
+  private loader: any;
 
   constructor(
     private formSettingService: FormSettingService,
@@ -39,13 +44,13 @@ export class FormSettingComponent implements OnInit {
 
   async ngOnInit() {
     this.presentingElement = document.querySelector('.ion-page');
-    let loader = await this.loadingController.create({
+    this.loader = await this.loadingController.create({
       message: 'Please wait...',
     });
-    loader.present();
+    this.loader.present();
     await this.getSettings(this.config.formSettingVariable.PostDlvPendingForm);
     await this.getSettings(this.config.formSettingVariable.VoucherPendingForm);
-    loader.dismiss();
+    this.loader.dismiss();
   }
 
   openModal(event: any, formId: string) {
@@ -56,7 +61,7 @@ export class FormSettingComponent implements OnInit {
 
   closeModal() {
     this.isModalOpen = false;
-    this.formSettings.reset();
+    this.formSettings.reset(this.formInitalValue);
   }
 
   async getSettings(formId: string) {
@@ -67,16 +72,70 @@ export class FormSettingComponent implements OnInit {
     this.variableData[formId] = variables;
   }
 
-  async submitForm(event: any) {
-    await this.formSettingService.addSettings(
-      this.formVariable,
-      this.formSettings.value
-    );
-    this.formSettings.reset();
+  async submitForm() {
+    if (!this.formSettings.valid) {
+      this.formSettings.markAllAsTouched();
+      return;
+    }
+    if (this.formSettings.value.id == '') {
+      await this.formSettingService.addSettings(
+        this.formVariable,
+        this.formSettings.value
+      );
+      this.notificationService.showSuccess(
+        this.config.messages.addedSuccessfully
+      );
+    } else {
+      await this.formSettingService.updateSettings(
+        this.formVariable,
+        this.formSettings.value
+      );
+      this.notificationService.showSuccess(
+        this.config.messages.updatedSuccessfully
+      );
+    }
+    this.formSettings.reset(this.formInitalValue);
     this.getSettings(this.formVariable);
-    this.notificationService.showSuccess(
-      this.config.messages.addedSuccessfully
-    );
     this.modalCtrl.dismiss();
+    this.isModalOpen = false;
+  }
+
+  editVariable(variableData: any, formId: string) {
+    this.isModalOpen = true;
+    this.formVariable = formId;
+    this.formSettings.setValue(variableData);
+  }
+
+  async delete(confirmation: any) {
+    if (confirmation) {
+      this.loader.present();
+      await this.formSettingService.deleteSettings(
+        this.toDelete.formSettingVariable,
+        this.toDelete.id
+      );
+      await this.getSettings(this.toDelete.formSettingVariable);
+      this.loader.dismiss();
+      this.notificationService.showSuccess(
+        this.config.messages.deletedSuccessfully
+      );
+    }
+    this.showConfirm = false;
+  }
+
+  async updAccountStatus(
+    $event: any,
+    variableId: string,
+    status: boolean,
+    formVariable: string
+  ) {
+    $event.stopPropagation();
+    this.loader.present();
+    await this.formSettingService.updAccountStatus(
+      formVariable,
+      status,
+      variableId
+    );
+    await this.getSettings(formVariable);
+    this.loader.dismiss();
   }
 }
