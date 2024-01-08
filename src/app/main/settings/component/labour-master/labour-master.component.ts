@@ -12,7 +12,7 @@ import { SharedService } from 'src/app/shared/shared.service';
   styleUrls: ['./labour-master.component.scss'],
 })
 export class LabourMasterComponent implements OnInit {
-  file: any;
+  private file: any;
   isModalOpen: boolean = false; // checking if ion-modal is open/close
   public labourData: any; // Store data of all Labour Parties
   public config = Config; // fetching constant from app config file
@@ -38,7 +38,7 @@ export class LabourMasterComponent implements OnInit {
     labourPartyName: new FormControl('', [Validators.required]),
     paymentDispenseLimits: new FormControl('', [Validators.required]),
     paymentAcc: new FormControl(null, [Validators.required]),
-    labourProfileImg: new FormControl('', []),
+    labourProfileImg: new FormControl(),
     active: new FormControl(true, []),
     createdAt: new FormControl(new Date(), []),
     id: new FormControl(''),
@@ -105,7 +105,7 @@ export class LabourMasterComponent implements OnInit {
   async editDetails(event: any, labourParty: any) {
     event.stopPropagation();
     this.labourForm.setValue(labourParty);
-    this.labourPicSrc = this.labourForm.controls['labourPicSrc'].value;
+    this.labourPicSrc = this.labourForm.value?.labourProfileImg;
     this.isModalOpen = true;
   }
 
@@ -125,13 +125,12 @@ export class LabourMasterComponent implements OnInit {
   async onSubmit() {
     if (this.labourForm.invalid) return;
 
-    this.loader.present();
     try {
-      const url = await this.labourMasterService.uploadFile(this.file);
-      this.labourForm.controls['labourProfileImg'].patchValue(url);
-      // this.labourForm.setValue({ labourProfileImg: url });
-
-      // if (this.labourForm.controls['labourProfileImg'].value != '')
+      this.loader.present();
+      if (this.file) {
+        const url = await this.labourMasterService.uploadFile(this.file);
+        this.labourForm.patchValue({ labourProfileImg: url as string });
+      }
 
       await this.labourMasterService.addLabourParty(this.labourForm.value);
 
@@ -146,6 +145,7 @@ export class LabourMasterComponent implements OnInit {
         this.notificationService.showSuccess(
           this.config.messages.updatedSuccessfully
         );
+      this.loader.dismiss();
       this.isModalOpen = false;
       this.modalController.dismiss();
     } catch (error) {
@@ -153,6 +153,5 @@ export class LabourMasterComponent implements OnInit {
       this.notificationService.showError('Something Went Wrong');
       return;
     }
-    this.loader.dismiss();
   }
 }
