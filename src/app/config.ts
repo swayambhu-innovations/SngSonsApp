@@ -34,6 +34,6 @@ export const Config = {
   },
   hardData: {
     postalCode: ['226029', '211001', '110241', '224531'],
-    shippingType: ['Truck', 'Trailor'],
+    shippingType: ['Truck', 'Mini-Truck'],
   },
 };
