@@ -21,6 +21,7 @@ import { Config } from "src/app/config";
 })
 
 export class LoginPermissionService {
+    showOtp = false;
     constructor(
         public firestore: Firestore,
         private router: Router,
@@ -61,6 +62,7 @@ export class LoginPermissionService {
 
     logout(loader: any) {
         loader.present();
+        this.showOtp = false;
         this.auth.signOut().then(() => {
             localStorage.removeItem('userdata');
             this.router.navigate(['/login']);
