@@ -6,6 +6,7 @@ export const Config = {
     messages:{
         addedSuccessfully : 'Added Successfully',
         updatedSuccessfully : 'Updated Successfully',
+        areYouSure : 'Are You Sure',
         deletedSuccessfully : 'Deleted Successfully',
         errorOccurred : 'Error Occurred. Please try again',
         emailExist : 'Email ID Already exist',
@@ -15,6 +16,8 @@ export const Config = {
     collection: {
         account: 'account',
         expenseType: 'expense-type',
+        settings : 'settings',
+        variables : 'variables',
         role: 'role',
         users: 'users',
     },

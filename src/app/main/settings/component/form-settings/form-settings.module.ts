@@ -6,6 +6,7 @@ import { FormSettingComponent } from './form-settings.component';
 import { FormSettingsRoutingModule } from './form-settings-routing.module';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from 'src/environments/environment';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { environment } from 'src/environments/environment';
     ReactiveFormsModule,
     IonicModule,
     FormSettingsRoutingModule,
+    SharedModule
   ],
   declarations: [FormSettingComponent],
 })
