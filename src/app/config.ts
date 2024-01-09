@@ -32,4 +32,8 @@ export const Config = {
     edit_account_settings: 'EDIT_ACCOUNT_SETTINGS',
     view_reports: 'VIEW_REPORTS',
   },
+  hardData: {
+    postalCode: ['226029', '211001', '110241', '224531'],
+    shippingType: ['Truck', 'Trailor'],
+  },
 };

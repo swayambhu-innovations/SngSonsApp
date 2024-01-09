@@ -12,6 +12,7 @@ import { VendorMasterService } from './vendor-master.service';
 })
 export class VendorMasterComponent {
   public vendorData: any; // Store data of all Vendors
+  public filteredVendors: any;
   public config = Config; // fetching constant from app config file
   private loader: any;
   public toDelete: any;
@@ -33,6 +34,7 @@ export class VendorMasterComponent {
 
   openAddVendorForm() {
     this.navCtrl.navigateForward('main/settings/vendor-master/add-vendor');
+    this.init();
   }
 
   async ngOnInit() {
@@ -63,15 +65,23 @@ export class VendorMasterComponent {
     this.loader.dismiss();
   }
 
+  searchVendor(e: any) {
+    const searchValue = e.detail.value;
+    if (searchValue && searchValue.trim() !== '') {
+      this.filteredVendors = this.vendorData.filter((item: any) =>
+        item.WSName.toLowerCase().includes(searchValue.toLowerCase())
+      );
+    } else {
+      this.filteredVendors = [];
+    }
+  }
+
   async editDetails(event: any, vendor: any) {
     event.stopPropagation();
-    // this.labourForm.setValue(vendor);
-    // this.labourPicSrc = this.labourForm.value?.labourProfileImg;
-    // this.isModalOpen = true;
     this.navCtrl.navigateForward(['main/settings/vendor-master/add-vendor'], {
-      queryParams: { vendor: JSON.stringify(vendor) },
-      skipLocationChange: true,
+      state: { vendor: JSON.stringify(vendor) },
     });
+    this.init();
   }
 
   async deleteVendor(confirmation: any) {

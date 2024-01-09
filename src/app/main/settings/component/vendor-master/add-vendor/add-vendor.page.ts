@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { VendorMasterService } from '../vendor-master.service';
 import { LoadingController, NavController } from '@ionic/angular';
 import { NotificationService } from 'src/app/utils/notification';
-import { SharedService } from 'src/app/shared/shared.service';
 import { Config } from 'src/app/config';
 import { ActivatedRoute } from '@angular/router';
 
@@ -43,8 +42,8 @@ export class AddVendorPage implements OnInit {
     id: new FormControl(''),
   });
 
-  postalCode: string[] = ['226029', '211001', '110241', '224531'];
-  shippingType: string[] = ['Truck', 'Trailor'];
+  postalCode: string[] = [...Config.hardData.postalCode];
+  shippingType: string[] = [...Config.hardData.shippingType];
 
   vendorPicSrc: any =
     'https://ik.imagekit.io/xji6otwwkb/default-image.jpg?updatedAt=1680849653455';
@@ -53,10 +52,11 @@ export class AddVendorPage implements OnInit {
     this.loader = await this.loadingController.create({
       message: Config.messages.pleaseWait,
     });
-    this.route.queryParams.subscribe((params: any) => {
-      this.vendorData = params.vendor;
-    });
-    this.vendorData && this.vendorForm.setValue(this.vendorData);
+    if (history.state.vendor) {
+      this.vendorData = JSON.parse(history.state.vendor);
+      this.vendorData && this.vendorForm.setValue(this.vendorData);
+      this.vendorPicSrc = this.vendorForm.controls['vendorProfileImg'].value;
+    }
   }
 
   get f() {
@@ -78,9 +78,9 @@ export class AddVendorPage implements OnInit {
   }
 
   goBack() {
+    this.navCtrl.back();
     this.vendorForm.reset();
     this.removePic();
-    this.navCtrl.back();
   }
 
   async onSubmit() {

@@ -15,6 +15,7 @@ export class LabourMasterComponent implements OnInit {
   private file: any;
   isModalOpen: boolean = false; // checking if ion-modal is open/close
   public labourData: any; // Store data of all Labour Parties
+  public filteredLabours: any; // Store data of all Labour Parties
   public config = Config; // fetching constant from app config file
   private loader: any;
   public toDelete: any;
@@ -100,6 +101,17 @@ export class LabourMasterComponent implements OnInit {
     await this.labourMasterService.updLabourType(labourId, status);
     await this.getLabourParty();
     this.loader.dismiss();
+  }
+
+  searchLabour(e: any) {
+    const searchValue = e.detail.value;
+    if (searchValue && searchValue.trim() !== '') {
+      this.filteredLabours = this.labourData.filter((item: any) =>
+        item.labourPartyName.toLowerCase().includes(searchValue.toLowerCase())
+      );
+    } else {
+      this.filteredLabours = [];
+    }
   }
 
   async editDetails(event: any, labourParty: any) {

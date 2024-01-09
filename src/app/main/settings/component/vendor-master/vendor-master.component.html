@@ -64,12 +64,18 @@
       <ion-searchbar
         class="ion-text-start custom"
         animated="true"
+        (ionInput)="searchVendor($event)"
         placeholder="Search Vendors..."
       ></ion-searchbar>
     </div>
   </section>
   <section>
-    <div class="row-data-wrapper-container" *ngFor="let vendor of vendorData">
+    <div
+      class="row-data-wrapper-container"
+      *ngFor="
+        let vendor of filteredVendors?.length ? filteredVendors : vendorData
+      "
+    >
       <div class="inner-container">
         <div class="img">
           <img [src]="vendor?.vendorProfileImg" alt="avatar" />
