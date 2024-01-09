@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
+import { LoginPermissionService } from 'src/app/auth/login/login-permission.service';
 
 @Component({
   selector: 'app-settings',
@@ -8,7 +10,12 @@ import { Component, OnInit } from '@angular/core';
 export class SettingsPage implements OnInit {
   displayImage: any =
     'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697';
-  constructor() {}
+  constructor(
+    private loginPermissionService: LoginPermissionService,
+    private loadingController: LoadingController
+  ) {}
+
+  showLogout = false;
 
   ngOnInit() {}
 
@@ -19,5 +26,18 @@ export class SettingsPage implements OnInit {
     reader.onload = () => {
       this.displayImage = reader.result;
     };
+  }
+
+  dismissModal = async () => {
+    this.showLogout = false;
+    return true;
+}
+
+  async logout() {
+    const loader = await this.loadingController.create({
+      message: 'Please wait...',
+    });
+    this.showLogout = false;
+    this.loginPermissionService.logout(loader);
   }
 }
