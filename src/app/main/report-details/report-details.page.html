@@ -1,0 +1,392 @@
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row class="ion-justify-content-between ion-align-items-center">
+      <ion-col size="auto">
+        <ion-row class="ion-justify-content-center ion-align-items-center">
+          <ion-col size="auto">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              viewBox="0 0 26 26"
+              fill="none"
+              (click)="goBack()"
+            >
+              <path
+                d="M11.7301 13.0008L17.0924 18.3629L15.5603 19.895L8.66602 13.0008L15.5603 6.10645L17.0924 7.63851L11.7301 13.0008Z"
+                fill="#1540BD"
+              />
+            </svg>
+          </ion-col>
+          <ion-col size="auto">
+            <div>
+              <span class="heading-box">
+                <ion-text id="heading"> {{id}} </ion-text></span
+              >
+              <ion-text> Synced 2 Min Ago </ion-text>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col size="auto">
+        <!-- PDF Download -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="26"
+          height="26"
+          viewBox="0 0 26 26"
+          fill="none"
+        >
+          <path
+            d="M5.41667 4.33333H16.25V8.66666H20.5833V21.6667H5.41667V4.33333ZM4.33171 2.16666C3.73478 2.16666 3.25 2.64772 3.25 3.24111V22.7589C3.25 23.3401 3.73182 23.8333 4.32618 23.8333H21.6738C22.268 23.8333 22.75 23.3446 22.75 22.7419L22.7497 7.58333L17.3333 2.16666H4.33171ZM11.3749 8.125C11.3749 9.83394 10.8812 11.8487 10.0478 13.7078C9.21144 15.5737 8.08322 17.171 6.90651 18.1124L8.18419 19.8598C11.3556 17.7454 14.8669 16.2956 18.2634 16.7808L18.7592 14.6806C15.8638 13.7154 13.5416 10.8224 13.5416 8.125H11.3749ZM12.0249 14.5942C12.3146 13.9481 12.5712 13.2777 12.7873 12.5975C13.2982 13.3825 13.9266 14.103 14.6359 14.7282C13.5723 14.9187 12.5304 15.2312 11.5215 15.6299C11.6999 15.2905 11.868 14.9444 12.0249 14.5942Z"
+            fill="#FD8C63"
+          />
+        </svg>
+
+        <!-- Excel Download -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="26"
+          height="26"
+          viewBox="0 0 26 26"
+          fill="none"
+        >
+          <path
+            d="M3.09614 3.11709L16.7144 1.17162C17.0106 1.12932 17.2849 1.33509 17.3273 1.63125C17.3308 1.65662 17.3327 1.68222 17.3327 1.70785V24.2921C17.3327 24.5912 17.0901 24.8338 16.791 24.8338C16.7653 24.8338 16.7398 24.8319 16.7144 24.8283L3.09614 22.8828C2.56244 22.8065 2.16602 22.3495 2.16602 21.8104V4.18954C2.16602 3.65042 2.56244 3.19334 3.09614 3.11709ZM4.33268 5.12911V20.8708L15.166 22.4185V3.58148L4.33268 5.12911ZM18.416 20.5833H21.666V5.41663H18.416V3.24996H22.7493C23.3477 3.24996 23.8327 3.73499 23.8327 4.3333V21.6667C23.8327 22.265 23.3477 22.75 22.7493 22.75H18.416V20.5833ZM11.0493 13L14.0827 17.3333H11.4827L9.74935 14.8572L8.016 17.3333H5.41602L8.44935 13L5.41602 8.66663H8.016L9.74935 11.1428L11.4827 8.66663H14.0827L11.0493 13Z"
+            fill="#2FBC50"
+          />
+        </svg>
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="25"
+          height="22"
+          viewBox="0 0 25 22"
+          fill="none"
+        >
+          <path
+            d="M0 11.5583L2.94974 9.20389C3.08698 9.09344 3.25717 9.0333 3.43254 9.0333C3.6079 9.0333 3.77809 9.09344 3.91533 9.20389L6.86819 11.5583L5.90882 12.7969L4.15206 11.3975C4.2305 13.1056 4.81474 14.7504 5.82888 16.1182C6.84302 17.486 8.2402 18.5136 9.83895 19.0676C11.4377 19.6216 13.1641 19.6763 14.794 19.2246C16.4239 18.773 17.8819 17.8359 18.9786 16.535L20.1623 17.5562C18.8678 19.1033 17.1427 20.2198 15.2118 20.7601C13.2809 21.3004 11.234 21.2395 9.33786 20.5852C7.44174 19.9309 5.78447 18.7137 4.58217 17.0922C3.37987 15.4707 2.68834 13.5203 2.59776 11.4953L0.962481 12.7969L0 11.5583ZM18.3401 10.4426L21.2929 12.7969C21.4302 12.9074 21.6004 12.9675 21.7757 12.9675C21.9511 12.9675 22.1213 12.9074 22.2585 12.7969L25.2114 10.4426L24.2489 9.20389L22.5451 10.5623C22.4658 8.53178 21.7821 6.57285 20.5837 4.94221C19.3853 3.31156 17.728 2.08525 15.829 1.42396C13.93 0.762675 11.8779 0.697254 9.9416 1.23627C8.00525 1.77529 6.27498 2.8936 4.97749 4.44468L6.16112 5.46586C7.25461 4.16891 8.70724 3.23346 10.3314 2.78031C11.9556 2.32716 13.6768 2.37713 15.2726 2.92376C16.8685 3.47039 18.2657 4.48858 19.2839 5.84684C20.3021 7.2051 20.8945 8.84104 20.9846 10.5434L19.3026 9.20389L18.3401 10.4426Z"
+            fill="#1540BD"
+          />
+        </svg>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card>
+    <ion-grid>
+      <ion-row class="ion-justify-content-between ion-align-items-center">
+        <ion-col size="auto">
+          <div class="upload-text">
+            <span>Select A</span>
+            <span>Date Range</span>
+          </div>
+        </ion-col>
+        <ion-col size="auto">
+          <ion-button shape="round">
+            <span>
+              <label for="Date1">
+                {{ date1 }}
+                <input
+                  id="Date1"
+                  type="date"
+                  onfocus="this.showPicker()"
+                  (change)="startDate($event)"
+                />
+              </label>
+              -
+              <label for="Date2"
+                >{{ date2}}
+                <input
+                  id="Date2"
+                  type="date"
+                  onfocus="this.showPicker()"
+                  (change)="endDate($event)"
+                />
+              </label>
+            </span>
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="21"
+              height="20"
+              viewBox="0 0 21 20"
+              fill="none"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M6.33268 1.66667C6.79292 1.66667 7.16602 2.03977 7.16602 2.50001V3.33334H13.8327V2.50001C13.8327 2.03977 14.2058 1.66667 14.666 1.66667C15.1263 1.66667 15.4993 2.03977 15.4993 2.50001V3.33334H16.3327C17.7134 3.33334 18.8327 4.45263 18.8327 5.83334V15.8333C18.8327 17.2141 17.7134 18.3333 16.3327 18.3333H4.66602C3.2853 18.3333 2.16602 17.2141 2.16602 15.8333V5.83334C2.16602 4.45263 3.2853 3.33334 4.66602 3.33334H5.49935V2.50001C5.49935 2.03977 5.87244 1.66667 6.33268 1.66667ZM13.8327 5.00001V5.83334C13.8327 6.29358 14.2058 6.66667 14.666 6.66667C15.1263 6.66667 15.4993 6.29358 15.4993 5.83334V5.00001H16.3327C16.7929 5.00001 17.166 5.3731 17.166 5.83334V8.33334H3.83268V5.83334C3.83268 5.3731 4.20578 5.00001 4.66602 5.00001H5.49935V5.83334C5.49935 6.29358 5.87244 6.66667 6.33268 6.66667C6.79292 6.66667 7.16602 6.29358 7.16602 5.83334V5.00001H13.8327ZM3.83268 10V15.8333C3.83268 16.2936 4.20578 16.6667 4.66602 16.6667H16.3327C16.7929 16.6667 17.166 16.2936 17.166 15.8333V10H3.83268Z"
+                fill="white"
+              />
+            </svg>
+          </ion-button>
+          <input type="file" id="uploadZSD" style="display: none" />
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+  <ion-grid id="actions">
+    <ion-row class="ion-justify-content-evenly ion-align-items-center">
+      <ion-col size="auto">
+        <ion-card (click)="openColVariables = !openColVariables">
+          <ion-grid>
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto">
+                <span>Variables</span>
+              </ion-col>
+
+              <ion-col size="auto">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="13"
+                  viewBox="0 0 16 13"
+                  fill="none"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M8.29452 2.16667C8.57511 0.920669 9.56475 0 10.7425 0C11.9203 0 12.91 0.920669 13.1906 2.16667H14.5336C14.8828 2.16667 15.1659 2.48724 15.1659 2.88889C15.1659 3.28776 14.8832 3.61111 14.5336 3.61111H13.1906C12.91 4.85711 11.9203 5.77778 10.7425 5.77778C9.56475 5.77778 8.57511 4.85711 8.29452 3.61111H0.632353C0.283114 3.61111 0 3.29054 0 2.88889C0 2.49002 0.282762 2.16667 0.632353 2.16667H8.29452ZM1.97537 9.38889C2.25597 8.14289 3.24561 7.22222 4.4234 7.22222C5.60119 7.22222 6.59083 8.14289 6.87142 9.38889H14.5336C14.8828 9.38889 15.1659 9.70946 15.1659 10.1111C15.1659 10.51 14.8832 10.8333 14.5336 10.8333H6.87142C6.59083 12.0793 5.60119 13 4.4234 13C3.24561 13 2.25597 12.0793 1.97537 10.8333H0.632353C0.283114 10.8333 0 10.5128 0 10.1111C0 9.71224 0.282762 9.38889 0.632353 9.38889H1.97537ZM4.4234 11.5556C5.12139 11.5556 5.68723 10.9089 5.68723 10.1111C5.68723 9.31337 5.12139 8.66667 4.4234 8.66667C3.72541 8.66667 3.15957 9.31337 3.15957 10.1111C3.15957 10.9089 3.72541 11.5556 4.4234 11.5556ZM10.7425 4.33333C11.4405 4.33333 12.0064 3.68663 12.0064 2.88889C12.0064 2.09114 11.4405 1.44444 10.7425 1.44444C10.0445 1.44444 9.47871 2.09114 9.47871 2.88889C9.47871 3.68663 10.0445 4.33333 10.7425 4.33333Z"
+                    fill="#1540BD"
+                  />
+                </svg>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="auto">
+        <ion-card>
+          <ion-grid>
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto">
+                <span>Sort By</span>
+              </ion-col>
+
+              <ion-col size="auto">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M16 13.6364C16 13.7841 15.9505 13.9119 15.8516 14.0199L12.3516 17.8381C12.2526 17.946 12.1354 18 12 18C11.8646 18 11.7474 17.946 11.6484 17.8381L8.14844 14.0199C8.04948 13.9119 8 13.7841 8 13.6364C8 13.4886 8.04948 13.3608 8.14844 13.2528C8.24739 13.1449 8.36458 13.0909 8.5 13.0909H15.5C15.6354 13.0909 15.7526 13.1449 15.8516 13.2528C15.9505 13.3608 16 13.4886 16 13.6364ZM16 10.3636C16 10.5114 15.9505 10.6392 15.8516 10.7472C15.7526 10.8551 15.6354 10.9091 15.5 10.9091H8.5C8.36458 10.9091 8.24739 10.8551 8.14844 10.7472C8.04948 10.6392 8 10.5114 8 10.3636C8 10.2159 8.04948 10.0881 8.14844 9.98011L11.6484 6.16193C11.7474 6.05398 11.8646 6 12 6C12.1354 6 12.2526 6.05398 12.3516 6.16193L15.8516 9.98011C15.9505 10.0881 16 10.2159 16 10.3636Z"
+                    fill="#1540BD"
+                  />
+                </svg>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <app-report-table></app-report-table>
+</ion-content>
+
+<!-- set-mode-modal -->
+<ion-modal
+  #modal
+  trigger="set-mode-modal"
+  [isOpen]="openColVariables"
+  [initialBreakpoint]="0.85"
+  [breakpoints]="[0, 0.25, 0.5, 0.75]"
+>
+  <ng-template>
+    <ion-content id="select-mode">
+      <div class="ion-padding">
+        <p>Enable Column Variables</p>
+
+        <div class="col-list">
+          <ion-grid>
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto"> SI. No. </ion-col>
+              <ion-col size="auto">
+                <label class="switch">
+                  <input type="checkbox" [checked]="true" />
+                  <span class="slider round"></span>
+                </label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto"> SI. No. </ion-col>
+              <ion-col size="auto">
+                <label class="switch">
+                  <input type="checkbox" [checked]="true" />
+                  <span class="slider round"></span>
+                </label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto"> SI. No. </ion-col>
+              <ion-col size="auto">
+                <label class="switch">
+                  <input type="checkbox" [checked]="true" />
+                  <span class="slider round"></span>
+                </label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto"> SI. No. </ion-col>
+              <ion-col size="auto">
+                <label class="switch">
+                  <input type="checkbox" [checked]="true" />
+                  <span class="slider round"></span>
+                </label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto"> SI. No. </ion-col>
+              <ion-col size="auto">
+                <label class="switch">
+                  <input type="checkbox" [checked]="true" />
+                  <span class="slider round"></span>
+                </label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto"> SI. No. </ion-col>
+              <ion-col size="auto">
+                <label class="switch">
+                  <input type="checkbox" [checked]="true" />
+                  <span class="slider round"></span>
+                </label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto"> SI. No. </ion-col>
+              <ion-col size="auto">
+                <label class="switch">
+                  <input type="checkbox" [checked]="true" />
+                  <span class="slider round"></span>
+                </label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto"> SI. No. </ion-col>
+              <ion-col size="auto">
+                <label class="switch">
+                  <input type="checkbox" [checked]="true" />
+                  <span class="slider round"></span>
+                </label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto"> SI. No. </ion-col>
+              <ion-col size="auto">
+                <label class="switch">
+                  <input type="checkbox" [checked]="true" />
+                  <span class="slider round"></span>
+                </label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto"> SI. No. </ion-col>
+              <ion-col size="auto">
+                <label class="switch">
+                  <input type="checkbox" [checked]="true" />
+                  <span class="slider round"></span>
+                </label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto"> SI. No. </ion-col>
+              <ion-col size="auto">
+                <label class="switch">
+                  <input type="checkbox" [checked]="true" />
+                  <span class="slider round"></span>
+                </label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto"> SI. No. </ion-col>
+              <ion-col size="auto">
+                <label class="switch">
+                  <input type="checkbox" [checked]="true" />
+                  <span class="slider round"></span>
+                </label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto"> SI. No. </ion-col>
+              <ion-col size="auto">
+                <label class="switch">
+                  <input type="checkbox" [checked]="true" />
+                  <span class="slider round"></span>
+                </label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto"> SI. No. </ion-col>
+              <ion-col size="auto">
+                <label class="switch">
+                  <input type="checkbox" [checked]="true" />
+                  <span class="slider round"></span>
+                </label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto"> SI. No. </ion-col>
+              <ion-col size="auto">
+                <label class="switch">
+                  <input type="checkbox" [checked]="true" />
+                  <span class="slider round"></span>
+                </label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto"> SI. No. </ion-col>
+              <ion-col size="auto">
+                <label class="switch">
+                  <input type="checkbox" [checked]="true" />
+                  <span class="slider round"></span>
+                </label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto"> SI. No. </ion-col>
+              <ion-col size="auto">
+                <label class="switch">
+                  <input type="checkbox" [checked]="true" />
+                  <span class="slider round"></span>
+                </label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto"> SI. No. </ion-col>
+              <ion-col size="auto">
+                <label class="switch">
+                  <input type="checkbox" [checked]="true" />
+                  <span class="slider round"></span>
+                </label>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
