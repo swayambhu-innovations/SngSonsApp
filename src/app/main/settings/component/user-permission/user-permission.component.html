@@ -84,6 +84,7 @@
       </ion-accordion-group>
     </ion-grid>
   </div>
+  <div class="below-space"></div>
 
   <ion-modal #modal [canDismiss]="dismissModal" [isOpen]="openUser" [initialBreakpoint]="1" [breakpoints]="[0, 1]"
     class="model">
@@ -113,6 +114,17 @@
                 class="custom"
                 labelPlacement="floating"
                 formControlName="email"
+              ></ion-input>
+            </ion-item>
+            <ion-item lines="none" class="Variable" [disabled]="phoneEnabled">
+              <ion-input
+                lines="none"
+                label="Contact Number"
+                class="custom"
+                required
+                type="number"
+                labelPlacement="floating"
+                formControlName="phone"
               ></ion-input>
             </ion-item>
             <ion-item lines="none" class="Variable noborder">

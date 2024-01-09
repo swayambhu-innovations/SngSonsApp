@@ -7,7 +7,10 @@ export const Config = {
         addedSuccessfully : 'Added Successfully',
         updatedSuccessfully : 'Updated Successfully',
         deletedSuccessfully : 'Deleted Successfully',
+        errorOccurred : 'Error Occurred. Please try again',
+        emailExist : 'Email ID Already exist',
         pleaseWait: 'Please wait...',
+        contactExist: 'Contact Number already exist',
     },
     collection: {
         account: 'account',

@@ -5,14 +5,15 @@ import { SharedService } from "src/app/shared/shared.service";
 import { Config } from "src/app/config";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { UserPermissionService } from "./user-permission.service";
+import { createUserWithEmailAndPassword, getAuth } from "@angular/fire/auth";
 
 @Component({
-    selector:'app-user-permission',
-    templateUrl:'./user-permission.component.html',
-    styleUrls:['./user-permission.component.scss']
+    selector: 'app-user-permission',
+    templateUrl: './user-permission.component.html',
+    styleUrls: ['./user-permission.component.scss']
 })
 
-export class UserPermissionComponent{
+export class UserPermissionComponent {
     constructor(
         private notification: NotificationService,
         private loadingController: LoadingController,
@@ -47,6 +48,10 @@ export class UserPermissionComponent{
         this.getUsers();
     }
 
+    get phoneEnabled() {
+        return !!this.userForm.value.id;
+    }
+
     roleForm: FormGroup = new FormGroup({
         roleName: new FormControl('', [Validators.required]),
         upload_new_zsd_file: new FormControl(true, []),
@@ -64,6 +69,7 @@ export class UserPermissionComponent{
     userForm: FormGroup = new FormGroup({
         userName: new FormControl('', [Validators.required]),
         email: new FormControl('', []),
+        phone: new FormControl('', [Validators.required]),
         roleType: new FormControl('role', []),
         upload_new_zsd_file: new FormControl(true, []),
         fill_shipment_voucher: new FormControl(true, []),
@@ -134,7 +140,7 @@ export class UserPermissionComponent{
                 await this.userPermissionService.deleteUser(this.toDelete.id);
                 await this.getUsers();
             }
-            
+
             this.loader.dismiss();
             this.notification.showSuccess(this.config.messages.deletedSuccessfully);
         }
@@ -148,12 +154,27 @@ export class UserPermissionComponent{
         }
         this.loader.present();
         const formData = this.userForm.value;
-        await this.userPermissionService.addUser(formData);
-        this.userForm.reset(this.initialUserValues);
-        this.getUsers();
-        this.notification.showSuccess(!formData.id ? this.config.messages.addedSuccessfully : this.config.messages.updatedSuccessfully);
-        this.openUser = false;
-        this.loader.dismiss();
+        if (!formData.id) {
+            await this.userPermissionService.checkContactNumber(formData.phone).then(async (data) => {
+                if (data.docs && data.docs.length > 0) {
+                    this.notification.showError(this.config.messages.contactExist);
+                } else {
+                    await this.userPermissionService.addUser(formData);
+                    this.userForm.reset(this.initialUserValues);
+                    this.getUsers();
+                    this.notification.showSuccess(!formData.id ? this.config.messages.addedSuccessfully : this.config.messages.updatedSuccessfully);
+                    this.openUser = false;
+                }
+                this.loader.dismiss();
+            });
+        } else {
+            await this.userPermissionService.addUser(formData);
+            this.userForm.reset(this.initialUserValues);
+            this.getUsers();
+            this.notification.showSuccess(!formData.id ? this.config.messages.addedSuccessfully : this.config.messages.updatedSuccessfully);
+            this.openUser = false;
+            this.loader.dismiss();
+        }
     }
 
     async getUsers() {
