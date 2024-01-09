@@ -6,7 +6,10 @@ import {
     deleteDoc,
     doc,
     getDocs,
+    query,
+    setDoc,
     updateDoc,
+    where,
 } from '@angular/fire/firestore';
 import { Config } from "src/app/config";
 
@@ -41,6 +44,10 @@ export class UserPermissionService {
 
     getUsers() {
         return getDocs(collection(this.firestore, Config.collection.users));
+    }
+
+    checkContactNumber(phone: any) {
+        return getDocs(query(collection(this.firestore, Config.collection.users), where('phone', '==', phone)));
     }
 
     addUser(userData: any) {
