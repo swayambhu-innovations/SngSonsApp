@@ -18,13 +18,13 @@
           ></ion-input>
         </ion-item>
 
-        <p *ngIf="showOtp" class="resend-otp" (click)="requestOTP(true)">Resend OTP</p>
+        <!-- <p *ngIf="loginPermissionService.showOtp" class="resend-otp" (click)="requestOTP(true)">Resend OTP</p> -->
 
-        <ion-button [disabled]="!isValidNumber" (click)="requestOTP()" *ngIf="!showOtp" shape="round"
+        <ion-button [disabled]="!isValidNumber" (click)="requestOTP()" *ngIf="!loginPermissionService.showOtp" shape="round"
           >Request OTP</ion-button
         >
 
-        <ion-item class="ion-margin-vertical input-text" *ngIf="showOtp">
+        <ion-item class="ion-margin-vertical input-text" *ngIf="loginPermissionService.showOtp">
           <ion-icon name="lock-open"></ion-icon>
           <ion-input
             class="ion-margin-start"
@@ -44,7 +44,7 @@
         </ion-item> -->
 
         <!-- Submit -->
-        <ion-button [disabled]="!isValidOTP" (click)="submitOTP()" *ngIf="showOtp" shape="round"
+        <ion-button [disabled]="!isValidOTP" (click)="submitOTP()" *ngIf="loginPermissionService.showOtp" shape="round"
           >Log In</ion-button
         >
 
