@@ -5,6 +5,7 @@ import {
     collection,
     deleteDoc,
     doc,
+    documentId,
     getDocs,
     query,
     setDoc,
@@ -46,13 +47,13 @@ export class UserPermissionService {
         return getDocs(collection(this.firestore, Config.collection.users));
     }
 
-    checkContactNumber(phone: any) {
-        return getDocs(query(collection(this.firestore, Config.collection.users), where('phone', '==', phone)));
+    checkContactNumber(phone: string) {
+        return getDocs(query(collection(this.firestore, Config.collection.users), where(documentId(), '==', phone.toString())));
     }
 
     addUser(userData: any) {
         if (!userData.id) {
-            return addDoc(collection(this.firestore, Config.collection.users), userData);
+            return setDoc(doc(this.firestore, Config.collection.users, userData.phone.toString()), userData);
         } else {
             return updateDoc(doc(this.firestore, Config.collection.users, userData.id), userData);
         }
