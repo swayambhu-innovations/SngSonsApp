@@ -13,10 +13,10 @@
     <p>Refresh Or Login with a Different ID</p>
 
     <div class="tab-bar">
-      <ion-button routerLink="" shape="round" class="active-btn"
+      <ion-button (click)="refresh()" shape="round" class="active-btn"
         >Refresh</ion-button
       >
-      <ion-button shape="round">Logout</ion-button>
+      <ion-button (click)="logout()" shape="round">Logout</ion-button>
     </div>
   </div>
 </ion-content>

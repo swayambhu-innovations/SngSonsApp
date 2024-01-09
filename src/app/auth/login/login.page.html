@@ -11,27 +11,44 @@
           <ion-icon name="person"></ion-icon>
           <ion-input
             class="ion-margin-start"
-            formControlName="email"
-            placeholder="Email ID"
+            formControlName="phone"
+            type="number"
+            placeholder="Contact Number"
+            (keypress)="limitInputLength($event)"
+          ></ion-input>
+        </ion-item>
+
+        <p *ngIf="showOtp" class="resend-otp" (click)="requestOTP(true)">Resend OTP</p>
+
+        <ion-button [disabled]="!isValidNumber" (click)="requestOTP()" *ngIf="!showOtp" shape="round"
+          >Request OTP</ion-button
+        >
+
+        <ion-item class="ion-margin-vertical input-text" *ngIf="showOtp">
+          <ion-icon name="lock-open"></ion-icon>
+          <ion-input
+            class="ion-margin-start"
+            formControlName="otp"
+            placeholder="OTP"
           ></ion-input>
         </ion-item>
 
         <!-- Password -->
-        <ion-item class="ion-margin-vertical input-text">
+        <!-- <ion-item class="ion-margin-vertical input-text">
           <ion-icon name="lock-open"></ion-icon>
           <ion-input
             class="ion-margin-start"
             formControlName="password"
             placeholder="Password"
           ></ion-input>
-        </ion-item>
+        </ion-item> -->
 
         <!-- Submit -->
-        <ion-button id="sumbit" routerLink="error" shape="round"
+        <ion-button [disabled]="!isValidOTP" (click)="submitOTP()" *ngIf="showOtp" shape="round"
           >Log In</ion-button
         >
 
-        <p class="ion-margin-vertical ion-padding-vertical">
+        <!-- <p class="ion-margin-vertical ion-padding-vertical">
           <a
             routerLink="reset-password"
             routerLinkActive="active"
@@ -39,9 +56,9 @@
           >
             Forgot Password?
           </a>
-        </p>
+        </p> -->
 
-        <p class="ion-margin-vertical ion-padding-vertical">
+        <!-- <p class="ion-margin-vertical ion-padding-vertical">
           <ion-text color="medium">or sign in with</ion-text>
         </p>
 
@@ -55,8 +72,9 @@
             slot="icon-only"
             name="logo-facebook"
           ></ion-icon>
-        </ion-button>
+        </ion-button> -->
       </form>
+      <div id="recaptcha-container"></div>
     </div>
   </div>
 </ion-content>

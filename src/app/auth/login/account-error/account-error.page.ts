@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginPermissionService } from '../login-permission.service';
+import { LoadingController } from '@ionic/angular';
+import { Config } from 'src/app/config';
 
 @Component({
   selector: 'app-account-error',
@@ -7,9 +10,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountErrorPage implements OnInit {
 
-  constructor() { }
+  loader: any;
+  constructor(
+    private loginPermissionService: LoginPermissionService,
+    private loadingController: LoadingController,
+  ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.loader = await this.loadingController.create({ message: Config.messages.pleaseWait });
+  }
+
+  refresh() {
+    this.loginPermissionService.redirectUser(this.loader);
+  }
+
+  logout() {
+    this.loginPermissionService.logout(this.loader);
   }
 
 }
