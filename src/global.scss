@@ -64,6 +64,10 @@
 
   input:checked + .slider {
     background: #1540bd;
+
+    &.disabled {
+      background: #adadad;
+    }
   }
 
   input:focus + .slider {
@@ -279,4 +283,24 @@ ion-modal ion-content {
 ion-modal::part(backdrop) {
   background: #b3c5dd;
   opacity: 1;
+}
+
+ion-modal {
+  --height: auto;
+}
+
+.d-flex {
+  display: flex;
+}
+
+ion-item.ion-touched.ion-invalid {
+  border: 1px solid red !important;
+}
+
+.hidden {
+  visibility: hidden !important;
+}
+
+.green-text {
+  color: #31BD58 !important;
 }

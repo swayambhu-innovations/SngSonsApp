@@ -7,7 +7,7 @@ ion-col {
 }
 
 .drop-down-color {
-  color: var(--Primary, #1540bd) !important;
+  color: var(--Primary, #1540bd);
 }
 .d-flex{
   display: flex;
@@ -54,7 +54,7 @@ ion-col {
   ion-grid {
     padding-left: 10px;
     padding-right: 10px;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
 
     ion-item {
       --padding-end: 0px;
@@ -115,10 +115,10 @@ ion-col {
         font-size: 13px;
         font-weight: 400;
         text-wrap: wrap;
+        position: relative;
       }
 
       .type-select {
-        color: #31bd58;
         font-size: 13px;
         font-weight: 400;
       }
@@ -205,7 +205,7 @@ ion-col {
       color: var(--Primary, #1540BD);
       font-size: 20px;
       font-weight: 400;
-      padding-top: 8px;
+      padding-top: 3px;
       padding-left: 10px;
     }
   }
@@ -288,4 +288,16 @@ ion-col {
       }
     }
   
+}
+
+.import-zsd-file{
+  color: var(--Waiting-Post-Delivery-Vehicles, #D97A07);
+  font-size: 8px;
+  font-weight: 400;
+  position:absolute;
+  bottom: -50%;
+}
+
+.disable input:checked + .slider{
+  background-color: #ADADAD;
 }

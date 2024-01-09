@@ -38,6 +38,16 @@ const routes: Routes = [
     loadChildren: () =>
       import('./component/import-export/import-export.module').then((m) => m.ImportExportModule),
   },
+  {
+    path: 'account-expense',
+    loadChildren: () =>
+      import('./component/account-expense/account-expense.module').then((m) => m.AccountExpenseModule),
+  },
+  {
+    path: 'user-permission',
+    loadChildren: () =>
+      import('./component/user-permission/user-permission.module').then((m) => m.UserPermissionModule),
+  },
 ];
 
 @NgModule({

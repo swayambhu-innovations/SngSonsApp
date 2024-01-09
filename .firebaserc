@@ -1,0 +1,28 @@
+{
+  "targets": {
+    "SNGSONS": {
+      "hosting": {
+        "app": [
+          "sngsons"
+        ]
+      }
+    },
+    "indiatoursandcabs": {
+      "hosting": {
+        "app": [
+          "indiatoursandcabs"
+        ]
+      }
+    },
+    "jaipurservicecompany-demo": {
+      "hosting": {
+        "app": [
+          "jaipurservicecompany-demo"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "jaipurservicecompany-demo"
+  }
+}
