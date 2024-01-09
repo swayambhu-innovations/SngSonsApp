@@ -15,8 +15,6 @@ ion-content {
   .header {
     display: flex;
     padding: 0px 10px 10px 10px;
-    .img {
-    }
 
     .head {
       color: var(--Primary, #1540bd);
@@ -87,10 +85,7 @@ ion-content {
   }
 
   .tab-bar {
-    position: fixed;
     width: calc(100% - 20px);
-    bottom: 15%;
-    z-index: 100;
 
     div {
       display: flex;

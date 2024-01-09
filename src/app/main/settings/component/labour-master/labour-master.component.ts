@@ -145,7 +145,7 @@ export class LabourMasterComponent implements OnInit {
         this.notificationService.showSuccess(
           this.config.messages.updatedSuccessfully
         );
-      this.loader.dismiss();
+      // this.loader.dismiss();
       this.isModalOpen = false;
       this.modalController.dismiss();
     } catch (error) {
