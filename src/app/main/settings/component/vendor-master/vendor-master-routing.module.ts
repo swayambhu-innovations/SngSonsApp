@@ -6,9 +6,14 @@ const routes: Routes = [
   {
     path: '',
     component: VendorMasterComponent
-  },  {
+  },
+  {
     path: 'add-vendor',
     loadChildren: () => import('./add-vendor/add-vendor.module').then( m => m.AddVendorPageModule)
+  },
+  {
+    path: 'vendor-details',
+    loadChildren: () => import('./vendor-details/vendor-details.module').then( m => m.VendorDetailsModule)
   }
 
 ];
