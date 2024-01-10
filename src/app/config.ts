@@ -24,6 +24,8 @@ export const Config = {
     vendorMaster: 'vendor-master',
     role: 'role',
     users: 'users',
+    vehiclesCategory: 'vehicles-Category',
+    vehicleTypes: 'vehicleTypes',
   },
   storage: {
     labourParty: 'labourParty-Library',
