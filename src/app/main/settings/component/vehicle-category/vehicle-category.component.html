@@ -73,8 +73,8 @@
         <div class="data-text">
           <p class="text-name">{{data.categoryName}}</p>
           <p class="address">
-            <span class="address-name">{{data.weightCapacity}} Ton</span> |
-            <span class="no">15 vehicles</span>
+            <span class="address-name">{{data.weightCapacity}} Ton</span><span *ngIf="data?.count>0"> |
+            <span class="no">15 vehicles</span></span>
           </p>
         </div>
         <div class="action-button">
@@ -99,6 +99,7 @@
       </div>
     </div>
   </section>
+  <div class="below-space"></div>
   <ion-modal #modal [isOpen]="isModalOpen" [presentingElement]="presentingElement" class="model">
     <ng-template>
       <section>

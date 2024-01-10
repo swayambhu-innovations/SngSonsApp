@@ -29,6 +29,6 @@ export class VehicleCategoryService {
     }
 
     deleteSettings(deleteId: string){
-        return deleteDoc(doc(this.firestore, Config.collection.vehiclesCategory, deleteId));
+        return deleteDoc(doc(this.firestore, Config.collection.vehiclesCategory, deleteId));        
     }  
 }

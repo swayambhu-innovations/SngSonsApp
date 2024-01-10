@@ -5,8 +5,12 @@ import {
     collection,
     deleteDoc,
     doc,
+    documentId,
     getDocs,
+    query,
+    setDoc,
     updateDoc,
+    where,
 } from '@angular/fire/firestore';
 import { Config } from "src/app/config";
 
@@ -43,9 +47,13 @@ export class UserPermissionService {
         return getDocs(collection(this.firestore, Config.collection.users));
     }
 
+    checkContactNumber(phone: string) {
+        return getDocs(query(collection(this.firestore, Config.collection.users), where(documentId(), '==', phone.toString())));
+    }
+
     addUser(userData: any) {
         if (!userData.id) {
-            return addDoc(collection(this.firestore, Config.collection.users), userData);
+            return setDoc(doc(this.firestore, Config.collection.users, userData.phone.toString()), userData);
         } else {
             return updateDoc(doc(this.firestore, Config.collection.users, userData.id), userData);
         }

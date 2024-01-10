@@ -79,7 +79,7 @@ export class VehicleCategoryComponent implements OnInit {
             return { ...category.data(), id: category.id }
         });
         console.log(data.docs);
-        console.log(this.vehicleCategoryForm.value);
+        console.log(this.vehicleCategoryData);
         this.loader.dismiss();
     }
 

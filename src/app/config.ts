@@ -6,9 +6,14 @@ export const Config = {
     messages:{
         addedSuccessfully : 'Added Successfully',
         updatedSuccessfully : 'Updated Successfully',
-        areYouSure : 'Are You Sure',
         deletedSuccessfully : 'Deleted Successfully',
+        errorOccurred : 'Error Occurred. Please try again',
         pleaseWait: 'Please wait...',
+        areYouSure : 'Are You Sure',
+        emailExist : 'Email ID Already exist',
+        contactExist: 'Contact Number already exist',
+        smsError: 'SMS could not be sent. Please try Again!',
+        invalidOTP: 'Invalid OTP',
     },
     collection: {
         account: 'account',

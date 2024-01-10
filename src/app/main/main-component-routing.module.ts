@@ -3,8 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from './main.component';
 
 const routes: Routes = [
-  { path: '', component: MainComponent ,
-    children:[
+  {
+    path: '',
+    component: MainComponent,
+    children: [
       {
         path: 'home',
         loadChildren: () =>
@@ -18,7 +20,9 @@ const routes: Routes = [
       {
         path: 'settings',
         loadChildren: () =>
-          import('./settings/settings.module').then((m) => m.SettingsPageModule),
+          import('./settings/settings.module').then(
+            (m) => m.SettingsPageModule
+          ),
       },
       {
         path: 'notifications',
@@ -48,9 +52,20 @@ const routes: Routes = [
             (m) => m.PostDeliveryPageModule
           ),
       },
-    ]
- },
-  
+      {
+        path: 'reports',
+        loadChildren: () =>
+          import('./reports/reports.module').then((m) => m.ReportsPageModule),
+      },
+      {
+        path: 'reports/:id',
+        loadChildren: () =>
+          import('./report-details/report-details.module').then(
+            (m) => m.ReportDetailsPageModule
+          ),
+      },
+    ],
+  },
 ];
 
 @NgModule({
