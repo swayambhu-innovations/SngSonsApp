@@ -20,8 +20,18 @@ export const Config = {
     expenseType: 'expense-type',
     settings: 'settings',
     variables: 'variables',
+    labourMaster: 'labour-master',
+    vendorMaster: 'vendor-master',
     role: 'role',
     users: 'users',
+  },
+  storage: {
+    labourParty: 'labourParty-Library',
+    vendors: 'vendors-Library',
+  },
+  hardData: {
+    postalCode: ['226029', '211001', '110241', '224531'],
+    shippingType: ['Truck', 'Mini-Truck'],
   },
   permissions: {
     upload_new_zsd_file: 'UPLOAD_NEW_ZSD_FILE',

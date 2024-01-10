@@ -38,6 +38,7 @@ export class AddVendorPage implements OnInit {
     maxCreditLimit: new FormControl('', [Validators.required]),
     vendorProfileImg: new FormControl(),
     active: new FormControl(true, []),
+    pending: new FormControl(false, []),
     createdAt: new FormControl(new Date(), []),
     id: new FormControl(''),
   });
@@ -90,7 +91,12 @@ export class AddVendorPage implements OnInit {
       this.loader.present();
       if (this.file) {
         const url = await this.vendorMasterService.uploadFile(this.file);
-        this.vendorForm.patchValue({ vendorProfileImg: url as string });
+        this.vendorForm.patchValue({
+          vendorProfileImg: url as string,
+        });
+        this.vendorForm.patchValue({
+          pending: false as boolean,
+        });
       }
 
       await this.vendorMasterService.addVendor(this.vendorForm.value);

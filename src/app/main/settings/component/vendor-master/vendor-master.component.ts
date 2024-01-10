@@ -12,7 +12,8 @@ import { VendorMasterService } from './vendor-master.service';
 })
 export class VendorMasterComponent {
   public vendorData: any; // Store data of all Vendors
-  public filteredVendors: any;
+  public pendingVendorData: any; // Store data of all pending data of Vendors
+  public filteredVendors: any; // Store search result
   public config = Config; // fetching constant from app config file
   private loader: any;
   public toDelete: any;
@@ -45,7 +46,7 @@ export class VendorMasterComponent {
   }
 
   async init() {
-    this.loader.present();
+    this.loader?.present();
     await this.getVendors();
     this.loader.dismiss();
   }
@@ -55,6 +56,12 @@ export class VendorMasterComponent {
     this.vendorData = data.docs.map((vendor: any) => {
       return { ...vendor.data(), id: vendor.id };
     });
+    this.pendingVendorData = this.vendorData.filter(
+      (vendor: any) => vendor?.pending == true
+    );
+    this.vendorData = this.vendorData.filter(
+      (vendor: any) => vendor?.pending == false
+    );
   }
 
   async updVendorStatus($event: any, vendorId: string, status: boolean) {
