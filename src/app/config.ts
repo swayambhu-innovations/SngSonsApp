@@ -22,6 +22,9 @@ export const Config = {
         variables : 'variables',
         role: 'role',
         users: 'users',
+        vehiclesCategory : 'vehicles-Category',
+        vehicleTypes : 'vehicleTypes'
+
     },
     permissions: {
         upload_new_zsd_file: 'UPLOAD_NEW_ZSD_FILE',

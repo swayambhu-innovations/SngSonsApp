@@ -1,12 +1,13 @@
 * {
-    box-sizing: border-box;
-  }
-.vendor-container{
-    --background: linear-gradient(180deg, #D5E6FF -8.94%, #FFF 27.36%, #FFF 61.93%, #C9DEFF 101.69%);
-    --padding-top: 15px;
-    --padding-bottom: 15px;
-    --padding-start: 15px;
-    --padding-end: 15px;
+  box-sizing: border-box;
+}
+
+.vendor-container {
+  --background: linear-gradient(180deg, #D5E6FF -8.94%, #FFF 27.36%, #FFF 61.93%, #C9DEFF 101.69%);
+  --padding-top: 15px;
+  --padding-bottom: 15px;
+  --padding-start: 15px;
+  --padding-end: 15px;
 }
 
 ion-col {
@@ -66,6 +67,7 @@ ion-grid {
     }
   }
 
+
   .content {
     .actions {
       display: flex;
@@ -78,8 +80,8 @@ ion-grid {
     padding-bottom: 10px;
     border-bottom: 1px solid #e0e8f8;
 
-    .profile-img{
-      div{
+    .profile-img {
+      div {
         width: 36px;
         height: 36px;
         border-radius: 50%;
@@ -99,8 +101,10 @@ ion-grid {
       font-size: 13px;
       font-weight: 400;
     }
+
     .action {
       text-align: right;
+
       .edit-button {
         img {
           margin-left: 9px;
@@ -110,11 +114,11 @@ ion-grid {
     }
   }
 
-  .content-container:nth-of-type(1){
+  .content-container:nth-of-type(1) {
     padding-top: 0px;
   }
 
-  .content-container:last-child{
+  .content-container:last-child {
     border-bottom: none;
   }
 
@@ -139,16 +143,16 @@ ion-grid {
   }
 }
 
-.switch{
+.switch {
   width: 20px;
   height: 12px;
-  
-  input{
+
+  input {
     width: 0px;
     height: 15px;
   }
 
-  .slider:before{
+  .slider:before {
     height: 6px;
     width: 6px;
     left: 3px;
@@ -157,14 +161,14 @@ ion-grid {
     border-radius: 50%;
   }
 
-  input:checked + .slider:before {
+  input:checked+.slider:before {
     -webkit-transform: translateX(9px);
     -ms-transform: translateX(9px);
     transform: translateX(9px);
   }
 }
 
-.search-bar{
+.search-bar {
   margin-top: 10px;
 
   ion-searchbar.custom {
@@ -184,11 +188,122 @@ ion-grid {
   }
 }
 
-.forward-icon{
-    padding-left: 5px;
+.forward-icon {
+  padding-left: 5px;
 
-    ion-icon{
-      color: #1540bd;
-    }
+  ion-icon {
+    color: #1540bd;
+  }
 }
 
+.model{
+  --ion-background-color:linear-gradient(
+    180deg,
+    #d5e6ff -8.94%,
+    #fff 27.36%,
+    #fff 61.93%,
+    #c9deff 101.69%);
+
+    section{
+      padding: 15px;
+      height: 100vh;
+      
+    }
+
+  .header{
+    display: flex;
+    padding: 0px 10px 10px 10px;
+    .img{
+
+    }
+
+    .head{
+      color: var(--Primary, #1540BD);
+      font-size: 20px;
+      font-weight: 400;
+      padding-top: 3px;
+      padding-left: 10px;
+    }
+  }
+
+  .container{
+    ion-input.custom {
+      --background: transparent;
+      --color: var(--Text3, #9FA7B2);
+      --placeholder-color: #ddd;
+      --placeholder-opacity: 0.8;
+    }
+
+    .Variable{  
+      margin-bottom: 15px;
+    }
+
+    ion-item{
+      border-radius:12px;
+      --background:#fff;
+      border:1px solid rgba(206, 211, 241, 0.62);
+    }
+
+    .dropdown{
+      margin-bottom: 15px;
+      height: 48px;
+    }
+
+    .limit{
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      margin-bottom: 15px;
+
+      .lower{
+        width: 48%;
+        height: 56px;
+      } 
+
+      .upper{
+        width: 48%;
+        height: 56px;
+      } 
+    }
+
+  }
+    
+    .tab-bar {
+      position: absolute;
+      width: calc(100% - 20px);
+      bottom: 5%;
+
+      div{
+        display: flex;
+        justify-content: center;
+        background: rgba(168, 205, 255, 0.29);
+        align-items: center;
+        width: fit-content;
+        height: 56px;
+        padding: 8px;
+        margin-inline: auto; 
+        backdrop-filter: blur(15px);
+        margin-top: 20px;
+        border-radius: 60px;
+      }
+  
+      ion-button {
+        display: flex;
+        width: fit-content;
+        font-size: 14px;
+        height: 40px;
+        justify-content: center;
+        align-items: center;
+        --border-radius: 50px;
+        --background: #fff;
+        --color: #1540bd;
+      }
+  
+      .active-btn {
+        --background: #1540bd !important;
+        --color: #fff !important;
+        margin-right: 10px;
+      }
+    }
+  
+}

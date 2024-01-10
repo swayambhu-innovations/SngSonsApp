@@ -24,7 +24,7 @@ const routes: Routes = [
       import('./component/labour-master/labour-master.module').then((m) => m.VendorMasterModule),
   },
   {
-    path: 'vehicle-master',
+    path: 'vehicle-master/:id', 
     loadChildren: () =>
       import('./component/vehicle-master/vehicle-master.module').then((m) => m.vehicleMasterModule),
   },
