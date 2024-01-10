@@ -85,7 +85,8 @@ ion-grid {
     border-bottom: 1px solid #e0e8f8;
 
     .profile-img {
-      div {
+      div,
+      img {
         width: 36px;
         height: 36px;
         border-radius: 50%;
@@ -258,19 +259,19 @@ ion-grid {
     ion-button {
       width: 100%;
       height: fit-content;
-      color: #1540BD;
-      --background:white;
+      color: #1540bd;
+      --background: white;
       --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
       --ripple-color: #c9deff;
       --padding-top: 16px;
       --padding-bottom: 16px;
-    
+
       label {
         cursor: pointer;
         display: flex;
         align-items: center;
         text-transform: none;
-    
+
         svg {
           margin-left: 6px;
         }
