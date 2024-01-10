@@ -6,23 +6,22 @@ export const Config = {
   messages: {
     addedSuccessfully: 'Added Successfully',
     updatedSuccessfully: 'Updated Successfully',
-    areYouSure: 'Are You Sure',
     deletedSuccessfully: 'Deleted Successfully',
+    errorOccurred: 'Error Occurred. Please try again',
     pleaseWait: 'Please wait...',
+    areYouSure: 'Are You Sure',
+    emailExist: 'Email ID Already exist',
+    contactExist: 'Contact Number already exist',
+    smsError: 'SMS could not be sent. Please try Again!',
+    invalidOTP: 'Invalid OTP',
   },
   collection: {
     account: 'account',
     expenseType: 'expense-type',
     settings: 'settings',
-    labourMaster: 'labour-master',
-    vendorMaster: 'vendor-master',
     variables: 'variables',
     role: 'role',
     users: 'users',
-  },
-  storage: {
-    labourParty: 'labourParty-Library',
-    vendors: 'vendors-Library',
   },
   permissions: {
     upload_new_zsd_file: 'UPLOAD_NEW_ZSD_FILE',
@@ -31,9 +30,5 @@ export const Config = {
     discard_vouchers: 'DISCARD_VOUCHERS',
     edit_account_settings: 'EDIT_ACCOUNT_SETTINGS',
     view_reports: 'VIEW_REPORTS',
-  },
-  hardData: {
-    postalCode: ['226029', '211001', '110241', '224531'],
-    shippingType: ['Truck', 'Mini-Truck'],
   },
 };
