@@ -1,0 +1,123 @@
+ion-content {
+  --ion-background-color: linear-gradient(
+    180deg,
+    #d5e6ff -8.94%,
+    #fff 27.36%,
+    #fff 61.93%,
+    #c9deff 101.69%
+  );
+  z-index: 100;
+
+  section {
+    padding: 15px;
+    height: 100vh;
+  }
+
+  .header {
+    display: flex;
+    padding: 0px 10px 10px 10px;
+
+    .head {
+      color: var(--Primary, #1540bd);
+      font-size: 20px;
+      font-weight: 400;
+      padding-top: 3px;
+      padding-left: 10px;
+    }
+  }
+
+  .container {
+    ion-input.custom {
+      --background: transparent;
+      --color: var(--Text3, #9fa7b2);
+      --placeholder-color: #ddd;
+      --placeholder-opacity: 0.8;
+    }
+
+    .Variable {
+      margin-bottom: 15px;
+    }
+
+    ion-item {
+      border-radius: 12px;
+      --background: #fff;
+      border: 1px solid rgba(206, 211, 241, 0.62);
+    }
+
+    .dropdown {
+      margin-bottom: 15px;
+      height: 48px;
+    }
+  }
+
+  .import-container {
+    display: flex;
+    justify-content: space-between;
+
+    .import {
+      width: 61%;
+    }
+
+    .export {
+      width: 35%;
+    }
+
+    ion-button {
+      width: 100%;
+      height: fit-content;
+      color: #1540bd;
+      --background: white;
+      --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+      --ripple-color: #c9deff;
+      --padding-top: 16px;
+      --padding-bottom: 16px;
+
+      label {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        text-transform: none;
+
+        svg {
+          margin-left: 6px;
+        }
+      }
+    }
+  }
+
+  .tab-bar {
+    width: calc(100% - 20px);
+
+    div {
+      display: flex;
+      justify-content: center;
+      background: rgba(168, 205, 255, 0.29);
+      align-items: center;
+      width: fit-content;
+      height: 56px;
+      padding: 8px;
+      margin-inline: auto;
+      backdrop-filter: blur(15px);
+      margin-top: 20px;
+      border-radius: 60px;
+    }
+
+    ion-button {
+      display: flex;
+      width: fit-content;
+      font-size: 14px;
+      height: 40px;
+      justify-content: center;
+      align-items: center;
+      --border-radius: 50px;
+      --background: #fff;
+      --color: #1540bd;
+    }
+
+    .active-btn {
+      --background: #1540bd !important;
+      --color: #fff !important;
+      margin-right: 10px;
+    }
+  }
+}

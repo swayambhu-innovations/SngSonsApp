@@ -13,36 +13,69 @@
   </section>
   <section>
     <div class="search-bar">
-      <ion-searchbar class="ion-text-start custom" animated="true" placeholder="Search Labours..."></ion-searchbar>
+      <ion-searchbar
+        class="ion-text-start custom"
+        animated="true"
+        (ionInput)="searchLabour($event)"
+        placeholder="Search Labours..."
+      ></ion-searchbar>
     </div>
   </section>
   <section>
-    <div class="row-data-wrapper-container" *ngFor="let number of [0,1,2,3]">
+    <div
+      class="row-data-wrapper-container"
+      *ngFor="
+        let labour of filteredLabours?.length ? filteredLabours : labourData
+      "
+    >
       <div class="inner-container">
         <div class="img">
-          <div>
-
-          </div>
+          <img [src]="labour.labourProfileImg" alt="avatar" />
         </div>
         <div class="data-text">
-          <p class="text-name">GX Express LLC</p>
-          <p class="address"><span><img src="assets/icon/notes.svg" alt=""></span><span class="no">33</span> | <span
-              class="price">₹ 26110</span></p>
+          <p class="text-name">{{ labour?.labourPartyName }}</p>
+          <p class="address">
+            <span><img src="assets/icon/notes.svg" alt="" /></span
+            ><span class="no">{{ labour?.paymentAcc }}</span> |
+            <span class="price">₹ {{ labour?.paymentDispenseLimits }}</span>
+          </p>
         </div>
         <div class="action-button">
-          <div class="toogle"><label class="switch">
-              <input type="checkbox" [checked]="true" />
+          <div class="toogle">
+            <label class="switch">
+              <input
+                type="checkbox"
+                [checked]="labour?.active"
+                (change)="updLabourStatus($event, labour.id, !labour.active)"
+              />
               <span class="slider round"></span>
-            </label></div>
-          <div class="edit-button"><img src="assets/icon/enable-edit-button.svg" alt=""></div>
-          <div class="delete"><img src="assets/icon/enable-delete-button.svg" alt=""></div>
+            </label>
+          </div>
+          <div (click)="editDetails($event, labour)" class="edit-button">
+            <img src="assets/icon/enable-edit-button.svg" alt="edit" />
+          </div>
+          <div
+            (click)="toDelete = { id: labour.id }; showConfirm = true"
+            class="delete"
+          >
+            <img src="assets/icon/enable-delete-button.svg" alt="delete" />
+          </div>
         </div>
       </div>
     </div>
   </section>
+
   <div class="below-space"></div>
-  <ion-modal #modal trigger="set-labour-modal" [initialBreakpoint]="0.62" [breakpoints]="[0.62, 0.62, 0.62, 0.62]"
-    class="model">
+
+  <ion-modal
+    #modal
+    [isOpen]="isModalOpen"
+    [canDismiss]="closeModal"
+    trigger="set-labour-modal"
+    [initialBreakpoint]="1"
+    [breakpoints]="[0, 1]"
+    class="model"
+  >
     <ng-template>
       <section>
         <header>
@@ -50,54 +83,107 @@
             <div class="head">Add Labour Party</div>
           </div>
         </header>
-        <div class="container">
-          <ion-item lines="none" class="Variable">
-            <ion-input lines="none" label="Labor Party Name" class="custom" labelPlacement="floating"></ion-input>
-          </ion-item>
-          <ion-item lines="none" class="Variable">
-            <ion-input lines="none" label="Payment Dispense Max-limits" class="custom"
-              labelPlacement="floating"></ion-input>
-          </ion-item>
-          <ion-item class="dropdown">
-            <ion-select label="Default Payment Account">
-              <ion-select-option value="Drop Down">Drop Down</ion-select-option>
-              <ion-select-option value="Number">Number</ion-select-option>
-            </ion-select>
-          </ion-item>
-          <div class="container margin-top-0">
-            <div class="import-container">
-              <div class="import">
-                <ion-button shape="round">
-                  <label for="uploadZSD">
-                    Upload Photo or Logo
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                      <path
-                        d="M3.33268 15.8333H16.666V10H18.3327V16.6667C18.3327 17.1269 17.9596 17.5 17.4993 17.5H2.49935C2.03912 17.5 1.66602 17.1269 1.66602 16.6667V10H3.33268V15.8333ZM10.8327 7.5V13.3333H9.16602V7.5H4.99935L9.99935 2.5L14.9993 7.5H10.8327Z"
-                        fill="#1540BD" />
-                    </svg>
-                  </label>
-                </ion-button>
-                <input type="file" id="uploadZSD" style="display: none" />
+        <form
+          [formGroup]="labourForm"
+          (ngSubmit)="labourForm.valid && onSubmit()"
+        >
+          <div class="container">
+            <ion-item lines="none" class="Variable">
+              <ion-input
+                lines="none"
+                label="Labor Party Name"
+                class="custom"
+                required
+                formControlName="labourPartyName"
+                labelPlacement="floating"
+              ></ion-input>
+            </ion-item>
+
+            <ion-item lines="none" class="Variable">
+              <ion-input
+                lines="none"
+                label="Payment Dispense Max-limits"
+                class="custom"
+                required="true"
+                formControlName="paymentDispenseLimits"
+                labelPlacement="floating"
+              ></ion-input>
+            </ion-item>
+
+            <ion-item class="dropdown">
+              <ion-select
+                formControlName="paymentAcc"
+                label="Default Payment Account"
+              >
+                <ion-select-option
+                  *ngFor="let method of paymentMethod"
+                  [value]="method"
+                  >{{ method }}</ion-select-option
+                >
+              </ion-select>
+            </ion-item>
+            <div class="container margin-top-0">
+              <div class="import-container">
+                <div class="import">
+                  <ion-button shape="round">
+                    <label for="uploadLabourPic">
+                      Upload Photo or Logo
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                      >
+                        <path
+                          d="M3.33268 15.8333H16.666V10H18.3327V16.6667C18.3327 17.1269 17.9596 17.5 17.4993 17.5H2.49935C2.03912 17.5 1.66602 17.1269 1.66602 16.6667V10H3.33268V15.8333ZM10.8327 7.5V13.3333H9.16602V7.5H4.99935L9.99935 2.5L14.9993 7.5H10.8327Z"
+                          fill="#1540BD"
+                        />
+                      </svg>
+                    </label>
+                  </ion-button>
+                  <input
+                    type="file"
+                    id="uploadLabourPic"
+                    (change)="uploadPic($event)"
+                    accept="image/x-png,image/gif,image/jpeg"
+                    style="display: none"
+                  />
+                </div>
+                <div class="export">
+                  <ion-button (click)="removePic()" shape="round">
+                    <label>
+                      Remove
+                      <img src="assets/icon/enable-delete-button.svg" alt="" />
+                    </label>
+                  </ion-button>
+                </div>
               </div>
-              <div class="export">
-                <ion-button shape="round">
-                  <label for="uploadZSD">
-                    Remove
-                    <img src="assets/icon/enable-delete-button.svg" alt="">
-                  </label>
-                </ion-button>
-                <input type="file" id="uploadZSD" style="display: none" />
+              <div class="preview-box">
+                <img [src]="labourPicSrc" alt="labour-pic-png" />
               </div>
             </div>
           </div>
-        </div>
-        <div class="tab-bar">
-          <div>
-            <ion-button shape="round" class="active-btn">Submit</ion-button>
-            <ion-button shape="round" (click)="modal.dismiss()">Cancel</ion-button>
+
+          <div class="tab-bar">
+            <div>
+              <ion-button shape="round" type="submit" class="active-btn"
+                >Submit</ion-button
+              >
+              <ion-button
+                shape="round"
+                (click)="labourForm.reset(); removePic(); isModalOpen = false"
+                >Cancel</ion-button
+              >
+            </div>
           </div>
-        </div>
+        </form>
       </section>
     </ng-template>
   </ion-modal>
+
+  <app-confirmation
+    (event)="deleteLabourParty($event)"
+    [show]="showConfirm"
+  ></app-confirmation>
 </ion-content>

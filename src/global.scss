@@ -142,6 +142,7 @@
     justify-content: space-between;
 
     .img {
+      img,
       div {
         height: 36px;
         width: 36px;
@@ -205,6 +206,22 @@
         margin-right: 7px;
       }
     }
+  }
+}
+
+.preview-box {
+  width: 328px;
+  height: 191px;
+  margin: 20px auto;
+  border-radius: 12px;
+  border: 1px solid rgba(206, 211, 241, 0.62);
+  box-shadow: 0px 4px 60px 0px #c6e0ff;
+
+  img {
+    object-fit: cover;
+    border-radius: 12px;
+    height: 100%;
+    width: 100%;
   }
 }
 
@@ -302,7 +319,7 @@ ion-item.ion-touched.ion-invalid {
 }
 
 .green-text {
-  color: #31BD58 !important;
+  color: #31bd58 !important;
 }
 
 .below-space {
