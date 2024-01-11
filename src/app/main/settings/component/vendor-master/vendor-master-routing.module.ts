@@ -5,17 +5,22 @@ import { VendorMasterComponent } from './vendor-master.component';
 const routes: Routes = [
   {
     path: '',
-    component: VendorMasterComponent
+    component: VendorMasterComponent,
   },
   {
     path: 'add-vendor',
-    loadChildren: () => import('./add-vendor/add-vendor.module').then( m => m.AddVendorPageModule)
+    loadChildren: () =>
+      import('./add-vendor/add-vendor.module').then(
+        (m) => m.AddVendorPageModule
+      ),
   },
   {
-    path: 'vendor-details',
-    loadChildren: () => import('./vendor-details/vendor-details.module').then( m => m.VendorDetailsModule)
-  }
-
+    path: 'vendor-details/:id',
+    loadChildren: () =>
+      import('./vendor-details/vendor-details.module').then(
+        (m) => m.VendorDetailsModule
+      ),
+  },
 ];
 
 @NgModule({

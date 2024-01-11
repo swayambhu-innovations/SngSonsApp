@@ -1,90 +1,116 @@
 <ion-content class="vendor-details" [fullscreen]="true">
-    <header class="ion-padding-vertical">
-      <div class="header">
-        <div class="img" routerLink="/main/settings/vendor-master">
-          <img src="assets/icon/back-button.svg" alt="" />
-        </div>
-        <div class="head">Add New Vendor</div>
-        <div class="row-data-wrapper-container">
-          <div class="inner-container">
-            <div class="action-button">
-              <div class="toogle">
-                <label class="switch">
-                  <input
-                    type="checkbox"
-                    [checked]="true"
-                  />
-                  <span class="slider round"></span>
-                </label>
-              </div>
-              <div class="edit-button">
-                <img src="assets/icon/enable-edit-button.svg" alt="" />
-              </div>
-              <div
-                class="delete"
-              >
-                <img src="assets/icon/enable-delete-button.svg" alt="" />
-              </div>
+  <!-- actions -->
+  <header class="ion-padding-vertical">
+    <div class="header">
+      <div class="img" routerLink="/main/settings/vendor-master">
+        <img src="assets/icon/back-button.svg" alt="" />
+      </div>
+      <div class="head">{{ vendorData.WSName }}</div>
+      <div class="row-data-wrapper-container">
+        <div class="inner-container">
+          <div class="action-button">
+            <div class="toogle">
+              <label class="switch">
+                <input
+                  type="checkbox"
+                  [checked]="vendorData?.active"
+                  (change)="updVendorStatus($event, !vendorData.active)"
+                />
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <div (click)="editDetails($event, vendorData)" class="edit-button">
+              <img src="assets/icon/enable-edit-button.svg" alt="" />
+            </div>
+            <div
+              (click)="toDelete = { id: vendorData.id }; showConfirm = true"
+              class="delete"
+            >
+              <img src="assets/icon/enable-delete-button.svg" alt="" />
             </div>
           </div>
-        </div>   
-      </div>
-    </header>
-    <section>
-      <div class="img-container">
-        <div class="img">
-
         </div>
       </div>
-    </section>
-    <section class="vehicle-info-container">
-      <ion-card class="ion-padding">
-        <ion-grid>
-          <p class="heading">Vehicle Info</p>
-    
-          <ion-row class="ion-justify-content-between ion-align-items-center">
-            <ion-col class="col-head" size="auto">Vehicle Number</ion-col>
-            <ion-col size="auto">UP70JL7879</ion-col>
-          </ion-row>
-    
-          <ion-row class="ion-justify-content-between ion-align-items-center">
-            <ion-col class="col-head" size="auto">Postal Code</ion-col>
-            <ion-col size="auto">100110</ion-col>
-          </ion-row>
-    
-          <ion-row class="ion-justify-content-between ion-align-items-center">
-            <ion-col class="col-head" size="auto">PAN Number</ion-col>
-            <ion-col size="auto">JLDPS6564</ion-col>
-          </ion-row>
-    
-          <ion-row class="ion-justify-content-between ion-align-items-center">
-            <ion-col class="col-head" size="auto">Fuel Type</ion-col>
-            <ion-col size="auto">Diesel</ion-col>
-          </ion-row>
-    
-          <ion-row class="ion-justify-content-between ion-align-items-center">
-            <ion-col class="col-head" size="auto">Fuel Tank Status</ion-col>
-            <ion-col size="auto">45 Ltrs</ion-col>
-          </ion-row>
-    
-          <ion-row class="ion-justify-content-between ion-align-items-center">
-            <ion-col class="col-head" size="auto"
-              >GST Number</ion-col
-            >
-            <ion-col size="auto">GST565544999865</ion-col>
-          </ion-row>
-    
-          <ion-row class="ion-justify-content-between ion-align-items-center">
-            <ion-col class="col-head" size="auto">Shipping Type</ion-col>
-            <ion-col size="auto">Individual</ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-card>
-    </section>
-    <!-- <section>
-      <app-day-wise-summary></app-day-wise-summary>
-    </section> -->
-    <section class="shipment-container">
-      <app-vendor-shipment></app-vendor-shipment>
-    </section>
+    </div>
+  </header>
+
+  <!-- vendor-details -->
+  <section>
+    <div class="img-container">
+      <img [src]="vendorData.vendorProfileImg" alt="avatar" />
+    </div>
+  </section>
+
+  <section class="vehicle-info-container">
+    <ion-card class="ion-padding">
+      <ion-grid>
+        <p class="heading">Vendor Info</p>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">W/S Name</ion-col>
+          <ion-col size="auto">{{ vendorData.WSName }}</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">W/S Code</ion-col>
+          <ion-col size="auto">{{ vendorData.WSCode }}</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">Postal Code</ion-col>
+          <ion-col size="auto">{{ vendorData.postalCode }}</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">Town</ion-col>
+          <ion-col size="auto">{{ vendorData.WSTown }}</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">PAN Number</ion-col>
+          <ion-col size="auto">{{ vendorData.panNo }}</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">Phone Number</ion-col>
+          <ion-col size="auto">{{ vendorData.phoneNO }}</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">GST Number</ion-col>
+          <ion-col size="auto">{{ vendorData.GSTNo }}</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">Shipping Type</ion-col>
+          <ion-col size="auto">{{ vendorData.shippingType }}</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">Distance</ion-col>
+          <ion-col size="auto">{{ vendorData.distance }}</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">Max Credit Limit</ion-col>
+          <ion-col size="auto">₹ {{ vendorData.maxCreditLimit }}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+  </section>
+
+  <section>
+    <app-day-wise-summary></app-day-wise-summary>
+  </section>
+
+  <section class="shipment-container">
+    <app-vendor-shipment></app-vendor-shipment>
+  </section>
+
+  <div class="below-space"></div>
+
+  <app-confirmation
+    (event)="deleteVendor($event)"
+    [show]="showConfirm"
+  ></app-confirmation>
 </ion-content>

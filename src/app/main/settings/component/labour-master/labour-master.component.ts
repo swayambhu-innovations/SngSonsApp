@@ -20,6 +20,7 @@ export class LabourMasterComponent implements OnInit {
   private loader: any;
   public toDelete: any;
   public showConfirm = false;
+  public isSearching: boolean = false; // tells whether user is searching or not
 
   constructor(
     private labourMasterService: LabourMasterService,
@@ -62,7 +63,7 @@ export class LabourMasterComponent implements OnInit {
   }
 
   async init() {
-    this.loader.present();
+    this.loader?.present();
     await this.getLabourParty();
     this.loader.dismiss();
   }
@@ -106,11 +107,12 @@ export class LabourMasterComponent implements OnInit {
   searchLabour(e: any) {
     const searchValue = e.detail.value;
     if (searchValue && searchValue.trim() !== '') {
+      this.isSearching = true;
       this.filteredLabours = this.labourData.filter((item: any) =>
         item.labourPartyName.toLowerCase().includes(searchValue.toLowerCase())
       );
     } else {
-      this.filteredLabours = [];
+      this.isSearching = false;
     }
   }
 
