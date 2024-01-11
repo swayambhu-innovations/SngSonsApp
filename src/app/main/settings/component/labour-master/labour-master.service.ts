@@ -7,14 +7,9 @@ import {
   getDocs,
   updateDoc,
   deleteDoc,
-  getDoc,
 } from '@angular/fire/firestore';
 import {
   Storage,
-  deleteObject,
-  getDownloadURL,
-  ref,
-  uploadBytesResumable,
 } from '@angular/fire/storage';
 import { Config } from 'src/app/config';
 
@@ -22,25 +17,10 @@ import { Config } from 'src/app/config';
   providedIn: 'root',
 })
 export class LabourMasterService {
-  constructor(private storage: Storage, public firestore: Firestore) {}
+  constructor(private storage: Storage, public firestore: Firestore) { }
 
   getLabourParty() {
     return getDocs(collection(this.firestore, Config.collection.labourMaster));
-  }
-
-  async uploadFile(file: any, path?: string) {
-    path = path
-      ? path + '/' + file.name
-      : Config.storage.labourParty + '/' + file.name;
-    await uploadBytesResumable(ref(this.storage, path), file);
-    return getDownloadURL(ref(this.storage, path));
-  }
-
-  deleteFile(file: any, path?: string) {
-    path = path
-      ? path + '/' + file.name
-      : Config.storage.labourParty + '/' + file.name;
-    return deleteObject(ref(this.storage, path));
   }
 
   updLabourType(labourPartyId: string, status: boolean) {

@@ -15,12 +15,13 @@
                 fill="#1540BD" />
             </svg>
           </label>
-          <input type="file" id="uploadImg" (change)="imgRead($event)" style="display: none" />
+          <input type="file" id="uploadImg" (change)="changePhoto($event)" style="display: none" />
         </span>
       </div>
-      <p id="user-name">Ravi Prakash</p>
-      <p>Admin</p>
-      <p>ravi@gmail.com</p>
+      <p id="user-name">{{userData.access?.userName || ''}}</p>
+      <p class="profile-created-text">{{createdDate}}</p>
+      <p class="role">{{userData.access?.roleName || ''}}</p>
+      <p>{{userData.access?.email || ''}}</p>
 
       <ion-button shape="round">
         <span>Edit Profile</span>

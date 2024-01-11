@@ -30,17 +30,24 @@ export const Config = {
   storage: {
     labourParty: 'labourParty-Library',
     vendors: 'vendors-Library',
+    userPhoto: 'user-photo',    
   },
   hardData: {
     postalCode: ['226029', '211001', '110241', '224531'],
     shippingType: ['Truck', 'Mini-Truck'],
   },
   permissions: {
-    upload_new_zsd_file: 'UPLOAD_NEW_ZSD_FILE',
-    fill_shipment_voucher: 'FILL_SHIPMENT_VOUCHER',
-    fill_post_delivery_form: 'FILL_POST_DELIVERY_FORM',
-    discard_vouchers: 'DISCARD_VOUCHERS',
-    edit_account_settings: 'EDIT_ACCOUNT_SETTINGS',
-    view_reports: 'VIEW_REPORTS',
+    upload_new_zsd_file: 'upload_new_zsd_file',
+    fill_shipment_voucher: 'fill_shipment_voucher',
+    fill_post_delivery_form: 'fill_post_delivery_form',
+    discard_vouchers: 'discard_vouchers',
+    edit_account_settings: 'edit_account_settings',
+    view_reports: 'view_reports',
   },
+  localStorage: {
+    userdata: 'userdata',
+  },
+  url: {
+    dicebear: 'https://api.dicebear.com/7.x/initials/svg?seed='
+  }
 };

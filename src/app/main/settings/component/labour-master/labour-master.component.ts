@@ -5,6 +5,7 @@ import { LabourMasterService } from './labour-master.service';
 import { Config } from 'src/app/config';
 import { NotificationService } from 'src/app/utils/notification';
 import { SharedService } from 'src/app/shared/shared.service';
+import { FileuploadService } from 'src/app/utils/fileupload';
 
 @Component({
   selector: 'app-labour-master',
@@ -26,7 +27,8 @@ export class LabourMasterComponent implements OnInit {
     private loadingController: LoadingController,
     private notificationService: NotificationService,
     private modalController: ModalController,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private fileuploadService: FileuploadService
   ) {
     this.sharedService.refresh.subscribe((data) => {
       if (data) {
@@ -140,7 +142,7 @@ export class LabourMasterComponent implements OnInit {
     try {
       this.loader.present();
       if (this.file) {
-        const url = await this.labourMasterService.uploadFile(this.file);
+        const url = await this.fileuploadService.uploadFile(this.file);
         this.labourForm.patchValue({ labourProfileImg: url as string });
       }
 

@@ -66,4 +66,8 @@ export class UserPermissionService {
     updUserStatus(userId: string, status: boolean) {
         return updateDoc(doc(this.firestore, Config.collection.users, userId), { active: status });
     }
+
+    updUserPhoto(userId: string, url: string) {
+        return updateDoc(doc(this.firestore, Config.collection.users, userId), { photoURL: url });
+    }
 }
