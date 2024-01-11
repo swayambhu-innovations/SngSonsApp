@@ -79,7 +79,7 @@ export class AddVendorPage implements OnInit {
   }
 
   goBack() {
-    this.navCtrl.back();
+    this.navCtrl.navigateForward(['main/settings/vendor-master']);
     this.vendorForm.reset();
     this.removePic();
   }
@@ -94,10 +94,11 @@ export class AddVendorPage implements OnInit {
         this.vendorForm.patchValue({
           vendorProfileImg: url as string,
         });
-        this.vendorForm.patchValue({
-          pending: false as boolean,
-        });
       }
+
+      this.vendorForm.patchValue({
+        pending: false as boolean,
+      });
 
       await this.vendorMasterService.addVendor(this.vendorForm.value);
 
