@@ -15,6 +15,34 @@
   --padding-start: 15px;
   --padding-end: 15px;
 
+  .header {
+    display: flex;
+    padding: 10px 10px 10px 7px;
+    justify-content: space-between;
+
+    .d-flex {
+      display: flex;
+      gap: 10px;
+
+      .img {
+        padding-top: 3px;
+      }
+
+      .head {
+        padding-top: 6px;
+        color: var(--Primary, #1540bd);
+        font-size: 20px;
+        font-weight: 400;
+        padding-left: 8px;
+      }
+
+      .refresh-icon,
+      .option-icon {
+        padding-top: 5px;
+      }
+    }
+  }
+
   .no-notifications {
     margin-top: 6rem;
 
@@ -40,7 +68,7 @@
     align-items: center;
     padding: 10px;
     border-radius: 12px;
-    border: 2px solid rgba(206, 211, 241, 0.62);
+    border: 2px solid rgba(23, 76, 230, 0.5);
 
     .d-flex {
       display: flex !important;
@@ -52,7 +80,7 @@
 
       .preview-text {
         color: var(--Text1, #505e86);
-        width: 210px;
+        width: 250px;
         font-size: 14px;
         word-wrap: break-word;
         text-overflow: ellipsis;

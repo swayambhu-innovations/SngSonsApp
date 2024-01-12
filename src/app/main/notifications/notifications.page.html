@@ -1,5 +1,22 @@
 <ion-content class="notification-container">
-  <app-header headerName="Notifications"></app-header>
+  <header>
+    <div class="header">
+      <div class="d-flex">
+        <div (click)="goBack()" class="img">
+          <img src="assets/icon/back-button.svg" alt="back-btn" />
+        </div>
+        <div class="head">Notifications</div>
+      </div>
+      <div class="d-flex">
+        <div class="refresh-icon" (click)="refresh()">
+          <img src="assets/icon/refresh.svg" alt="refresh-btn" />
+        </div>
+        <div class="option-icon">
+          <img src="assets/icon/more_vert.svg" alt="" />
+        </div>
+      </div>
+    </div>
+  </header>
 
   <!-- Show vector image if there are no notifications -->
   <div
