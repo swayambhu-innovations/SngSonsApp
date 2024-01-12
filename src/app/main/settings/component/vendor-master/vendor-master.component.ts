@@ -67,6 +67,7 @@ export class VendorMasterComponent {
     this.vendorData = this.vendorData.filter(
       (vendor: any) => vendor?.pending == false
     );
+    this.filteredVendors = this.vendorData;
   }
 
   async updVendorStatus($event: any, vendorId: string, status: boolean) {
@@ -80,13 +81,10 @@ export class VendorMasterComponent {
   searchVendor(e: any) {
     const searchValue = e.detail.value;
     if (searchValue && searchValue.trim() !== '') {
-      this.isSearching = true;
-      this.filteredVendors = this.vendorData.filter((item: any) =>
-        item.WSName.toLowerCase().includes(searchValue.toLowerCase())
+      this.filteredVendors = this.vendorData.filter((vendor: any) =>
+        vendor.WSName.toLowerCase().includes(searchValue.toLowerCase())
       );
-    } else {
-      this.isSearching = false;
-    }
+    } else this.filteredVendors = this.vendorData;
   }
 
   async editDetails(event: any, vendor: any) {

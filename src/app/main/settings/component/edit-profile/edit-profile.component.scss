@@ -90,17 +90,17 @@
     }
   }
 
-  .d-flex {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  label {
+    position: relative;
 
-    label {
-      position: relative;
-    }
+    .d-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-    svg {
-      margin-inline: 10px;
+      svg {
+        margin-inline: 10px;
+      }
     }
 
     input[type="date"] {

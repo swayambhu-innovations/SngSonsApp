@@ -8,7 +8,8 @@
         <div class="head">Add New Vendor</div>
       </div>
     </header>
-    <form [formGroup]="vendorForm" (ngSubmit)="vendorForm.valid && onSubmit()">
+
+    <form [formGroup]="vendorForm" (ngSubmit)="onSubmit()">
       <div class="container">
         <ion-item lines="none" class="Variable">
           <ion-input
@@ -155,7 +156,7 @@
         </div>
       </div>
     </form>
-  </section>
 
-  <div class="below-space"></div>
+    <div class="below-space"></div>
+  </section>
 </ion-content>

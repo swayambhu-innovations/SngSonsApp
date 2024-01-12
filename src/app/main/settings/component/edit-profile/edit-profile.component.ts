@@ -38,23 +38,31 @@ export class EditProfileComponent implements OnInit {
   async ngOnInit() {
     this.userData = this.utilService.getUserdata();
     this.displayImage = this.utilService.getUserPhoto();
-    this.editProfileForm.patchValue({...this.userData.access});
+    this.editProfileForm.patchValue({ ...this.userData.access });
     this.loader = await this.loadingController.create({
       message: Config.messages.pleaseWait,
     });
   }
 
   dispDate(e: any) {
-    const date: any = new DatePipe('en-US').transform(e.target.value, 'dd MMM');
+    const date: any = new DatePipe('en-US').transform(
+      e.target.value,
+      'dd MMM YYYY'
+    );
+    this.editProfileForm.patchValue({ dob: date });
   }
 
   async changePhoto(e: any) {
     this.loader.present();
     const file = e.target.files[0];
-    const url = await this.fileuploadService.uploadFile(file, Config.storage.userPhoto, `${this.userData.access.id}.${file.name.split('.').pop()}`);
+    const url = await this.fileuploadService.uploadFile(
+      file,
+      Config.storage.userPhoto,
+      `${this.userData.access.id}.${file.name.split('.').pop()}`
+    );
     this.displayImage = url;
     await this.updUserPhoto(url);
-    this.utilService.setUserdata({photoURL: url});
+    this.utilService.setUserdata({ photoURL: url });
     this.loader.dismiss();
   }
 

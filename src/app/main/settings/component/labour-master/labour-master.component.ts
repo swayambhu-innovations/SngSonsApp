@@ -51,7 +51,7 @@ export class LabourMasterComponent implements OnInit {
   paymentMethod: string[] = ['Paytm', 'PhonePe', 'Google Pay', 'Bhim UPI'];
 
   labourPicSrc: any =
-    'https://ik.imagekit.io/xji6otwwkb/default-image.jpg?updatedAt=1680849653455';
+    'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697';
 
   async ngOnInit() {
     this.loader = await this.loadingController.create({
@@ -81,13 +81,17 @@ export class LabourMasterComponent implements OnInit {
 
   removePic(): void {
     this.labourPicSrc =
-      'https://ik.imagekit.io/xji6otwwkb/default-image.jpg?updatedAt=1680849653455';
+      'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697';
   }
 
-  closeModal = async () => {
+  closeModal() {
     this.labourForm.reset();
     this.removePic();
     this.isModalOpen = false;
+  }
+
+  canDismiss = async () => {
+    this.closeModal();
     return true;
   };
 
@@ -110,8 +114,8 @@ export class LabourMasterComponent implements OnInit {
   searchLabour(e: any) {
     const searchValue = e.detail.value;
     if (searchValue && searchValue.trim() !== '') {
-      this.filteredLabours = this.labourData.filter((item: any) =>
-        item.labourPartyName.toLowerCase().includes(searchValue.toLowerCase())
+      this.filteredLabours = this.labourData.filter((labour: any) =>
+        labour.labourPartyName.toLowerCase().includes(searchValue.toLowerCase())
       );
     } else this.filteredLabours = this.labourData;
   }
@@ -137,14 +141,18 @@ export class LabourMasterComponent implements OnInit {
   }
 
   async onSubmit() {
-    if (this.labourForm.invalid) return;
+    if (this.labourForm.invalid) {
+      this.labourForm.markAllAsTouched();
+      return;
+    }
 
     try {
       this.loader.present();
       if (this.file) {
         const url = await this.fileuploadService.uploadFile(this.file);
         this.labourForm.patchValue({ labourProfileImg: url as string });
-      }
+      } else
+        this.labourForm.patchValue({ labourProfileImg: this.labourPicSrc });
 
       await this.labourMasterService.addLabourParty(this.labourForm.value);
 
