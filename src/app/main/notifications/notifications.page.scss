@@ -1,0 +1,17 @@
+* {
+  box-sizing: border-box;
+}
+
+.notification-container {
+  --background: linear-gradient(
+    180deg,
+    #d5e6ff -8.94%,
+    #fff 27.36%,
+    #fff 61.93%,
+    #c9deff 101.69%
+  );
+  --padding-top: 15px;
+  --padding-bottom: 15px;
+  --padding-start: 15px;
+  --padding-end: 15px;
+}

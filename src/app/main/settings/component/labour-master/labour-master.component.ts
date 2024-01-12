@@ -94,6 +94,7 @@ export class LabourMasterComponent implements OnInit {
     this.labourData = data.docs.map((labour) => {
       return { ...labour.data(), id: labour.id };
     });
+    this.filteredLabours = this.labourData;
   }
 
   async updLabourStatus($event: any, labourId: string, status: boolean) {
@@ -107,13 +108,10 @@ export class LabourMasterComponent implements OnInit {
   searchLabour(e: any) {
     const searchValue = e.detail.value;
     if (searchValue && searchValue.trim() !== '') {
-      this.isSearching = true;
       this.filteredLabours = this.labourData.filter((item: any) =>
         item.labourPartyName.toLowerCase().includes(searchValue.toLowerCase())
       );
-    } else {
-      this.isSearching = false;
-    }
+    } else this.filteredLabours = this.labourData;
   }
 
   async editDetails(event: any, labourParty: any) {
