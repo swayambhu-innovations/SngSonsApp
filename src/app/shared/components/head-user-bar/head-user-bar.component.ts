@@ -32,10 +32,6 @@ export class HeadUserBarComponent implements OnInit {
     this.getUserName();
   }
 
-  goHome() {
-    this.navCtrl.navigateForward('main/home');
-  }
-
   openNotifications() {
     this.navCtrl.navigateForward('main/notifications');
   }
@@ -52,7 +48,7 @@ export class HeadUserBarComponent implements OnInit {
     });
     this.tabStatus[id] = true;
   }
-  
+
   getUserName() {
     const data: any = this.utilService.getUserdata();
     this.userName = data?.access?.userName || '';

@@ -14,4 +14,50 @@
   --padding-bottom: 15px;
   --padding-start: 15px;
   --padding-end: 15px;
+
+  .no-notifications {
+    margin-top: 6rem;
+
+    p {
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    .notification-head {
+      color: var(--Primary, #1540bd);
+      text-align: center;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 100%; /* 20px */
+      letter-spacing: -0.22px;
+    }
+  }
+
+  .notification-box {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-radius: 12px;
+    border: 2px solid rgba(206, 211, 241, 0.62);
+
+    .d-flex {
+      display: flex !important;
+      align-items: center;
+
+      svg {
+        margin-right: 12px;
+      }
+
+      .preview-text {
+        color: var(--Text1, #505e86);
+        width: 210px;
+        font-size: 14px;
+        word-wrap: break-word;
+        text-overflow: ellipsis;
+        font-weight: 400;
+      }
+    }
+  }
 }
