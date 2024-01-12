@@ -33,12 +33,16 @@ export class LoginPermissionService {
     }
 
     setLocal(user: any) {
-        localStorage.setItem('userdata', JSON.stringify(user));
+        localStorage.setItem(Config.localStorage.userdata, JSON.stringify(user));
     }
 
     async redirectUser(loader: any) {
-        let user: any = localStorage.getItem('userdata');
+        let user: any = localStorage.getItem(Config.localStorage.userdata);
         if (!user) {
+            setTimeout(() => {
+                this.router.navigate(['/login']);
+                loader.dismiss();
+            }, 1000);
             return;
         }
         loader.present();

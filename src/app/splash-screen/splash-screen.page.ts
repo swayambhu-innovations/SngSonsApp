@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
+import { LoginPermissionService } from '../auth/login/login-permission.service';
+import { Config } from '../config';
 
 @Component({
   selector: 'app-splash-screen',
@@ -7,11 +9,15 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./splash-screen.page.scss'],
 })
 export class SplashScreenPage implements OnInit {
-  constructor(private navCtrl: NavController) {}
+  constructor(
+    private loginPermissionService: LoginPermissionService,
+    private loadingController: LoadingController,
+  ) {}
 
-  ngOnInit() {
-    setTimeout(() => {
-      this.navCtrl.navigateForward('login');
-    }, 2500);
+  async ngOnInit() {
+    const loader = await this.loadingController.create({
+      message: Config.messages.pleaseWait,
+    });
+    this.loginPermissionService.redirectUser(loader);
   }
 }

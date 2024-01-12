@@ -33,7 +33,7 @@
           <div class="content-container" slot="content" *ngFor="let user of usersList">
             <ion-row class="ion-justify-content-between ion-align-items-center">
               <ion-col size="5" class="text">{{user.userName}}</ion-col>
-              <ion-col size="3" class="type-select drop-down-color">{{roleMapping[user.role]}}</ion-col>
+              <ion-col size="3" class="type-select drop-down-color">{{roleMapping[user.role].roleName}}</ion-col>
               <ion-col size="3" class="action">
                 <ion-col><label class="switch">
                     <input type="checkbox" [checked]="user.active" (change)="updUserStatus($event, user.id, !user.active)"/>
@@ -133,7 +133,7 @@
                 <ion-radio value="custom" style="margin-left: 5px;">Custom Permission</ion-radio>
               </ion-radio-group>
             </ion-item>
-            <div class="permission-container" *ngIf="userForm.value.roleType=='custom'">
+            <div class="permission-container" formGroupName="access" *ngIf="userForm.value.roleType=='custom'">
               <div class="head">
                 <p>Permissions</p>
               </div>
@@ -237,7 +237,7 @@
                 formControlName="roleName"
               ></ion-input>
             </ion-item>
-            <div class="permission-container">
+            <div class="permission-container" formGroupName="access">
               <div class="head">
                 <p>Permissions</p>
               </div>

@@ -4,6 +4,7 @@ import { IonicModule, NavController } from '@ionic/angular';
 import { SimpleComponent } from './tabs/simple/simple.component';
 import { ExpertComponent } from './tabs/expert/expert.component';
 import { CustomComponent } from './tabs/custom/custom.component';
+import { UtilService } from 'src/app/utils/util';
 
 @Component({
   selector: 'app-head-user-bar',
@@ -19,11 +20,17 @@ import { CustomComponent } from './tabs/custom/custom.component';
   standalone: true,
 })
 export class HeadUserBarComponent implements OnInit {
-  constructor(private navCtrl: NavController) {}
+  constructor(
+    private navCtrl: NavController,
+    private utilService: UtilService
+  ) {}
 
   openMode: boolean = false;
+  userName: string = '';
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getUserName();
+  }
 
   goHome() {
     this.navCtrl.navigateForward('main/home');
@@ -44,5 +51,10 @@ export class HeadUserBarComponent implements OnInit {
       this.tabStatus[key] = false;
     });
     this.tabStatus[id] = true;
+  }
+  
+  getUserName() {
+    const data: any = this.utilService.getUserdata();
+    this.userName = data?.access?.userName || '';
   }
 }

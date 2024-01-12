@@ -3,7 +3,7 @@ import { LoadingController } from "@ionic/angular";
 import { NotificationService } from "src/app/utils/notification";
 import { SharedService } from "src/app/shared/shared.service";
 import { Config } from "src/app/config";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
 import { UserPermissionService } from "./user-permission.service";
 import { createUserWithEmailAndPassword, getAuth } from "@angular/fire/auth";
 
@@ -54,12 +54,14 @@ export class UserPermissionComponent {
 
     roleForm: FormGroup = new FormGroup({
         roleName: new FormControl('', [Validators.required]),
-        upload_new_zsd_file: new FormControl(true, []),
-        fill_shipment_voucher: new FormControl(true, []),
-        fill_post_delivery_form: new FormControl(true, []),
-        discard_vouchers: new FormControl(true, []),
-        edit_account_settings: new FormControl(true, []),
-        view_reports: new FormControl(true, []),
+        access: new FormGroup({
+            upload_new_zsd_file: new FormControl(true, []),
+            fill_shipment_voucher: new FormControl(true, []),
+            fill_post_delivery_form: new FormControl(true, []),
+            discard_vouchers: new FormControl(true, []),
+            edit_account_settings: new FormControl(true, []),
+            view_reports: new FormControl(true, []),
+        }),
         active: new FormControl(true, []),
         createdAt: new FormControl(new Date(), []),
         id: new FormControl('')
@@ -71,13 +73,16 @@ export class UserPermissionComponent {
         email: new FormControl('', []),
         phone: new FormControl('', [Validators.required]),
         roleType: new FormControl('role', []),
-        upload_new_zsd_file: new FormControl(true, []),
-        fill_shipment_voucher: new FormControl(true, []),
-        fill_post_delivery_form: new FormControl(true, []),
-        discard_vouchers: new FormControl(true, []),
-        edit_account_settings: new FormControl(true, []),
-        view_reports: new FormControl(true, []),
+        access: new FormGroup({
+            upload_new_zsd_file: new FormControl(true, []),
+            fill_shipment_voucher: new FormControl(true, []),
+            fill_post_delivery_form: new FormControl(true, []),
+            discard_vouchers: new FormControl(true, []),
+            edit_account_settings: new FormControl(true, []),
+            view_reports: new FormControl(true, []),
+        }),
         role: new FormControl('', []),
+        roleName: new FormControl('', []),
         active: new FormControl(true, []),
         createdAt: new FormControl(new Date(), []),
         id: new FormControl('')
@@ -111,7 +116,7 @@ export class UserPermissionComponent {
         this.loader.present();
         const data = await this.userPermissionService.getRoles();
         this.rolesList = data.docs.map((role) => {
-            this.roleMapping[role.id] = role.data()['roleName'];
+            this.roleMapping[role.id] = role.data();
             return { ...role.data(), id: role.id }
         });
         this.loader.dismiss();
@@ -154,6 +159,10 @@ export class UserPermissionComponent {
         }
         this.loader.present();
         const formData = this.userForm.value;
+        if (formData.roleType === 'role') {
+            formData.access = this.roleMapping[formData.role].access;
+            formData.roleName = this.roleMapping[formData.role].roleName;
+        }
         if (!formData.id) {
             await this.userPermissionService.checkContactNumber(formData.phone).then(async (data) => {
                 if (data.docs && data.docs.length > 0) {
@@ -195,7 +204,7 @@ export class UserPermissionComponent {
     }
 
     editUser(account: any) {
-        this.userForm.setValue(account);
+        this.userForm.patchValue(account);
         this.openUser = true;
     }
 }

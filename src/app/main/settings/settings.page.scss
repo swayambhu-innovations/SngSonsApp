@@ -19,6 +19,13 @@
     backdrop-filter: blur(15px);
 
     .user-settings {
+      .role {
+        color: #1540BD;
+      }
+      .profile-created-text {
+        color: #9FA7B2;
+        font-size: 12px;
+      }
       .user-profile {
         display: flex;
         justify-content: center;
@@ -26,16 +33,15 @@
 
         .user-avatar {
           width: 180px;
-          height: 180px;
+          height: 184px;
           background-color: transparent;
-          border-radius: 1655px;
-          border: 2px solid var(--Tab-gradient, #1540bd);
+          border-radius: 50%;
+          border: 2px solid #1540bd;
           box-shadow: 0px 4px 30px 0px #c6e0ff;
 
           img {
-            width: 180px;
             height: 180px;
-            border-radius: 1655px;
+            border-radius: 50%;
             object-fit: cover;
           }
         }
