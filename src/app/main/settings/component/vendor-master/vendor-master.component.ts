@@ -17,7 +17,8 @@ export class VendorMasterComponent {
   public config = Config; // fetching constant from app config file
   private loader: any;
   public toDelete: any;
-  public showConfirm = false;
+  public showConfirm: boolean = false;
+  public isSearching: boolean = false; // tells whether user is searching or not
 
   constructor(
     private vendorMasterService: VendorMasterService,
@@ -42,6 +43,10 @@ export class VendorMasterComponent {
     this.loader = await this.loadingController.create({
       message: Config.messages.pleaseWait,
     });
+    this.init();
+  }
+
+  async ionViewDidEnter() {
     this.init();
   }
 
@@ -75,11 +80,12 @@ export class VendorMasterComponent {
   searchVendor(e: any) {
     const searchValue = e.detail.value;
     if (searchValue && searchValue.trim() !== '') {
+      this.isSearching = true;
       this.filteredVendors = this.vendorData.filter((item: any) =>
         item.WSName.toLowerCase().includes(searchValue.toLowerCase())
       );
     } else {
-      this.filteredVendors = [];
+      this.isSearching = false;
     }
   }
 
@@ -88,7 +94,16 @@ export class VendorMasterComponent {
     this.navCtrl.navigateForward(['main/settings/vendor-master/add-vendor'], {
       state: { vendor: JSON.stringify(vendor) },
     });
-    this.init();
+  }
+
+  async openDetails(event: any, vendor: any) {
+    event.stopPropagation();
+    this.navCtrl.navigateForward(
+      [`main/settings/vendor-master/vendor-details/${vendor.id}`],
+      {
+        state: { vendor: JSON.stringify(vendor) },
+      }
+    );
   }
 
   async deleteVendor(confirmation: any) {

@@ -21,6 +21,7 @@ export class LabourMasterComponent implements OnInit {
   private loader: any;
   public toDelete: any;
   public showConfirm = false;
+  public isSearching: boolean = false; // tells whether user is searching or not
 
   constructor(
     private labourMasterService: LabourMasterService,
@@ -64,7 +65,7 @@ export class LabourMasterComponent implements OnInit {
   }
 
   async init() {
-    this.loader.present();
+    this.loader?.present();
     await this.getLabourParty();
     this.loader.dismiss();
   }
@@ -95,6 +96,7 @@ export class LabourMasterComponent implements OnInit {
     this.labourData = data.docs.map((labour) => {
       return { ...labour.data(), id: labour.id };
     });
+    this.filteredLabours = this.labourData;
   }
 
   async updLabourStatus($event: any, labourId: string, status: boolean) {
@@ -111,9 +113,7 @@ export class LabourMasterComponent implements OnInit {
       this.filteredLabours = this.labourData.filter((item: any) =>
         item.labourPartyName.toLowerCase().includes(searchValue.toLowerCase())
       );
-    } else {
-      this.filteredLabours = [];
-    }
+    } else this.filteredLabours = this.labourData;
   }
 
   async editDetails(event: any, labourParty: any) {

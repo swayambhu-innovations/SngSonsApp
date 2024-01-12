@@ -36,6 +36,10 @@ export class HeadUserBarComponent implements OnInit {
     this.navCtrl.navigateForward('main/home');
   }
 
+  openNotifications() {
+    this.navCtrl.navigateForward('main/notifications');
+  }
+
   tabStatus: any = {
     simple: true,
     expert: false,

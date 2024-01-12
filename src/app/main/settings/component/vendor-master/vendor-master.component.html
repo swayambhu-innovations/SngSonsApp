@@ -77,15 +77,13 @@
   <section>
     <div
       class="row-data-wrapper-container"
-      *ngFor="
-        let vendor of filteredVendors?.length ? filteredVendors : vendorData
-      "
+      *ngFor="let vendor of isSearching ? filteredVendors : vendorData"
     >
       <div class="inner-container">
-        <div class="img">
+        <div (click)="openDetails($event, vendor)" class="img">
           <img [src]="vendor?.vendorProfileImg" alt="avatar" />
         </div>
-        <div class="data-text" routerLink="/main/settings/vendor-master/vendor-details">
+        <div (click)="openDetails($event, vendor)" class="data-text">
           <p class="text-name">{{ vendor?.WSName }}</p>
           <p class="address">
             <span class="address-name">{{ vendor?.WSTown }}</span> |
@@ -118,6 +116,7 @@
       </div>
     </div>
   </section>
+
   <div class="below-space"></div>
 
   <app-confirmation
