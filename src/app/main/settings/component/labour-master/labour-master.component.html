@@ -68,7 +68,7 @@
   <ion-modal
     #modal
     [isOpen]="isModalOpen"
-    [canDismiss]="closeModal"
+    [canDismiss]="canDismiss"
     trigger="set-labour-modal"
     [initialBreakpoint]="1"
     [breakpoints]="[0, 1]"
@@ -81,10 +81,7 @@
             <div class="head">Add Labour Party</div>
           </div>
         </header>
-        <form
-          [formGroup]="labourForm"
-          (ngSubmit)="labourForm.valid && onSubmit()"
-        >
+        <form [formGroup]="labourForm" (ngSubmit)="onSubmit()">
           <div class="container">
             <ion-item lines="none" class="Variable">
               <ion-input
@@ -168,9 +165,7 @@
               <ion-button shape="round" type="submit" class="active-btn"
                 >Submit</ion-button
               >
-              <ion-button
-                shape="round"
-                (click)="labourForm.reset(); removePic(); isModalOpen = false"
+              <ion-button shape="round" (click)="closeModal(); modal.dismiss()"
                 >Cancel</ion-button
               >
             </div>

@@ -47,7 +47,7 @@ export class AddVendorPage implements OnInit {
   shippingType: string[] = [...Config.hardData.shippingType];
 
   vendorPicSrc: any =
-    'https://ik.imagekit.io/xji6otwwkb/default-image.jpg?updatedAt=1680849653455';
+    'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697';
 
   async ngOnInit() {
     this.loader = await this.loadingController.create({
@@ -75,7 +75,7 @@ export class AddVendorPage implements OnInit {
 
   removePic(): void {
     this.vendorPicSrc =
-      'https://ik.imagekit.io/xji6otwwkb/default-image.jpg?updatedAt=1680849653455';
+      'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697';
   }
 
   goBack() {
@@ -85,8 +85,10 @@ export class AddVendorPage implements OnInit {
   }
 
   async onSubmit() {
-    if (this.vendorForm.invalid) return;
-
+    if (this.vendorForm.invalid) {
+      this.vendorForm.markAllAsTouched();
+      return;
+    }
     try {
       this.loader.present();
       if (this.file) {
@@ -94,7 +96,8 @@ export class AddVendorPage implements OnInit {
         this.vendorForm.patchValue({
           vendorProfileImg: url as string,
         });
-      }
+      } else
+        this.vendorForm.patchValue({ vendorProfileImg: this.vendorPicSrc });
 
       this.vendorForm.patchValue({
         pending: false as boolean,

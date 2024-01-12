@@ -3,7 +3,7 @@
   <section>
     <div class="add-vehicle-wrapper-container">
       <div class="inner-container">
-        <div class="label">Create New Vehicle</div>
+        <div class="label">Create New Vendor</div>
         <div (click)="openAddVendorForm()" class="button">
           <p class="button-name">Add Vendor</p>
           <p class="symbol"><img src="assets/icon/plus-button.svg" alt="" /></p>
@@ -77,7 +77,7 @@
   <section>
     <div
       class="row-data-wrapper-container"
-      *ngFor="let vendor of isSearching ? filteredVendors : vendorData"
+      *ngFor="let vendor of filteredVendors"
     >
       <div class="inner-container">
         <div (click)="openDetails($event, vendor)" class="img">

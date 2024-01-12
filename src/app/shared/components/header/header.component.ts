@@ -21,8 +21,4 @@ export class HeaderComponent implements OnInit {
   refresh() {
     this.sharedService.refresh.next(true);
   }
-
-  goBack() {
-    this.navCtrl.back();
-  }
 }
