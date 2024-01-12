@@ -207,7 +207,7 @@ ion-grid {
     section{
       padding: 15px;
       height: 100vh;
-      
+      overflow-y: scroll;  
     }
 
   .header{
@@ -249,29 +249,39 @@ ion-grid {
       height: 48px;
     }
 
-    .limit{
-      display: flex;
-      justify-content: space-between;
-      margin-top: 10px;
-      margin-bottom: 15px;
+    .modal-head{
+      color:  #1540BD;
+      font-size: 16px;
+      font-weight: 400;
+    }
 
-      .lower{
-        width: 48%;
-        height: 56px;
-      } 
-
-      .upper{
-        width: 48%;
-        height: 56px;
-      } 
+    label {
+      position: relative;
+  
+      .d-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+  
+        svg {
+          margin-inline: 10px;
+        }
+      }
+  
+      input[type="date"] {
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
     }
 
   }
     
     .tab-bar {
-      position: absolute;
-      width: calc(100% - 20px);
-      bottom: 5%;
+      width: calc(100% - 20px); 
 
       div{
         display: flex;

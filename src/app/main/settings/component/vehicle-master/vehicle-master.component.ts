@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { VehicleMasterService } from "./vehicle-master.service";
 import { ModalController } from "@ionic/angular";
+import { DatePipe } from "@angular/common";
 
 @Component({
     selector:'app-vehicle-master',
@@ -49,4 +50,11 @@ export class VehicleMasterComponent implements OnInit{
         await this.vehicleMasterService.addVehicleCategoryData(formData , this.vehicleCategoryId);
         this.modalCtrl.dismiss();
     }
+
+    dispDate(e: any) {
+        const date: any = new DatePipe('en-US').transform(
+          e.target.value,
+          'dd MMM YYYY'
+        );
+      }
 }

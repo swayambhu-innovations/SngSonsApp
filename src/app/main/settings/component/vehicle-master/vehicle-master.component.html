@@ -1,5 +1,5 @@
 <ion-content class="vendor-container ion-vehicle-page">
-  <app-header headerName="Vehicles"></app-header>
+  <app-header headerName="Vehicles" backUrl="/main/settings/vehicle-category"></app-header>
   <section>
     <div class="add-vehicle-wrapper-container">
       <div class="inner-container">
@@ -68,10 +68,64 @@
             <ion-item lines="none" class="Variable">
               <ion-input
                 lines="none"
-                label="Category Name"
+                label="Registration Number"
                 class="custom"
                 labelPlacement="floating"
                 formControlName="categoryName"
+              ></ion-input>
+            </ion-item>
+            <ion-item lines="none" class="Variable">
+              <ion-input
+                lines="none"
+                label="Chassis Number"
+                class="custom"
+                labelPlacement="floating"
+                formControlName="weightCapacity"
+              ></ion-input>
+            </ion-item>
+            <div class="modal-head">
+              <p>Specs & Capacity</p>
+            </div>          
+            <ion-item class="dropdown">
+              <ion-select label="Vehicle Category" formControlName="defaultFuelType">
+                <ion-select-option value="Drop Down">Drop Down</ion-select-option>
+                <ion-select-option value="Number">Number</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item lines="none" class="Variable">
+              <ion-input
+                lines="none"
+                label="Mileage (km per Ltr)"
+                class="custom"
+                labelPlacement="floating"
+                formControlName="weightCapacity"
+              ></ion-input>
+            </ion-item>
+            <ion-item lines="none" class="Variable">
+              <ion-input
+                lines="none"
+                label="Fuel tank Capacity (Ltr)"
+                class="custom"
+                labelPlacement="floating"
+                formControlName="weightCapacity"
+              ></ion-input>
+            </ion-item>
+            <ion-item lines="none" class="Variable">
+              <ion-input
+                lines="none"
+                label="Current Filled Fuel (Ltr)"
+                class="custom"
+                labelPlacement="floating"
+                formControlName="weightCapacity"
+              ></ion-input>
+            </ion-item>
+            <ion-item lines="none" class="Variable">
+              <ion-input
+                lines="none"
+                label="KOT Capacity"
+                class="custom"
+                labelPlacement="floating"
+                formControlName="weightCapacity"
               ></ion-input>
             </ion-item>
             <ion-item lines="none" class="Variable">
@@ -83,65 +137,118 @@
                 formControlName="weightCapacity"
               ></ion-input>
             </ion-item>
-            <div class="limit">
-              <ion-item lines="none" class="lower">
-                <ion-input
-                  lines="none"
-                  fill="solid"
-                  label="Minimum Fuel (Ltr)"
-                  class="custom"
-                  labelPlacement="floating"
-                  formControlName="minimumFuel"
-                ></ion-input>
-              </ion-item>
-              <ion-item lines="none" class="upper">
-                <ion-input
-                  lines="none"
-                  label="Maximum Fuel (Ltr)"
-                  fill="solid"
-                  class="custom"
-                  labelPlacement="floating"
-                  formControlName="maximumFuel"
-                ></ion-input>
-              </ion-item>
-            </div>
-            <div class="limit">
-              <ion-item lines="none" class="lower">
-                <ion-input
-                  lines="none"
-                  fill="solid"
-                  label="Minimum Toll"
-                  class="custom"
-                  labelPlacement="floating"
-                  formControlName="minimumToll"
-                ></ion-input>
-              </ion-item>
-              <ion-item lines="none" class="upper">
-                <ion-input
-                  lines="none"
-                  label="Maximum Toll"
-                  fill="solid"
-                  class="custom"
-                  labelPlacement="floating"
-                  formControlName="maximumToll"
-                ></ion-input>
-              </ion-item>
-            </div>
-            <ion-item lines="none" class="Variable">
-              <ion-input
-                lines="none"
-                label="Default KOT Capacity"
-                class="custom"
-                labelPlacement="floating"
-                formControlName="defaultKOTCapacity"
-              ></ion-input>
-            </ion-item>          
             <ion-item class="dropdown">
-              <ion-select label="Default Fuel Type" formControlName="defaultFuelType">
+              <ion-select label="Fuel type" formControlName="defaultFuelType">
                 <ion-select-option value="Drop Down">Drop Down</ion-select-option>
                 <ion-select-option value="Number">Number</ion-select-option>
               </ion-select>
             </ion-item>
+            <ion-item class="dropdown">
+              <ion-select label="Ownership type" formControlName="defaultFuelType">
+                <ion-select-option value="Drop Down">Drop Down</ion-select-option>
+                <ion-select-option value="Number">Number</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item lines="none" class="Variable">
+              <ion-input
+                lines="none"
+                label="Current Odometer Reading (km)"
+                class="custom"
+                labelPlacement="floating"
+                formControlName="weightCapacity"
+              ></ion-input>
+            </ion-item>
+            <ion-item lines="none" class="Variable">
+              <ion-input
+                lines="none"
+                label="Fuel Voucher limit (₹)"
+                class="custom"
+                labelPlacement="floating"
+                formControlName="weightCapacity"
+              ></ion-input>
+            </ion-item>
+            <ion-item lines="none" class="Variable">
+              <ion-input
+                lines="none"
+                label="Khuraki Expense Limit (₹)"
+                class="custom"
+                labelPlacement="floating"
+                formControlName="weightCapacity"
+              ></ion-input>
+            </ion-item>
+            <ion-item lines="none" class="Variable">
+              <ion-input
+                lines="none"
+                label="Toll Expense Limit (₹)"
+                class="custom"
+                labelPlacement="floating"
+                formControlName="weightCapacity"
+              ></ion-input>
+            </ion-item>
+            <ion-item lines="none" class="Variable">
+              <ion-input
+                lines="none"
+                label="Repairs Expense Limit (₹)"
+                class="custom"
+                labelPlacement="floating"
+                formControlName="weightCapacity"
+              ></ion-input>
+            </ion-item> 
+            <div class="modal-head">
+              <p>RC, Insurance & Permits</p>
+            </div>       
+            <ion-item lines="none" class="Variable">
+              <ion-input
+                lines="none"
+                label="RC Number"
+                class="custom"
+                labelPlacement="floating"
+                formControlName="weightCapacity"
+              ></ion-input>
+            </ion-item>    
+            <label for="datePicker">
+              <div class="d-flex">
+                <ion-item lines="none" class="Variable dd-input">
+                  <div>
+                    <ion-input
+                      lines="none"
+                      label="DOB"
+                      class="custom"
+                      required
+                      formControlName="dob"
+                      labelPlacement="floating"
+                    >
+                    </ion-input>
+                    <input
+                      id="datePicker"
+                      type="date"
+                      onfocus="this.showPicker()"
+                      (change)="dispDate($event)"
+                    />
+                  </div>
+                </ion-item>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="26"
+                  height="26"
+                  viewBox="0 0 26 26"
+                  fill="none"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.58463 2.16626C8.18294 2.16626 8.66797 2.65128 8.66797 3.24959V4.33293H17.3346V3.24959C17.3346 2.65128 17.8197 2.16626 18.418 2.16626C19.0163 2.16626 19.5013 2.65128 19.5013 3.24959V4.33293H20.5846C22.3796 4.33293 23.8346 5.788 23.8346 7.58293V20.5829C23.8346 22.3779 22.3796 23.8329 20.5846 23.8329H5.41797C3.62304 23.8329 2.16797 22.3779 2.16797 20.5829V7.58293C2.16797 5.788 3.62304 4.33293 5.41797 4.33293H6.5013V3.24959C6.5013 2.65128 6.98633 2.16626 7.58463 2.16626ZM17.3346 6.49959V7.58293C17.3346 8.18123 17.8197 8.66626 18.418 8.66626C19.0163 8.66626 19.5013 8.18123 19.5013 7.58293V6.49959H20.5846C21.1829 6.49959 21.668 6.98462 21.668 7.58293V10.8329H4.33464V7.58293C4.33464 6.98462 4.81966 6.49959 5.41797 6.49959H6.5013V7.58293C6.5013 8.18123 6.98633 8.66626 7.58463 8.66626C8.18294 8.66626 8.66797 8.18123 8.66797 7.58293V6.49959H17.3346ZM4.33464 12.9996V20.5829C4.33464 21.1812 4.81966 21.6663 5.41797 21.6663H20.5846C21.1829 21.6663 21.668 21.1812 21.668 20.5829V12.9996H4.33464Z"
+                    fill="#1540BD"
+                  />
+                </svg>
+              </div>
+              <input
+                id="datePicker"
+                type="date"
+                onfocus="this.showPicker()"
+                (change)="dispDate($event)"
+              />
+            </label>   
           </div>
           <div class="tab-bar">
             <div>
