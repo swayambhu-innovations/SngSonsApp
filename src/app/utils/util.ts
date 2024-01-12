@@ -18,7 +18,8 @@ export class UtilService {
     }
 
     setUserdata(obj: any) {
-        const data = { ...this.getUserdata(), ...obj };
+        const data: any = { ...this.getUserdata() };
+        data.access = { ...data.access, ...obj };
         localStorage.setItem(Config.localStorage.userdata, JSON.stringify(data));
     }
 
@@ -47,4 +48,14 @@ export class UtilService {
         }
         return '';
     }
+
+    getUserPhoto() {
+        const userData: any = this.getUserdata();
+    
+        if (!userData.access.photoURL) {
+          return `${Config.url.dicebear}${userData.access.userName}`;
+        } else {
+          return userData.access.photoURL;
+        }
+      }
 }

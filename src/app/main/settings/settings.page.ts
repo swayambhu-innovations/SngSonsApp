@@ -28,7 +28,8 @@ export class SettingsPage implements ViewWillEnter {
   loader: any;
 
   async ionViewWillEnter() {
-    this.getUserData();
+    this.userData = this.utilService.getUserdata();
+    this.displayImage = this.utilService.getUserPhoto();
     this.loader = await this.loadingController.create({
       message: Config.messages.pleaseWait,
     });
@@ -63,19 +64,6 @@ export class SettingsPage implements ViewWillEnter {
     });
     this.showLogout = false;
     this.loginPermissionService.logout(loader);
-  }
-
-  getUserData() {
-    const user: any = localStorage.getItem(Config.localStorage.userdata);
-    if (!user) {
-        return;
-    }
-    this.userData = JSON.parse(user);
-    if (!this.userData.photoURL) {
-      this.displayImage = `${Config.url.dicebear}${this.userData.access.userName}`;
-    } else {
-      this.displayImage = this.userData.photoURL;
-    }
   }
 
   async updUserPhoto(url: string) {

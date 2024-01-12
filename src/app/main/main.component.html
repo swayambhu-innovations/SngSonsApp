@@ -2,7 +2,7 @@
     <div>
         <ion-router-outlet></ion-router-outlet>
     </div>
-    <div>
+    <div *ngIf="!excludeFooterIn.includes(currentRoute)">
         <app-footer></app-footer>
     </div>
 </div>

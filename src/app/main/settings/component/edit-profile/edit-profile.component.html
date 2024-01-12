@@ -36,13 +36,13 @@
         />
       </span>
     </div>
-    <p class="user-type">Admin</p>
+    <p class="user-type">{{userData.access?.roleName || ''}}</p>
   </section>
 
   <section>
     <form
       [formGroup]="editProfileForm"
-      (ngSubmit)="editProfileForm.valid && onSubmit()"
+      (ngSubmit)="onSubmit()"
       #f="ngForm"
     >
       <!-- name -->
@@ -65,7 +65,7 @@
             label="Name"
             class="custom"
             required
-            formControlName="name"
+            formControlName="userName"
             labelPlacement="floating"
           ></ion-input>
         </div>
@@ -117,7 +117,7 @@
             label="Phone No"
             class="custom"
             required
-            formControlName="phoneNo"
+            formControlName="phone"
             labelPlacement="floating"
           ></ion-input>
         </div>
@@ -125,7 +125,7 @@
 
       <!-- DOB -->
       <div class="d-flex">
-        <ion-item lines="none" class="Variable">
+        <ion-item lines="none" class="Variable dd-input">
           <div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -190,7 +190,7 @@
           <ion-button shape="round" type="submit" class="active-btn"
             >Save</ion-button
           >
-          <ion-button shape="round">Cancel</ion-button>
+          <ion-button shape="round" routerLink="/main/settings">Cancel</ion-button>
         </div>
       </div>
     </form>
