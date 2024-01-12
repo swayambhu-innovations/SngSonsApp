@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ReportDetailsPageRoutingModule } from './report-details-routing.module';
 
 import { ReportDetailsPage } from './report-details.page';
-import { ReportTableComponent } from 'src/app/shared/components/report-table/report-table.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -15,7 +15,7 @@ import { ReportTableComponent } from 'src/app/shared/components/report-table/rep
     FormsModule,
     IonicModule,
     ReportDetailsPageRoutingModule,
-    ReportTableComponent,
+    SharedModule,
   ],
   declarations: [ReportDetailsPage],
 })

@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { VendorDetailsComponent } from './vendor-details.component';
-import { DayWiseSummaryComponent } from 'src/app/shared/components/day-wise-summary/day-wise-summary.component';
 import { VendorShipmentComponent } from '../vendor-shipment/vendor-shipment.component';
 
 @NgModule({
@@ -15,7 +14,6 @@ import { VendorShipmentComponent } from '../vendor-shipment/vendor-shipment.comp
     SharedModule,
     FormsModule,
     IonicModule,
-    DayWiseSummaryComponent,
     VendorDetailsRoutingModule,
   ],
 })
