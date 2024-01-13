@@ -212,7 +212,7 @@
                   <div>
                     <ion-input
                       lines="none"
-                      label="DOB"
+                      label="RC Validity"
                       class="custom"
                       required
                       formControlName="dob"
@@ -248,7 +248,179 @@
                 onfocus="this.showPicker()"
                 (change)="dispDate($event)"
               />
-            </label>   
+            </label>
+            <label for="datePicker">
+              <div class="d-flex">
+                <ion-item lines="none" class="Variable dd-input">
+                  <div>
+                    <ion-input
+                      lines="none"
+                      label="Insurance Validity"
+                      class="custom"
+                      required
+                      formControlName="dob"
+                      labelPlacement="floating"
+                    >
+                    </ion-input>
+                    <input
+                      id="datePicker"
+                      type="date"
+                      onfocus="this.showPicker()"
+                      (change)="dispDate($event)"
+                    />
+                  </div>
+                </ion-item>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="26"
+                  height="26"
+                  viewBox="0 0 26 26"
+                  fill="none"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.58463 2.16626C8.18294 2.16626 8.66797 2.65128 8.66797 3.24959V4.33293H17.3346V3.24959C17.3346 2.65128 17.8197 2.16626 18.418 2.16626C19.0163 2.16626 19.5013 2.65128 19.5013 3.24959V4.33293H20.5846C22.3796 4.33293 23.8346 5.788 23.8346 7.58293V20.5829C23.8346 22.3779 22.3796 23.8329 20.5846 23.8329H5.41797C3.62304 23.8329 2.16797 22.3779 2.16797 20.5829V7.58293C2.16797 5.788 3.62304 4.33293 5.41797 4.33293H6.5013V3.24959C6.5013 2.65128 6.98633 2.16626 7.58463 2.16626ZM17.3346 6.49959V7.58293C17.3346 8.18123 17.8197 8.66626 18.418 8.66626C19.0163 8.66626 19.5013 8.18123 19.5013 7.58293V6.49959H20.5846C21.1829 6.49959 21.668 6.98462 21.668 7.58293V10.8329H4.33464V7.58293C4.33464 6.98462 4.81966 6.49959 5.41797 6.49959H6.5013V7.58293C6.5013 8.18123 6.98633 8.66626 7.58463 8.66626C8.18294 8.66626 8.66797 8.18123 8.66797 7.58293V6.49959H17.3346ZM4.33464 12.9996V20.5829C4.33464 21.1812 4.81966 21.6663 5.41797 21.6663H20.5846C21.1829 21.6663 21.668 21.1812 21.668 20.5829V12.9996H4.33464Z"
+                    fill="#1540BD"
+                  />
+                </svg>
+              </div>
+              <input
+                id="datePicker"
+                type="date"
+                onfocus="this.showPicker()"
+                (change)="dispDate($event)"
+              />
+            </label> 
+            <label for="datePicker">
+              <div class="d-flex">
+                <ion-item lines="none" class="Variable dd-input">
+                  <div>
+                    <ion-input
+                      lines="none"
+                      label="Road Tax Validity"
+                      class="custom"
+                      required
+                      formControlName="dob"
+                      labelPlacement="floating"
+                    >
+                    </ion-input>
+                    <input
+                      id="datePicker"
+                      type="date"
+                      onfocus="this.showPicker()"
+                      (change)="dispDate($event)"
+                    />
+                  </div>
+                </ion-item>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="26"
+                  height="26"
+                  viewBox="0 0 26 26"
+                  fill="none"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.58463 2.16626C8.18294 2.16626 8.66797 2.65128 8.66797 3.24959V4.33293H17.3346V3.24959C17.3346 2.65128 17.8197 2.16626 18.418 2.16626C19.0163 2.16626 19.5013 2.65128 19.5013 3.24959V4.33293H20.5846C22.3796 4.33293 23.8346 5.788 23.8346 7.58293V20.5829C23.8346 22.3779 22.3796 23.8329 20.5846 23.8329H5.41797C3.62304 23.8329 2.16797 22.3779 2.16797 20.5829V7.58293C2.16797 5.788 3.62304 4.33293 5.41797 4.33293H6.5013V3.24959C6.5013 2.65128 6.98633 2.16626 7.58463 2.16626ZM17.3346 6.49959V7.58293C17.3346 8.18123 17.8197 8.66626 18.418 8.66626C19.0163 8.66626 19.5013 8.18123 19.5013 7.58293V6.49959H20.5846C21.1829 6.49959 21.668 6.98462 21.668 7.58293V10.8329H4.33464V7.58293C4.33464 6.98462 4.81966 6.49959 5.41797 6.49959H6.5013V7.58293C6.5013 8.18123 6.98633 8.66626 7.58463 8.66626C8.18294 8.66626 8.66797 8.18123 8.66797 7.58293V6.49959H17.3346ZM4.33464 12.9996V20.5829C4.33464 21.1812 4.81966 21.6663 5.41797 21.6663H20.5846C21.1829 21.6663 21.668 21.1812 21.668 20.5829V12.9996H4.33464Z"
+                    fill="#1540BD"
+                  />
+                </svg>
+              </div>
+              <input
+                id="datePicker"
+                type="date"
+                onfocus="this.showPicker()"
+                (change)="dispDate($event)"
+              />
+            </label> 
+            <label for="datePicker">
+              <div class="d-flex">
+                <ion-item lines="none" class="Variable dd-input">
+                  <div>
+                    <ion-input
+                      lines="none"
+                      label="Permit Validity"
+                      class="custom"
+                      required
+                      formControlName="dob"
+                      labelPlacement="floating"
+                    >
+                    </ion-input>
+                    <input
+                      id="datePicker"
+                      type="date"
+                      onfocus="this.showPicker()"
+                      (change)="dispDate($event)"
+                    />
+                  </div>
+                </ion-item>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="26"
+                  height="26"
+                  viewBox="0 0 26 26"
+                  fill="none"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.58463 2.16626C8.18294 2.16626 8.66797 2.65128 8.66797 3.24959V4.33293H17.3346V3.24959C17.3346 2.65128 17.8197 2.16626 18.418 2.16626C19.0163 2.16626 19.5013 2.65128 19.5013 3.24959V4.33293H20.5846C22.3796 4.33293 23.8346 5.788 23.8346 7.58293V20.5829C23.8346 22.3779 22.3796 23.8329 20.5846 23.8329H5.41797C3.62304 23.8329 2.16797 22.3779 2.16797 20.5829V7.58293C2.16797 5.788 3.62304 4.33293 5.41797 4.33293H6.5013V3.24959C6.5013 2.65128 6.98633 2.16626 7.58463 2.16626ZM17.3346 6.49959V7.58293C17.3346 8.18123 17.8197 8.66626 18.418 8.66626C19.0163 8.66626 19.5013 8.18123 19.5013 7.58293V6.49959H20.5846C21.1829 6.49959 21.668 6.98462 21.668 7.58293V10.8329H4.33464V7.58293C4.33464 6.98462 4.81966 6.49959 5.41797 6.49959H6.5013V7.58293C6.5013 8.18123 6.98633 8.66626 7.58463 8.66626C8.18294 8.66626 8.66797 8.18123 8.66797 7.58293V6.49959H17.3346ZM4.33464 12.9996V20.5829C4.33464 21.1812 4.81966 21.6663 5.41797 21.6663H20.5846C21.1829 21.6663 21.668 21.1812 21.668 20.5829V12.9996H4.33464Z"
+                    fill="#1540BD"
+                  />
+                </svg>
+              </div>
+              <input
+                id="datePicker"
+                type="date"
+                onfocus="this.showPicker()"
+                (change)="dispDate($event)"
+              />
+            </label> 
+            <label for="datePicker">
+              <div class="d-flex">
+                <ion-item lines="none" class="Variable dd-input">
+                  <div>
+                    <ion-input
+                      lines="none"
+                      label="Pollution Validity"
+                      class="custom"
+                      required
+                      formControlName="dob"
+                      labelPlacement="floating"
+                    >
+                    </ion-input>
+                    <input
+                      id="datePicker"
+                      type="date"
+                      onfocus="this.showPicker()"
+                      (change)="dispDate($event)"
+                    />
+                  </div>
+                </ion-item>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="26"
+                  height="26"
+                  viewBox="0 0 26 26"
+                  fill="none"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.58463 2.16626C8.18294 2.16626 8.66797 2.65128 8.66797 3.24959V4.33293H17.3346V3.24959C17.3346 2.65128 17.8197 2.16626 18.418 2.16626C19.0163 2.16626 19.5013 2.65128 19.5013 3.24959V4.33293H20.5846C22.3796 4.33293 23.8346 5.788 23.8346 7.58293V20.5829C23.8346 22.3779 22.3796 23.8329 20.5846 23.8329H5.41797C3.62304 23.8329 2.16797 22.3779 2.16797 20.5829V7.58293C2.16797 5.788 3.62304 4.33293 5.41797 4.33293H6.5013V3.24959C6.5013 2.65128 6.98633 2.16626 7.58463 2.16626ZM17.3346 6.49959V7.58293C17.3346 8.18123 17.8197 8.66626 18.418 8.66626C19.0163 8.66626 19.5013 8.18123 19.5013 7.58293V6.49959H20.5846C21.1829 6.49959 21.668 6.98462 21.668 7.58293V10.8329H4.33464V7.58293C4.33464 6.98462 4.81966 6.49959 5.41797 6.49959H6.5013V7.58293C6.5013 8.18123 6.98633 8.66626 7.58463 8.66626C8.18294 8.66626 8.66797 8.18123 8.66797 7.58293V6.49959H17.3346ZM4.33464 12.9996V20.5829C4.33464 21.1812 4.81966 21.6663 5.41797 21.6663H20.5846C21.1829 21.6663 21.668 21.1812 21.668 20.5829V12.9996H4.33464Z"
+                    fill="#1540BD"
+                  />
+                </svg>
+              </div>
+              <input
+                id="datePicker"
+                type="date"
+                onfocus="this.showPicker()"
+                (change)="dispDate($event)"
+              />
+            </label>  
           </div>
           <div class="tab-bar">
             <div>

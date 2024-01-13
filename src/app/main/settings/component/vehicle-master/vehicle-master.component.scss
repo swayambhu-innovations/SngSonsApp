@@ -262,9 +262,17 @@ ion-grid {
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        ion-item{
+          width: 100%;
+        }
   
         svg {
           margin-inline: 10px;
+          position: absolute;
+          z-index: 99999;
+          right: 5%;
+          top: 20%;
         }
       }
   
