@@ -1,7 +1,10 @@
 <header>
   <div class="header">
     <div class="d-flex">
-      <div routerLink="/main/settings" class="img">
+      <div
+        [routerLink]="backUrl == '' ? '/main/settings' : backUrl"
+        class="img"
+      >
         <img src="assets/icon/back-button.svg" alt="goBack" />
       </div>
       <div>

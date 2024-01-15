@@ -4,13 +4,15 @@
     <div class="add-vehicle-wrapper-container">
       <div class="inner-container">
         <div class="label">Create New Vehicle Category</div>
-        <div class="button" (click)="isModalOpen=true">
+        <div class="button" (click)="isModalOpen = true">
           <p class="button-name">Add Category</p>
           <p class="symbol"><img src="assets/icon/plus-button.svg" alt="" /></p>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- pending vehicle category -->
   <section>
     <div class="wrapper-container">
       <ion-grid>
@@ -58,6 +60,8 @@
       </ion-grid>
     </div>
   </section>
+
+  <!-- searchbar -->
   <section>
     <div class="search-bar">
       <ion-searchbar
@@ -67,45 +71,83 @@
       ></ion-searchbar>
     </div>
   </section>
+
+  <!-- complete vehicle category -->
   <section>
-    <div class="row-data-wrapper-container" *ngFor="let data of vehicleCategoryData">
+    <div
+      class="row-data-wrapper-container"
+      *ngFor="let data of vehicleCategoryData"
+    >
       <div class="inner-container">
-        <div class="data-text">
-          <p class="text-name">{{data.categoryName}}</p>
+        <div
+          class="data-text"
+          (click)="openVehicle(data?.id, data.categoryName)"
+        >
+          <p class="text-name">{{ data.categoryName }}</p>
           <p class="address">
-            <span class="address-name">{{data.weightCapacity}} Ton</span><span *ngIf="data?.count>0"> |
-            <span class="no">15 vehicles</span></span>
+            <span class="address-name">{{ data.weightCapacity }} Ton</span
+            ><span *ngIf="data?.count > 0">
+              | <span class="no">15 vehicles</span></span
+            >
           </p>
         </div>
         <div class="action-button">
           <div class="toogle">
             <label class="switch">
-              <input type="checkbox" [checked]="data.active" (change)="updVehicleCategoryStatus($event, data.id, !data.active)"/>
+              <input
+                type="checkbox"
+                [checked]="data.active"
+                (change)="
+                  updVehicleCategoryStatus($event, data.id, !data.active)
+                "
+              />
               <span class="slider round"></span>
             </label>
           </div>
           <div class="edit-button">
-            <img (click)="isModalOpen=true;vehicleCategoryForm.setValue(data)" src="assets/icon/enable-edit-button.svg" alt="" />
+            <img
+              (click)="isModalOpen = true; vehicleCategoryForm.setValue(data)"
+              src="assets/icon/enable-edit-button.svg"
+              alt=""
+            />
           </div>
           <div class="delete">
-            <img (click)="deleteId=data.id;showConfirm=true" src="assets/icon/enable-delete-button.svg" alt="" />
+            <img
+              (click)="deleteId = data.id; showConfirm = true"
+              src="assets/icon/enable-delete-button.svg"
+              alt=""
+            />
           </div>
-          <div class="forward-icon" routerLink="/main/settings/vehicle-master/{{data.id}}">
+          <div class="forward-icon">
             <ion-col size="0.75">
-                <ion-icon name="chevron-forward-outline"></ion-icon>
+              <ion-icon name="chevron-forward-outline"></ion-icon>
             </ion-col>
           </div>
         </div>
       </div>
     </div>
   </section>
+
   <div class="below-space"></div>
-  <ion-modal #modal [isOpen]="isModalOpen" [presentingElement]="presentingElement" class="model">
+
+  <ion-modal
+    #modal
+    [isOpen]="isModalOpen"
+    [presentingElement]="presentingElement"
+    class="model"
+  >
     <ng-template>
       <section>
         <header>
           <div class="header">
-            <div class="img" (click)="vehicleCategoryForm.reset(formInitalValue);isModalOpen=false"><img src="assets/icon/back-button.svg" alt=""></div>
+            <div
+              class="img"
+              (click)="
+                vehicleCategoryForm.reset(formInitalValue); isModalOpen = false
+              "
+            >
+              <img src="assets/icon/back-button.svg" alt="" />
+            </div>
             <div class="head">Add New Vehicle Category</div>
           </div>
         </header>
@@ -181,23 +223,41 @@
                 labelPlacement="floating"
                 formControlName="defaultKOTCapacity"
               ></ion-input>
-            </ion-item>          
+            </ion-item>
             <ion-item class="dropdown">
-              <ion-select label="Default Fuel Type" formControlName="defaultFuelType">
-                <ion-select-option value="Drop Down">Drop Down</ion-select-option>
+              <ion-select
+                label="Default Fuel Type"
+                formControlName="defaultFuelType"
+              >
+                <ion-select-option value="Drop Down"
+                  >Drop Down</ion-select-option
+                >
                 <ion-select-option value="Number">Number</ion-select-option>
               </ion-select>
             </ion-item>
           </div>
           <div class="tab-bar">
             <div>
-              <ion-button type="submit" shape="round" class="active-btn">Submit</ion-button>
-              <ion-button shape="round" (click)="vehicleCategoryForm.reset(formInitalValue);isModalOpen=false">Cancel</ion-button>
+              <ion-button type="submit" shape="round" class="active-btn"
+                >Submit</ion-button
+              >
+              <ion-button
+                shape="round"
+                (click)="
+                  vehicleCategoryForm.reset(formInitalValue);
+                  isModalOpen = false
+                "
+                >Cancel</ion-button
+              >
             </div>
           </div>
         </form>
       </section>
     </ng-template>
   </ion-modal>
-  <app-confirmation (event)="delete($event)" [show]="showConfirm"></app-confirmation>
+
+  <app-confirmation
+    (event)="delete($event)"
+    [show]="showConfirm"
+  ></app-confirmation>
 </ion-content>
