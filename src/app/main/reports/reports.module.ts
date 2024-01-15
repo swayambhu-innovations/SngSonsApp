@@ -7,14 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { ReportsPageRoutingModule } from './reports-routing.module';
 
 import { ReportsPage } from './reports.page';
-import { HeadUserBarComponent } from 'src/app/shared/components/head-user-bar/head-user-bar.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HeadUserBarComponent,
+    SharedModule,
     ReportsPageRoutingModule,
   ],
   declarations: [ReportsPage],

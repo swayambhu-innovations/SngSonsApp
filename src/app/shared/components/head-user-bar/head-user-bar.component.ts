@@ -10,14 +10,6 @@ import { UtilService } from 'src/app/utils/util';
   selector: 'app-head-user-bar',
   templateUrl: './head-user-bar.component.html',
   styleUrls: ['./head-user-bar.component.scss'],
-  imports: [
-    IonicModule,
-    CommonModule,
-    SimpleComponent,
-    ExpertComponent,
-    CustomComponent,
-  ],
-  standalone: true,
 })
 export class HeadUserBarComponent implements OnInit {
   constructor(
@@ -52,7 +44,7 @@ export class HeadUserBarComponent implements OnInit {
     });
     this.tabStatus[id] = true;
   }
-  
+
   getUserName() {
     const data: any = this.utilService.getUserdata();
     this.userName = data?.access?.userName || '';

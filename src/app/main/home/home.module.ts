@@ -7,21 +7,21 @@ import { IonicModule } from '@ionic/angular';
 import { HomePageRoutingModule } from './home-routing.module';
 
 import { HomePage } from './home.page';
-import { ShipmentsComponent } from './tabs/shipments/shipments.component';
-import { VehiclesComponent } from './tabs/vehicles/vehicles.component';
-import { VendorsComponent } from './tabs/vendors/vendors.component';
-import { HeadUserBarComponent } from 'src/app/shared/components/head-user-bar/head-user-bar.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { ShipmentsModule } from './tabs/shipments/shipments.module';
+import { VehiclesModule } from './tabs/vehicles/vehicles.module';
+import { VendorsModule } from './tabs/vendors/vendors.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    SharedModule,
     HomePageRoutingModule,
-    ShipmentsComponent,
-    VehiclesComponent,
-    VendorsComponent,
-    HeadUserBarComponent,
+    ShipmentsModule,
+    VehiclesModule,
+    VendorsModule,
   ],
   declarations: [HomePage],
 })
