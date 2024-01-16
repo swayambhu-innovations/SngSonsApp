@@ -21,7 +21,8 @@
       <ion-searchbar
         class="ion-text-start custom"
         animated="true"
-        placeholder="Search Vehicle..."
+        (ionInput)="searchVehicle($event)"
+        placeholder="Search Vehicles..."
       ></ion-searchbar>
     </div>
   </section>
@@ -29,10 +30,10 @@
   <section>
     <div
       class="row-data-wrapper-container"
-      *ngFor="let vehicle of vehiclesData"
+      *ngFor="let vehicle of filteredVehiclesData"
     >
       <div class="inner-container">
-        <div class="data-text">
+        <div (click)="openVehiclesDetails(vehicle)" class="data-text">
           <p class="text-name">{{ vehicle?.registrationNo }}</p>
           <p class="address">
             <span class="address-name">{{ vehicle?.weightCapacity }} Ton</span>

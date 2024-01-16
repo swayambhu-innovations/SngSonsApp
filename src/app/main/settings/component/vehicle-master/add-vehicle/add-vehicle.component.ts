@@ -75,12 +75,12 @@ export class AddVehicleComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.vehicleCategoryId = params['id'];
     });
-    if (history.state.vendor) {
-      this.vehicleData = JSON.parse(history.state.vendor);
+    if (history.state.vehicle) {
+      this.vehicleData = JSON.parse(history.state.vehicle);
       this.vehicleData && this.addVehicleForm.setValue(this.vehicleData);
       this.RCPicSrc = this.addVehicleForm.controls['RCPhoto'].value;
       this.insurancePicSrc =
-        this.addVehicleForm.controls['insuranceValidity'].value;
+        this.addVehicleForm.controls['insurancePhoto'].value;
       this.permitPicSrc = this.addVehicleForm.controls['permitPhoto'].value;
       this.pollutionPicSrc =
         this.addVehicleForm.controls['pollutionPhoto'].value;
@@ -180,6 +180,6 @@ export class AddVehicleComponent implements OnInit {
 
   goBack() {
     this.addVehicleForm.reset(this.formInitalValue);
-    this.navCtrl.back();
+    this.navCtrl.navigateBack('/main/settings/vehicle-master');
   }
 }

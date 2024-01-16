@@ -7,6 +7,7 @@ export const Config = {
     addedSuccessfully: 'Added Successfully',
     updatedSuccessfully: 'Updated Successfully',
     deletedSuccessfully: 'Deleted Successfully',
+    vehiclesPresent: 'Already Present Vehicles',
     errorOccurred: 'Error Occurred. Please try again',
     pleaseWait: 'Please wait...',
     areYouSure: 'Are You Sure',

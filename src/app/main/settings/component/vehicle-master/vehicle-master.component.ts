@@ -13,6 +13,7 @@ import { SharedService } from 'src/app/shared/shared.service';
 export class VehicleMasterComponent implements OnInit {
   public vehicleCat: any;
   public vehiclesData: any;
+  public filteredVehiclesData: any;
   public loader: any;
   public toDelete: any;
   public showConfirm: boolean = false;
@@ -48,21 +49,40 @@ export class VehicleMasterComponent implements OnInit {
     this.init();
   }
 
+  openVehiclesDetails(vehicle: any) {
+    this.navCtrl.navigateForward(
+      ['/main/settings/vehicle-master/vehicle-details/' + this.vehicleCat?.id],
+      {
+        state: { vehicle: JSON.stringify(vehicle) },
+      }
+    );
+    this.init();
+  }
+
   async getVehicles() {
-    this.loader?.present();
     const data = await this.vehicleMasterService.getVehicles(
       this.vehicleCat?.id
     );
-    this.vehiclesData = data.docs.map((vehicle) => {
-      return { ...vehicle.data(), id: vehicle.id };
-    });
-    this.loader.dismiss();
+    if (data?.docs[0])
+      this.vehiclesData = data?.docs.map((vehicle: any) => {
+        return { ...vehicle.data(), id: vehicle.id };
+      });
+    this.filteredVehiclesData = this.vehiclesData;
   }
 
   async init() {
     this.loader?.present();
     await this.getVehicles();
-    this.loader.dismiss();
+    this.loader?.dismiss();
+  }
+
+  searchVehicle(e: any) {
+    const searchValue = e.detail.value;
+    if (searchValue && searchValue.trim() !== '') {
+      this.filteredVehiclesData = this.vehiclesData.filter((vehicle: any) =>
+        vehicle.registrationNo.toLowerCase().includes(searchValue.toLowerCase())
+      );
+    } else this.filteredVehiclesData = this.vehiclesData;
   }
 
   async updVehicleStatus($event: any, vehicleId: string, status: boolean) {
@@ -82,7 +102,7 @@ export class VehicleMasterComponent implements OnInit {
     this.navCtrl.navigateForward(
       ['/main/settings/vehicle-master/add-vehicle/' + this.vehicleCat?.id],
       {
-        state: { vendor: JSON.stringify(vehicle) },
+        state: { vehicle: JSON.stringify(vehicle) },
       }
     );
   }

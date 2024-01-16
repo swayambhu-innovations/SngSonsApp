@@ -33,7 +33,9 @@ export class VehicleCategoryComponent implements OnInit {
   });
   public formInitalValue = this.vehicleCategoryForm.value;
   public loader: any;
-  vehicleCategoryData: any[] = [];
+  public vehicleCategory: any;
+  public filterdVehicleCategory: any;
+  public pendingVehicles: any;
   public isModalOpen: boolean = false;
   public showConfirm: boolean = false;
   public deleteId: any;
@@ -48,7 +50,7 @@ export class VehicleCategoryComponent implements OnInit {
   ) {
     this.sharedService.refresh.subscribe((data) => {
       if (data) {
-        this.getVehicleCategoryData();
+        this.init();
       }
     });
   }
@@ -57,8 +59,26 @@ export class VehicleCategoryComponent implements OnInit {
     this.loader = await this.loadingController.create({
       message: Config.messages.pleaseWait,
     });
+    this.init();
     this.presentingElement = document.querySelector('.ion-category-page');
-    this.getVehicleCategoryData();
+  }
+
+  async init() {
+    this.loader?.present();
+    await this.getVehicleCategoryData();
+    this.loader.dismiss();
+  }
+
+  searchVehicleCategory(e: any) {
+    const searchValue = e.detail.value;
+    if (searchValue && searchValue.trim() !== '') {
+      this.filterdVehicleCategory = this.vehicleCategory.filter(
+        (vehicleCat: any) =>
+          vehicleCat.categoryName
+            .toLowerCase()
+            .includes(searchValue.toLowerCase())
+      );
+    } else this.filterdVehicleCategory = this.vehicleCategory;
   }
 
   async submitForm() {
@@ -67,6 +87,9 @@ export class VehicleCategoryComponent implements OnInit {
       return;
     }
     this.loader?.present();
+    this.vehicleCategoryForm.patchValue({
+      pending: false as boolean,
+    });
     const formData = this.vehicleCategoryForm.value;
     await this.vehicleCateoryService.addVehicleCategoryData(formData);
     this.notification.showSuccess(
@@ -82,12 +105,17 @@ export class VehicleCategoryComponent implements OnInit {
   }
 
   async getVehicleCategoryData() {
-    this.loader?.present();
     const data = await this.vehicleCateoryService.getVehicleCategoryData();
-    this.vehicleCategoryData = data.docs.map((category) => {
+    this.vehicleCategory = data.docs.map((category) => {
       return { ...category.data(), id: category.id };
     });
-    this.loader.dismiss();
+    this.pendingVehicles = this.vehicleCategory.filter(
+      (vendor: any) => vendor?.pending == true
+    );
+    this.vehicleCategory = this.vehicleCategory.filter(
+      (vendor: any) => vendor?.pending == false
+    );
+    this.filterdVehicleCategory = this.vehicleCategory;
   }
 
   async updVehicleCategoryStatus(
@@ -105,13 +133,17 @@ export class VehicleCategoryComponent implements OnInit {
     this.loader.dismiss();
   }
 
-  async delete(confirmation: any) {
+  async deleteVehicleCat(confirmation: any) {
     if (confirmation) {
       this.loader?.present();
-      await this.vehicleCateoryService.deleteSettings(this.deleteId);
-      await this.getVehicleCategoryData();
+      const isVehicles: boolean =
+        await this.vehicleCateoryService.isAnyVehicleColl(this.deleteId);
+      if (!isVehicles) {
+        await this.vehicleCateoryService.deleteVehicleCategory(this.deleteId);
+        await this.getVehicleCategoryData();
+        this.notification.showSuccess(Config.messages.deletedSuccessfully);
+      } else this.notification.showError(Config.messages.vehiclesPresent);
       this.loader.dismiss();
-      this.notification.showSuccess(Config.messages.deletedSuccessfully);
     }
     this.showConfirm = false;
   }

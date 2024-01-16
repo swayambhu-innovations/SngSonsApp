@@ -13,7 +13,7 @@
   </section>
 
   <!-- pending vehicle category -->
-  <section>
+  <!-- <section *ngIf="pendingVehicleCategory?.length">
     <div class="wrapper-container">
       <ion-grid>
         <ion-accordion-group
@@ -30,16 +30,16 @@
                   <ion-col size="7" class="head"
                     >Pending For Data Entry</ion-col
                   >
-                  <ion-col size="4" style="text-align: end; color: #1540bd"
-                    >2</ion-col
-                  >
+                  <ion-col size="4" style="text-align: end; color: #1540bd">
+                    {{ pendingVehicleCategory?.length }}
+                  </ion-col>
                 </ion-row>
               </ion-label>
             </ion-item>
             <div
               class="content-container"
               slot="content"
-              *ngFor="let number of [0, 1]"
+              *ngFor="let vehicleCat of pendingVehicleCategory"
             >
               <ion-row
                 class="ion-justify-content-between ion-align-items-center"
@@ -59,7 +59,7 @@
         </ion-accordion-group>
       </ion-grid>
     </div>
-  </section>
+  </section> -->
 
   <!-- searchbar -->
   <section>
@@ -67,6 +67,7 @@
       <ion-searchbar
         class="ion-text-start custom"
         animated="true"
+        (ionInput)="searchVehicleCategory($event)"
         placeholder="Search Vehicle Category..."
       ></ion-searchbar>
     </div>
@@ -76,23 +77,25 @@
   <section>
     <div
       class="row-data-wrapper-container"
-      *ngFor="let data of vehicleCategoryData"
+      *ngFor="let vehicleCat of filterdVehicleCategory"
     >
       <div class="inner-container">
         <div
           class="data-text"
-          (click)="openVehicle(data?.id, data.categoryName)"
+          (click)="openVehicle(vehicleCat?.id, vehicleCat.categoryName)"
         >
-          <p class="text-name">{{ data.categoryName }}</p>
+          <p class="text-name">{{ vehicleCat.categoryName }}</p>
           <p class="address">
-            <span class="address-name">{{ data.weightCapacity }} Ton</span>
-            <span *ngIf="data?.count > 0">
+            <span class="address-name"
+              >{{ vehicleCat.weightCapacity }} Ton</span
+            >
+            <span *ngIf="vehicleCat?.count > 0">
               |
               <span class="no"
                 >{{
-                  data?.count > 1
-                    ? data?.count + " Vehicles"
-                    : data?.count + " Vehicle"
+                  vehicleCat?.count > 1
+                    ? vehicleCat?.count + " Vehicles"
+                    : vehicleCat?.count + " Vehicle"
                 }}
               </span>
             </span>
@@ -103,9 +106,13 @@
             <label class="switch">
               <input
                 type="checkbox"
-                [checked]="data.active"
+                [checked]="vehicleCat.active"
                 (change)="
-                  updVehicleCategoryStatus($event, data.id, !data.active)
+                  updVehicleCategoryStatus(
+                    $event,
+                    vehicleCat.id,
+                    !vehicleCat.active
+                  )
                 "
               />
               <span class="slider round"></span>
@@ -113,14 +120,16 @@
           </div>
           <div class="edit-button">
             <img
-              (click)="isModalOpen = true; vehicleCategoryForm.setValue(data)"
+              (click)="
+                isModalOpen = true; vehicleCategoryForm.setValue(vehicleCat)
+              "
               src="assets/icon/enable-edit-button.svg"
               alt=""
             />
           </div>
           <div class="delete">
             <img
-              (click)="deleteId = data.id; showConfirm = true"
+              (click)="deleteId = vehicleCat.id; showConfirm = true"
               src="assets/icon/enable-delete-button.svg"
               alt=""
             />
@@ -264,7 +273,7 @@
   </ion-modal>
 
   <app-confirmation
-    (event)="delete($event)"
+    (event)="deleteVehicleCat($event)"
     [show]="showConfirm"
   ></app-confirmation>
 </ion-content>

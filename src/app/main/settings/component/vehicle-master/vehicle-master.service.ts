@@ -26,14 +26,17 @@ export class VehicleMasterService {
   constructor(private storage: Storage, public firestore: Firestore) {}
 
   getVehicles(vehicleCategoryId: string) {
-    return getDocs(
-      collection(
-        this.firestore,
-        Config.collection.vehiclesCategory,
-        vehicleCategoryId,
-        Config.collection.vehicles
-      )
-    );
+    let data: any;
+    if (vehicleCategoryId)
+      data = getDocs(
+        collection(
+          this.firestore,
+          Config.collection.vehiclesCategory,
+          vehicleCategoryId,
+          Config.collection.vehicles
+        )
+      );
+    return data;
   }
 
   async uploadFile(file: any, regNo?: string) {

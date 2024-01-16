@@ -1,0 +1,206 @@
+<ion-content class="vehicle-details" [fullscreen]="true">
+  <!-- actions -->
+  <header class="ion-padding-vertical">
+    <div class="header">
+      <div class="img" (click)="goBack()">
+        <img src="assets/icon/back-button.svg" alt="" />
+      </div>
+      <div class="head">{{ vehicleData?.registrationNo }}</div>
+      <div class="row-data-wrapper-container">
+        <div class="inner-container">
+          <div class="action-button">
+            <div class="toogle">
+              <label class="switch">
+                <input
+                  type="checkbox"
+                  [checked]="vehicleData?.active"
+                  (change)="updVendorStatus($event, !vehicleData.active)"
+                />
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <div (click)="editDetails($event)" class="edit-button">
+              <img src="assets/icon/enable-edit-button.svg" alt="" />
+            </div>
+            <div
+              (click)="toDelete = { id: vehicleData.id }; showConfirm = true"
+              class="delete"
+            >
+              <img src="assets/icon/enable-delete-button.svg" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- vehicle-details -->
+  <section class="vehicle-info-container">
+    <ion-card class="ion-padding">
+      <ion-text class="sub-heading">Vehicle Info</ion-text>
+
+      <ion-grid>
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">Registration Number</ion-col>
+          <ion-col size="auto">{{ vehicleData?.registrationNo }}</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">Chassis Number</ion-col>
+          <ion-col size="auto">{{ vehicleData.chassisNo }}</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">Engine Number</ion-col>
+          <ion-col size="auto">{{ vehicleData.engineNo }}</ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-text class="sub-heading">Specs & Capacity</ion-text>
+
+      <ion-grid>
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">Vehicle Category</ion-col>
+          <ion-col size="auto">{{ vehicleData.vehicleCat }}</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">Mileage</ion-col>
+          <ion-col size="auto">{{ vehicleData.mileage }} kmpl</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">Fuel Tank Capacity</ion-col>
+          <ion-col size="auto">{{ vehicleData.fuelTankCapacity }} Ltr</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">Current Filled Fuel</ion-col>
+          <ion-col size="auto">{{ vehicleData.currFilledFuel }} Ltr</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">KOT Capacity</ion-col>
+          <ion-col size="auto">{{ vehicleData.KOTCapacity }}</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">Weight Capacity</ion-col>
+          <ion-col size="auto">{{ vehicleData.weightCapacity }} Ton</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">Fuel Type</ion-col>
+          <ion-col size="auto">{{ vehicleData.fuelType }}</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">Ownership Type</ion-col>
+          <ion-col size="auto">{{ vehicleData.ownershipType }}</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto"
+            >Current Odometer Reading</ion-col
+          >
+          <ion-col size="auto"
+            >{{ vehicleData.currOdometerReading }} km</ion-col
+          >
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">Fuel Voucher Limit</ion-col>
+          <ion-col size="auto">₹ {{ vehicleData.fuelVoucherLmt }}</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">Khuraki Expense Limit</ion-col>
+          <ion-col size="auto">₹ {{ vehicleData.khurakiExpenseLmt }}</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">Toll Expense Limit</ion-col>
+          <ion-col size="auto">₹ {{ vehicleData.tollExpenseLmt }}</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">Repairs Expense Limit</ion-col>
+          <ion-col size="auto">₹ {{ vehicleData.repairExpenseLmt }}</ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-text class="sub-heading">RC, Insurance & Permit</ion-text>
+
+      <ion-grid>
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">RC Number</ion-col>
+          <ion-col size="auto">{{ vehicleData.RCNo }}</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">RC Validity</ion-col>
+          <ion-col size="auto">{{ vehicleData.RCValidity }}</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">Insurance Validity</ion-col>
+          <ion-col size="auto">{{ vehicleData.insuranceValidity }}</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">Road Tax Validity</ion-col>
+          <ion-col size="auto">{{ vehicleData.roadTaxValidity }}</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">Permit Validity</ion-col>
+          <ion-col size="auto">{{ vehicleData.permitValidity }}</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto">Pollution Validity</ion-col>
+          <ion-col size="auto">{{ vehicleData.pollutionValidity }}</ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-text class="sub-heading">RC Photo</ion-text>
+
+      <!-- RC preview -->
+      <div class="preview-box">
+        <img [src]="vehicleData?.RCPhoto" alt="RC-pic-png" />
+      </div>
+
+      <ion-text class="sub-heading">Insurance Photo</ion-text>
+
+      <!-- insurance preview -->
+      <div class="preview-box">
+        <img [src]="vehicleData?.insurancePhoto" alt="insurance-pic-png" />
+      </div>
+
+      <ion-text class="sub-heading">Permit Photo</ion-text>
+
+      <!-- permit preview -->
+      <div class="preview-box">
+        <img [src]="vehicleData?.permitPhoto" alt="permit-pic-png" />
+      </div>
+
+      <ion-text class="sub-heading">Pollution Certificate Photo</ion-text>
+
+      <!-- pollution preview -->
+      <div class="preview-box">
+        <img [src]="vehicleData?.pollutionPhoto" alt="pollution-pic-png" />
+      </div>
+    </ion-card>
+  </section>
+
+  <app-day-wise-summary></app-day-wise-summary>
+
+  <app-voucher></app-voucher>
+
+  <div class="below-space"></div>
+
+  <app-confirmation
+    (event)="deleteVehicle($event)"
+    [show]="showConfirm"
+  ></app-confirmation>
+</ion-content>
