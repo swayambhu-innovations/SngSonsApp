@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
+import { Config } from 'src/app/config';
+import { ShipmentsService } from 'src/app/main/settings/component/import-export/shipments.service';
+import { ExcelUploadService } from 'src/app/utils/excel-upload';
+import { NotificationService } from 'src/app/utils/notification';
 import { read, utils } from 'xlsx';
 
 @Component({
@@ -9,52 +14,40 @@ import { read, utils } from 'xlsx';
 export class ShipmentsComponent implements OnInit {
   isError: boolean = false;
   isData: boolean = false;
+  loader: any;
+  vehicles: any = {};
+  vendors: any = {};
 
-  constructor() {}
+  @ViewChild('uploadZSD') uploadZSD: ElementRef | undefined;
 
-  ngOnInit() {}
+  constructor(
+    public excelUploadService: ExcelUploadService,
+    private shipmentsService: ShipmentsService,
+    private notification: NotificationService,
+    private loadingController: LoadingController
+  ) { }
 
-  //Upload Excel
-  uploadZSD(event: any): void {
-    let reader = new FileReader();
-    this.isError = false;
-    this.isData = false;
-    reader.readAsBinaryString(event.target.files[0]);
-    reader.onload = (e: any) => {
-      if (e != null) {
-        try {
-          let spreadSheetWorkBook = read(e.target.result, { type: 'binary' });
-          const data = utils.sheet_to_json<any>(
-            spreadSheetWorkBook.Sheets[spreadSheetWorkBook.SheetNames[0]]
-          );
-          if (data) this.isData = true;
-          else this.isError = true;
-        } catch (error) {
-          this.isError = true;
-        }
-      }
-    };
+  async ngOnInit() {
+    this.loader = await this.loadingController.create({ message: Config.messages.pleaseWait })
+    await this.init()
   }
 
-  uploadSample(event: any) {
-    var reader = new FileReader();
-    reader.readAsBinaryString(event.target.files[0]);
-    reader.onload = (e) => {
-      let csvData = reader.result;
-      let csvRecordsArray = (<any>csvData).trim().split(/\r\n|\n/);
-      let header = csvRecordsArray[0].split(',');
+  async init() {
+    this.loader.present();
+    (await this.shipmentsService.getAllVehicles()).docs.map((vehicle: any) => {
+      this.vehicles[vehicle.id] = { ...vehicle.data(), id: vehicle.id };
+      return { ...vehicle.data(), id: vehicle.id }
+    });
+    (await this.shipmentsService.getAllVendors()).docs.map((vendor: any) => {
+      this.vendors[vendor.data().WSName.split(' ').join('-').toLowerCase()] = { ...vendor.data(), id: vendor.id };
+      return { ...vendor.data(), id: vendor.id }
+    });
+    this.loader.dismiss();
+  }
 
-      let headerdata = header.length;
-      console.log(headerdata);
-      for (var i = 1; i <= csvRecordsArray.length; i++) {
-        var data = csvRecordsArray[i].split(',');
-        var dataCount = data.length;
-        if (headerdata !== dataCount) {
-          this.isError = true;
-        }
-      }
-      //}
-      // }
-    };
+  addZSD(event: any, data: any, formatDate: any, scope: any) {
+    data = scope.shipmentsService.formatShipment(data, formatDate);
+    scope.shipmentsService.addShipments(data, scope, scope.loader, scope.notification);
+    event.target.value = "";
   }
 }

@@ -15,7 +15,7 @@
                             </svg>
                         </label>
                       </ion-button>
-                      <input type="file" id="uploadZSD" style="display: none" />
+                      <input type="file" id="uploadZSD" style="display: none" (change)="excelUploadService.parseExcel($event, addZSD, this)" accept=".xlsx, .xls, .csv"/>
                 </div>
                 <div class="export">
                     <ion-button shape="round">
@@ -70,14 +70,14 @@
             <div class="import-container">
                 <div class="import">
                     <ion-button shape="round">
-                        <label for="uploadZSD">
+                        <label for="uploadVendor">
                           Import
                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                             <path d="M3.33268 15.8333H16.666V10H18.3327V16.6667C18.3327 17.1269 17.9596 17.5 17.4993 17.5H2.49935C2.03912 17.5 1.66602 17.1269 1.66602 16.6667V10H3.33268V15.8333ZM10.8327 7.5V13.3333H9.16602V7.5H4.99935L9.99935 2.5L14.9993 7.5H10.8327Z" fill="#1540BD"/>
                             </svg>
                         </label>
                       </ion-button>
-                      <input type="file" id="uploadZSD" style="display: none" />
+                      <input type="file" id="uploadVendor" style="display: none" (change)="excelUploadService.parseExcel($event, addVendor, this)" accept=".xlsx, .xls, .csv"/>
                 </div>
                 <div class="export">
                     <ion-button shape="round">
