@@ -1,19 +1,14 @@
 <ion-content class="vendor-container ion-vehicle-page">
   <app-header
     backUrl="/main/settings/vehicle-category"
-    headerName="{{ vehicleCategoryName }}"
+    headerName="{{ vehicleCat?.vehicleCatName }}"
   ></app-header>
 
   <section>
     <div class="add-vehicle-wrapper-container">
       <div class="inner-container">
         <div class="label">Create New Vehicle</div>
-        <div
-          class="button"
-          [routerLink]="
-            '/main/settings/vehicle-master/add-vehicle/' + vehicleCategoryId
-          "
-        >
+        <div class="button" (click)="openAddVehicleForm()">
           <p class="button-name">Add Vehicle</p>
           <p class="symbol"><img src="assets/icon/plus-button.svg" alt="" /></p>
         </div>
@@ -32,27 +27,37 @@
   </section>
 
   <section>
-    <div class="row-data-wrapper-container" *ngFor="let number of [0, 1, 2, 3]">
+    <div
+      class="row-data-wrapper-container"
+      *ngFor="let vehicle of vehiclesData"
+    >
       <div class="inner-container">
         <div class="data-text">
-          <p class="text-name">GX Express LLC</p>
+          <p class="text-name">{{ vehicle?.registrationNo }}</p>
           <p class="address">
-            <span class="address-name">10 Ton</span> |
-            <span class="no">100 Shipments</span> |
-            <span class="price">₹ 26110</span>
+            <span class="address-name">{{ vehicle?.weightCapacity }} Ton</span>
+            | <span class="no">{{ vehicle?.KOTCapacity }} Shipments</span> |
+            <span class="price">₹ {{ vehicle?.fuelVoucherLmt }}</span>
           </p>
         </div>
         <div class="action-button">
           <div class="toogle">
             <label class="switch">
-              <input type="checkbox" [checked]="true" />
+              <input
+                type="checkbox"
+                [checked]="vehicle.active"
+                (change)="updVehicleStatus($event, vehicle.id, !vehicle.active)"
+              />
               <span class="slider round"></span>
             </label>
           </div>
-          <div class="edit-button">
+          <div (click)="editDetails($event, vehicle)" class="edit-button">
             <img src="assets/icon/enable-edit-button.svg" alt="" />
           </div>
-          <div class="delete">
+          <div
+            (click)="toDelete = { id: vehicle.id }; showConfirm = true"
+            class="delete"
+          >
             <img src="assets/icon/enable-delete-button.svg" alt="" />
           </div>
           <div class="forward-icon">
@@ -66,4 +71,9 @@
   </section>
 
   <div class="below-space"></div>
+
+  <app-confirmation
+    (event)="deleteVehicle($event)"
+    [show]="showConfirm"
+  ></app-confirmation>
 </ion-content>

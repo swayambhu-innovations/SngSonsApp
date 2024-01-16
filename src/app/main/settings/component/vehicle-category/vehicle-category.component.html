@@ -85,10 +85,17 @@
         >
           <p class="text-name">{{ data.categoryName }}</p>
           <p class="address">
-            <span class="address-name">{{ data.weightCapacity }} Ton</span
-            ><span *ngIf="data?.count > 0">
-              | <span class="no">15 vehicles</span></span
-            >
+            <span class="address-name">{{ data.weightCapacity }} Ton</span>
+            <span *ngIf="data?.count > 0">
+              |
+              <span class="no"
+                >{{
+                  data?.count > 1
+                    ? data?.count + " Vehicles"
+                    : data?.count + " Vehicle"
+                }}
+              </span>
+            </span>
           </p>
         </div>
         <div class="action-button">

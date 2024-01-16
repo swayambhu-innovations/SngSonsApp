@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { VehicleMasterService } from '../vehicle-master.service';
-import { NavController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { Config } from 'src/app/config';
+import { NotificationService } from 'src/app/utils/notification';
 
 @Component({
   selector: 'app-add-vehicle',
@@ -20,7 +22,7 @@ export class AddVehicleComponent implements OnInit {
     fuelTankCapacity: new FormControl(0, [Validators.required]),
     currFilledFuel: new FormControl(0, [Validators.required]),
     KOTCapacity: new FormControl(0, [Validators.required]),
-    wieghtCapacity: new FormControl(0, [Validators.required]),
+    weightCapacity: new FormControl(0, [Validators.required]),
     fuelType: new FormControl(null, [Validators.required]),
     ownershipType: new FormControl(null, [Validators.required]),
     currOdometerReading: new FormControl(0, [Validators.required]),
@@ -34,10 +36,10 @@ export class AddVehicleComponent implements OnInit {
     roadTaxValidity: new FormControl('', [Validators.required]),
     permitValidity: new FormControl('', [Validators.required]),
     pollutionValidity: new FormControl('', [Validators.required]),
-    RCPhoto: new FormControl('', [Validators.required]),
-    insurancePhoto: new FormControl('', [Validators.required]),
-    permitPhoto: new FormControl('', [Validators.required]),
-    pollutionPhoto: new FormControl('', [Validators.required]),
+    RCPhoto: new FormControl(''),
+    insurancePhoto: new FormControl(''),
+    permitPhoto: new FormControl(''),
+    pollutionPhoto: new FormControl(''),
     active: new FormControl(true, []),
     createdAt: new FormControl(new Date(), []),
     id: new FormControl(''),
@@ -46,24 +48,43 @@ export class AddVehicleComponent implements OnInit {
   constructor(
     private vehicleMasterService: VehicleMasterService,
     private navCtrl: NavController,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private loadingController: LoadingController,
+    private notificationService: NotificationService
   ) {}
 
-  public RCPicSrc: any =
-    'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697';
-  public insurancePicSrc: any =
-    'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697';
-  public permitPicSrc: any =
-    'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697';
-  public pollutionPicSrc: any =
-    'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697';
+  public RCPicSrc: any = Config.url.defaultProfile;
+  public insurancePicSrc: any = Config.url.defaultProfile;
+  public permitPicSrc: any = Config.url.defaultProfile;
+  public pollutionPicSrc: any = Config.url.defaultProfile;
   public formInitalValue = this.addVehicleForm.value;
   public vehicleCategoryId: string = '';
+  public vehicleData: any;
+  private loader: any;
+  private files: any = {
+    RCPhoto: null,
+    insurancePhoto: null,
+    permitPhoto: null,
+    pollutionPhoto: null,
+  }; // to store documents files uploaded as proof
 
   async ngOnInit() {
+    this.loader = await this.loadingController.create({
+      message: Config.messages.pleaseWait,
+    });
     this.route.params.subscribe((params) => {
       this.vehicleCategoryId = params['id'];
     });
+    if (history.state.vendor) {
+      this.vehicleData = JSON.parse(history.state.vendor);
+      this.vehicleData && this.addVehicleForm.setValue(this.vehicleData);
+      this.RCPicSrc = this.addVehicleForm.controls['RCPhoto'].value;
+      this.insurancePicSrc =
+        this.addVehicleForm.controls['insuranceValidity'].value;
+      this.permitPicSrc = this.addVehicleForm.controls['permitPhoto'].value;
+      this.pollutionPicSrc =
+        this.addVehicleForm.controls['pollutionPhoto'].value;
+    }
   }
 
   dispDate(e: any, label: string) {
@@ -82,43 +103,79 @@ export class AddVehicleComponent implements OnInit {
       this.addVehicleForm.patchValue({ pollutionValidity: date });
   }
 
-  async submitForm() {
-    if (this.addVehicleForm.invalid) {
-      this.addVehicleForm.markAllAsTouched();
-      return;
-    }
-    const formData = this.addVehicleForm.value;
-    await this.vehicleMasterService.addVehicleCategoryData(
-      formData,
-      this.vehicleCategoryId
-    );
-  }
-
   async uploadPic(e: any, label: string) {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
-      if (label === 'RC') this.RCPicSrc = reader.result;
-      else if (label === 'insurance') this.insurancePicSrc = reader.result;
-      else if (label === 'permit') this.permitPicSrc = reader.result;
-      else if (label === 'pollution') this.pollutionPicSrc = reader.result;
+      if (label === 'RC') {
+        this.RCPicSrc = reader.result;
+        this.files.RCPhoto = file;
+      } else if (label === 'insurance') {
+        this.insurancePicSrc = reader.result;
+        this.files.insurancePhoto = file;
+      } else if (label === 'permit') {
+        this.permitPicSrc = reader.result;
+        this.files.permitPhoto = file;
+      } else if (label === 'pollution') {
+        this.pollutionPicSrc = reader.result;
+        this.files.pollutionPhoto = file;
+      }
     };
   }
 
   removePic(label: string): void {
-    if (label === 'RC')
-      this.RCPicSrc =
-        'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697';
+    if (label === 'RC') this.RCPicSrc = Config.url.defaultProfile;
     else if (label === 'insurance')
-      this.insurancePicSrc =
-        'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697';
-    else if (label === 'permit')
-      this.permitPicSrc =
-        'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697';
+      this.insurancePicSrc = Config.url.defaultProfile;
+    else if (label === 'permit') this.permitPicSrc = Config.url.defaultProfile;
     else if (label === 'pollution')
-      this.pollutionPicSrc =
-        'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697';
+      this.pollutionPicSrc = Config.url.defaultProfile;
+  }
+
+  async submitForm() {
+    if (!this.addVehicleForm.valid) {
+      this.addVehicleForm.markAllAsTouched();
+      return;
+    }
+    try {
+      this.loader.present();
+      for (let key in this.files) {
+        if (this.files[key]) {
+          const url = await this.vehicleMasterService.uploadFile(
+            this.files[key],
+            this.addVehicleForm.controls['registrationNo'].value
+          );
+          this.addVehicleForm.patchValue({
+            [key]: url as string,
+          });
+        } else
+          this.addVehicleForm.patchValue({
+            [key]:
+              this.addVehicleForm.controls[key].value != ''
+                ? this.addVehicleForm.controls[key].value
+                : Config.url.defaultProfile,
+          });
+      }
+
+      await this.vehicleMasterService.addVehicleCategoryData(
+        this.addVehicleForm.value,
+        this.vehicleCategoryId
+      );
+
+      if (this.addVehicleForm.controls['id'].value == '')
+        this.notificationService.showSuccess(Config.messages.addedSuccessfully);
+      else
+        this.notificationService.showSuccess(
+          Config.messages.updatedSuccessfully
+        );
+      this.loader.dismiss();
+      this.goBack();
+    } catch (error) {
+      console.log(error);
+      this.notificationService.showError('Something Went Wrong');
+      return;
+    }
   }
 
   goBack() {

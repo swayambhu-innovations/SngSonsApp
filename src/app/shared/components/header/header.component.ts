@@ -21,4 +21,10 @@ export class HeaderComponent implements OnInit {
   refresh() {
     this.sharedService.refresh.next(true);
   }
+
+  goBack() {
+    this.navCtrl.navigateBack(
+      this.backUrl == '' ? '/main/settings' : this.backUrl
+    );
+  }
 }

@@ -25,12 +25,13 @@ export const Config = {
     role: 'role',
     users: 'users',
     vehiclesCategory: 'vehicles-Category',
-    vehicleTypes: 'vehicleTypes',
+    vehicles: 'vehicles',
   },
   storage: {
     labourParty: 'labourParty-Library',
     vendors: 'vendors-Library',
-    userPhoto: 'user-photo',    
+    userPhoto: 'user-photo',
+    vehicleDocuments: 'vehicle-Documnets',
   },
   hardData: {
     postalCode: ['226029', '211001', '110241', '224531'],
@@ -48,6 +49,8 @@ export const Config = {
     userdata: 'userdata',
   },
   url: {
-    dicebear: 'https://api.dicebear.com/7.x/initials/svg?seed='
-  }
+    dicebear: 'https://api.dicebear.com/7.x/initials/svg?seed=',
+    defaultProfile:
+      'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697',
+  },
 };

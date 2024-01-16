@@ -18,7 +18,6 @@ export class VendorMasterComponent {
   private loader: any;
   public toDelete: any;
   public showConfirm: boolean = false;
-  public isSearching: boolean = false; // tells whether user is searching or not
 
   constructor(
     private vendorMasterService: VendorMasterService,

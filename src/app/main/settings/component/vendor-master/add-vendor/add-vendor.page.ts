@@ -4,7 +4,6 @@ import { VendorMasterService } from '../vendor-master.service';
 import { LoadingController, NavController } from '@ionic/angular';
 import { NotificationService } from 'src/app/utils/notification';
 import { Config } from 'src/app/config';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-vendor',
@@ -21,7 +20,6 @@ export class AddVendorPage implements OnInit {
     private vendorMasterService: VendorMasterService,
     private loadingController: LoadingController,
     private navCtrl: NavController,
-    private route: ActivatedRoute,
     private notificationService: NotificationService
   ) {}
 
