@@ -1,7 +1,7 @@
 <ion-card>
   <ion-grid>
     <ion-row class="head ion-justify-content-between ion-align-items-center">
-      <ion-col size="auto">Shipment Wise Voucher</ion-col>
+      <ion-col size="auto">{{heading}}</ion-col>
       <ion-col size="auto">
         <ion-icon name="calendar-clear-outline"></ion-icon>
         <svg
@@ -25,7 +25,7 @@
   <ion-searchbar
     class="ion-text-start custom"
     animated="true"
-    placeholder="Search Shipment"
+    placeholder="Search {{search}}"
   ></ion-searchbar>
 
   <ion-grid>

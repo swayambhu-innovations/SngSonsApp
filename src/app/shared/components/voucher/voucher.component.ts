@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 
 @Component({
@@ -8,6 +8,9 @@ import { NavController } from '@ionic/angular';
 })
 export class VoucherComponent implements OnInit {
   constructor(private navCtrl: NavController) {}
+
+  @Input() heading = '';
+  @Input() search = '';
 
   id: string = '1305984445';
 

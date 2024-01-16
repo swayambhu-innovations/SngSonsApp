@@ -21,7 +21,7 @@ import { ShipmentStatus } from "src/app/utils/enum";
     providedIn: 'root',
 })
 
-export class ShipmentsService {
+export class ImportExportService {
     constructor(
         public firestore: Firestore
     ) { }
@@ -118,7 +118,7 @@ export class ShipmentsService {
                 createdAt: new Date(),
                 id: '',
             }
-            await scope.shipmentsService.addVendor(vendorData).then((docRef: any) => {
+            await scope.importExportService.addVendor(vendorData).then((docRef: any) => {
                 vendor = { id: docRef.id }
             })
         }
@@ -139,7 +139,7 @@ export class ShipmentsService {
                 active: true,
                 createdAt: new Date(),
             }
-            await scope.shipmentsService.addVehicle(vehicleData);
+            await scope.importExportService.addVehicle(vehicleData);
         }
         return lorryNo;
     }
@@ -147,13 +147,13 @@ export class ShipmentsService {
     async addShipments(data: any, scope: any, loader: any, notification: any) {
         loader.present();
         data = await Promise.all(data.map(async (item: any) => {
-            const vendor = await scope.shipmentsService.getVendor(item.CustomerName, scope);
-            const vehicle = await scope.shipmentsService.getVehicle(item, scope);
-            await scope.shipmentsService.checkShipment(item.ShipmentNumber).then(async (resdata: any) => {
+            const vendor = await scope.importExportService.getVendor(item.CustomerName, scope);
+            const vehicle = await scope.importExportService.getVehicle(item, scope);
+            await scope.importExportService.checkShipment(item.ShipmentNumber).then(async (resdata: any) => {
                 if (resdata.docs && resdata.docs.length > 0) {
                     
                 } else {
-                    await scope.shipmentsService.addShipment({ ...item, vendor, vehicle });
+                    await scope.importExportService.addShipment({ ...item, vendor, vehicle });
                 }
             });
             return { ...item, vendor, vehicle }

@@ -69,3 +69,16 @@ ion-card {
     }
   }
 }
+
+.donut-chart {
+  padding: 0 70px 10px;
+  .stats {
+    position: fixed;
+    bottom: 5px;
+    left: 140px;
+    .total {
+      font-size: 20px;
+      color: #1540BD;
+    }
+  }
+}

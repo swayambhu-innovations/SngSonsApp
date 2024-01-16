@@ -27,7 +27,6 @@
           </label>
         </ion-button>
         <input
-          #uploadZSD
           type="file"
           id="uploadZSD"
           accept=".xlsx, .xls, .csv"
@@ -384,6 +383,6 @@
   </ng-template>
 </ion-modal>
 
-<app-voucher></app-voucher>
+<app-voucher [heading]="'Shipment Wise Voucher'" [search]="'Shipment'"></app-voucher>
 <app-bar-graph-table></app-bar-graph-table>
 <app-bar-graph-table></app-bar-graph-table>

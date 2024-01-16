@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { Config } from 'src/app/config';
-import { ShipmentsService } from 'src/app/main/settings/component/import-export/shipments.service';
+import { ImportExportService } from 'src/app/main/settings/component/import-export/import-export.service';
 import { ExcelUploadService } from 'src/app/utils/excel-upload';
 import { NotificationService } from 'src/app/utils/notification';
 import { read, utils } from 'xlsx';
@@ -18,11 +18,9 @@ export class ShipmentsComponent implements OnInit {
   vehicles: any = {};
   vendors: any = {};
 
-  @ViewChild('uploadZSD') uploadZSD: ElementRef | undefined;
-
   constructor(
     public excelUploadService: ExcelUploadService,
-    private shipmentsService: ShipmentsService,
+    private importExportService: ImportExportService,
     private notification: NotificationService,
     private loadingController: LoadingController
   ) { }
@@ -34,11 +32,11 @@ export class ShipmentsComponent implements OnInit {
 
   async init() {
     this.loader.present();
-    (await this.shipmentsService.getAllVehicles()).docs.map((vehicle: any) => {
+    (await this.importExportService.getAllVehicles()).docs.map((vehicle: any) => {
       this.vehicles[vehicle.id] = { ...vehicle.data(), id: vehicle.id };
       return { ...vehicle.data(), id: vehicle.id }
     });
-    (await this.shipmentsService.getAllVendors()).docs.map((vendor: any) => {
+    (await this.importExportService.getAllVendors()).docs.map((vendor: any) => {
       this.vendors[vendor.data().WSName.split(' ').join('-').toLowerCase()] = { ...vendor.data(), id: vendor.id };
       return { ...vendor.data(), id: vendor.id }
     });
@@ -46,8 +44,8 @@ export class ShipmentsComponent implements OnInit {
   }
 
   addZSD(event: any, data: any, formatDate: any, scope: any) {
-    data = scope.shipmentsService.formatShipment(data, formatDate);
-    scope.shipmentsService.addShipments(data, scope, scope.loader, scope.notification);
+    data = scope.importExportService.formatShipment(data, formatDate);
+    scope.importExportService.addShipments(data, scope, scope.loader, scope.notification);
     event.target.value = "";
   }
 }
