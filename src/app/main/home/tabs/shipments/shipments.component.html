@@ -27,10 +27,11 @@
           </label>
         </ion-button>
         <input
+          #uploadZSD
           type="file"
           id="uploadZSD"
           accept=".xlsx, .xls, .csv"
-          (change)="uploadZSD($event)"
+          (change)="excelUploadService.parseExcel($event, addZSD, this)"
           style="display: none"
         />
       </ion-col>

@@ -15,6 +15,7 @@ export const Config = {
     contactExist: 'Contact Number already exist',
     smsError: 'SMS could not be sent. Please try Again!',
     invalidOTP: 'Invalid OTP',
+    zsdSuccess: 'ZSD Uploaded Successfully',
   },
   collection: {
     account: 'account',
@@ -27,6 +28,7 @@ export const Config = {
     users: 'users',
     vehiclesCategory: 'vehicles-Category',
     vehicles: 'vehicles',
+    shipments: 'shipments',
   },
   storage: {
     labourParty: 'labourParty-Library',
