@@ -58,8 +58,9 @@ export class AddVehicleComponent implements OnInit {
   public permitPicSrc: any = Config.url.defaultProfile;
   public pollutionPicSrc: any = Config.url.defaultProfile;
   public formInitalValue = this.addVehicleForm.value;
-  public vehicleCategoryId: string = '';
-  public vehicleData: any;
+  public vehicleCategory: any; // store category of vehicle if already filled
+  public categories: any; // store all categories of vehicles (also, used for pending vehicles)
+  public vehicleData: any; // store vehicle details for editing
   private loader: any;
   private files: any = {
     RCPhoto: null,
@@ -72,18 +73,23 @@ export class AddVehicleComponent implements OnInit {
     this.loader = await this.loadingController.create({
       message: Config.messages.pleaseWait,
     });
-    this.route.params.subscribe((params) => {
-      this.vehicleCategoryId = params['id'];
-    });
     if (history.state.vehicle) {
       this.vehicleData = JSON.parse(history.state.vehicle);
-      this.vehicleData && this.addVehicleForm.setValue(this.vehicleData);
+      this.vehicleData && this.addVehicleForm.patchValue(this.vehicleData);
       this.RCPicSrc = this.addVehicleForm.controls['RCPhoto'].value;
       this.insurancePicSrc =
         this.addVehicleForm.controls['insurancePhoto'].value;
       this.permitPicSrc = this.addVehicleForm.controls['permitPhoto'].value;
       this.pollutionPicSrc =
         this.addVehicleForm.controls['pollutionPhoto'].value;
+    }
+
+    if (history.state.vehicleCategry) {
+      this.vehicleCategory = JSON.parse(history.state.vehicleCategry);
+    }
+
+    if (history.state.vehicleCategories) {
+      this.categories = JSON.parse(history.state.vehicleCategories);
     }
   }
 
@@ -160,7 +166,7 @@ export class AddVehicleComponent implements OnInit {
 
       await this.vehicleMasterService.addVehicleCategoryData(
         this.addVehicleForm.value,
-        this.vehicleCategoryId
+        this.vehicleCategory.id
       );
 
       if (this.addVehicleForm.controls['id'].value == '')
@@ -180,6 +186,8 @@ export class AddVehicleComponent implements OnInit {
 
   goBack() {
     this.addVehicleForm.reset(this.formInitalValue);
-    this.navCtrl.navigateBack('/main/settings/vehicle-master');
+    if (this.vehicleCategory)
+      this.navCtrl.navigateBack('/main/settings/vehicle-master');
+    else this.navCtrl.back();
   }
 }

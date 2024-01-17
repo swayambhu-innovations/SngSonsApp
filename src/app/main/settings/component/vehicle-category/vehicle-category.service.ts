@@ -22,6 +22,17 @@ export class VehicleCategoryService {
     );
   }
 
+  getPendingVehicles() {
+    return getDocs(
+      collection(
+        this.firestore,
+        Config.collection.vehiclesCategory,
+        'pending',
+        Config.collection.vehicles
+      )
+    );
+  }
+
   addVehicleCategoryData(formData: any) {
     if (!formData.id) {
       return addDoc(

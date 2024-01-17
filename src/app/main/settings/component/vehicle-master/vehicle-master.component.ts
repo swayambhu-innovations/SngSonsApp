@@ -43,17 +43,20 @@ export class VehicleMasterComponent implements OnInit {
   }
 
   openAddVehicleForm() {
-    this.navCtrl.navigateForward(
-      '/main/settings/vehicle-master/add-vehicle/' + this.vehicleCat?.id
-    );
+    this.navCtrl.navigateForward('/main/settings/vehicle-master/add-vehicle', {
+      state: { vehicleCategry: JSON.stringify(this.vehicleCat) },
+    });
     this.init();
   }
 
   openVehiclesDetails(vehicle: any) {
     this.navCtrl.navigateForward(
-      ['/main/settings/vehicle-master/vehicle-details/' + this.vehicleCat?.id],
+      '/main/settings/vehicle-master/vehicle-details',
       {
-        state: { vehicle: JSON.stringify(vehicle) },
+        state: {
+          vehicle: JSON.stringify(vehicle),
+          vehicleCategry: JSON.stringify(this.vehicleCat),
+        },
       }
     );
     this.init();
@@ -68,6 +71,10 @@ export class VehicleMasterComponent implements OnInit {
         return { ...vehicle.data(), id: vehicle.id };
       });
     this.filteredVehiclesData = this.vehiclesData;
+  }
+
+  async ionViewDidEnter() {
+    this.init();
   }
 
   async init() {
@@ -99,12 +106,12 @@ export class VehicleMasterComponent implements OnInit {
 
   async editDetails(event: any, vehicle: any) {
     event.stopPropagation();
-    this.navCtrl.navigateForward(
-      ['/main/settings/vehicle-master/add-vehicle/' + this.vehicleCat?.id],
-      {
-        state: { vehicle: JSON.stringify(vehicle) },
-      }
-    );
+    this.navCtrl.navigateForward('/main/settings/vehicle-master/add-vehicle', {
+      state: {
+        vehicle: JSON.stringify(vehicle),
+        vehicleCategry: JSON.stringify(this.vehicleCat),
+      },
+    });
   }
 
   async deleteVehicle(confirmation: any) {

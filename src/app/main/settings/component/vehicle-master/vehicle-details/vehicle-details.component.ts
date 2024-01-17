@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class VehicleDetailsComponent implements OnInit {
   public vehicleData: any;
-  public vehicleCatID: string = '';
+  public vehicleCat: any;
   private loader: any;
   public toDelete: any;
   public showConfirm: boolean = false;
@@ -28,9 +28,8 @@ export class VehicleDetailsComponent implements OnInit {
   async ngOnInit() {
     if (history.state.vehicle)
       this.vehicleData = JSON.parse(history.state.vehicle);
-    this.route.params.subscribe((params) => {
-      this.vehicleCatID = params['id'];
-    });
+    if (history.state.vehicleCategry)
+      this.vehicleCat = JSON.parse(history.state.vehicleCategry);
     this.loader = await this.loadingController.create({
       message: Config.messages.pleaseWait,
     });
@@ -40,7 +39,7 @@ export class VehicleDetailsComponent implements OnInit {
     $event.stopPropagation();
     this.loader.present();
     await this.vehicleMasterService.updVehicleStatus(
-      this.vehicleCatID,
+      this.vehicleCat.id,
       this.vehicleData.id,
       status
     );
@@ -49,19 +48,19 @@ export class VehicleDetailsComponent implements OnInit {
 
   async editDetails(event: any) {
     event.stopPropagation();
-    this.navCtrl.navigateForward(
-      ['/main/settings/vehicle-master/add-vehicle/' + this.vehicleCatID],
-      {
-        state: { vehicle: JSON.stringify(this.vehicleData) },
-      }
-    );
+    this.navCtrl.navigateForward('/main/settings/vehicle-master/add-vehicle', {
+      state: {
+        vehicle: JSON.stringify(this.vehicleData),
+        vehicleCategry: JSON.stringify(this.vehicleCat),
+      },
+    });
   }
 
   async deleteVehicle(confirmation: any) {
     if (confirmation) {
       this.loader.present();
       await this.vehicleMasterService.deleteVehicle(
-        this.vehicleCatID,
+        this.vehicleCat.id,
         this.toDelete.id
       );
       this.loader.dismiss();

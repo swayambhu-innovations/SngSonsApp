@@ -49,8 +49,11 @@
         <!-- vehicle category -->
         <ion-item class="dropdown">
           <ion-select label="Vehicle Category" formControlName="vehicleCat">
-            <ion-select-option value="Truck">Truck</ion-select-option>
-            <ion-select-option value="Dumper">Dumper</ion-select-option>
+            <ion-select-option
+              *ngFor="let category of categories"
+              [value]="category.categoryName"
+              >{{ category.categoryName }}</ion-select-option
+            >
           </ion-select>
         </ion-item>
 

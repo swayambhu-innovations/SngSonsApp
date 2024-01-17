@@ -9,6 +9,7 @@ import { Config } from 'src/app/config';
 import { SharedService } from 'src/app/shared/shared.service';
 import { NotificationService } from 'src/app/utils/notification';
 import { VehicleCategoryService } from './vehicle-category.service';
+import { VehicleMasterService } from '../vehicle-master/vehicle-master.service';
 
 @Component({
   selector: 'app-vehicle-category',
@@ -45,7 +46,7 @@ export class VehicleCategoryComponent implements OnInit {
     private loadingController: LoadingController,
     private sharedService: SharedService,
     private navCtrl: NavController,
-    private vehicleCateoryService: VehicleCategoryService,
+    private vehicleCategoryService: VehicleCategoryService,
     private modalCtrl: ModalController
   ) {
     this.sharedService.refresh.subscribe((data) => {
@@ -63,9 +64,14 @@ export class VehicleCategoryComponent implements OnInit {
     this.presentingElement = document.querySelector('.ion-category-page');
   }
 
+  async ionViewDidEnter() {
+    this.init();
+  }
+
   async init() {
     this.loader?.present();
     await this.getVehicleCategoryData();
+    await this.getPendingVehicles();
     this.loader.dismiss();
   }
 
@@ -81,6 +87,19 @@ export class VehicleCategoryComponent implements OnInit {
     } else this.filterdVehicleCategory = this.vehicleCategory;
   }
 
+  async editPendingVehicle(event: any, vehicle: any) {
+    event.stopPropagation();
+    this.navCtrl.navigateForward(
+      ['/main/settings/vehicle-master/add-vehicle'],
+      {
+        state: {
+          vehicle: JSON.stringify(vehicle),
+          vehicleCategories: JSON.stringify(this.vehicleCategory),
+        },
+      }
+    );
+  }
+
   async submitForm() {
     if (!this.vehicleCategoryForm.valid) {
       this.vehicleCategoryForm.markAllAsTouched();
@@ -91,7 +110,7 @@ export class VehicleCategoryComponent implements OnInit {
       pending: false as boolean,
     });
     const formData = this.vehicleCategoryForm.value;
-    await this.vehicleCateoryService.addVehicleCategoryData(formData);
+    await this.vehicleCategoryService.addVehicleCategoryData(formData);
     this.notification.showSuccess(
       !formData
         ? Config.messages.addedSuccessfully
@@ -105,17 +124,23 @@ export class VehicleCategoryComponent implements OnInit {
   }
 
   async getVehicleCategoryData() {
-    const data = await this.vehicleCateoryService.getVehicleCategoryData();
+    const data = await this.vehicleCategoryService.getVehicleCategoryData();
     this.vehicleCategory = data.docs.map((category) => {
-      return { ...category.data(), id: category.id };
+      return (
+        category.id != 'pending' && { ...category.data(), id: category.id } //excluding pending category
+      );
     });
-    this.pendingVehicles = this.vehicleCategory.filter(
-      (vendor: any) => vendor?.pending == true
-    );
     this.vehicleCategory = this.vehicleCategory.filter(
-      (vendor: any) => vendor?.pending == false
-    );
+      (vehicleCat: any) => vehicleCat
+    ); // validating if vehicle category is present
     this.filterdVehicleCategory = this.vehicleCategory;
+  }
+
+  async getPendingVehicles() {
+    const data = await this.vehicleCategoryService.getPendingVehicles();
+    this.pendingVehicles = data.docs.map((vehicle) => {
+      return { ...vehicle.data(), id: vehicle.id };
+    });
   }
 
   async updVehicleCategoryStatus(
@@ -125,7 +150,7 @@ export class VehicleCategoryComponent implements OnInit {
   ) {
     $event.stopPropagation();
     this.loader?.present();
-    await this.vehicleCateoryService.updVehicleCategoryStatus(
+    await this.vehicleCategoryService.updVehicleCategoryStatus(
       cateoryId,
       status
     );
@@ -137,9 +162,9 @@ export class VehicleCategoryComponent implements OnInit {
     if (confirmation) {
       this.loader?.present();
       const isVehicles: boolean =
-        await this.vehicleCateoryService.isAnyVehicleColl(this.deleteId);
+        await this.vehicleCategoryService.isAnyVehicleColl(this.deleteId);
       if (!isVehicles) {
-        await this.vehicleCateoryService.deleteVehicleCategory(this.deleteId);
+        await this.vehicleCategoryService.deleteVehicleCategory(this.deleteId);
         await this.getVehicleCategoryData();
         this.notification.showSuccess(Config.messages.deletedSuccessfully);
       } else this.notification.showError(Config.messages.vehiclesPresent);
@@ -151,7 +176,7 @@ export class VehicleCategoryComponent implements OnInit {
   openVehicle(id: any, vehicleCatName: any) {
     const vehicleCat = {
       id: id,
-      vehicleCatName: vehicleCatName,
+      categoryName: vehicleCatName,
     };
     this.navCtrl.navigateForward(['main/settings/vehicle-master'], {
       state: { vehicleCat: JSON.stringify(vehicleCat) },
