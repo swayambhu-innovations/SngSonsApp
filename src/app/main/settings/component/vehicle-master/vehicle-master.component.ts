@@ -11,8 +11,9 @@ import { SharedService } from 'src/app/shared/shared.service';
   styleUrls: ['./vehicle-master.component.scss'],
 })
 export class VehicleMasterComponent implements OnInit {
-  public vehicleCat: any;
-  public vehiclesData: any;
+  public vehicleCat: any; // store category of vehicle
+  public vehiclesData: any; // store details of vehicle
+  public categories: any; // store all available categories
   public filteredVehiclesData: any;
   public loader: any;
   public toDelete: any;
@@ -39,12 +40,18 @@ export class VehicleMasterComponent implements OnInit {
     if (history.state.vehicleCat) {
       this.vehicleCat = JSON.parse(history.state.vehicleCat);
     }
+    if (history.state.vehicleCategories) {
+      this.categories = JSON.parse(history.state.vehicleCategories);
+    }
     this.init();
   }
 
   openAddVehicleForm() {
     this.navCtrl.navigateForward('/main/settings/vehicle-master/add-vehicle', {
-      state: { vehicleCategry: JSON.stringify(this.vehicleCat) },
+      state: {
+        vehicleCategry: JSON.stringify(this.vehicleCat),
+        vehicleCategories: JSON.stringify(this.categories),
+      },
     });
     this.init();
   }
@@ -56,6 +63,7 @@ export class VehicleMasterComponent implements OnInit {
         state: {
           vehicle: JSON.stringify(vehicle),
           vehicleCategry: JSON.stringify(this.vehicleCat),
+          vehicleCategories: JSON.stringify(this.categories),
         },
       }
     );
@@ -110,6 +118,7 @@ export class VehicleMasterComponent implements OnInit {
       state: {
         vehicle: JSON.stringify(vehicle),
         vehicleCategry: JSON.stringify(this.vehicleCat),
+        vehicleCategories: JSON.stringify(this.categories),
       },
     });
   }

@@ -3,7 +3,6 @@ import { LoadingController, NavController } from '@ionic/angular';
 import { Config } from 'src/app/config';
 import { NotificationService } from 'src/app/utils/notification';
 import { VehicleMasterService } from '../vehicle-master.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-vehicle-details',
@@ -11,8 +10,9 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./vehicle-details.component.scss'],
 })
 export class VehicleDetailsComponent implements OnInit {
-  public vehicleData: any;
-  public vehicleCat: any;
+  public vehicleCat: any; // store category of vehicle
+  public vehicleData: any; // store details of vehicle
+  public categories: any; // store all available categories
   private loader: any;
   public toDelete: any;
   public showConfirm: boolean = false;
@@ -20,7 +20,6 @@ export class VehicleDetailsComponent implements OnInit {
   constructor(
     private vehicleMasterService: VehicleMasterService,
     private navCtrl: NavController,
-    private route: ActivatedRoute,
     private loadingController: LoadingController,
     private notificationService: NotificationService
   ) {}
@@ -30,6 +29,9 @@ export class VehicleDetailsComponent implements OnInit {
       this.vehicleData = JSON.parse(history.state.vehicle);
     if (history.state.vehicleCategry)
       this.vehicleCat = JSON.parse(history.state.vehicleCategry);
+    if (history.state.vehicleCategories) {
+      this.categories = JSON.parse(history.state.vehicleCategories);
+    }
     this.loader = await this.loadingController.create({
       message: Config.messages.pleaseWait,
     });
@@ -52,6 +54,7 @@ export class VehicleDetailsComponent implements OnInit {
       state: {
         vehicle: JSON.stringify(this.vehicleData),
         vehicleCategry: JSON.stringify(this.vehicleCat),
+        vehicleCategories: JSON.stringify(this.categories),
       },
     });
   }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { VehicleMasterService } from '../vehicle-master.service';
 import { LoadingController, NavController } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { Config } from 'src/app/config';
 import { NotificationService } from 'src/app/utils/notification';
@@ -48,7 +47,6 @@ export class AddVehicleComponent implements OnInit {
   constructor(
     private vehicleMasterService: VehicleMasterService,
     private navCtrl: NavController,
-    private route: ActivatedRoute,
     private loadingController: LoadingController,
     private notificationService: NotificationService
   ) {}
@@ -57,10 +55,10 @@ export class AddVehicleComponent implements OnInit {
   public insurancePicSrc: any = Config.url.defaultProfile;
   public permitPicSrc: any = Config.url.defaultProfile;
   public pollutionPicSrc: any = Config.url.defaultProfile;
-  public formInitalValue = this.addVehicleForm.value;
   public vehicleCategory: any; // store category of vehicle if already filled
-  public categories: any; // store all categories of vehicles (also, used for pending vehicles)
+  public categories: any; // store all categories of vehicles
   public vehicleData: any; // store vehicle details for editing
+  public categoryID: any; // store category selected
   private loader: any;
   private files: any = {
     RCPhoto: null,
@@ -73,6 +71,7 @@ export class AddVehicleComponent implements OnInit {
     this.loader = await this.loadingController.create({
       message: Config.messages.pleaseWait,
     });
+
     if (history.state.vehicle) {
       this.vehicleData = JSON.parse(history.state.vehicle);
       this.vehicleData && this.addVehicleForm.patchValue(this.vehicleData);
@@ -91,6 +90,20 @@ export class AddVehicleComponent implements OnInit {
     if (history.state.vehicleCategories) {
       this.categories = JSON.parse(history.state.vehicleCategories);
     }
+
+    if (
+      this.addVehicleForm.controls['id'].value != '' &&
+      this.addVehicleForm.controls['vehicleCat'].value
+    )
+      for (let key in this.categories) {
+        if (
+          this.categories[key].categoryName ==
+          this.addVehicleForm.controls['vehicleCat'].value
+        ) {
+          this.categoryID = this.categories[key].id;
+          break;
+        }
+      }
   }
 
   dispDate(e: any, label: string) {
@@ -164,10 +177,40 @@ export class AddVehicleComponent implements OnInit {
           });
       }
 
-      await this.vehicleMasterService.addVehicleCategoryData(
-        this.addVehicleForm.value,
-        this.vehicleCategory.id
-      );
+      if (this.addVehicleForm.controls['id'].value == '') {
+        for (let key in this.categories) {
+          if (
+            this.categories[key].categoryName ==
+            this.addVehicleForm.controls['vehicleCat'].value
+          ) {
+            this.categoryID = this.categories[key].id;
+            break;
+          }
+        }
+        await this.vehicleMasterService.addVehicleCategoryData(
+          this.addVehicleForm.value,
+          this.categoryID
+        );
+      } else {
+        this.categoryID = this.categoryID ? this.categoryID : 'pending';
+        await this.vehicleMasterService.deleteVehicle(
+          this.categoryID,
+          this.addVehicleForm.controls['id'].value
+        );
+        for (let key in this.categories) {
+          if (
+            this.categories[key].categoryName ==
+            this.addVehicleForm.controls['vehicleCat'].value
+          ) {
+            this.categoryID = this.categories[key].id;
+            break;
+          }
+        }
+        await this.vehicleMasterService.addVehicleCategoryData(
+          this.addVehicleForm.value,
+          this.categoryID
+        );
+      }
 
       if (this.addVehicleForm.controls['id'].value == '')
         this.notificationService.showSuccess(Config.messages.addedSuccessfully);
@@ -185,7 +228,7 @@ export class AddVehicleComponent implements OnInit {
   }
 
   goBack() {
-    this.addVehicleForm.reset(this.formInitalValue);
+    this.addVehicleForm.reset();
     if (this.vehicleCategory)
       this.navCtrl.navigateBack('/main/settings/vehicle-master');
     else this.navCtrl.back();

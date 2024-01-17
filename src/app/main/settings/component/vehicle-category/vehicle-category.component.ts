@@ -179,7 +179,10 @@ export class VehicleCategoryComponent implements OnInit {
       categoryName: vehicleCatName,
     };
     this.navCtrl.navigateForward(['main/settings/vehicle-master'], {
-      state: { vehicleCat: JSON.stringify(vehicleCat) },
+      state: {
+        vehicleCat: JSON.stringify(vehicleCat),
+        vehicleCategories: JSON.stringify(this.vehicleCategory),
+      },
     });
   }
 }

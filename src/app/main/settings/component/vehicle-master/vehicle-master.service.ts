@@ -54,38 +54,25 @@ export class VehicleMasterService {
   }
 
   async addVehicleCategoryData(vehicleData: any, vehicleCategoryId: string) {
-    if (!vehicleData.id) {
-      await setDoc(
-        doc(
-          this.firestore,
-          Config.collection.vehiclesCategory,
-          vehicleCategoryId,
-          Config.collection.vehicles,
-          vehicleData.registrationNo.toString()
-        ),
-        vehicleData
-      );
-      await updateDoc(
-        doc(
-          this.firestore,
-          Config.collection.vehiclesCategory,
-          vehicleCategoryId
-        ),
-        { count: increment(1) }
-      );
-      return;
-    } else {
-      return updateDoc(
-        doc(
-          this.firestore,
-          Config.collection.vehiclesCategory,
-          vehicleCategoryId,
-          Config.collection.vehicles,
-          vehicleData.id
-        ),
-        vehicleData
-      );
-    }
+    await setDoc(
+      doc(
+        this.firestore,
+        Config.collection.vehiclesCategory,
+        vehicleCategoryId,
+        Config.collection.vehicles,
+        vehicleData.registrationNo.toString()
+      ),
+      vehicleData
+    );
+    await updateDoc(
+      doc(
+        this.firestore,
+        Config.collection.vehiclesCategory,
+        vehicleCategoryId
+      ),
+      { count: increment(1) }
+    );
+    return;
   }
 
   updVehicleStatus(
