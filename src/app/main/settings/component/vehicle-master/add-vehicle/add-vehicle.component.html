@@ -5,7 +5,13 @@
         <div class="img" (click)="goBack()">
           <img src="assets/icon/back-button.svg" alt="" />
         </div>
-        <div class="head">Add New Vehicle</div>
+        <div class="head">
+          {{
+            vehicleData?.registrationNo
+              ? "Edit " + vehicleData?.registrationNo
+              : "Add New Vehicle"
+          }}
+        </div>
       </div>
     </header>
 
@@ -51,7 +57,7 @@
           <ion-select label="Vehicle Category" formControlName="vehicleCat">
             <ion-select-option
               *ngFor="let category of categories"
-              [value]="category.categoryName"
+              [value]="category.id"
               >{{ category.categoryName }}</ion-select-option
             >
           </ion-select>
@@ -123,7 +129,7 @@
         <!-- ownership type -->
         <ion-item class="dropdown">
           <ion-select label="Ownership Type" formControlName="ownershipType">
-            <ion-select-option value="Individual">Individual</ion-select-option>
+            <ion-select-option value="Owned">Owned</ion-select-option>
             <ion-select-option value="Attached">Attached</ion-select-option>
           </ion-select>
         </ion-item>

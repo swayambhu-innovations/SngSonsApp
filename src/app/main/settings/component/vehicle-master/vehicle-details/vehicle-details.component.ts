@@ -3,6 +3,7 @@ import { LoadingController, NavController } from '@ionic/angular';
 import { Config } from 'src/app/config';
 import { NotificationService } from 'src/app/utils/notification';
 import { VehicleMasterService } from '../vehicle-master.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-vehicle-details',
@@ -10,39 +11,60 @@ import { VehicleMasterService } from '../vehicle-master.service';
   styleUrls: ['./vehicle-details.component.scss'],
 })
 export class VehicleDetailsComponent implements OnInit {
-  public vehicleCat: any; // store category of vehicle
+  public vehicleCatID: any; // store id of category of vehicle
+  public vehicleID: any; // store id of vehicle
+  public vehicleCatData: any; // store id of category of vehicle
   public vehicleData: any; // store details of vehicle
   public categories: any; // store all available categories
   private loader: any;
-  public toDelete: any;
   public showConfirm: boolean = false;
 
   constructor(
     private vehicleMasterService: VehicleMasterService,
     private navCtrl: NavController,
     private loadingController: LoadingController,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private route: ActivatedRoute
   ) {}
 
   async ngOnInit() {
-    if (history.state.vehicle)
-      this.vehicleData = JSON.parse(history.state.vehicle);
-    if (history.state.vehicleCategry)
-      this.vehicleCat = JSON.parse(history.state.vehicleCategry);
-    if (history.state.vehicleCategories) {
-      this.categories = JSON.parse(history.state.vehicleCategories);
-    }
     this.loader = await this.loadingController.create({
       message: Config.messages.pleaseWait,
     });
+    this.vehicleCatID = this.route.snapshot.paramMap.get('catID');
+    this.vehicleID = this.route.snapshot.paramMap.get('id');
+
+    this.init();
+  }
+
+  async init() {
+    this.loader?.present();
+    await this.getCategoryDetails();
+    await this.getVehicleDetails();
+    this.loader?.dismiss();
+  }
+
+  async getCategoryDetails() {
+    const category = await this.vehicleMasterService.getCatDetails(
+      this.vehicleCatID
+    );
+    this.vehicleCatData = category?.data();
+  }
+
+  async getVehicleDetails() {
+    const vehicleDetails = await this.vehicleMasterService.getVehicleDetails(
+      this.vehicleCatID,
+      this.vehicleID
+    );
+    this.vehicleData = vehicleDetails?.data();
   }
 
   async updVendorStatus($event: any, status: boolean) {
     $event.stopPropagation();
     this.loader.present();
     await this.vehicleMasterService.updVehicleStatus(
-      this.vehicleCat.id,
-      this.vehicleData.id,
+      this.vehicleCatID,
+      this.vehicleID,
       status
     );
     this.loader.dismiss();
@@ -51,11 +73,11 @@ export class VehicleDetailsComponent implements OnInit {
   async editDetails(event: any) {
     event.stopPropagation();
     this.navCtrl.navigateForward('/main/settings/vehicle-master/add-vehicle', {
-      state: {
-        vehicle: JSON.stringify(this.vehicleData),
-        vehicleCategry: JSON.stringify(this.vehicleCat),
-        vehicleCategories: JSON.stringify(this.categories),
-      },
+      // state: {
+      //   vehicle: JSON.stringify(this.vehicleData),
+      //   vehicleCategry: JSON.stringify(this.vehicleCat),
+      //   vehicleCategories: JSON.stringify(this.categories),
+      // },
     });
   }
 
@@ -63,8 +85,8 @@ export class VehicleDetailsComponent implements OnInit {
     if (confirmation) {
       this.loader.present();
       await this.vehicleMasterService.deleteVehicle(
-        this.vehicleCat.id,
-        this.toDelete.id
+        this.vehicleCatID,
+        this.vehicleID
       );
       this.loader.dismiss();
       this.notificationService.showSuccess(Config.messages.deletedSuccessfully);

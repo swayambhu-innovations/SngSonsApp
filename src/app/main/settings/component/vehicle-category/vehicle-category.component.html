@@ -84,10 +84,7 @@
       *ngFor="let vehicleCat of filterdVehicleCategory"
     >
       <div class="inner-container">
-        <div
-          class="data-text"
-          (click)="openVehicle(vehicleCat?.id, vehicleCat.categoryName)"
-        >
+        <div class="data-text" (click)="openVehicle(vehicleCat?.id)">
           <p class="text-name">{{ vehicleCat.categoryName }}</p>
           <p class="address">
             <span class="address-name"

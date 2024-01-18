@@ -70,7 +70,7 @@ export class VehicleCategoryComponent implements OnInit {
 
   async init() {
     this.loader?.present();
-    await this.getVehicleCategoryData();
+    await this.getCategories();
     await this.getPendingVehicles();
     this.loader.dismiss();
   }
@@ -89,15 +89,10 @@ export class VehicleCategoryComponent implements OnInit {
 
   async editPendingVehicle(event: any, vehicle: any) {
     event.stopPropagation();
-    this.navCtrl.navigateForward(
-      ['/main/settings/vehicle-master/add-vehicle'],
-      {
-        state: {
-          vehicle: JSON.stringify(vehicle),
-          vehicleCategories: JSON.stringify(this.vehicleCategory),
-        },
-      }
-    );
+    this.navCtrl.navigateForward([
+      '/main/settings/vehicle-master/pending/add-vehicle/' +
+        vehicle.registrationNo,
+    ]);
   }
 
   async submitForm() {
@@ -117,14 +112,14 @@ export class VehicleCategoryComponent implements OnInit {
         : Config.messages.updatedSuccessfully
     );
     this.vehicleCategoryForm.reset(this.formInitalValue);
-    await this.getVehicleCategoryData();
+    this.init();
     this.loader.dismiss();
     this.modalCtrl.dismiss();
     this.isModalOpen = false;
   }
 
-  async getVehicleCategoryData() {
-    const data = await this.vehicleCategoryService.getVehicleCategoryData();
+  async getCategories() {
+    const data = await this.vehicleCategoryService.getAllCategories();
     this.vehicleCategory = data.docs.map((category) => {
       return (
         category.id != 'pending' && { ...category.data(), id: category.id } //excluding pending category
@@ -154,7 +149,7 @@ export class VehicleCategoryComponent implements OnInit {
       cateoryId,
       status
     );
-    await this.getVehicleCategoryData();
+    this.init();
     this.loader.dismiss();
   }
 
@@ -165,7 +160,7 @@ export class VehicleCategoryComponent implements OnInit {
         await this.vehicleCategoryService.isAnyVehicleColl(this.deleteId);
       if (!isVehicles) {
         await this.vehicleCategoryService.deleteVehicleCategory(this.deleteId);
-        await this.getVehicleCategoryData();
+        this.init();
         this.notification.showSuccess(Config.messages.deletedSuccessfully);
       } else this.notification.showError(Config.messages.vehiclesPresent);
       this.loader.dismiss();
@@ -173,16 +168,9 @@ export class VehicleCategoryComponent implements OnInit {
     this.showConfirm = false;
   }
 
-  openVehicle(id: any, vehicleCatName: any) {
-    const vehicleCat = {
-      id: id,
-      categoryName: vehicleCatName,
-    };
-    this.navCtrl.navigateForward(['main/settings/vehicle-master'], {
-      state: {
-        vehicleCat: JSON.stringify(vehicleCat),
-        vehicleCategories: JSON.stringify(this.vehicleCategory),
-      },
-    });
+  openVehicle(vehicleCatID: any) {
+    this.navCtrl.navigateForward([
+      'main/settings/vehicle-master/' + vehicleCatID,
+    ]);
   }
 }

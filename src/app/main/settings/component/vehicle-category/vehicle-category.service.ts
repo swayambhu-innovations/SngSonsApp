@@ -16,7 +16,7 @@ import { Config } from 'src/app/config';
 export class VehicleCategoryService {
   constructor(public firestore: Firestore) {}
 
-  getVehicleCategoryData() {
+  getAllCategories() {
     return getDocs(
       collection(this.firestore, Config.collection.vehiclesCategory)
     );

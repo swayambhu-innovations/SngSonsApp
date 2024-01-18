@@ -5,6 +5,8 @@ import { LoadingController, NavController } from '@ionic/angular';
 import { DatePipe } from '@angular/common';
 import { Config } from 'src/app/config';
 import { NotificationService } from 'src/app/utils/notification';
+import { ActivatedRoute } from '@angular/router';
+import { VehicleCategoryService } from '../../vehicle-category/vehicle-category.service';
 
 @Component({
   selector: 'app-add-vehicle',
@@ -46,19 +48,22 @@ export class AddVehicleComponent implements OnInit {
 
   constructor(
     private vehicleMasterService: VehicleMasterService,
+    private vehicleCategoryService: VehicleCategoryService,
     private navCtrl: NavController,
     private loadingController: LoadingController,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private route: ActivatedRoute
   ) {}
 
   public RCPicSrc: any = Config.url.defaultProfile;
   public insurancePicSrc: any = Config.url.defaultProfile;
   public permitPicSrc: any = Config.url.defaultProfile;
   public pollutionPicSrc: any = Config.url.defaultProfile;
-  public vehicleCategory: any; // store category of vehicle if already filled
+  // public vehicleCategory: any; // store category of vehicle if already filled
   public categories: any; // store all categories of vehicles
+  public vehicleID: any; // store id of vehicle to be edited
   public vehicleData: any; // store vehicle details for editing
-  public categoryID: any; // store category selected
+  public vehicleCatID: any; // store category of vehicle to be edited
   private loader: any;
   private files: any = {
     RCPhoto: null,
@@ -71,39 +76,38 @@ export class AddVehicleComponent implements OnInit {
     this.loader = await this.loadingController.create({
       message: Config.messages.pleaseWait,
     });
+    this.vehicleCatID = this.route.snapshot.paramMap.get('catID');
+    this.vehicleID = this.route.snapshot.paramMap.get('id');
 
-    if (history.state.vehicle) {
-      this.vehicleData = JSON.parse(history.state.vehicle);
-      this.vehicleData && this.addVehicleForm.patchValue(this.vehicleData);
-      this.RCPicSrc = this.addVehicleForm.controls['RCPhoto'].value;
-      this.insurancePicSrc =
-        this.addVehicleForm.controls['insurancePhoto'].value;
-      this.permitPicSrc = this.addVehicleForm.controls['permitPhoto'].value;
-      this.pollutionPicSrc =
-        this.addVehicleForm.controls['pollutionPhoto'].value;
-    }
+    this.init();
+  }
 
-    if (history.state.vehicleCategry) {
-      this.vehicleCategory = JSON.parse(history.state.vehicleCategry);
-    }
+  async init() {
+    this.loader?.present();
+    await this.getAllCategories();
+    this.vehicleID != '123' && (await this.getVehicleDetails());
+    // await this.getCategoryDetails();
+    this.loader?.dismiss();
+  }
 
-    if (history.state.vehicleCategories) {
-      this.categories = JSON.parse(history.state.vehicleCategories);
-    }
+  // async getCategoryDetails() {
+  //   const category = await this.vehicleMasterService.getCatDetails(
+  //     this.vehicleCatID
+  //   );
+  //   this.vehicleCategory = category?.data();
+  // }
 
-    if (
-      this.addVehicleForm.controls['id'].value != '' &&
-      this.addVehicleForm.controls['vehicleCat'].value
-    )
-      for (let key in this.categories) {
-        if (
-          this.categories[key].categoryName ==
-          this.addVehicleForm.controls['vehicleCat'].value
-        ) {
-          this.categoryID = this.categories[key].id;
-          break;
-        }
-      }
+  async getVehicleDetails() {
+    const vehicleDetails = await this.vehicleMasterService.getVehicleDetails(
+      this.vehicleCatID,
+      this.vehicleID
+    );
+    this.vehicleData = vehicleDetails?.data();
+    this.vehicleData && this.addVehicleForm.patchValue(this.vehicleData);
+    this.RCPicSrc = this.addVehicleForm.controls['RCPhoto'].value;
+    this.insurancePicSrc = this.addVehicleForm.controls['insurancePhoto'].value;
+    this.permitPicSrc = this.addVehicleForm.controls['permitPhoto'].value;
+    this.pollutionPicSrc = this.addVehicleForm.controls['pollutionPhoto'].value;
   }
 
   dispDate(e: any, label: string) {
@@ -152,6 +156,16 @@ export class AddVehicleComponent implements OnInit {
       this.pollutionPicSrc = Config.url.defaultProfile;
   }
 
+  async getAllCategories() {
+    const data = await this.vehicleCategoryService.getAllCategories();
+    this.categories = data.docs.map((category) => {
+      return (
+        category.id != 'pending' && { ...category.data(), id: category.id } //excluding pending category
+      );
+    });
+    this.categories = this.categories.filter((vehicleCat: any) => vehicleCat); // validating if vehicle category is present
+  }
+
   async submitForm() {
     if (!this.addVehicleForm.valid) {
       this.addVehicleForm.markAllAsTouched();
@@ -177,40 +191,25 @@ export class AddVehicleComponent implements OnInit {
           });
       }
 
-      if (this.addVehicleForm.controls['id'].value == '') {
-        for (let key in this.categories) {
-          if (
-            this.categories[key].categoryName ==
-            this.addVehicleForm.controls['vehicleCat'].value
-          ) {
-            this.categoryID = this.categories[key].id;
-            break;
-          }
-        }
-        await this.vehicleMasterService.addVehicleCategoryData(
-          this.addVehicleForm.value,
-          this.categoryID
-        );
-      } else {
-        this.categoryID = this.categoryID ? this.categoryID : 'pending';
+      if (this.vehicleCatID == 'pending')
         await this.vehicleMasterService.deleteVehicle(
-          this.categoryID,
-          this.addVehicleForm.controls['id'].value
+          this.vehicleCatID,
+          this.vehicleData.registrationNo
         );
-        for (let key in this.categories) {
-          if (
-            this.categories[key].categoryName ==
-            this.addVehicleForm.controls['vehicleCat'].value
-          ) {
-            this.categoryID = this.categories[key].id;
-            break;
-          }
-        }
-        await this.vehicleMasterService.addVehicleCategoryData(
-          this.addVehicleForm.value,
-          this.categoryID
+      else if (this.addVehicleForm.controls['id'].value != '')
+        await this.vehicleMasterService.deleteVehicle(
+          this.vehicleData.vehicleCat,
+          this.vehicleData.id
         );
-      }
+
+      this.addVehicleForm.patchValue({
+        id: this.addVehicleForm.controls['registrationNo'].value.toString(),
+      });
+
+      await this.vehicleMasterService.addVehicleCategoryData(
+        this.addVehicleForm.value,
+        this.addVehicleForm.controls['vehicleCat'].value
+      );
 
       if (this.addVehicleForm.controls['id'].value == '')
         this.notificationService.showSuccess(Config.messages.addedSuccessfully);
@@ -229,8 +228,6 @@ export class AddVehicleComponent implements OnInit {
 
   goBack() {
     this.addVehicleForm.reset();
-    if (this.vehicleCategory)
-      this.navCtrl.navigateBack('/main/settings/vehicle-master');
-    else this.navCtrl.back();
+    this.navCtrl.back();
   }
 }

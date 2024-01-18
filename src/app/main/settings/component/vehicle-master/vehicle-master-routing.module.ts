@@ -8,14 +8,14 @@ const routes: Routes = [
     component: VehicleMasterComponent,
   },
   {
-    path: 'add-vehicle',
+    path: 'add-vehicle/:id',
     loadChildren: () =>
       import('./add-vehicle/add-vehicle.module').then(
         (m) => m.AddVehicleModule
       ),
   },
   {
-    path: 'vehicle-details',
+    path: 'vehicle-details/:id',
     loadChildren: () =>
       import('./vehicle-details/vehicle-details.module').then(
         (m) => m.VehicleDetailsModule

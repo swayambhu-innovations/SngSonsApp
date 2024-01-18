@@ -5,6 +5,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   increment,
   setDoc,
@@ -25,6 +26,19 @@ import { Config } from 'src/app/config';
 export class VehicleMasterService {
   constructor(private storage: Storage, public firestore: Firestore) {}
 
+  getCatDetails(vehicleCategoryId: string) {
+    let data: any;
+    if (vehicleCategoryId)
+      data = getDoc(
+        doc(
+          this.firestore,
+          Config.collection.vehiclesCategory,
+          vehicleCategoryId
+        )
+      );
+    return data;
+  }
+
   getVehicles(vehicleCategoryId: string) {
     let data: any;
     if (vehicleCategoryId)
@@ -34,6 +48,21 @@ export class VehicleMasterService {
           Config.collection.vehiclesCategory,
           vehicleCategoryId,
           Config.collection.vehicles
+        )
+      );
+    return data;
+  }
+
+  getVehicleDetails(vehicleCategoryID: any, vehicleID: string) {
+    let data: any;
+    if (vehicleID)
+      data = getDoc(
+        doc(
+          this.firestore,
+          Config.collection.vehiclesCategory,
+          vehicleCategoryID,
+          Config.collection.vehicles,
+          vehicleID
         )
       );
     return data;
