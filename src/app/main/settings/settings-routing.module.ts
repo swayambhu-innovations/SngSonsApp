@@ -30,7 +30,7 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'vehicle-master/:id',
+    path: 'vehicle-master',
     loadChildren: () =>
       import('./component/vehicle-master/vehicle-master.module').then(
         (m) => m.vehicleMasterModule

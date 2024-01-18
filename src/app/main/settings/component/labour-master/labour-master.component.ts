@@ -50,7 +50,7 @@ export class LabourMasterComponent implements OnInit {
 
   paymentMethod: string[] = ['Paytm', 'PhonePe', 'Google Pay', 'Bhim UPI'];
 
-  labourPicSrc: any = Config.url.documentAvatar;
+  labourPicSrc: any = Config.url.defaultProfile;
 
   async ngOnInit() {
     this.loader = await this.loadingController.create({
@@ -79,7 +79,7 @@ export class LabourMasterComponent implements OnInit {
   }
 
   removePic(): void {
-    this.labourPicSrc = Config.url.documentAvatar;
+    this.labourPicSrc = Config.url.defaultProfile;
   }
 
   closeModal() {

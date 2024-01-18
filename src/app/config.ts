@@ -7,6 +7,7 @@ export const Config = {
     addedSuccessfully: 'Added Successfully',
     updatedSuccessfully: 'Updated Successfully',
     deletedSuccessfully: 'Deleted Successfully',
+    vehiclesPresent: 'Already Present Vehicles',
     errorOccurred: 'Error Occurred. Please try again',
     pleaseWait: 'Please wait...',
     areYouSure: 'Are You Sure',
@@ -26,14 +27,14 @@ export const Config = {
     role: 'role',
     users: 'users',
     vehiclesCategory: 'vehicles-Category',
-    vehicleTypes: 'vehicleTypes',
+    vehicles: 'vehicles',
     shipments: 'shipments',
-    vehicles: 'vehicles'
   },
   storage: {
     labourParty: 'labourParty-Library',
     vendors: 'vendors-Library',
-    userPhoto: 'user-photo',    
+    userPhoto: 'user-photo',
+    vehicleDocuments: 'vehicle-Documnets',
   },
   hardData: {
     postalCode: ['226029', '211001', '110241', '224531'],
@@ -52,6 +53,6 @@ export const Config = {
   },
   url: {
     dicebear: 'https://api.dicebear.com/7.x/initials/svg?seed=',
-    documentAvatar: 'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697'
-  }
+    defaultProfile: 'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697',
+  },
 };

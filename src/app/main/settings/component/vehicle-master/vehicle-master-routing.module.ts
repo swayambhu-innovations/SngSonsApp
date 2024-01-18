@@ -5,8 +5,22 @@ import { VehicleMasterComponent } from './vehicle-master.component';
 const routes: Routes = [
   {
     path: '',
-    component: VehicleMasterComponent
-  }
+    component: VehicleMasterComponent,
+  },
+  {
+    path: 'add-vehicle',
+    loadChildren: () =>
+      import('./add-vehicle/add-vehicle.module').then(
+        (m) => m.AddVehicleModule
+      ),
+  },
+  {
+    path: 'vehicle-details',
+    loadChildren: () =>
+      import('./vehicle-details/vehicle-details.module').then(
+        (m) => m.VehicleDetailsModule
+      ),
+  },
 ];
 
 @NgModule({

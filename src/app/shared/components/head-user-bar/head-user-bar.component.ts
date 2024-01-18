@@ -1,9 +1,5 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { IonicModule, NavController } from '@ionic/angular';
-import { SimpleComponent } from './tabs/simple/simple.component';
-import { ExpertComponent } from './tabs/expert/expert.component';
-import { CustomComponent } from './tabs/custom/custom.component';
+import { NavController } from '@ionic/angular';
 import { UtilService } from 'src/app/utils/util';
 
 @Component({

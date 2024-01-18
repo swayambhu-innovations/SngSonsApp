@@ -1,156 +1,80 @@
 <ion-content class="vendor-container ion-vehicle-page">
-  <app-header headerName="Vehicles"></app-header>
+  <app-header
+    backUrl="/main/settings/vehicle-category"
+    headerName="{{ vehicleCat?.categoryName }}"
+  ></app-header>
+
   <section>
     <div class="add-vehicle-wrapper-container">
       <div class="inner-container">
         <div class="label">Create New Vehicle</div>
-        <div class="button" (click)="isModalOpen=true">
+        <div class="button" (click)="openAddVehicleForm()">
           <p class="button-name">Add Vehicle</p>
           <p class="symbol"><img src="assets/icon/plus-button.svg" alt="" /></p>
         </div>
       </div>
     </div>
   </section>
+
   <section>
     <div class="search-bar">
       <ion-searchbar
         class="ion-text-start custom"
         animated="true"
-        placeholder="Search Vehicle..."
+        (ionInput)="searchVehicle($event)"
+        placeholder="Search Vehicles..."
       ></ion-searchbar>
     </div>
   </section>
+
   <section>
-    <div class="row-data-wrapper-container" *ngFor="let number of [0, 1, 2, 3]">
+    <div
+      class="row-data-wrapper-container"
+      *ngFor="let vehicle of filteredVehiclesData"
+    >
       <div class="inner-container">
-        <div class="data-text">
-          <p class="text-name">GX Express LLC</p>
+        <div (click)="openVehiclesDetails(vehicle)" class="data-text">
+          <p class="text-name">{{ vehicle?.registrationNo }}</p>
           <p class="address">
-            <span class="address-name">10 Ton</span> |
-            <span class="no">100 Shipments</span> |
-            <span class="price">₹ 26110</span>
+            <span class="address-name">{{ vehicle?.weightCapacity }} Ton</span>
+            | <span class="no">{{ vehicle?.KOTCapacity }} Shipments</span> |
+            <span class="price">₹ {{ vehicle?.fuelVoucherLmt }}</span>
           </p>
         </div>
         <div class="action-button">
           <div class="toogle">
             <label class="switch">
-              <input type="checkbox" [checked]="true" />
+              <input
+                type="checkbox"
+                [checked]="vehicle.active"
+                (change)="updVehicleStatus($event, vehicle.id, !vehicle.active)"
+              />
               <span class="slider round"></span>
             </label>
           </div>
-          <div class="edit-button">
+          <div (click)="editDetails($event, vehicle)" class="edit-button">
             <img src="assets/icon/enable-edit-button.svg" alt="" />
           </div>
-          <div class="delete">
+          <div
+            (click)="toDelete = { id: vehicle.id }; showConfirm = true"
+            class="delete"
+          >
             <img src="assets/icon/enable-delete-button.svg" alt="" />
           </div>
           <div class="forward-icon">
             <ion-col size="0.75">
-                <ion-icon name="chevron-forward-outline"></ion-icon>
+              <ion-icon name="chevron-forward-outline"></ion-icon>
             </ion-col>
           </div>
         </div>
       </div>
     </div>
   </section>
+
   <div class="below-space"></div>
-  <ion-modal #modal [isOpen]="isModalOpen" [presentingElement]="presentingElement" class="model">
-    <ng-template>
-      <section>
-        <header>
-          <div class="header">
-            <div class="img" (click)="isModalOpen=false"><img src="assets/icon/back-button.svg" alt=""></div>
-            <div class="head">Add New Vehicle</div>
-          </div>
-        </header>
-        <form [formGroup]="addVehicleForm" (ngSubmit)="submitForm()">
-          <div class="container">
-            <ion-item lines="none" class="Variable">
-              <ion-input
-                lines="none"
-                label="Category Name"
-                class="custom"
-                labelPlacement="floating"
-                formControlName="categoryName"
-              ></ion-input>
-            </ion-item>
-            <ion-item lines="none" class="Variable">
-              <ion-input
-                lines="none"
-                label="Weight Capacity (Ton)"
-                class="custom"
-                labelPlacement="floating"
-                formControlName="weightCapacity"
-              ></ion-input>
-            </ion-item>
-            <div class="limit">
-              <ion-item lines="none" class="lower">
-                <ion-input
-                  lines="none"
-                  fill="solid"
-                  label="Minimum Fuel (Ltr)"
-                  class="custom"
-                  labelPlacement="floating"
-                  formControlName="minimumFuel"
-                ></ion-input>
-              </ion-item>
-              <ion-item lines="none" class="upper">
-                <ion-input
-                  lines="none"
-                  label="Maximum Fuel (Ltr)"
-                  fill="solid"
-                  class="custom"
-                  labelPlacement="floating"
-                  formControlName="maximumFuel"
-                ></ion-input>
-              </ion-item>
-            </div>
-            <div class="limit">
-              <ion-item lines="none" class="lower">
-                <ion-input
-                  lines="none"
-                  fill="solid"
-                  label="Minimum Toll"
-                  class="custom"
-                  labelPlacement="floating"
-                  formControlName="minimumToll"
-                ></ion-input>
-              </ion-item>
-              <ion-item lines="none" class="upper">
-                <ion-input
-                  lines="none"
-                  label="Maximum Toll"
-                  fill="solid"
-                  class="custom"
-                  labelPlacement="floating"
-                  formControlName="maximumToll"
-                ></ion-input>
-              </ion-item>
-            </div>
-            <ion-item lines="none" class="Variable">
-              <ion-input
-                lines="none"
-                label="Default KOT Capacity"
-                class="custom"
-                labelPlacement="floating"
-                formControlName="defaultKOTCapacity"
-              ></ion-input>
-            </ion-item>          
-            <ion-item class="dropdown">
-              <ion-select label="Default Fuel Type" formControlName="defaultFuelType">
-                <ion-select-option value="Drop Down">Drop Down</ion-select-option>
-                <ion-select-option value="Number">Number</ion-select-option>
-              </ion-select>
-            </ion-item>
-          </div>
-          <div class="tab-bar">
-            <div>
-              <ion-button type="submit" shape="round" class="active-btn">Submit</ion-button>
-              <ion-button shape="round" (click)="addVehicleForm.reset(formInitalValue);isModalOpen=false">Cancel</ion-button>
-            </div>
-          </div>
-        </form>
-      </section>
-    </ng-template>
-  </ion-modal>
+
+  <app-confirmation
+    (event)="deleteVehicle($event)"
+    [show]="showConfirm"
+  ></app-confirmation>
 </ion-content>

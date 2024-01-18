@@ -1,0 +1,541 @@
+<ion-content>
+  <section>
+    <header>
+      <div class="header">
+        <div class="img" (click)="goBack()">
+          <img src="assets/icon/back-button.svg" alt="" />
+        </div>
+        <div class="head">Add New Vehicle</div>
+      </div>
+    </header>
+
+    <form [formGroup]="addVehicleForm" (ngSubmit)="submitForm()">
+      <div class="container">
+        <!-- registration No -->
+        <ion-item lines="none" class="Variable">
+          <ion-input
+            lines="none"
+            label="Registration Number"
+            class="custom"
+            labelPlacement="floating"
+            formControlName="registrationNo"
+          ></ion-input>
+        </ion-item>
+
+        <!-- chassis No -->
+        <ion-item lines="none" class="Variable">
+          <ion-input
+            lines="none"
+            label="Chassis Number"
+            class="custom"
+            labelPlacement="floating"
+            formControlName="chassisNo"
+          ></ion-input>
+        </ion-item>
+
+        <!-- engine No -->
+        <ion-item lines="none" class="Variable">
+          <ion-input
+            lines="none"
+            label="Engine Number"
+            class="custom"
+            labelPlacement="floating"
+            formControlName="engineNo"
+          ></ion-input>
+        </ion-item>
+
+        <ion-text class="sub-heading">Specs & Capacity</ion-text>
+
+        <!-- vehicle category -->
+        <ion-item class="dropdown">
+          <ion-select label="Vehicle Category" formControlName="vehicleCat">
+            <ion-select-option
+              *ngFor="let category of categories"
+              [value]="category.categoryName"
+              >{{ category.categoryName }}</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+
+        <!-- mileage -->
+        <ion-item lines="none" class="Variable">
+          <ion-input
+            lines="none"
+            label="Mileage (km per Ltr)"
+            class="custom"
+            labelPlacement="floating"
+            formControlName="mileage"
+          ></ion-input>
+        </ion-item>
+
+        <!-- fuel tank capacity -->
+        <ion-item lines="none" class="Variable">
+          <ion-input
+            lines="none"
+            label="Fuel Tank Capacity (Ltr)"
+            class="custom"
+            labelPlacement="floating"
+            formControlName="fuelTankCapacity"
+          ></ion-input>
+        </ion-item>
+
+        <!-- current filled fuel -->
+        <ion-item lines="none" class="Variable">
+          <ion-input
+            lines="none"
+            label="Current Filled Fuel (Ltr)"
+            class="custom"
+            labelPlacement="floating"
+            formControlName="currFilledFuel"
+          ></ion-input>
+        </ion-item>
+
+        <!-- kot capacity -->
+        <ion-item lines="none" class="Variable">
+          <ion-input
+            lines="none"
+            label="KOT Capacity"
+            class="custom"
+            labelPlacement="floating"
+            formControlName="KOTCapacity"
+          ></ion-input>
+        </ion-item>
+
+        <!-- wgt capacity -->
+        <ion-item lines="none" class="Variable">
+          <ion-input
+            lines="none"
+            label="Weight Capacity (Ton)"
+            class="custom"
+            labelPlacement="floating"
+            formControlName="weightCapacity"
+          ></ion-input>
+        </ion-item>
+
+        <!-- fuel type -->
+        <ion-item class="dropdown">
+          <ion-select label="Fuel Type" formControlName="fuelType">
+            <ion-select-option value="Petrol">Petrol</ion-select-option>
+            <ion-select-option value="Diesel">Diesel</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- ownership type -->
+        <ion-item class="dropdown">
+          <ion-select label="Ownership Type" formControlName="ownershipType">
+            <ion-select-option value="Individual">Individual</ion-select-option>
+            <ion-select-option value="Attached">Attached</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- crr odometer reading -->
+        <ion-item lines="none" class="Variable">
+          <ion-input
+            lines="none"
+            label="Current Odometer Reading (km)"
+            class="custom"
+            labelPlacement="floating"
+            formControlName="currOdometerReading"
+          ></ion-input>
+        </ion-item>
+
+        <!-- fuel voucher limit -->
+        <ion-item lines="none" class="Variable">
+          <ion-input
+            lines="none"
+            label="Fuel Voucher Limit (₹)"
+            class="custom"
+            labelPlacement="floating"
+            formControlName="fuelVoucherLmt"
+          ></ion-input>
+        </ion-item>
+
+        <!-- khuraki expense limit -->
+        <ion-item lines="none" class="Variable">
+          <ion-input
+            lines="none"
+            label="Khuraki Expense Limit (₹)"
+            class="custom"
+            labelPlacement="floating"
+            formControlName="khurakiExpenseLmt"
+          ></ion-input>
+        </ion-item>
+
+        <!-- toll expense limit -->
+        <ion-item lines="none" class="Variable">
+          <ion-input
+            lines="none"
+            label="Toll Expense Limit (₹)"
+            class="custom"
+            labelPlacement="floating"
+            formControlName="tollExpenseLmt"
+          ></ion-input>
+        </ion-item>
+
+        <!-- repair expense limit -->
+        <ion-item lines="none" class="Variable">
+          <ion-input
+            lines="none"
+            label="Repair Expense Limit (₹)"
+            class="custom"
+            labelPlacement="floating"
+            formControlName="repairExpenseLmt"
+          ></ion-input>
+        </ion-item>
+
+        <ion-text class="sub-heading">RC, Insurance & Permits</ion-text>
+
+        <!-- RC no -->
+        <ion-item lines="none" class="Variable">
+          <ion-input
+            lines="none"
+            label="RC Number"
+            class="custom"
+            labelPlacement="floating"
+            formControlName="RCNo"
+          ></ion-input>
+        </ion-item>
+
+        <!-- RC validity -->
+        <ion-item lines="none" class="Variable">
+          <label for="RC">
+            <ion-input
+              lines="none"
+              label="RC Validity"
+              class="custom"
+              labelPlacement="floating"
+              formControlName="RCValidity"
+            ></ion-input>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+            >
+              <path
+                d="M7.49935 0.833252V2.49992H12.4993V0.833252H14.166V2.49992H17.4993C17.9596 2.49992 18.3327 2.87302 18.3327 3.33325V16.6666C18.3327 17.1268 17.9596 17.4999 17.4993 17.4999H2.49935C2.03912 17.4999 1.66602 17.1268 1.66602 16.6666V3.33325C1.66602 2.87302 2.03912 2.49992 2.49935 2.49992H5.83268V0.833252H7.49935ZM16.666 9.16658H3.33268V15.8333H16.666V9.16658ZM6.66602 10.8333V12.4999H4.99935V10.8333H6.66602ZM10.8327 10.8333V12.4999H9.16602V10.8333H10.8327ZM14.9993 10.8333V12.4999H13.3327V10.8333H14.9993ZM5.83268 4.16659H3.33268V7.49992H16.666V4.16659H14.166V5.83325H12.4993V4.16659H7.49935V5.83325H5.83268V4.16659Z"
+                fill="#1540BD"
+              />
+            </svg>
+            <input
+              id="RC"
+              type="date"
+              onfocus="this.showPicker()"
+              (change)="dispDate($event, 'RC')"
+            />
+          </label>
+        </ion-item>
+
+        <!-- insurance validity -->
+        <ion-item lines="none" class="Variable">
+          <label for="insurance">
+            <ion-input
+              lines="none"
+              label="Insurance Validity"
+              class="custom"
+              labelPlacement="floating"
+              formControlName="insuranceValidity"
+            ></ion-input>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+            >
+              <path
+                d="M7.49935 0.833252V2.49992H12.4993V0.833252H14.166V2.49992H17.4993C17.9596 2.49992 18.3327 2.87302 18.3327 3.33325V16.6666C18.3327 17.1268 17.9596 17.4999 17.4993 17.4999H2.49935C2.03912 17.4999 1.66602 17.1268 1.66602 16.6666V3.33325C1.66602 2.87302 2.03912 2.49992 2.49935 2.49992H5.83268V0.833252H7.49935ZM16.666 9.16658H3.33268V15.8333H16.666V9.16658ZM6.66602 10.8333V12.4999H4.99935V10.8333H6.66602ZM10.8327 10.8333V12.4999H9.16602V10.8333H10.8327ZM14.9993 10.8333V12.4999H13.3327V10.8333H14.9993ZM5.83268 4.16659H3.33268V7.49992H16.666V4.16659H14.166V5.83325H12.4993V4.16659H7.49935V5.83325H5.83268V4.16659Z"
+                fill="#1540BD"
+              />
+            </svg>
+            <input
+              id="insurance"
+              type="date"
+              onfocus="this.showPicker()"
+              (change)="dispDate($event, 'insurance')"
+            />
+          </label>
+        </ion-item>
+
+        <!-- road tax validity -->
+        <ion-item lines="none" class="Variable">
+          <label for="roadTax">
+            <ion-input
+              lines="none"
+              label="Road Tax Validity"
+              class="custom"
+              labelPlacement="floating"
+              formControlName="roadTaxValidity"
+            ></ion-input>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+            >
+              <path
+                d="M7.49935 0.833252V2.49992H12.4993V0.833252H14.166V2.49992H17.4993C17.9596 2.49992 18.3327 2.87302 18.3327 3.33325V16.6666C18.3327 17.1268 17.9596 17.4999 17.4993 17.4999H2.49935C2.03912 17.4999 1.66602 17.1268 1.66602 16.6666V3.33325C1.66602 2.87302 2.03912 2.49992 2.49935 2.49992H5.83268V0.833252H7.49935ZM16.666 9.16658H3.33268V15.8333H16.666V9.16658ZM6.66602 10.8333V12.4999H4.99935V10.8333H6.66602ZM10.8327 10.8333V12.4999H9.16602V10.8333H10.8327ZM14.9993 10.8333V12.4999H13.3327V10.8333H14.9993ZM5.83268 4.16659H3.33268V7.49992H16.666V4.16659H14.166V5.83325H12.4993V4.16659H7.49935V5.83325H5.83268V4.16659Z"
+                fill="#1540BD"
+              />
+            </svg>
+            <input
+              id="roadTax"
+              type="date"
+              onfocus="this.showPicker()"
+              (change)="dispDate($event, 'roadTax')"
+            />
+          </label>
+        </ion-item>
+
+        <!-- permit validity -->
+        <ion-item lines="none" class="Variable">
+          <label for="permit">
+            <ion-input
+              lines="none"
+              label="Permit Validity"
+              class="custom"
+              labelPlacement="floating"
+              formControlName="permitValidity"
+            ></ion-input>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+            >
+              <path
+                d="M7.49935 0.833252V2.49992H12.4993V0.833252H14.166V2.49992H17.4993C17.9596 2.49992 18.3327 2.87302 18.3327 3.33325V16.6666C18.3327 17.1268 17.9596 17.4999 17.4993 17.4999H2.49935C2.03912 17.4999 1.66602 17.1268 1.66602 16.6666V3.33325C1.66602 2.87302 2.03912 2.49992 2.49935 2.49992H5.83268V0.833252H7.49935ZM16.666 9.16658H3.33268V15.8333H16.666V9.16658ZM6.66602 10.8333V12.4999H4.99935V10.8333H6.66602ZM10.8327 10.8333V12.4999H9.16602V10.8333H10.8327ZM14.9993 10.8333V12.4999H13.3327V10.8333H14.9993ZM5.83268 4.16659H3.33268V7.49992H16.666V4.16659H14.166V5.83325H12.4993V4.16659H7.49935V5.83325H5.83268V4.16659Z"
+                fill="#1540BD"
+              />
+            </svg>
+            <input
+              id="permit"
+              type="date"
+              onfocus="this.showPicker()"
+              (change)="dispDate($event, 'permit')"
+            />
+          </label>
+        </ion-item>
+
+        <!-- pollution validity -->
+        <ion-item lines="none" class="Variable">
+          <label for="pollution">
+            <ion-input
+              lines="none"
+              label="Pollution Validity"
+              class="custom"
+              labelPlacement="floating"
+              formControlName="pollutionValidity"
+            ></ion-input>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+            >
+              <path
+                d="M7.49935 0.833252V2.49992H12.4993V0.833252H14.166V2.49992H17.4993C17.9596 2.49992 18.3327 2.87302 18.3327 3.33325V16.6666C18.3327 17.1268 17.9596 17.4999 17.4993 17.4999H2.49935C2.03912 17.4999 1.66602 17.1268 1.66602 16.6666V3.33325C1.66602 2.87302 2.03912 2.49992 2.49935 2.49992H5.83268V0.833252H7.49935ZM16.666 9.16658H3.33268V15.8333H16.666V9.16658ZM6.66602 10.8333V12.4999H4.99935V10.8333H6.66602ZM10.8327 10.8333V12.4999H9.16602V10.8333H10.8327ZM14.9993 10.8333V12.4999H13.3327V10.8333H14.9993ZM5.83268 4.16659H3.33268V7.49992H16.666V4.16659H14.166V5.83325H12.4993V4.16659H7.49935V5.83325H5.83268V4.16659Z"
+                fill="#1540BD"
+              />
+            </svg>
+            <input
+              id="pollution"
+              type="date"
+              onfocus="this.showPicker()"
+              (change)="dispDate($event, 'pollution')"
+            />
+          </label>
+        </ion-item>
+
+        <ion-text class="sub-heading">Document Photo Proofs</ion-text>
+      </div>
+
+      <!-- upload RC -->
+      <div class="import-container">
+        <div class="import">
+          <ion-button shape="round">
+            <label for="RC-Pic">
+              Upload RC Photo
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+              >
+                <path
+                  d="M3.33268 15.8333H16.666V10H18.3327V16.6667C18.3327 17.1269 17.9596 17.5 17.4993 17.5H2.49935C2.03912 17.5 1.66602 17.1269 1.66602 16.6667V10H3.33268V15.8333ZM10.8327 7.5V13.3333H9.16602V7.5H4.99935L9.99935 2.5L14.9993 7.5H10.8327Z"
+                  fill="#1540BD"
+                />
+              </svg>
+            </label>
+          </ion-button>
+          <input
+            type="file"
+            id="RC-Pic"
+            (change)="uploadPic($event, 'RC')"
+            accept="image/x-png,image/gif,image/jpeg"
+            style="display: none"
+          />
+        </div>
+        <div class="export">
+          <ion-button (click)="removePic('RC')" shape="round">
+            <label>
+              Remove
+              <img src="assets/icon/enable-delete-button.svg" alt="" />
+            </label>
+          </ion-button>
+        </div>
+      </div>
+
+      <!-- RC preview -->
+      <div class="preview-box">
+        <img [src]="RCPicSrc" alt="RC-pic-png" />
+      </div>
+
+      <!-- upload insurance -->
+      <div class="import-container">
+        <div class="import">
+          <ion-button shape="round">
+            <label for="insurance-Pic">
+              Upload Insurance
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+              >
+                <path
+                  d="M3.33268 15.8333H16.666V10H18.3327V16.6667C18.3327 17.1269 17.9596 17.5 17.4993 17.5H2.49935C2.03912 17.5 1.66602 17.1269 1.66602 16.6667V10H3.33268V15.8333ZM10.8327 7.5V13.3333H9.16602V7.5H4.99935L9.99935 2.5L14.9993 7.5H10.8327Z"
+                  fill="#1540BD"
+                />
+              </svg>
+            </label>
+          </ion-button>
+          <input
+            type="file"
+            id="insurance-Pic"
+            (change)="uploadPic($event, 'insurance')"
+            accept="image/x-png,image/gif,image/jpeg"
+            style="display: none"
+          />
+        </div>
+        <div class="export">
+          <ion-button (click)="removePic('insurance')" shape="round">
+            <label>
+              Remove
+              <img src="assets/icon/enable-delete-button.svg" alt="" />
+            </label>
+          </ion-button>
+        </div>
+      </div>
+
+      <!-- insurance preview -->
+      <div class="preview-box">
+        <img [src]="insurancePicSrc" alt="insurance-pic-png" />
+      </div>
+
+      <!-- upload permit -->
+      <div class="import-container">
+        <div class="import">
+          <ion-button shape="round">
+            <label for="permit-Pic">
+              Upload Permit Photo
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+              >
+                <path
+                  d="M3.33268 15.8333H16.666V10H18.3327V16.6667C18.3327 17.1269 17.9596 17.5 17.4993 17.5H2.49935C2.03912 17.5 1.66602 17.1269 1.66602 16.6667V10H3.33268V15.8333ZM10.8327 7.5V13.3333H9.16602V7.5H4.99935L9.99935 2.5L14.9993 7.5H10.8327Z"
+                  fill="#1540BD"
+                />
+              </svg>
+            </label>
+          </ion-button>
+          <input
+            type="file"
+            id="permit-Pic"
+            (change)="uploadPic($event, 'permit')"
+            accept="image/x-png,image/gif,image/jpeg"
+            style="display: none"
+          />
+        </div>
+        <div class="export">
+          <ion-button (click)="removePic('permit')" shape="round">
+            <label>
+              Remove
+              <img src="assets/icon/enable-delete-button.svg" alt="" />
+            </label>
+          </ion-button>
+        </div>
+      </div>
+
+      <!-- permit preview -->
+      <div class="preview-box">
+        <img [src]="permitPicSrc" alt="permit-pic-png" />
+      </div>
+
+      <!-- upload pollution -->
+      <div class="import-container">
+        <div class="import">
+          <ion-button shape="round">
+            <label for="pollution-Pic">
+              Upload Pollution
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+              >
+                <path
+                  d="M3.33268 15.8333H16.666V10H18.3327V16.6667C18.3327 17.1269 17.9596 17.5 17.4993 17.5H2.49935C2.03912 17.5 1.66602 17.1269 1.66602 16.6667V10H3.33268V15.8333ZM10.8327 7.5V13.3333H9.16602V7.5H4.99935L9.99935 2.5L14.9993 7.5H10.8327Z"
+                  fill="#1540BD"
+                />
+              </svg>
+            </label>
+          </ion-button>
+          <input
+            type="file"
+            id="pollution-Pic"
+            (change)="uploadPic($event, 'pollution')"
+            accept="image/x-png,image/gif,image/jpeg"
+            style="display: none"
+          />
+        </div>
+        <div class="export">
+          <ion-button (click)="removePic('pollution')" shape="round">
+            <label>
+              Remove
+              <img src="assets/icon/enable-delete-button.svg" alt="" />
+            </label>
+          </ion-button>
+        </div>
+      </div>
+
+      <!-- pollution preview -->
+      <div class="preview-box">
+        <img [src]="pollutionPicSrc" alt="pollution-pic-png" />
+      </div>
+
+      <div class="tab-bar">
+        <div>
+          <ion-button type="submit" shape="round" class="active-btn"
+            >Submit</ion-button
+          >
+          <ion-button (click)="goBack()" shape="round">Cancel</ion-button>
+        </div>
+      </div>
+    </form>
+
+    <div class="below-space"></div>
+  </section>
+</ion-content>

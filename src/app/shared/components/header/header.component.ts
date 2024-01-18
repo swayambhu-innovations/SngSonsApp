@@ -10,7 +10,7 @@ import { NavController } from '@ionic/angular';
 })
 export class HeaderComponent implements OnInit {
   @Input() headerName: any;
-  // @Input() backUrl: string = '/main/settings';
+  @Input() backUrl: string = '';
   constructor(
     private sharedService: SharedService,
     private navCtrl: NavController
@@ -20,5 +20,11 @@ export class HeaderComponent implements OnInit {
 
   refresh() {
     this.sharedService.refresh.next(true);
+  }
+
+  goBack() {
+    this.navCtrl.navigateBack(
+      this.backUrl == '' ? '/main/settings' : this.backUrl
+    );
   }
 }

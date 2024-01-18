@@ -4,7 +4,6 @@ import { VendorMasterService } from '../vendor-master.service';
 import { LoadingController, NavController } from '@ionic/angular';
 import { NotificationService } from 'src/app/utils/notification';
 import { Config } from 'src/app/config';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-vendor',
@@ -21,7 +20,6 @@ export class AddVendorPage implements OnInit {
     private vendorMasterService: VendorMasterService,
     private loadingController: LoadingController,
     private navCtrl: NavController,
-    private route: ActivatedRoute,
     private notificationService: NotificationService
   ) {}
 
@@ -46,7 +44,7 @@ export class AddVendorPage implements OnInit {
   postalCode: string[] = [...Config.hardData.postalCode];
   shippingType: string[] = [...Config.hardData.shippingType];
 
-  vendorPicSrc: any = Config.url.documentAvatar;
+  vendorPicSrc: any = Config.url.defaultProfile;
 
   async ngOnInit() {
     this.loader = await this.loadingController.create({
@@ -73,7 +71,7 @@ export class AddVendorPage implements OnInit {
   }
 
   removePic(): void {
-    this.vendorPicSrc = Config.url.documentAvatar;
+    this.vendorPicSrc = Config.url.defaultProfile;
   }
 
   goBack() {
@@ -116,7 +114,6 @@ export class AddVendorPage implements OnInit {
       this.loader.dismiss();
       this.goBack();
     } catch (error) {
-      console.log(error);
       this.notificationService.showError('Something Went Wrong');
       return;
     }
