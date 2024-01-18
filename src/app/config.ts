@@ -51,6 +51,7 @@ export const Config = {
     userdata: 'userdata',
   },
   url: {
-    dicebear: 'https://api.dicebear.com/7.x/initials/svg?seed='
+    dicebear: 'https://api.dicebear.com/7.x/initials/svg?seed=',
+    documentAvatar: 'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697'
   }
 };

@@ -17,6 +17,11 @@ export class ShipmentsComponent implements OnInit {
   loader: any;
   vehicles: any = {};
   vendors: any = {};
+  tableData = [
+    { name: 'Shipment ID', key: 'ShipmentNumber', size: '4' },
+    { name: 'Party Name', key: 'CustomerName', size: '3' },
+    { name: 'Area', key: 'WSTown', size: '3' }
+  ];
 
   constructor(
     public excelUploadService: ExcelUploadService,

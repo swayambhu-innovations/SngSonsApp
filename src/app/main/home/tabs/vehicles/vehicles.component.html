@@ -1,5 +1,5 @@
 <app-day-wise-summary></app-day-wise-summary>
-<app-voucher [heading]="'Vehicle No. Wise Vouchers'" [search]="'Vehicle No.'"></app-voucher>
+<app-voucher [heading]="'Vehicle No. Wise Vouchers'" [search]="'Vehicle No.'" [tableData]="tableData"></app-voucher>
 <ion-grid>
   <ion-row class="ion-justify-content-around ion-align-items-center">
     <ion-col size="auto">
@@ -499,7 +499,7 @@
     </ion-col>
   </ion-row>
 </ion-grid>
-<app-accordion-type-expenses></app-accordion-type-expenses>
+<app-accordion-type-expenses [heading]="'Vehicle Type Wise Expenses'"></app-accordion-type-expenses>
 <ion-grid>
   <ion-row class="ion-justify-content-around ion-align-items-center">
     <ion-col size="auto">
@@ -999,5 +999,5 @@
     </ion-col>
   </ion-row>
 </ion-grid>
-<app-bar-graph-table></app-bar-graph-table>
-<app-accordion-type-expenses></app-accordion-type-expenses>
+<app-bar-graph-table [heading]="'Vehicle Wise Fuel Status (Ltr)'"></app-bar-graph-table>
+<app-accordion-type-expenses [heading]="'Vehicle Type Run Ups for KOTs'"></app-accordion-type-expenses>

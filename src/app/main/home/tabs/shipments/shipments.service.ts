@@ -35,4 +35,20 @@ export class ShipmentsService {
         return getDocs(query(collectionGroup(this.firestore, Config.collection.shipments), where('BillingDate', '>=', Timestamp.fromDate(startDate)), where('BillingDate', '<=', Timestamp.fromDate(endDate))));
     }
 
+    getShipmentsById(shipmentId: string) {
+        return getDocs(query(collection(this.firestore, Config.collection.shipments), where(documentId(), '==', shipmentId)));
+    }
+
+    getVendor(vendorId: string) {
+        return getDocs(query(collection(this.firestore, Config.collection.vendorMaster), where(documentId(), '==', vendorId)));
+    }
+
+    getVehicle(vehicleId: string) {
+        return getDocs(query(collectionGroup(this.firestore, Config.collection.vehicles), where("registrationNo", '==', vehicleId)));
+    }
+
+    updShipmentStatus(shipmentId: string, status: string) {
+        updateDoc(doc(this.firestore, Config.collection.shipments, shipmentId), { status });
+    }
+
 }

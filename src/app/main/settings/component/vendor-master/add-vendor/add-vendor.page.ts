@@ -46,8 +46,7 @@ export class AddVendorPage implements OnInit {
   postalCode: string[] = [...Config.hardData.postalCode];
   shippingType: string[] = [...Config.hardData.shippingType];
 
-  vendorPicSrc: any =
-    'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697';
+  vendorPicSrc: any = Config.url.documentAvatar;
 
   async ngOnInit() {
     this.loader = await this.loadingController.create({
@@ -74,8 +73,7 @@ export class AddVendorPage implements OnInit {
   }
 
   removePic(): void {
-    this.vendorPicSrc =
-      'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697';
+    this.vendorPicSrc = Config.url.documentAvatar;
   }
 
   goBack() {
