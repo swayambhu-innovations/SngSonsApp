@@ -53,7 +53,6 @@ export const Config = {
   },
   url: {
     dicebear: 'https://api.dicebear.com/7.x/initials/svg?seed=',
-    defaultProfile:
-      'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697',
+    defaultProfile: 'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697',
   },
 };

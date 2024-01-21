@@ -1,5 +1,5 @@
 <app-day-wise-summary></app-day-wise-summary>
-<app-voucher></app-voucher>
+<app-voucher [heading]="'Vendor Wise Vouchers'" [search]="'Vendor'" [tableData]="tableData"></app-voucher>
 <ion-grid>
   <ion-row class="ion-justify-content-around ion-align-items-center">
     <ion-col size="auto">
@@ -394,6 +394,6 @@
     </ion-col>
   </ion-row>
 </ion-grid>
-<app-accordion-type-expenses></app-accordion-type-expenses>
-<app-accordion-type-expenses></app-accordion-type-expenses>
-<app-accordion-type-expenses></app-accordion-type-expenses>
+<app-accordion-type-expenses [heading]="'Party-Wise Run Ups for KOTs'"></app-accordion-type-expenses>
+<app-accordion-type-expenses [heading]="'Party-Wise Expenses'"></app-accordion-type-expenses>
+<app-accordion-type-expenses [heading]="'Party-Wise Shipment Cost'"></app-accordion-type-expenses>

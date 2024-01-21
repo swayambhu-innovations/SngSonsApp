@@ -1,9 +1,21 @@
 <ion-card>
   <ion-grid>
     <ion-row class="head ion-justify-content-between ion-align-items-center">
-      <ion-col size="auto">Expenses So Far vs Avg (₹)</ion-col>
-      <ion-col size="auto">
-        <ion-icon name="calendar-clear-outline"></ion-icon>
+      <ion-col size="auto">{{heading}}</ion-col>
+      <ion-col size="auto" class="cal-icon">
+        <button>
+          <span>
+            <label for="selectDate">
+              {{ dateText }}
+            </label>
+          </span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M4.26799 1.16667C4.6048 1.16667 4.87784 1.42784 4.87784 1.75V2.33333H9.75663V1.75C9.75663 1.42784 10.0297 1.16667 10.3665 1.16667C10.7033 1.16667 10.9763 1.42784 10.9763 1.75V2.33333H11.5862C12.5966 2.33333 13.4157 3.11684 13.4157 4.08333V11.0833C13.4157 12.0498 12.5966 12.8333 11.5862 12.8333H3.0483C2.03787 12.8333 1.21875 12.0498 1.21875 11.0833V4.08333C1.21875 3.11684 2.03787 2.33333 3.0483 2.33333H3.65814V1.75C3.65814 1.42784 3.93118 1.16667 4.26799 1.16667ZM9.75663 3.5V4.08333C9.75663 4.4055 10.0297 4.66667 10.3665 4.66667C10.7033 4.66667 10.9763 4.4055 10.9763 4.08333V3.5H11.5862C11.923 3.5 12.196 3.76117 12.196 4.08333V5.83333H2.43845V4.08333C2.43845 3.76117 2.71149 3.5 3.0483 3.5H3.65814V4.08333C3.65814 4.4055 3.93118 4.66667 4.26799 4.66667C4.6048 4.66667 4.87784 4.4055 4.87784 4.08333V3.5H9.75663ZM2.43845 7V11.0833C2.43845 11.4055 2.71149 11.6667 3.0483 11.6667H11.5862C11.923 11.6667 12.196 11.4055 12.196 11.0833V7H2.43845Z"
+              fill="#1540BD" />
+          </svg>
+          <input id="selectDate" type="date" onfocus="this.showPicker()" (change)="onChange($event)" />
+        </button>
       </ion-col>
     </ion-row>
   </ion-grid>

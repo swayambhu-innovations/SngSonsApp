@@ -114,7 +114,6 @@ export class AddVendorPage implements OnInit {
       this.loader.dismiss();
       this.goBack();
     } catch (error) {
-      console.log(error);
       this.notificationService.showError('Something Went Wrong');
       return;
     }
