@@ -5,6 +5,7 @@ import { ImportExportService } from 'src/app/main/settings/component/import-expo
 import { ExcelUploadService } from 'src/app/utils/excel-upload';
 import { NotificationService } from 'src/app/utils/notification';
 import { read, utils } from 'xlsx';
+import { HomeService } from '../../home.service';
 
 @Component({
   selector: 'app-shipments',
@@ -27,7 +28,8 @@ export class ShipmentsComponent implements OnInit {
     public excelUploadService: ExcelUploadService,
     private importExportService: ImportExportService,
     private notification: NotificationService,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    public homeService: HomeService
   ) { }
 
   async ngOnInit() {

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FooterComponent } from './components/footer/footer.component';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
@@ -31,7 +31,7 @@ import { HeadUserBarComponent } from './components/head-user-bar/head-user-bar.c
     ExpertComponent,
     CustomComponent,
   ],
-  imports: [CommonModule, FormsModule, IonicModule, RouterModule],
+  imports: [CommonModule, FormsModule, IonicModule, RouterModule,ReactiveFormsModule],
   exports: [
     FooterComponent,
     HeaderComponent,

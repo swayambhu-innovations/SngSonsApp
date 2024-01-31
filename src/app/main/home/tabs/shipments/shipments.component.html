@@ -1,4 +1,6 @@
-<app-day-wise-summary></app-day-wise-summary>
+<ng-container *ngIf="homeService.dashBoardSettingFormData?.shipment_DayWise">
+  <app-day-wise-summary></app-day-wise-summary>
+</ng-container>
 <ion-card>
   <ion-grid>
     <ion-row class="ion-justify-content-between ion-align-items-center">
@@ -383,6 +385,12 @@
   </ng-template>
 </ion-modal>
 
-<app-voucher [heading]="'Shipment Wise Voucher'" [search]="'Shipment'" [tableData]="tableData"></app-voucher>
-<app-bar-graph-table [heading]="'Expenses So Far vs Avg (₹)'"></app-bar-graph-table>
-<app-bar-graph-table [heading]="'Today vs Avg Shipments'"></app-bar-graph-table>
+<ng-container *ngIf="homeService.dashBoardSettingFormData?.shipment_Shipment">
+  <app-voucher [heading]="'Shipment Wise Voucher'" [search]="'Shipment'" [tableData]="tableData"></app-voucher>
+</ng-container>
+<ng-container *ngIf="homeService.dashBoardSettingFormData?.shipment_Expense">
+  <app-bar-graph-table [heading]="'Expenses So Far vs Avg (₹)'"></app-bar-graph-table>
+</ng-container>
+<ng-container *ngIf="homeService.dashBoardSettingFormData?.shipment_TodayAvg">
+  <app-bar-graph-table [heading]="'Today vs Avg Shipments'"></app-bar-graph-table>
+</ng-container>
