@@ -5,6 +5,7 @@ import { isEmpty } from "lodash";
 import { NotificationService } from "src/app/utils/notification";
 import { Config } from "src/app/config";
 import { LoadingController } from "@ionic/angular";
+import { HomeService } from "src/app/main/home/home.service";
 
 @Component({
     selector: 'app-import-export',
@@ -22,7 +23,8 @@ export class ImportExportComponent implements OnInit {
         public excelUploadService: ExcelUploadService,
         private importExportService: ImportExportService,
         private notification: NotificationService,
-        private loadingController: LoadingController
+        private loadingController: LoadingController,
+        public homeService: HomeService
     ) { }
 
     async ngOnInit() {

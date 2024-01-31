@@ -29,6 +29,7 @@ export class ShipmentDetailPage implements OnInit {
     private shipmentService: ShipmentsService,
     private loadingController: LoadingController,
     private notification: NotificationService,
+    public homeService: HomeService
   ) {
   }
 

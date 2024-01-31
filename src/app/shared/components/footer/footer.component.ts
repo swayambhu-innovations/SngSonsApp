@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
+import { HomeService } from "src/app/main/home/home.service";
 
 @Component({
     selector:'app-footer',
@@ -8,7 +9,6 @@ import { Router } from "@angular/router";
 })
 export class FooterComponent{
     public tabStatus:string='home';
-    constructor(public router:Router){
-
+    constructor(public router:Router , public homeService: HomeService){
     }
 }

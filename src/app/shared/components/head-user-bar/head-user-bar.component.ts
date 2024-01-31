@@ -17,7 +17,8 @@ export class HeadUserBarComponent implements OnInit {
     private headBarService: HeadUserBarService,
     private fb: FormBuilder,
     private loadingController: LoadingController,
-    private homeService: HomeService
+    private homeService: HomeService,
+    private util: UtilService
   ) { }
 
   expertSetting={
@@ -43,6 +44,7 @@ export class HeadUserBarComponent implements OnInit {
   userName: string = '';
   tabStatus: any = 'simple';
   private loader: any;
+  userId=this.util.getUserId();
   modeFormSettings = this.fb.group({
     shipment_DayWise: [true, []],
     shipment_Shipment: [true, []],
@@ -67,14 +69,15 @@ export class HeadUserBarComponent implements OnInit {
   public initalFormValue: object = { ...this.modeFormSettings.value };
 
   async ngOnInit() {
+
     this.loader = await this.loadingController.create({ message: 'please wait' })
     this.getUserName();
-    this.homeService.dashBoardSettingFormData = (await this.headBarService.getDashBoardSetting()).data() || {};
+    this.homeService.dashBoardSettingFormData = (await this.headBarService.getDashBoardSetting(this.userId)).data() || {};
     if(Object.keys(this.homeService.dashBoardSettingFormData).length) {
-      console.log(this.modeFormSettings.value)
       this.modeFormSettings.patchValue(this.homeService.dashBoardSettingFormData);
-      console.log(this.modeFormSettings.value)
       this.tabStatus = this.modeFormSettings.get('tab')?.value;
+    }else {
+      this.homeService.dashBoardSettingFormData = this.expertSetting;
     }
   }
 
@@ -116,6 +119,10 @@ export class HeadUserBarComponent implements OnInit {
     this.userName = data?.access?.userName || '';
   }
 
+  getDashboardSettingData() {
+    
+  }
+
   dashboardEye() {
     this.openMode = true;
     if(this.tabStatus=='simple') { 
@@ -131,7 +138,7 @@ export class HeadUserBarComponent implements OnInit {
     console.log(this.modeFormSettings.get('tab')?.value)
     this.loader.present();
     this.homeService.dashBoardSettingFormData = this.modeFormSettings.value;
-    await this.headBarService.setDashBoardSetting(this.modeFormSettings.value);
+    await this.headBarService.setDashBoardSetting(this.modeFormSettings.value , this.userId);
     this.openMode=false;
     this.loader.dismiss();
   }
