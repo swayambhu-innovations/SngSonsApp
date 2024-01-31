@@ -94,7 +94,7 @@
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Invoice Number</ion-col>
-        <ion-col size="auto">{{shipmentDetails.GSTInvoiceNumber}}</ion-col>
+        <ion-col size="auto">{{invoiceNumber}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
@@ -151,37 +151,37 @@
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">W/S Code</ion-col>
-        <ion-col size="auto">{{shipmentDetails.vendor?.WSCode}}</ion-col>
+        <ion-col size="auto">{{vendorDetails.WSCode.join(', ')}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">W/S Name</ion-col>
-        <ion-col size="auto">{{shipmentDetails.vendor?.WSName}}</ion-col>
+        <ion-col size="auto">{{vendorDetails.WSName.join(', ')}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">W/S GST Number</ion-col>
-        <ion-col size="auto">{{shipmentDetails.vendor?.GSTNo}}</ion-col>
+        <ion-col size="auto">{{vendorDetails.GSTNo.join(', ')}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">W/S PAN Number</ion-col>
-        <ion-col size="auto">{{shipmentDetails.vendor?.panNo}}</ion-col>
+        <ion-col size="auto">{{vendorDetails.panNo.join(', ')}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">W/S Phone No</ion-col>
-        <ion-col size="auto">{{shipmentDetails.vendor?.phoneNO}}</ion-col>
+        <ion-col size="auto">{{vendorDetails.phoneNO.join(', ')}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">W/S Postal Code</ion-col>
-        <ion-col size="auto">{{shipmentDetails.vendor?.postalCode}}</ion-col>
+        <ion-col size="auto">{{vendorDetails.postalCode.join(', ')}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Distance</ion-col>
-        <ion-col size="auto">{{shipmentDetails.vendor?.distance}} km</ion-col>
+        <ion-col size="auto">{{distance}} km</ion-col>
       </ion-row>
     </ion-grid>
 
@@ -191,7 +191,7 @@
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">KOT</ion-col>
-        <ion-col size="auto">{{shipmentDetails.KOT}}</ion-col>
+        <ion-col size="auto">{{kot}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
@@ -206,7 +206,7 @@
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">W/S PAN Number</ion-col>
-        <ion-col size="auto">{{shipmentDetails.vendor?.panNo}}</ion-col>
+        <ion-col size="auto">{{vendorDetails.panNo.join(', ')}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">

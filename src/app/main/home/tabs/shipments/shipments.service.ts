@@ -27,6 +27,9 @@ export class ShipmentsService {
         public firestore: Firestore
     ) { }
 
+    vendors: any = {};
+    vehicles: any = {};
+
     getShipmentsByDate(date: string) {
         const startDate = new Date(date);
         startDate.setHours(0, 0, 0);
@@ -39,8 +42,8 @@ export class ShipmentsService {
         return getDocs(query(collection(this.firestore, Config.collection.shipments), where(documentId(), '==', shipmentId)));
     }
 
-    getVendor(vendorId: string) {
-        return getDocs(query(collection(this.firestore, Config.collection.vendorMaster), where(documentId(), '==', vendorId)));
+    getVendor(vendorId: string[]) {
+        return getDocs(query(collection(this.firestore, Config.collection.vendorMaster), where(documentId(), 'in', vendorId)));
     }
 
     getVehicle(vehicleId: string) {

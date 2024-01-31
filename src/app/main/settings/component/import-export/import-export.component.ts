@@ -5,6 +5,7 @@ import { isEmpty } from "lodash";
 import { NotificationService } from "src/app/utils/notification";
 import { Config } from "src/app/config";
 import { LoadingController } from "@ionic/angular";
+import { ShipmentsService } from "src/app/main/home/tabs/shipments/shipments.service";
 
 @Component({
     selector: 'app-import-export',
@@ -20,9 +21,10 @@ export class ImportExportComponent implements OnInit {
 
     constructor(
         public excelUploadService: ExcelUploadService,
-        private importExportService: ImportExportService,
+        public importExportService: ImportExportService,
         private notification: NotificationService,
-        private loadingController: LoadingController
+        private loadingController: LoadingController,
+        private shipmentService: ShipmentsService
     ) { }
 
     async ngOnInit() {
@@ -45,6 +47,13 @@ export class ImportExportComponent implements OnInit {
 
     addZSD(event: any, data: any, formatDate: any, scope: any) {
         data = scope.importExportService.formatShipment(data, formatDate);
+        if (!data) {
+            return;
+        }
+        if (data.data.length === 0) {
+            this.notification.showError(Config.messages.zsdNoData);
+            return;
+        }
         scope.importExportService.addShipments(data, scope, scope.loader, scope.notification);
         event.target.value = "";
     }
