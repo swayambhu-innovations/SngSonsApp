@@ -1,6 +1,6 @@
 <ion-content class="vendor-container">
     <app-header headerName="Import & Export"></app-header>
-    <section>
+    <section *ngIf="homeService.userAccessData?.upload_new_zsd_file">
         <div class="container margin-top-0">
             <p class="text">
                 ZSD Excel File

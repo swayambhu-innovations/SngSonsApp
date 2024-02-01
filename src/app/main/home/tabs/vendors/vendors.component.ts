@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HomeService } from '../../home.service';
 
 @Component({
   selector: 'app-vendors',
@@ -11,7 +12,7 @@ export class VendorsComponent implements OnInit {
     { name: 'W/S Code', key: 'WSCode', size: '3' },
     { name: 'Area', key: 'WSTown', size: '3' }
   ];
-  constructor() {}
+  constructor(public homeService: HomeService) {}
 
   ngOnInit() {}
 }

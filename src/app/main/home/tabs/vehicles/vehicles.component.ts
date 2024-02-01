@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HomeService } from '../../home.service';
 
 @Component({
   selector: 'app-vehicles',
@@ -11,7 +12,7 @@ export class VehiclesComponent implements OnInit {
     { name: 'Party Name', key: 'CustomerName', size: '3' },
     { name: 'Area', key: 'WSTown', size: '3' }
   ];
-  constructor() {}
+  constructor(public homeService: HomeService) {}
 
   ngOnInit() {}
 }

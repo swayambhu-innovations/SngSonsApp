@@ -5,7 +5,7 @@ import { isEmpty } from "lodash";
 import { NotificationService } from "src/app/utils/notification";
 import { Config } from "src/app/config";
 import { LoadingController } from "@ionic/angular";
-import { ShipmentsService } from "src/app/main/home/tabs/shipments/shipments.service";
+import { HomeService } from "src/app/main/home/home.service";
 
 @Component({
     selector: 'app-import-export',
@@ -24,7 +24,7 @@ export class ImportExportComponent implements OnInit {
         public importExportService: ImportExportService,
         private notification: NotificationService,
         private loadingController: LoadingController,
-        private shipmentService: ShipmentsService
+        public homeService: HomeService
     ) { }
 
     async ngOnInit() {

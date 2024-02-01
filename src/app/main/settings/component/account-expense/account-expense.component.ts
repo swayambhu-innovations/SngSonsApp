@@ -6,6 +6,7 @@ import { NotificationService } from "src/app/utils/notification";
 import { AccountExpenseService } from "./account-expense.service";
 import { isEmpty } from 'lodash';
 import { SharedService } from "src/app/shared/shared.service";
+import { HomeService } from "src/app/main/home/home.service";
 
 @Component({
     selector: 'app-account-expense',
@@ -18,7 +19,8 @@ export class AccountExpenseComponent implements OnInit {
         private notification: NotificationService,
         private loadingController: LoadingController,
         private accountExpenseService: AccountExpenseService,
-        private sharedService: SharedService
+        private sharedService: SharedService,
+        public homeService: HomeService
     ) {
         this.sharedService.refresh.subscribe((data) => {
             if (data) {

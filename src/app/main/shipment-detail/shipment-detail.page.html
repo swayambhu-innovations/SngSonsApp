@@ -289,13 +289,17 @@
     </div>
 
     <div class="tab-bar" *ngIf="shipmentDetails.status != shipmentStatus.Suspended">
-      <ion-button
+      <ng-container *ngIf="homeService.userAccessData?.fill_shipment_voucher">
+        <ion-button
         (click)="openFillVoucherPage()"
         shape="round"
         class="active-btn"
         >Fill Voucher</ion-button
       >
-      <ion-button shape="round" (click)="showConfirm=true">Suspend</ion-button>
+      </ng-container>
+      <ng-container *ngIf="homeService.userAccessData?.discard_vouchers">
+        <ion-button shape="round" (click)="showConfirm=true">Suspend</ion-button>
+      </ng-container>
     </div>
   </ion-card>
 

@@ -6,6 +6,7 @@ import { Config } from 'src/app/config';
 import { formatDate } from '../../utils/date-util';
 import { NotificationService } from 'src/app/utils/notification';
 import { ShipmentStatus } from 'src/app/utils/enum';
+import { HomeService } from '../home/home.service';
 
 @Component({
   selector: 'app-shipment-detail',
@@ -38,7 +39,8 @@ export class ShipmentDetailPage implements OnInit {
     private route: ActivatedRoute,
     private shipmentService: ShipmentsService,
     private loadingController: LoadingController,
-    private notification: NotificationService
+    private notification: NotificationService,
+    public homeService: HomeService
   ) {
   }
 
