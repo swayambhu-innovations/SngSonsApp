@@ -16,6 +16,9 @@ export const Config = {
     smsError: 'SMS could not be sent. Please try Again!',
     invalidOTP: 'Invalid OTP',
     zsdSuccess: 'ZSD Uploaded Successfully',
+    zsdInvalid: 'Invalid ZSD',
+    zsdNoData: 'No records to upload',
+    zsdInvalidInvoiceNo: 'Invoice already added',
   },
   collection: {
     account: 'account',
@@ -29,6 +32,7 @@ export const Config = {
     vehiclesCategory: 'vehicles-Category',
     vehicles: 'vehicles',
     shipments: 'shipments',
+    zsd: 'zsd',
   },
   storage: {
     labourParty: 'labourParty-Library',

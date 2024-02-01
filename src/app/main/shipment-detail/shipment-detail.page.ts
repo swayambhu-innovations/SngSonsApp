@@ -23,6 +23,17 @@ export class ShipmentDetailPage implements OnInit {
   config = Config;
   showConfirm = false;
   shipmentStatus = ShipmentStatus;
+  vendorDetails: any = {
+    GSTNo: [],
+    WSCode: [],
+    WSName: [],
+    WSTown: [],
+    panNo: [],
+    phoneNO: [],
+    postalCode: [],
+    distance: [],
+    kot: [],
+  };
   constructor(
     private navCtrl: NavController,
     private route: ActivatedRoute,
@@ -51,17 +62,53 @@ export class ShipmentDetailPage implements OnInit {
     this.navCtrl.back();
   }
 
+  get invoiceNumber() {
+    if (!this.shipmentDetails?.vendorData) {
+      return '';
+    }
+    return this.shipmentDetails.vendorData.map((item: any) => {
+      return item.CustomInvoiceNo;
+    }).join(', ');
+  }
+
+  get distance() {
+    return this.vendorDetails.distance.reduce((acc: number, item: string) => {
+      acc += parseInt(item);
+      return acc;
+    }, 0)
+  }
+
+  get kot() {
+    return this.vendorDetails.kot.reduce((acc: number, item: string) => {
+      acc += parseInt(item);
+      return acc;
+    }, 0)
+  }
+
   async getShipmentDetails() {
     this.loader.present();
     await (await this.shipmentService.getShipmentsById(this.id)).docs.map(async (shipment: any) => {
-      const shipmentData = { ...shipment.data(), id: shipment.id };
-      await (await this.shipmentService.getVendor(shipmentData.vendor)).docs.map((vendor: any) => {
-        shipmentData.vendor = { ...vendor.data(), id: vendor.id }
+      const shipmentData = { ...shipment.data(), id: shipment.id, vendor: [] };
+      await (await this.shipmentService.getVendor(shipmentData.vendorData.map((i: any, idx: number) => { return i.vendor }))).docs.map((vendor: any) => {
+        const vdata = vendor.data();
+        shipmentData.vendor.push({ ...vdata, id: vendor.id });
+        vdata.GSTNo && this.vendorDetails.GSTNo.push(vdata.GSTNo);
+        vdata.WSCode && this.vendorDetails.WSCode.push(vdata.WSCode);
+        vdata.WSName && this.vendorDetails.WSName.push(vdata.WSName);
+        vdata.WSTown && this.vendorDetails.WSTown.push(vdata.WSTown);
+        vdata.panNo && this.vendorDetails.panNo.push(vdata.panNo);
+        vdata.phoneNO && this.vendorDetails.phoneNO.push(vdata.phoneNO);
+        vdata.postalCode && this.vendorDetails.postalCode.push(vdata.postalCode);
+        vdata.distance && this.vendorDetails.distance.push(vdata.distance);
       });
       await (await this.shipmentService.getVehicle(shipmentData.vehicle)).docs.map((vehicle: any) => {
         shipmentData.vehicle = { ...vehicle.data(), id: vehicle.id }
       });
+      this.vendorDetails.kot = shipmentData.vendorData.map((item: any) => {
+        return item.KOT;
+      })
       this.shipmentDetails = shipmentData;
+      console.log(this.shipmentDetails, this.vendorDetails)
     })
     this.loader.dismiss();
   }

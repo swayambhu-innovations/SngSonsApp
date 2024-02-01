@@ -21,7 +21,7 @@ export class ImportExportComponent implements OnInit {
 
     constructor(
         public excelUploadService: ExcelUploadService,
-        private importExportService: ImportExportService,
+        public importExportService: ImportExportService,
         private notification: NotificationService,
         private loadingController: LoadingController,
         public homeService: HomeService
@@ -47,6 +47,13 @@ export class ImportExportComponent implements OnInit {
 
     addZSD(event: any, data: any, formatDate: any, scope: any) {
         data = scope.importExportService.formatShipment(data, formatDate);
+        if (!data) {
+            return;
+        }
+        if (data.data.length === 0) {
+            this.notification.showError(Config.messages.zsdNoData);
+            return;
+        }
         scope.importExportService.addShipments(data, scope, scope.loader, scope.notification);
         event.target.value = "";
     }

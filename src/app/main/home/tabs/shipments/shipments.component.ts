@@ -6,6 +6,7 @@ import { ExcelUploadService } from 'src/app/utils/excel-upload';
 import { NotificationService } from 'src/app/utils/notification';
 import { read, utils } from 'xlsx';
 import { HomeService } from '../../home.service';
+import { ShipmentsService } from './shipments.service';
 
 @Component({
   selector: 'app-shipments',
@@ -16,8 +17,7 @@ export class ShipmentsComponent implements OnInit {
   isError: boolean = false;
   isData: boolean = false;
   loader: any;
-  vehicles: any = {};
-  vendors: any = {};
+  
   tableData = [
     { name: 'Shipment ID', key: 'ShipmentNumber', size: '4' },
     { name: 'Party Name', key: 'CustomerName', size: '3' },
@@ -29,7 +29,8 @@ export class ShipmentsComponent implements OnInit {
     private importExportService: ImportExportService,
     private notification: NotificationService,
     private loadingController: LoadingController,
-    public homeService: HomeService
+    public homeService: HomeService,
+    private shipmentService: ShipmentsService
   ) { }
 
   async ngOnInit() {
@@ -40,11 +41,11 @@ export class ShipmentsComponent implements OnInit {
   async init() {
     this.loader.present();
     (await this.importExportService.getAllVehicles()).docs.map((vehicle: any) => {
-      this.vehicles[vehicle.id] = { ...vehicle.data(), id: vehicle.id };
+      this.shipmentService.vehicles[vehicle.id] = { ...vehicle.data(), id: vehicle.id };
       return { ...vehicle.data(), id: vehicle.id }
     });
     (await this.importExportService.getAllVendors()).docs.map((vendor: any) => {
-      this.vendors[vendor.data().WSName.split(' ').join('-').toLowerCase()] = { ...vendor.data(), id: vendor.id };
+      this.shipmentService.vendors[vendor.data().WSName.split(' ').join('-').toLowerCase()] = { ...vendor.data(), id: vendor.id };
       return { ...vendor.data(), id: vendor.id }
     });
     this.loader.dismiss();

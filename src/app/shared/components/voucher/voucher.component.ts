@@ -5,6 +5,7 @@ import { Config } from 'src/app/config';
 import { ShipmentsService } from 'src/app/main/home/tabs/shipments/shipments.service';
 import { ShipmentStatus } from "src/app/utils/enum";
 import { VoucherService } from './voucher.service';
+import { uniq } from 'lodash';
 
 @Component({
   selector: 'app-voucher',
@@ -61,11 +62,29 @@ export class VoucherComponent implements OnInit {
     this.shipmentsData = [];
     shipmentData.docs.map(async (shipment: any) => {
       if (!this.vendorData[shipment.data().vendor]) {
-        (await this.shipmentsService.getVendor(shipment.data().vendor)).docs.map((vendor: any) => {
-          this.vendorData[shipment.vendor] = { ...vendor.data() }
+        (await this.shipmentsService.getVendor(shipment.data().vendorData.map((item: any) => {
+          return item.vendor;
+        }))).docs.map((vendor: any) => {
+          this.vendorData[vendor.id] = { ...vendor.data() }
         })
       }
-      const data = { ...shipment.data(), ...this.vendorData[shipment.vendor], id: shipment.id };
+      const vendors = shipment.data().vendorData.map((item: any) => {
+        return this.vendorData[item.vendor];
+      });
+      const data = {
+        ...shipment.data(),
+        CustomerName: uniq(vendors.map((item: any) => {
+          return item.WSName;
+        })).join(','),
+        WSTown: uniq(vendors.map((item: any) => {
+          return item.WSTown;
+        })).join(','),
+        WSCode: uniq(vendors.map((item: any) => {
+          return item.WSCode;
+        })).join(','),
+        vendors,
+        id: shipment.id
+      };
       this.shipmentsData.push({ "_1": data[this.tableData[0].key], "_2": data[this.tableData[1].key], "_3": data[this.tableData[2].key], ...data });
     });
     this.loader.dismiss();
