@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HomeService } from './home.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ export class HomePage implements OnInit {
     shipments: true,
     vehicles: false,
     vendors: false,
-  };
+  }; 
 
   changeTab(id: string) {
     Object.keys(this.tabStatus).forEach((key) => {

@@ -593,8 +593,8 @@
   [breakpoints]="[0, 0.25, 0.5, 0.75]"
 >
   <ng-template>
-    <ion-content>
-      <div class="ion-padding ion-margin">
+    <div class="ion-container">
+      <div class="ion-padding ion-margin ">
         <ion-item lines="none">
           <ion-text>Shipment Voucher Generated</ion-text>
         </ion-item>
@@ -829,7 +829,7 @@
 
         <button (click)="isDone=!isDone" class="active">Done</button>
       </div>
-    </ion-content>
+    </div>  
   </ng-template>
 </ion-modal>
 
@@ -842,7 +842,7 @@
   [breakpoints]="[0, 0.25, 0.5, 0.75]"
 >
   <ng-template>
-    <ion-content>
+    <div class="ion-container">
       <div class="ion-padding ion-margin">
         <ion-item lines="none">
           <svg
@@ -1037,6 +1037,6 @@
           <button>Back</button>
         </div>
       </div>
-    </ion-content>
+    </div>  
   </ng-template>
 </ion-modal>

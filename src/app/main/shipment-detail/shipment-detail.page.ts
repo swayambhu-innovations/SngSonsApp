@@ -7,6 +7,7 @@ import { formatDate } from '../../utils/date-util';
 import { NotificationService } from 'src/app/utils/notification';
 import { ShipmentStatus } from 'src/app/utils/enum';
 import { ShipmentDetailService } from './shipment-detail.service';
+import { HomeService } from '../home/home.service';
 
 @Component({
   selector: 'app-shipment-detail',
@@ -30,7 +31,8 @@ export class ShipmentDetailPage implements OnInit {
     private shipmentService: ShipmentsService,
     private loadingController: LoadingController,
     private notification: NotificationService,
-    private shipmentDetailService: ShipmentDetailService
+    private shipmentDetailService: ShipmentDetailService,
+    public homeService: HomeService
   ) {
   }
 

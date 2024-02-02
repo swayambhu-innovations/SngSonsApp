@@ -17,6 +17,17 @@ export class UtilService {
         return userdata;
     }
 
+    getUserId() {
+        const data: any = this.getUserdata();
+        return data.access.id;
+    }
+
+    getUserAccessData() {
+        const data: any = this.getUserdata();
+        console.log(data.access.access)
+        return data.access.access;
+    }
+
     setUserdata(obj: any) {
         const data: any = { ...this.getUserdata() };
         data.access = { ...data.access, ...obj };

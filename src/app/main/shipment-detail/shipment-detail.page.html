@@ -290,14 +290,14 @@
 
     <div class="tab-bar">
       <ion-button
-        *ngIf="shipmentDetails.status == shipmentStatus.PendingDispatch || shipmentDetails.status == shipmentStatus.Suspended"
+        *ngIf="homeService.userAccessData?.fill_shipment_voucher && (shipmentDetails.status == shipmentStatus.PendingDispatch || shipmentDetails.status == shipmentStatus.Suspended)"
         (click)="openFillVoucherPage()"
         shape="round"
         class="active-btn"
         >Fill Voucher</ion-button
       >
       <ion-button
-        *ngIf="shipmentDetails.status == shipmentStatus.PendingPostDelivery"
+        *ngIf="homeService.userAccessData?.discard_vouchers && shipmentDetails.status == shipmentStatus.PendingPostDelivery"
         (click)="openFillDeliveryPage()"
         shape="round"
         class="active-btn"
