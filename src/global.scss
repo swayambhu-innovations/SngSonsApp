@@ -309,6 +309,10 @@ ion-modal {
   display: flex;
 }
 
+.justify-center {
+  justify-content: center;
+}
+
 ion-item.ion-touched.ion-invalid {
   border: 1px solid red !important;
 }
@@ -327,6 +331,15 @@ ion-item.ion-touched.ion-invalid {
 
 .d-none {
   display: none;
+}
+
+.my-2 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.mb-2 {
+  margin-bottom: 2rem;
 }
 
 .cal-icon {
