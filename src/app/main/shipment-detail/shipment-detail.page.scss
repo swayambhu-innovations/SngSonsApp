@@ -148,3 +148,73 @@ ion-modal ion-content {
     margin-top: 20px !important;
   }
 }
+
+.dismissModal {
+  .tab-bar-error {
+    display: flex;
+    width: 224px;
+    height: 56px;
+    padding: 8px;
+    align-items: center;
+    gap: 8px;
+    border-radius: 60px;
+    background: #ffe7d0;
+    backdrop-filter: blur(15px);
+
+    button {
+      display: flex;
+      width: 100px;
+      padding: 12px 34px 12px 35px;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50px;
+      background: #fff;
+      color: #f2825c;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .active-btn {
+      padding: 16px !important;
+      gap: 16px;
+      background: #f2825c !important;
+      color: #fff !important;
+    }
+  }
+
+  .active {
+    background: #1540bd !important;
+    color: #fff !important;
+    height: 40px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    font-size: 14px;
+    margin: 40px auto;
+  }
+
+  ion-text {
+    color: #1540bd;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 100%; /* 20px */
+    letter-spacing: -0.22px;
+    text-align: center;
+  }
+
+  .error {
+    color: var(--Suspended-Shipments, #ea712e) !important;
+  }
+
+  .wrapper {
+    margin: 0 auto;
+    height: 380px;
+
+    ion-item {
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
+  }
+}

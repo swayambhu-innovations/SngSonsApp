@@ -211,7 +211,7 @@ export class ImportExportService {
                     await scope.importExportService.addShipment({ ...item, vehicle });
                 }
             });
-            // await scope.importExportService.setLastShipmentId(data.shipments[data.shipments.length - 1]);
+            await scope.importExportService.setLastShipmentId(data.shipments[data.shipments.length - 1]);
             return { ...item, vehicle };
         })).catch((error) => {
             console.log(error)
