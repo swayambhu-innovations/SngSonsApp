@@ -23,6 +23,7 @@ export class ShipmentDetailService {
             distance: [],
             kot: [],
             invoiceNumber: [],
+            gstInvoiceNumber: [],
         };
         await(await this.shipmentService.getVendor(shipmentData.vendorData.map((i: any, idx: number) => { return i.vendor }))).docs.map((vendor: any) => {
             const vdata = vendor.data();
@@ -60,6 +61,9 @@ export class ShipmentDetailService {
           }, 0);
         shipmentData.vendorDetails.invoiceNumber = shipmentData.vendorData.map((item: any) => {
             return item.CustomInvoiceNo;
+          }).join(', ');
+        shipmentData.vendorDetails.gstInvoiceNumber = shipmentData.vendorData.map((item: any) => {
+            return item.GSTInvoiceNumber;
           }).join(', ');
         return shipmentData;
     }

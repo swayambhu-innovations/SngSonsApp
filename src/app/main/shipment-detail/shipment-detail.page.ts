@@ -36,7 +36,7 @@ export class ShipmentDetailPage implements OnInit {
   ) {
   }
 
-  async ngOnInit() {
+  async ionViewWillEnter() {
     this.loader = await this.loadingController.create({
       message: Config.messages.pleaseWait,
     });
@@ -44,7 +44,17 @@ export class ShipmentDetailPage implements OnInit {
     this.getShipmentDetails();
   }
 
-  openFillVoucherPage() {
+  async ngOnInit() {
+    
+  }
+
+  async openFillVoucherPage() {
+    if (!this.shipmentDetails.voucher) {
+      this.loader.present();
+      const voucherNo = await this.shipmentService.updVoucherNumber();
+      await this.shipmentService.updVoucherNumberInShipment(this.id, voucherNo);
+      this.loader.dismiss();
+    }
     this.navCtrl.navigateForward(`main/voucher/${this.id}`, {
       state: { id: this.id },
     });
