@@ -3,13 +3,13 @@
     <ion-row
       class="disabled-row ion-justify-content-between ion-align-items-center"
     >
-      <ion-col size="3" *ngFor="let headItem of reportTableActiveColumns">
+      <ion-col [size]="i == 0 ? '1' : '3'" *ngFor="let headItem of reportTableActiveColumns; index as i">
         {{headItem.text}}
       </ion-col>
     </ion-row> 
 
     <ion-row *ngFor="let bodyItem of reportTableData" class="ion-justify-content-between ion-align-items-center">
-      <ion-col size="3" *ngFor="let headItem of reportTableActiveColumns; index as i">
+      <ion-col [size]="i == 0 ? '1' : '3'" *ngFor="let headItem of reportTableActiveColumns; index as i">
         <div class="table-column">{{bodyItem[reportTableActiveColumns[i]['identifier']]}}</div>
       </ion-col>
     </ion-row>
