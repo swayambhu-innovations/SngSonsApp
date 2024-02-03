@@ -30,6 +30,7 @@ export class ShipmentsService {
     ) { }
 
     vendors: any = {};
+    vendorsById:any = {};
     vehicles: any = {};
 
     getShipmentsByDate(date: string) {
@@ -38,6 +39,10 @@ export class ShipmentsService {
         const endDate = new Date(date);
         endDate.setHours(23, 59, 59);
         return getDocs(query(collectionGroup(this.firestore, Config.collection.shipments), where('BillingDate', '>=', Timestamp.fromDate(startDate)), where('BillingDate', '<=', Timestamp.fromDate(endDate))));
+    }
+
+    getAllShipments() {
+        return getDocs(query(collectionGroup(this.firestore, Config.collection.shipments)));
     }
 
     getShipmentsById(shipmentId: string) {

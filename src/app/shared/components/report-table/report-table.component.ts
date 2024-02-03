@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 
 @Component({
@@ -6,19 +6,23 @@ import { IonicModule } from '@ionic/angular';
   templateUrl: './report-table.component.html',
   styleUrls: ['./report-table.component.scss'],
 })
-export class ReportTableComponent implements OnInit {
+export class ReportTableComponent implements OnInit, OnChanges {
   @Input() tableData: any;
   reportTableData: any;
   reportTableActiveColumns : any;
   constructor() {}
 
   ngOnInit() {
-    this.reportTableData = this.tableData['tableData'];
-    this.reportTableActiveColumns = this.tableData['activeColumns'];
-
+    
+  }
+  ngOnChanges(changes: SimpleChanges){
+    if(changes?.['tableData']){
+      this.reportTableData = changes['tableData']?.currentValue?.['tableData'];
+      this.reportTableActiveColumns = changes['tableData']?.currentValue?.['activeColumns'];
+    }
   }
 
-  ionViewDidEnter(){
+  ionViewWillEnter(){
     
   }
 }
