@@ -22,6 +22,11 @@ export class UtilService {
         return data.access.id;
     }
 
+    getUserName() {
+        const data: any = this.getUserdata();
+        return data.access.userName;
+    }
+
     getUserAccessData() {
         const data: any = this.getUserdata();
         console.log(data.access.access)

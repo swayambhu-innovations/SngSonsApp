@@ -7,6 +7,7 @@ export const Config = {
     addedSuccessfully: 'Added Successfully',
     updatedSuccessfully: 'Updated Successfully',
     deletedSuccessfully: 'Deleted Successfully',
+    savedSuccessfully: 'Saved Successfully',
     vehiclesPresent: 'Already Present Vehicles',
     errorOccurred: 'Error Occurred. Please try again',
     pleaseWait: 'Please wait...',
@@ -19,6 +20,7 @@ export const Config = {
     zsdInvalid: 'Invalid ZSD',
     zsdNoData: 'No records to upload',
     zsdInvalidInvoiceNo: 'Invoice already added',
+    fillAllExpenses: 'Please fill all the expenses',
   },
   collection: {
     account: 'account',

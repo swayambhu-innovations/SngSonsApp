@@ -8,7 +8,9 @@ import {
     deleteDoc,
     doc,
     documentId,
+    getDoc,
     getDocs,
+    increment,
     query,
     setDoc,
     updateDoc,
@@ -57,6 +59,25 @@ export class ShipmentsService {
 
     updShipmentStatus(shipmentId: string, status: string) {
         updateDoc(doc(this.firestore, Config.collection.shipments, shipmentId), { status });
+    }
+
+    async updVoucherNumber() {
+        await updateDoc(doc(this.firestore, Config.collection.zsd,'voucher'), { id: increment(1) });
+        const data: any = await this.getVoucherNumber()
+        return data.id;
+    }
+
+    async getVoucherNumber() {
+        const data = await getDoc(doc(this.firestore, Config.collection.zsd,'voucher'));
+        return data.data();
+    }
+
+    async updVoucherNumberInShipment(shipmentId: string, voucher: string) {
+        await updateDoc(doc(this.firestore, Config.collection.shipments, shipmentId), { voucher });
+    }
+
+    async updShipmentVoucher(shipmentId: string, voucherData: any) {
+        await updateDoc(doc(this.firestore, Config.collection.shipments, shipmentId), { voucherData });
     }
 
 }

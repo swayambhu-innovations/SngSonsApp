@@ -77,10 +77,14 @@ ion-content {
     }
 
     ion-accordion-group {
-      --background: #f0f7ff;
+      --background: #fff;
 
       ion-item {
-        --background: #f0f7ff;
+        --background: #fff;
+
+        &.select-dd {
+          color: #505E86;
+        }
         ion-label {
           --color: #1540bd;
         }
@@ -242,4 +246,14 @@ ion-modal .ion-container {
       color: #fff !important;
     }
   }
+}
+
+.switch {
+  position: absolute;
+  right: 10px;
+  z-index: 99999;
+}
+
+ion-input {
+  opacity: 10 !important;
 }
