@@ -9,7 +9,9 @@
     </ion-row> 
 
     <ion-row *ngFor="let bodyItem of reportTableData" class="ion-justify-content-between ion-align-items-center">
-      <ion-col size="3" *ngFor="let headItem of reportTableActiveColumns; index as i">{{bodyItem[reportTableActiveColumns[i]['identifier']]}}</ion-col>
+      <ion-col size="3" *ngFor="let headItem of reportTableActiveColumns; index as i">
+        <div class="table-column">{{bodyItem[reportTableActiveColumns[i]['identifier']]}}</div>
+      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-card>

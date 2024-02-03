@@ -2,6 +2,8 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { ShipmentsService } from '../home/tabs/shipments/shipments.service';
+import { ImportExportService } from '../settings/component/import-export/import-export.service';
 
 @Component({
   selector: 'app-report-details',
@@ -13,12 +15,22 @@ export class ReportDetailsPage implements OnInit {
   date1: string = '13 Aug';
   date2: string = '13 Sep';
   tableData: any;
+  reportData: any;
   openColVariables: boolean = false;
   tableColumns: any;
   isTableReady:boolean =  true;
   activeColumnCount: number;
   minimumActiveCount: number = 2;
-  constructor(private navCtrl: NavController, private route: ActivatedRoute) {
+
+  shipments: any;
+  selectedDate: any;
+  vendors: any;
+  constructor(
+    private navCtrl: NavController, 
+    private route: ActivatedRoute,
+    private shipmentService: ShipmentsService,
+    private importExportService: ImportExportService,
+  ) {
     this.tableColumns = [
       {
         text: 'S No',
@@ -55,117 +67,111 @@ export class ReportDetailsPage implements OnInit {
   }
 
   ngOnInit() {
+    
+  }
+  
+  ionViewWillEnter(){
     this.id = this.route.snapshot.paramMap.get('id');
-    this.tableData = {
-      activeColumns: [
-        {
-          text: 'S No',
-          identifier : 'sno'
-        },
-        {
-          text: 'W/S code',
-          identifier : 'wscode'
-        },
-        {
-          text: 'Party name',
-          identifier : 'pname'
-        },
-        {
-          text: 'Area',
-          identifier : 'area'
-        },
-        {
-          text: 'Col 5',
-          identifier : 'col5'
-        },
-      ],
-      tableData: [
-        {
-          "sno" : '1',
-          'wscode' : "001",
-          'pname' : "H & N",
-          'area': "area 1",
-          'col5': "col5",
-          'col6' : "col6"
-        },
-        {
-          "sno" : '2',
-          'wscode' : "002",
-          'col6' : "col6 2",
-          'pname' : "R K Brothers",
-          'area': "area 2",
-          'col5': "col5 2",
-        },
-        {
-          "sno" : '3',
-          'wscode' : "003",
-          'pname' : "S & T sons",
-          'area': "area 3",
-          'col5': "col5 3",
-          'col6' : "col6 3"
-        },
-        {
-          "sno" : '4',
-          'wscode' : "004",
-          'pname' : "P & Sons",
-          'area': "area 4",
-          'col5': "col5 4",
-          'col6' : "col6 4"
-        }
-      ]
-    }
+    this.getReport(this.id);
+    //this.onChangeColumn();
   }
 
-  onChangeColumn(columnItem:any){
-    this.tableColumns.map((item:any) => {
-      if(item.identifier == columnItem.identifier){
-        item.isActive = (!columnItem.isActive);
-      }
-    });
+  onChangeColumn(columnItem?:any){
+    if(columnItem){
+      this.tableColumns.map((item:any) => {
+        if(item.identifier == columnItem.identifier){
+          item.isActive = (!columnItem.isActive);
+        }
+      });
+    }
     const activeColumnVar = this.tableColumns.filter((item:any) => item.isActive);
     this.activeColumnCount = activeColumnVar.length;
     this.isTableReady = false;
     this.tableData = {
       activeColumns: activeColumnVar,
-      tableData: [
-        {
-          "sno" : '1',
-          'wscode' : "001",
-          'pname' : "H & N",
-          'area': "area 1",
-          'col5': "col5",
-          'col6' : "col6"
-        },
-        {
-          "sno" : '2',
-          'wscode' : "002",
-          'pname' : "R K Brothers",
-          'area': "area 2",
-          'col5': "col5 2",
-          'col6' : "col6 2"
-        },
-        {
-          "sno" : '3',
-          'wscode' : "003",
-          'pname' : "S & T sons",
-          'area': "area 3",
-          'col5': "col5 3",
-          'col6' : "col6 3"
-        },
-        {
-          "sno" : '4',
-          'wscode' : "004",
-          'pname' : "P & Sons",
-          'area': "area 4",
-          'col5': "col5 4",
-          'col6' : "col6 4"
-        }
-      ]
+      tableData: this.reportData
     };
     setTimeout(() => {
       this.isTableReady = true;
     }, 10);
     
+  }
+
+  getReport(report:string){
+    if(report.toLowerCase() == "vendor wise expenses report"){
+      this.vendors = this.shipmentService.vendorsById;
+      this.shipmentService.getAllShipments().then((shipmentData) => {
+        this.shipments =  shipmentData.docs.map((shipment) => {
+          shipment.data()['vendorData'].map((data:any) => {
+            if(!data.vendor){
+              return;
+            }
+            if(!(this.vendors[data.vendor]?.['shipments'])){
+              this.vendors[data.vendor]['shipments'] = [];
+              const vendorShipment = [];
+              vendorShipment.push(data);
+              const shipmentObject = {
+                fullShipment : shipment.data(),
+                vendorShipment : vendorShipment
+              }
+              this.vendors[data.vendor]['shipments'].push(shipmentObject);
+            }
+            else{
+              const shipmentIndex = this.vendors[data.vendor]['shipments'].length;
+              if(this.vendors[data.vendor]['shipments'][shipmentIndex - 1]){
+                this.vendors[data.vendor]['shipments'][shipmentIndex - 1]['vendorShipment'].push(data);
+              }
+              else{
+                const vendorShipment = [];
+                vendorShipment.push(data);
+                const shipmentObject = {
+                  fullShipment : shipment.data(),
+                  vendorShipment : vendorShipment
+                }
+                this.vendors[data.vendor]['shipments'].push(shipmentObject);
+              }
+            }
+           
+          });
+          return { ...shipment.data(), id: shipment.id };
+        });
+        this.tableColumns = [
+          {
+            text: 'S No',
+            identifier : 'serialNo',
+            isActive: true
+          },
+          {
+            text: 'W/S code',
+            identifier : 'WSCode',
+            isActive: true
+          },
+          {
+            text: 'W/S name',
+            identifier : 'WSName',
+            isActive: true
+          },
+          {
+            text: 'Shipment Count',
+            identifier : 'shipmentCount',
+            isActive: true
+          },
+        ];
+        this.activeColumnCount = this.tableColumns.length;
+        let vendorCount = 0;
+        Object.keys(this.vendors).map((vendor:any) => {
+          vendorCount++;
+          this.vendors[vendor]['serialNo'] = vendorCount;
+          this.vendors[vendor]['shipmentCount'] = this.vendors[vendor].shipments?.length || 0;
+        });
+        this.reportData = Object.keys(this.vendors).map((key) => this.vendors[key]);
+        this.onChangeColumn();
+        // const filtered = Object.keys(this.vendors).filter((item:any) => {
+        //   return this.vendors[item].shipments?.length > 1;
+        // });
+        // console.log(filtered);
+      });
+    }
   }
 
   goBack() {
