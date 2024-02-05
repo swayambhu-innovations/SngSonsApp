@@ -26,6 +26,8 @@ export class ReportDetailsPage implements OnInit {
   shipments: any;
   selectedDate: any;
   vendors: any;
+  finalColumnCount: any;
+  
   constructor(
     private navCtrl: NavController, 
     private route: ActivatedRoute,
@@ -56,6 +58,7 @@ export class ReportDetailsPage implements OnInit {
       });
     }
     const activeColumnVar = this.tableColumns.filter((item:any) => item.isActive);
+    this.finalColumnCount = this.tableColumns.filter((item:any) => item.isActive  && !item.isUrl).length;
     this.activeColumnCount = activeColumnVar.length;
     this.tableData = {
       activeColumns: activeColumnVar,
@@ -287,6 +290,56 @@ export class ReportDetailsPage implements OnInit {
           item['serialNo'] = index+1;
         });
         this.reportData = areaFinalData;
+        this.onChangeColumn();
+      });
+    }
+    else if(report.toLowerCase() == "shipments wise expenses report"){
+      this.shipmentService.getShipmentsByDateRange(this.date1,this.date2).then((shipmentData) => {
+        this.shipments =  shipmentData.docs.map((shipment) => {
+          return { ...shipment.data(), id: shipment.id };
+        });
+        let shipmentSerialNo = 0;
+        this.shipments.map((shipment:any) => {
+          shipmentSerialNo++;
+          shipment['serialNo'] = shipmentSerialNo;
+          shipment['VendorsCount'] = shipment.vendorData?.length || 0;
+          shipment['Url'] = "/main/shipment/"+shipment.id;
+        });
+        this.tableColumns = [
+          {
+            text: 'S No',
+            identifier : 'serialNo',
+            isActive: true,
+            width: 1
+          },
+          {
+            text: 'Vehicle',
+            identifier : 'vehicle',
+            isActive: true,
+            width: 3
+          },
+          {
+            text: 'Vendors Count',
+            identifier : 'VendorsCount',
+            isActive: true,
+            width: 2
+          },
+          {
+            text: 'Shipment Number',
+            identifier : 'ShipmentNumber',
+            isActive: true,
+            width: 4
+          },
+          {
+            text: '',
+            identifier : 'Url',
+            isActive: true,
+            isUrl : true,
+            width: 1
+          }
+        ];
+        this.activeColumnCount = this.tableColumns.length;
+        this.reportData = this.shipments;
         this.onChangeColumn();
       });
     }
