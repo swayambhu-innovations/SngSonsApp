@@ -17,22 +17,24 @@
             <ion-button shape="round">
               <span>
                 <label for="Date1">
-                  {{ date1 }}
+                  {{ formatDate(date1, 'DD MMM') }}
                   <input
                     id="Date1"
                     type="date"
                     onfocus="this.showPicker()"
                     (change)="startDate($event)"
+                    [value]="date1"
                   />
                 </label>
                 -
                 <label for="Date2"
-                  >{{ date2}}
+                  >{{ formatDate(date2, 'DD MMM') }}
                   <input
                     id="Date2"
                     type="date"
                     onfocus="this.showPicker()"
                     (change)="endDate($event)"
+                    [value]="date2"
                   />
                 </label>
               </span>
@@ -976,7 +978,7 @@
       </ion-row>
     </ion-grid>
 
-    <app-voucher></app-voucher>
+    <app-voucher [heading]="'Shipment Wise Voucher'" [search]="'Shipment'" [tableData]="tableData" [data]="shipmentsData" [showCal]="false"></app-voucher>
 
     <div class="below-space"></div>
   </div>

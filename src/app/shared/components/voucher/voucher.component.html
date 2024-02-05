@@ -2,7 +2,7 @@
   <ion-grid>
     <ion-row class="head ion-justify-content-between ion-align-items-center">
       <ion-col size="auto">{{heading}}</ion-col>
-      <ion-col size="auto">
+      <ion-col size="auto" *ngIf="showCal">
         <ion-col size="auto" class="cal-icon">
           <button>
             <span>
