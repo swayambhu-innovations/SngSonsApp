@@ -19,6 +19,7 @@ export const Config = {
     zsdInvalid: 'Invalid ZSD',
     zsdNoData: 'No records to upload',
     zsdInvalidInvoiceNo: 'Invoice already added',
+    add2Value: 'Please Add At Least 2 Value'
   },
   collection: {
     account: 'account',
