@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { ShipmentsService } from '../home/tabs/shipments/shipments.service';
-import { ImportExportService } from '../settings/component/import-export/import-export.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-report-details',
@@ -12,14 +12,16 @@ import { ImportExportService } from '../settings/component/import-export/import-
 })
 export class ReportDetailsPage implements OnInit {
   id: any;
-  date1: string = '13 Aug';
-  date2: string = '13 Sep';
+  date1: string = "";
+  date2: string = "";
+  date1Text: string = "";
+  date2Text: string = "";
   tableData: any;
   reportData: any;
   openColVariables: boolean = false;
   tableColumns: any;
-  activeColumnCount: number;
-  minimumActiveCount: number = 2;
+  activeColumnCount: number = 0;
+  minimumActiveCount: number = 1;
 
   shipments: any;
   selectedDate: any;
@@ -28,41 +30,8 @@ export class ReportDetailsPage implements OnInit {
     private navCtrl: NavController, 
     private route: ActivatedRoute,
     private shipmentService: ShipmentsService,
-    private importExportService: ImportExportService,
   ) {
-    this.tableColumns = [
-      {
-        text: 'S No',
-        identifier : 'sno',
-        isActive: true
-      },
-      {
-        text: 'W/S code',
-        identifier : 'wscode',
-        isActive: true
-      },
-      {
-        text: 'Party name',
-        identifier : 'pname',
-        isActive: true
-      },
-      {
-        text: 'Area',
-        identifier : 'area',
-        isActive: true
-      },
-      {
-        text: 'Col 5',
-        identifier : 'col5',
-        isActive: true
-      },
-      {
-        text: 'Col 6',
-        identifier : 'col6',
-        isActive: true
-      }
-    ];
-    this.activeColumnCount = this.tableColumns.length;
+    
   }
 
   ngOnInit() {
@@ -71,8 +40,11 @@ export class ReportDetailsPage implements OnInit {
   
   ionViewWillEnter(){
     this.id = this.route.snapshot.paramMap.get('id');
+    this.date1 = moment(new Date()).subtract(15,"days").format("YYYY-MM-DD");
+    this.date1Text = moment(new Date()).subtract(15,"days").format("DD/MM/YY");
+    this.date2 = moment(new Date()).format("YYYY-MM-DD");
+    this.date2Text = moment(new Date()).format("DD/MM/YY");
     this.getReport(this.id);
-    //this.onChangeColumn();
   }
 
   onChangeColumn(columnItem?:any){
@@ -93,12 +65,14 @@ export class ReportDetailsPage implements OnInit {
 
   getReport(report:string){
     if(report.toLowerCase() == "vendor wise expenses report"){
-      
-      this.shipmentService.getAllShipments().then((shipmentData) => {
+      this.shipmentService.getShipmentsByDateRange(this.date1,this.date2).then((shipmentData) => {
         this.vendors = this.shipmentService.vendorsById;
         this.shipments =  shipmentData.docs.map((shipment) => {
+          return { ...shipment.data(), id: shipment.id };
+        });
+        this.shipments =  shipmentData.docs.map((shipment) => {
           shipment.data()['vendorData'].map((data:any) => {
-            if(!data.vendor){
+            if(!data.vendor || !this.vendors[data.vendor]){
               return;
             }
             if(!(this.vendors[data.vendor]?.['shipments'])){
@@ -169,7 +143,7 @@ export class ReportDetailsPage implements OnInit {
     }
     else if(report.toLowerCase() == "vehicle wise expenses report"){
       
-      this.shipmentService.getAllShipments().then((shipmentData) => {
+      this.shipmentService.getShipmentsByDateRange(this.date1,this.date2).then((shipmentData) => {
         const vehicleData:any = {};
         this.shipments =  shipmentData.docs.map((shipment) => {
           if(!vehicleData[shipment.data()['vehicle']]){
@@ -220,11 +194,11 @@ export class ReportDetailsPage implements OnInit {
       });
     }
     else if(report.toLowerCase() == "area wise expenses report"){
-      this.shipmentService.getAllShipments().then((shipmentData) => {
+      this.shipmentService.getShipmentsByDateRange(this.date1,this.date2).then((shipmentData) => {
         this.vendors = this.shipmentService.vendorsById;
         this.shipments =  shipmentData.docs.map((shipment) => {
           shipment.data()['vendorData'].map((data:any) => {
-            if(!data.vendor){
+            if(!data.vendor || !this.vendors[data.vendor]){
               return;
             }
             if(!(this.vendors[data.vendor]?.['shipments'])){
@@ -328,10 +302,22 @@ export class ReportDetailsPage implements OnInit {
   }
 
   startDate(e: any) {
-    this.date1 = this.dispDate(e.target.value);
+    this.date1 = moment(new Date(e.target.value)).format("YYYY-MM-DD");
+    this.date1Text = moment(new Date(e.target.value)).format("DD/MM/YY");
+    if(!moment(this.date1).isSameOrBefore(this.date2)){
+      this.date2 = moment(new Date(e.target.value)).format("YYYY-MM-DD");
+      this.date2Text = moment(new Date(e.target.value)).format("DD/MM/YY");
+    }
+    this.getReport(this.id);
   }
 
   endDate(e: any) {
-    this.date2 = this.dispDate(e.target.value);
+    this.date2 = moment(new Date(e.target.value)).format("YYYY-MM-DD");
+    this.date2Text = moment(new Date(e.target.value)).format("DD/MM/YY");
+    if(!moment(this.date2).isSameOrAfter(this.date1)){
+      this.date1 = moment(new Date(e.target.value)).format("YYYY-MM-DD");
+      this.date1Text = moment(new Date(e.target.value)).format("DD/MM/YY");
+    }
+    this.getReport(this.id);
   }
 }
