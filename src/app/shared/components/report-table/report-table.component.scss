@@ -44,6 +44,15 @@ ion-card {
         text-align: left;
         text-overflow: ellipsis;
         text-wrap: nowrap;
+        .table-column{
+          width: 100%;
+          overflow: hidden;
+          white-space: pre;
+          text-overflow: ellipsis;
+        }
+      }
+      .forward-button{
+        width: 10px;
       }
     }
   }

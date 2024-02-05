@@ -7,6 +7,7 @@ export const Config = {
     addedSuccessfully: 'Added Successfully',
     updatedSuccessfully: 'Updated Successfully',
     deletedSuccessfully: 'Deleted Successfully',
+    savedSuccessfully: 'Saved Successfully',
     vehiclesPresent: 'Already Present Vehicles',
     errorOccurred: 'Error Occurred. Please try again',
     pleaseWait: 'Please wait...',
@@ -19,7 +20,9 @@ export const Config = {
     zsdInvalid: 'Invalid ZSD',
     zsdNoData: 'No records to upload',
     zsdInvalidInvoiceNo: 'Invoice already added',
-    add2Value: 'Please Add At Least 2 Value'
+    add2Value: 'Please Add At Least 2 Value',
+    fillAllExpenses: 'Please fill all the expenses',
+    fillAllFields: 'Please fill all the fields',
   },
   collection: {
     account: 'account',
@@ -40,6 +43,7 @@ export const Config = {
     vendors: 'vendors-Library',
     userPhoto: 'user-photo',
     vehicleDocuments: 'vehicle-Documnets',
+    shipment: 'shipment',
   },
   hardData: {
     postalCode: ['226029', '211001', '110241', '224531'],

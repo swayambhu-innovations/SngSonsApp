@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { LoadingController, NavController } from '@ionic/angular';
 import { Config } from 'src/app/config';
 import { ShipmentsService } from 'src/app/main/home/tabs/shipments/shipments.service';
@@ -12,17 +12,21 @@ import { uniq } from 'lodash';
   templateUrl: './voucher.component.html',
   styleUrls: ['./voucher.component.scss'],
 })
-export class VoucherComponent implements OnInit {
+export class VoucherComponent implements OnChanges {
   constructor(
     private navCtrl: NavController,
     private loadingController: LoadingController,
     private shipmentsService: ShipmentsService,
     private voucherService: VoucherService
-  ) { }
+  ) {
+    console.log(this.data)
+  }
 
   @Input() heading = '';
   @Input() search = '';
   @Input() tableData: any[] = [];
+  @Input() data: any[] = [];
+  @Input() showCal: boolean = true;
 
   showAll = false;
   loader: any;
@@ -30,8 +34,19 @@ export class VoucherComponent implements OnInit {
   shipmentStatus = ShipmentStatus;
   vendorData: any = {};
 
-  async ngOnInit() {
-    this.getShipments();
+  async ionViewDidEnter() {
+    if (this.data.length == 0) {
+      this.getShipments();
+    } else {
+      this.shipmentsData = this.data;
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['data']?.currentValue?.length != changes['data']?.previousValue?.length) {
+      this.shipmentsData = changes['data'].currentValue;
+    }
+    console.log(this.shipmentsData)
   }
 
   openShipmentDetail(shipment: any) {
@@ -74,13 +89,13 @@ export class VoucherComponent implements OnInit {
       const data = {
         ...shipment.data(),
         CustomerName: uniq(vendors.map((item: any) => {
-          return item.WSName;
+          return item?.WSName;
         })).join(','),
         WSTown: uniq(vendors.map((item: any) => {
-          return item.WSTown;
+          return item?.WSTown;
         })).join(','),
         WSCode: uniq(vendors.map((item: any) => {
-          return item.WSCode;
+          return item?.WSCode;
         })).join(','),
         vendors,
         id: shipment.id

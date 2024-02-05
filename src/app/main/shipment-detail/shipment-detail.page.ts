@@ -6,6 +6,7 @@ import { Config } from 'src/app/config';
 import { formatDate } from '../../utils/date-util';
 import { NotificationService } from 'src/app/utils/notification';
 import { ShipmentStatus } from 'src/app/utils/enum';
+import { ShipmentDetailService } from './shipment-detail.service';
 import { HomeService } from '../home/home.service';
 
 @Component({
@@ -23,28 +24,19 @@ export class ShipmentDetailPage implements OnInit {
   config = Config;
   showConfirm = false;
   shipmentStatus = ShipmentStatus;
-  vendorDetails: any = {
-    GSTNo: [],
-    WSCode: [],
-    WSName: [],
-    WSTown: [],
-    panNo: [],
-    phoneNO: [],
-    postalCode: [],
-    distance: [],
-    kot: [],
-  };
+  isSuspended = false;
   constructor(
     private navCtrl: NavController,
     private route: ActivatedRoute,
     private shipmentService: ShipmentsService,
     private loadingController: LoadingController,
     private notification: NotificationService,
+    private shipmentDetailService: ShipmentDetailService,
     public homeService: HomeService
   ) {
   }
 
-  async ngOnInit() {
+  async ionViewWillEnter() {
     this.loader = await this.loadingController.create({
       message: Config.messages.pleaseWait,
     });
@@ -52,8 +44,24 @@ export class ShipmentDetailPage implements OnInit {
     this.getShipmentDetails();
   }
 
-  openFillVoucherPage() {
+  async ngOnInit() {
+    
+  }
+
+  async openFillVoucherPage() {
+    if (!this.shipmentDetails.voucher) {
+      this.loader.present();
+      const voucherNo = await this.shipmentService.updVoucherNumber();
+      await this.shipmentService.updVoucherNumberInShipment(this.id, voucherNo);
+      this.loader.dismiss();
+    }
     this.navCtrl.navigateForward(`main/voucher/${this.id}`, {
+      state: { id: this.id },
+    });
+  }
+
+  openFillDeliveryPage() {
+    this.navCtrl.navigateForward(`main/voucher/post-delivery/${this.id}`, {
       state: { id: this.id },
     });
   }
@@ -62,53 +70,20 @@ export class ShipmentDetailPage implements OnInit {
     this.navCtrl.back();
   }
 
-  get invoiceNumber() {
-    if (!this.shipmentDetails?.vendorData) {
-      return '';
+  get totalExpense() {
+    const data = this.shipmentDetails?.voucherData;
+    if (!data) {
+      return 0;
     }
-    return this.shipmentDetails.vendorData.map((item: any) => {
-      return item.CustomInvoiceNo;
-    }).join(', ');
-  }
-
-  get distance() {
-    return this.vendorDetails.distance.reduce((acc: number, item: string) => {
-      acc += parseInt(item);
-      return acc;
-    }, 0)
-  }
-
-  get kot() {
-    return this.vendorDetails.kot.reduce((acc: number, item: string) => {
-      acc += parseInt(item);
-      return acc;
-    }, 0)
+    return parseFloat(data.dieselExpenseAmount || 0) + parseFloat(data.labourExpenseAmount || 0) + parseFloat(data.khurakiExpenseAmount || 0) + parseFloat(data.freightExpenseAmount || 0) + parseFloat(data.tollExpenseAmount || 0) + parseFloat(data.repairExpenseAmount || 0) + parseFloat(data.otherExpenseAmount || 0);
   }
 
   async getShipmentDetails() {
     this.loader.present();
     await (await this.shipmentService.getShipmentsById(this.id)).docs.map(async (shipment: any) => {
       const shipmentData = { ...shipment.data(), id: shipment.id, vendor: [] };
-      await (await this.shipmentService.getVendor(shipmentData.vendorData.map((i: any, idx: number) => { return i.vendor }))).docs.map((vendor: any) => {
-        const vdata = vendor.data();
-        shipmentData.vendor.push({ ...vdata, id: vendor.id });
-        vdata.GSTNo && this.vendorDetails.GSTNo.push(vdata.GSTNo);
-        vdata.WSCode && this.vendorDetails.WSCode.push(vdata.WSCode);
-        vdata.WSName && this.vendorDetails.WSName.push(vdata.WSName);
-        vdata.WSTown && this.vendorDetails.WSTown.push(vdata.WSTown);
-        vdata.panNo && this.vendorDetails.panNo.push(vdata.panNo);
-        vdata.phoneNO && this.vendorDetails.phoneNO.push(vdata.phoneNO);
-        vdata.postalCode && this.vendorDetails.postalCode.push(vdata.postalCode);
-        vdata.distance && this.vendorDetails.distance.push(vdata.distance);
-      });
-      await (await this.shipmentService.getVehicle(shipmentData.vehicle)).docs.map((vehicle: any) => {
-        shipmentData.vehicle = { ...vehicle.data(), id: vehicle.id }
-      });
-      this.vendorDetails.kot = shipmentData.vendorData.map((item: any) => {
-        return item.KOT;
-      })
-      this.shipmentDetails = shipmentData;
-      console.log(this.shipmentDetails, this.vendorDetails)
+      this.shipmentDetails = await this.shipmentDetailService.formatShipment(shipmentData);
+      console.log(this.shipmentDetails)
     })
     this.loader.dismiss();
   }
@@ -121,6 +96,11 @@ export class ShipmentDetailPage implements OnInit {
       this.loader.dismiss();
       this.notification.showSuccess(this.config.messages.updatedSuccessfully);
     }
-    this.showConfirm = false;
+    this.isSuspended = false;
+  }
+
+  dismissModal = async () => {
+    this.isSuspended = false;
+    return true;
   }
 }

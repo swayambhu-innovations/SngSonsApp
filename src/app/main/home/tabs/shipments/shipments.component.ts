@@ -24,7 +24,7 @@ export class ShipmentsComponent implements OnInit {
     { name: 'Area', key: 'WSTown', size: '3' }
   ];
 
-  constructor(
+  constructor (
     public excelUploadService: ExcelUploadService,
     private importExportService: ImportExportService,
     private notification: NotificationService,

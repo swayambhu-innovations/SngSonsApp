@@ -59,6 +59,7 @@
       background-color: white;
       -webkit-transition: 0.4s;
       transition: 0.4s;
+      border-radius: 50%;
     }
   }
 
@@ -68,6 +69,9 @@
     &.disabled {
       background: #adadad;
     }
+  }
+  input:disabled + .slider{
+    background: #212227;
   }
 
   input:focus + .slider {
@@ -309,8 +313,13 @@ ion-modal {
   display: flex;
 }
 
+.justify-center {
+  justify-content: center;
+}
+
 ion-item.ion-touched.ion-invalid {
   border: 1px solid red !important;
+  border-radius: 16px;
 }
 
 .hidden {
@@ -327,6 +336,28 @@ ion-item.ion-touched.ion-invalid {
 
 .d-none {
   display: none;
+}
+
+.my-2 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.my-3 {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
+.mt-2 {
+  margin-top: 2rem;
+}
+
+.mt-3 {
+  margin-top: 3rem;
 }
 
 .cal-icon {

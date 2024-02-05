@@ -86,17 +86,18 @@
           <ion-button shape="round">
             <span>
               <label for="Date1">
-                {{ date1 }}
+                {{ date1Text }}
                 <input
                   id="Date1"
                   type="date"
+                  [value]="date1"
                   onfocus="this.showPicker()"
                   (change)="startDate($event)"
                 />
               </label>
               -
               <label for="Date2"
-                >{{ date2}}
+                >{{ date2Text}}
                 <input
                   id="Date2"
                   type="date"
@@ -187,7 +188,7 @@
     </ion-row>
   </ion-grid>
 
-  <app-report-table></app-report-table>
+  <app-report-table [tableData]="tableData"></app-report-table>
 
   <div class="below-space"></div>
 </ion-content>
@@ -197,198 +198,29 @@
   #modal
   trigger="set-mode-modal"
   [isOpen]="openColVariables"
-  [initialBreakpoint]="0.85"
-  [breakpoints]="[0, 0.25, 0.5, 0.75]"
+  [initialBreakpoint]="1"
+  [breakpoints]="[0, 1]"
 >
   <ng-template>
-    <ion-content id="select-mode">
-      <div class="ion-padding">
-        <p>Enable Column Variables</p>
+    <div class="ion-padding wrapper">
+      <p>Enable Column Variables</p>
 
-        <div class="col-list">
-          <ion-grid>
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="auto"> SI. No. </ion-col>
+      <div class="col-list">
+        <ion-grid>
+          <ion-row *ngFor="let item of tableColumns" class="ion-justify-content-between ion-align-items-center">
+            <ng-container *ngIf="!item.isUrl">
+              <ion-col size="auto"> {{item.text}} </ion-col>
               <ion-col size="auto">
                 <label class="switch">
-                  <input type="checkbox" [checked]="true" />
+                  <input type="checkbox" [attr.disabled]="(item.isActive && finalColumnCount <= minimumActiveCount) ? true : null" [checked]="item.isActive" (change)="onChangeColumn(item)"/>
                   <span class="slider round"></span>
                 </label>
               </ion-col>
-            </ion-row>
-
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="auto"> SI. No. </ion-col>
-              <ion-col size="auto">
-                <label class="switch">
-                  <input type="checkbox" [checked]="true" />
-                  <span class="slider round"></span>
-                </label>
-              </ion-col>
-            </ion-row>
-
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="auto"> SI. No. </ion-col>
-              <ion-col size="auto">
-                <label class="switch">
-                  <input type="checkbox" [checked]="true" />
-                  <span class="slider round"></span>
-                </label>
-              </ion-col>
-            </ion-row>
-
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="auto"> SI. No. </ion-col>
-              <ion-col size="auto">
-                <label class="switch">
-                  <input type="checkbox" [checked]="true" />
-                  <span class="slider round"></span>
-                </label>
-              </ion-col>
-            </ion-row>
-
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="auto"> SI. No. </ion-col>
-              <ion-col size="auto">
-                <label class="switch">
-                  <input type="checkbox" [checked]="true" />
-                  <span class="slider round"></span>
-                </label>
-              </ion-col>
-            </ion-row>
-
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="auto"> SI. No. </ion-col>
-              <ion-col size="auto">
-                <label class="switch">
-                  <input type="checkbox" [checked]="true" />
-                  <span class="slider round"></span>
-                </label>
-              </ion-col>
-            </ion-row>
-
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="auto"> SI. No. </ion-col>
-              <ion-col size="auto">
-                <label class="switch">
-                  <input type="checkbox" [checked]="true" />
-                  <span class="slider round"></span>
-                </label>
-              </ion-col>
-            </ion-row>
-
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="auto"> SI. No. </ion-col>
-              <ion-col size="auto">
-                <label class="switch">
-                  <input type="checkbox" [checked]="true" />
-                  <span class="slider round"></span>
-                </label>
-              </ion-col>
-            </ion-row>
-
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="auto"> SI. No. </ion-col>
-              <ion-col size="auto">
-                <label class="switch">
-                  <input type="checkbox" [checked]="true" />
-                  <span class="slider round"></span>
-                </label>
-              </ion-col>
-            </ion-row>
-
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="auto"> SI. No. </ion-col>
-              <ion-col size="auto">
-                <label class="switch">
-                  <input type="checkbox" [checked]="true" />
-                  <span class="slider round"></span>
-                </label>
-              </ion-col>
-            </ion-row>
-
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="auto"> SI. No. </ion-col>
-              <ion-col size="auto">
-                <label class="switch">
-                  <input type="checkbox" [checked]="true" />
-                  <span class="slider round"></span>
-                </label>
-              </ion-col>
-            </ion-row>
-
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="auto"> SI. No. </ion-col>
-              <ion-col size="auto">
-                <label class="switch">
-                  <input type="checkbox" [checked]="true" />
-                  <span class="slider round"></span>
-                </label>
-              </ion-col>
-            </ion-row>
-
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="auto"> SI. No. </ion-col>
-              <ion-col size="auto">
-                <label class="switch">
-                  <input type="checkbox" [checked]="true" />
-                  <span class="slider round"></span>
-                </label>
-              </ion-col>
-            </ion-row>
-
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="auto"> SI. No. </ion-col>
-              <ion-col size="auto">
-                <label class="switch">
-                  <input type="checkbox" [checked]="true" />
-                  <span class="slider round"></span>
-                </label>
-              </ion-col>
-            </ion-row>
-
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="auto"> SI. No. </ion-col>
-              <ion-col size="auto">
-                <label class="switch">
-                  <input type="checkbox" [checked]="true" />
-                  <span class="slider round"></span>
-                </label>
-              </ion-col>
-            </ion-row>
-
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="auto"> SI. No. </ion-col>
-              <ion-col size="auto">
-                <label class="switch">
-                  <input type="checkbox" [checked]="true" />
-                  <span class="slider round"></span>
-                </label>
-              </ion-col>
-            </ion-row>
-
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="auto"> SI. No. </ion-col>
-              <ion-col size="auto">
-                <label class="switch">
-                  <input type="checkbox" [checked]="true" />
-                  <span class="slider round"></span>
-                </label>
-              </ion-col>
-            </ion-row>
-
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="auto"> SI. No. </ion-col>
-              <ion-col size="auto">
-                <label class="switch">
-                  <input type="checkbox" [checked]="true" />
-                  <span class="slider round"></span>
-                </label>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </div>
+            </ng-container>
+            
+          </ion-row>
+        </ion-grid>
       </div>
-    </ion-content>
+    </div>
   </ng-template>
 </ion-modal>
