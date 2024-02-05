@@ -66,7 +66,7 @@ export class ReportDetailsPage implements OnInit {
   getReport(report:string){
     if(report.toLowerCase() == "vendor wise expenses report"){
       this.shipmentService.getShipmentsByDateRange(this.date1,this.date2).then((shipmentData) => {
-        this.vendors = this.shipmentService.vendorsById;
+        this.vendors = structuredClone(this.shipmentService.vendorsById);
         this.shipments =  shipmentData.docs.map((shipment) => {
           return { ...shipment.data(), id: shipment.id };
         });
@@ -195,7 +195,7 @@ export class ReportDetailsPage implements OnInit {
     }
     else if(report.toLowerCase() == "area wise expenses report"){
       this.shipmentService.getShipmentsByDateRange(this.date1,this.date2).then((shipmentData) => {
-        this.vendors = this.shipmentService.vendorsById;
+        this.vendors = structuredClone(this.shipmentService.vendorsById);
         this.shipments =  shipmentData.docs.map((shipment) => {
           shipment.data()['vendorData'].map((data:any) => {
             if(!data.vendor || !this.vendors[data.vendor]){
