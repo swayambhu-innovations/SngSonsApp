@@ -1,20 +1,24 @@
 <ion-card>
-  <ion-grid>
-    <ion-row
-      class="disabled-row ion-justify-content-between ion-align-items-center"
-    >
-      <ion-col [size]="headItem.width" *ngFor="let headItem of reportTableActiveColumns; index as i">
-        <div class="table-column">{{headItem.text}}</div>
-      </ion-col>
-    </ion-row> 
-
-    <ion-row *ngFor="let bodyItem of reportTableData" class="ion-justify-content-between ion-align-items-center">
-      <ion-col [size]="headItem.width" *ngFor="let headItem of reportTableActiveColumns; index as i">
-        <div class="table-column" *ngIf="headItem?.isUrl" [routerLink]="bodyItem[reportTableActiveColumns[i]['identifier']]">
-          <img class="forward-button" src="assets/icon/forward-button.svg" alt="">
-        </div>
-        <div class="table-column" *ngIf="!headItem?.isUrl">{{bodyItem[reportTableActiveColumns[i]['identifier']]}}</div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <div class="container">
+    <div class="scrollable is-scrollable">
+      <div>
+        <table cellpadding="1" cellspacing="1">
+          <tr>
+            <th *ngFor="let headItem of reportTableActiveColumns; index as i">
+              {{headItem.text}}
+            </th>
+          </tr>
+          <tr *ngFor="let bodyItem of reportTableData">
+            <td *ngFor="let headItem of reportTableActiveColumns; index as i">
+              <div class="table-column" *ngIf="headItem?.isUrl" [routerLink]="bodyItem[reportTableActiveColumns[i]['identifier']]">
+                <img class="forward-button" src="assets/icon/forward-button.svg" alt="">
+              </div>
+              <div class="table-column" *ngIf="!headItem?.isUrl">{{bodyItem[reportTableActiveColumns[i]['identifier']]}}</div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
 </ion-card>
+

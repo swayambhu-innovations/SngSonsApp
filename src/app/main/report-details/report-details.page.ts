@@ -127,6 +127,18 @@ export class ReportDetailsPage implements OnInit {
             width: 5
           },
           {
+            text: 'Postal Code',
+            identifier : 'postalCode',
+            isActive: true,
+            width: 5
+          },
+          {
+            text: 'PAN No',
+            identifier : 'panNo',
+            isActive: true,
+            width: 5
+          },          
+          {
             text: 'Shipment Count',
             identifier : 'shipmentCount',
             isActive: true,
@@ -163,26 +175,27 @@ export class ReportDetailsPage implements OnInit {
           {
             text: 'S No',
             identifier : 'serialNo',
-            isActive: true,
-            width: 1
+            isActive: true
           },
           {
             text: 'Vehicle No',
             identifier : 'vehicle',
-            isActive: true,
-            width: 4
+            isActive: true
           },
           {
             text: 'Transporter Name',
             identifier : 'TransporterName',
+            isActive: true
+          },
+          {
+            text: 'Ownership',
+            identifier : 'Ownership',
             isActive: true,
-            width: 4
           },
           {
             text: 'Order Count',
             identifier : 'VendorCount',
-            isActive: true,
-            width: 3
+            isActive: true
           },
         ];
         this.activeColumnCount = this.tableColumns.length;
@@ -237,26 +250,22 @@ export class ReportDetailsPage implements OnInit {
           {
             text: 'S No',
             identifier : 'serialNo',
-            isActive: true,
-            width: 1
+            isActive: true
           },
           {
             text: 'W/S Town',
             identifier : 'WSTown',
-            isActive: true,
-            width: 3
+            isActive: true
           },
           {
             text: 'Vendors Count',
             identifier : 'VendorsCount',
-            isActive: true,
-            width: 5
+            isActive: true
           },
           {
             text: 'Shipment Count',
             identifier : 'TotalShipmentCount',
-            isActive: true,
-            width: 3
+            isActive: true
           },
         ];
         this.activeColumnCount = this.tableColumns.length;
@@ -309,33 +318,33 @@ export class ReportDetailsPage implements OnInit {
           {
             text: 'S No',
             identifier : 'serialNo',
-            isActive: true,
-            width: 1
-          },
-          {
-            text: 'Vehicle',
-            identifier : 'vehicle',
-            isActive: true,
-            width: 3
-          },
-          {
-            text: 'Vendors Count',
-            identifier : 'VendorsCount',
-            isActive: true,
-            width: 2
+            isActive: true
           },
           {
             text: 'Shipment Number',
             identifier : 'ShipmentNumber',
-            isActive: true,
-            width: 4
+            isActive: true
+          },
+          {
+            text: 'Vehicle',
+            identifier : 'vehicle',
+            isActive: true
+          },
+          {
+            text: 'Ownership',
+            identifier : 'Ownership',
+            isActive: true
+          },
+          {
+            text: 'Vendors Count',
+            identifier : 'VendorsCount',
+            isActive: true
           },
           {
             text: '',
             identifier : 'Url',
             isActive: true,
-            isUrl : true,
-            width: 1
+            isUrl : true
           }
         ];
         this.activeColumnCount = this.tableColumns.length;

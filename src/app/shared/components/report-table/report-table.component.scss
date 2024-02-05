@@ -57,3 +57,70 @@ ion-card {
     }
   }
 }
+.scrollable {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  
+  &.is-scrollable:after {
+		position: absolute;
+		top: 0;
+		left: 100%;
+		width: 50px;
+		height: 100%;
+		border-radius: 10px 0 0 10px / 50% 0 0 50%;
+		box-shadow: -5px 0 10px rgba(0, 0, 0, 0.25);
+		content: '';
+	}
+  
+  // the overflow-er
+  > div {
+		overflow-x: auto;
+    
+    // forces scrollbar for webkit
+    ::-webkit-scrollbar {
+      height: 12px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #f0f0f0;
+      box-shadow: 0 0 2px rgba(0,0,0,0.15) inset;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 6px;
+    }
+	}
+
+  table, th, td {
+    border: 1px solid #ccc;
+  }
+  
+  table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    width: auto; // always let the data do the width'n
+    
+    th,	td {
+      padding: 6px 8px;
+      vertical-align: top;
+      white-space: nowrap;
+      .forward-button{
+        width: 10px;
+        max-width: 10px;
+      }
+    }
+    
+    th {
+      background: #ddd;
+      font-weight: 900;
+      text-align: left;
+      white-space: nowrap;
+    }
+    
+    tbody tr:nth-child(odd) {
+      background: #f3f3f3;
+    }
+  }
+}
