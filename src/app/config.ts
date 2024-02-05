@@ -21,6 +21,7 @@ export const Config = {
     zsdNoData: 'No records to upload',
     zsdInvalidInvoiceNo: 'Invoice already added',
     fillAllExpenses: 'Please fill all the expenses',
+    fillAllFields: 'Please fill all the fields',
   },
   collection: {
     account: 'account',
@@ -41,6 +42,7 @@ export const Config = {
     vendors: 'vendors-Library',
     userPhoto: 'user-photo',
     vehicleDocuments: 'vehicle-Documnets',
+    shipment: 'shipment',
   },
   hardData: {
     postalCode: ['226029', '211001', '110241', '224531'],
