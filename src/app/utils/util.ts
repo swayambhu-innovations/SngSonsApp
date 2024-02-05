@@ -29,7 +29,6 @@ export class UtilService {
 
     getUserAccessData() {
         const data: any = this.getUserdata();
-        console.log(data.access.access)
         return data.access.access;
     }
 

@@ -86,17 +86,18 @@
           <ion-button shape="round">
             <span>
               <label for="Date1">
-                {{ date1 }}
+                {{ date1Text }}
                 <input
                   id="Date1"
                   type="date"
+                  [value]="date1"
                   onfocus="this.showPicker()"
                   (change)="startDate($event)"
                 />
               </label>
               -
               <label for="Date2"
-                >{{ date2}}
+                >{{ date2Text}}
                 <input
                   id="Date2"
                   type="date"
@@ -207,13 +208,16 @@
       <div class="col-list">
         <ion-grid>
           <ion-row *ngFor="let item of tableColumns" class="ion-justify-content-between ion-align-items-center">
-            <ion-col size="auto"> {{item.text}} </ion-col>
-            <ion-col size="auto">
-              <label class="switch">
-                <input type="checkbox" [attr.disabled]="(item.isActive && activeColumnCount <= minimumActiveCount) ? true : null" [checked]="item.isActive" (change)="onChangeColumn(item)"/>
-                <span class="slider round"></span>
-              </label>
-            </ion-col>
+            <ng-container *ngIf="!item.isUrl">
+              <ion-col size="auto"> {{item.text}} </ion-col>
+              <ion-col size="auto">
+                <label class="switch">
+                  <input type="checkbox" [attr.disabled]="(item.isActive && finalColumnCount <= minimumActiveCount) ? true : null" [checked]="item.isActive" (change)="onChangeColumn(item)"/>
+                  <span class="slider round"></span>
+                </label>
+              </ion-col>
+            </ng-container>
+            
           </ion-row>
         </ion-grid>
       </div>

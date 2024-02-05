@@ -10,7 +10,10 @@
 
     <ion-row *ngFor="let bodyItem of reportTableData" class="ion-justify-content-between ion-align-items-center">
       <ion-col [size]="headItem.width" *ngFor="let headItem of reportTableActiveColumns; index as i">
-        <div class="table-column">{{bodyItem[reportTableActiveColumns[i]['identifier']]}}</div>
+        <div class="table-column" *ngIf="headItem?.isUrl" [routerLink]="bodyItem[reportTableActiveColumns[i]['identifier']]">
+          <img class="forward-button" src="assets/icon/forward-button.svg" alt="">
+        </div>
+        <div class="table-column" *ngIf="!headItem?.isUrl">{{bodyItem[reportTableActiveColumns[i]['identifier']]}}</div>
       </ion-col>
     </ion-row>
   </ion-grid>
