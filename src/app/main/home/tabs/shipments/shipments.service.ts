@@ -33,11 +33,15 @@ export class ShipmentsService {
     vendorsById:any = {};
     vehicles: any = {};
 
-    getShipmentsByDate(date: string) {
+    getShipmentsByDate(date: string, edate?: string) {
         const startDate = new Date(date);
         startDate.setHours(0, 0, 0);
-        const endDate = new Date(date);
+        let endDate = new Date(date);
+        if (edate) {
+            endDate = new Date(edate);
+        }
         endDate.setHours(23, 59, 59);
+        console.log(startDate, endDate)
         return getDocs(query(collectionGroup(this.firestore, Config.collection.shipments), where('BillingDate', '>=', Timestamp.fromDate(startDate)), where('BillingDate', '<=', Timestamp.fromDate(endDate))));
     }
 
