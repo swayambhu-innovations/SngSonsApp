@@ -91,7 +91,7 @@ export class GenerateVoucherPage implements OnInit {
 
   get createdAt() {
     const data = this.voucherForm.value;
-    return data.createdAt;
+    return formatDate(data.createdAt, 'DD MMM YYYY');
   }
 
   get createdByName() {
@@ -109,7 +109,7 @@ export class GenerateVoucherPage implements OnInit {
       } else {
         this.voucherForm.patchValue({
           id: this.id,
-          createdAt: formatDateJS(new Date(), 'DD MMM YYYY'),
+          createdAt: new Date(),
           createdById: this.utilService.getUserId(),
           createdByName: this.utilService.getUserName(),
         });
@@ -144,9 +144,56 @@ export class GenerateVoucherPage implements OnInit {
       return;
     }
     this.loader.present();
-    const formData = this.voucherForm.value;
+    const formData: any = { voucherData: this.voucherForm.value };
+    if (stat === 'Submit') {
+      formData['status'] = ShipmentStatus.PendingPostDelivery;
+    }
     await this.shipmentService.updShipmentVoucher(this.id, formData);
-    this.notification.showSuccess(this.config.messages.savedSuccessfully);
+    if (stat === 'Submit') {
+      await this.shipmentService.addAccountExpense(formData.voucherData.dieselExpenseBank, `${this.id}-diesel`, {
+        amount: formData.voucherData.dieselExpenseAmount,
+        date: new Date(),
+        shipmentId: this.id
+      });
+      await this.shipmentService.addAccountExpense(formData.voucherData.labourExpenseBank, `${this.id}-labour`, {
+        amount: formData.voucherData.labourExpenseAmount,
+        date: new Date(),
+        shipmentId: this.id
+      });
+      await this.shipmentService.addAccountExpense(formData.voucherData.khurakiExpenseBank, `${this.id}-khuraki`, {
+        amount: formData.voucherData.khurakiExpenseAmount,
+        date: new Date(),
+        shipmentId: this.id
+      });
+      await this.shipmentService.addAccountExpense(formData.voucherData.freightExpenseBank, `${this.id}-freight`, {
+        amount: formData.voucherData.freightExpenseAmount,
+        date: new Date(),
+        shipmentId: this.id
+      });
+      await this.shipmentService.addAccountExpense(formData.voucherData.tollExpenseBank, `${this.id}-toll`, {
+        amount: formData.voucherData.tollExpenseAmount,
+        date: new Date(),
+        shipmentId: this.id
+      });
+      await this.shipmentService.addAccountExpense(formData.voucherData.repairExpenseBank, `${this.id}-repair`, {
+        amount: formData.voucherData.repairExpenseAmount,
+        date: new Date(),
+        shipmentId: this.id
+      });
+      await this.shipmentService.addAccountExpense(formData.voucherData.otherExpenseBank, `${this.id}-other`, {
+        amount: formData.voucherData.otherExpenseAmount,
+        date: new Date(),
+        shipmentId: this.id
+      });
+      this.isDone = true;
+    } else {
+      this.notification.showSuccess(this.config.messages.savedSuccessfully);
+    }
     this.loader.dismiss();
+  }
+
+  dismissModal = async () => {
+    this.isDone = false;
+    return true;
   }
 }

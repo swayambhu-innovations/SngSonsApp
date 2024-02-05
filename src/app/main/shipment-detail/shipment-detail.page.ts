@@ -70,11 +70,20 @@ export class ShipmentDetailPage implements OnInit {
     this.navCtrl.back();
   }
 
+  get totalExpense() {
+    const data = this.shipmentDetails?.voucherData;
+    if (!data) {
+      return 0;
+    }
+    return parseFloat(data.dieselExpenseAmount || 0) + parseFloat(data.labourExpenseAmount || 0) + parseFloat(data.khurakiExpenseAmount || 0) + parseFloat(data.freightExpenseAmount || 0) + parseFloat(data.tollExpenseAmount || 0) + parseFloat(data.repairExpenseAmount || 0) + parseFloat(data.otherExpenseAmount || 0);
+  }
+
   async getShipmentDetails() {
     this.loader.present();
     await (await this.shipmentService.getShipmentsById(this.id)).docs.map(async (shipment: any) => {
       const shipmentData = { ...shipment.data(), id: shipment.id, vendor: [] };
       this.shipmentDetails = await this.shipmentDetailService.formatShipment(shipmentData);
+      console.log(this.shipmentDetails)
     })
     this.loader.dismiss();
   }

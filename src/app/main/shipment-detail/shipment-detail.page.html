@@ -201,7 +201,7 @@
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Diesel Voucher Number</ion-col>
-        <ion-col size="auto">{{shipmentDetails.DieselVoucher}}</ion-col>
+        <ion-col size="auto">{{shipmentDetails.voucher || ''}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
@@ -212,7 +212,7 @@
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Diesel Amount</ion-col>
         <!-- <ion-col *ngIf="!shipmentDetails.dieselAmount" class="to-be-filled" size="auto">*To be Filled</ion-col> -->
-        <ion-col size="auto">₹ {{shipmentDetails.dieselAmount || 0}}</ion-col>
+        <ion-col size="auto">₹ {{shipmentDetails.voucherData?.dieselExpenseAmount || 0}}</ion-col>
       </ion-row>
     </ion-grid>
 
@@ -222,53 +222,53 @@
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Labour Expense</ion-col>
-        <ion-col size="auto">₹ {{shipmentDetails.labourExpense || 0}}</ion-col>
+        <ion-col size="auto">₹ {{shipmentDetails.voucherData?.labourExpenseAmount || 0}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Khuraki Expense</ion-col>
-        <ion-col size="auto">₹ {{shipmentDetails.khurakiExpense || 0}}</ion-col>
+        <ion-col size="auto">₹ {{shipmentDetails.voucherData?.khurakiExpenseAmount || 0}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Frieght</ion-col>
-        <ion-col size="auto">₹ {{shipmentDetails.freight || 0}}</ion-col>
+        <ion-col size="auto">₹ {{shipmentDetails.voucherData?.freightExpenseAmount || 0}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Toll Expense</ion-col>
-        <ion-col size="auto">₹ {{shipmentDetails.tollExpense || 0}}</ion-col>
+        <ion-col size="auto">₹ {{shipmentDetails.voucherData?.tollExpenseAmount || 0}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Repairs Expense</ion-col>
-        <ion-col size="auto">₹ {{shipmentDetails.repairsExpense || 0}}</ion-col>
+        <ion-col size="auto">₹ {{shipmentDetails.voucherData?.repairExpenseAmount || 0}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Other Expense</ion-col>
-        <ion-col size="auto">₹ {{shipmentDetails.otherExpense || 0}}</ion-col>
+        <ion-col size="auto">₹ {{shipmentDetails.voucherData?.otherExpenseAmount || 0}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Total Expense</ion-col>
-        <ion-col class="" size="auto">₹ {{shipmentDetails.totalExpense || 0}}</ion-col>
+        <ion-col class="" size="auto">₹ {{totalExpense}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Remark</ion-col>
-        <ion-col *ngIf="!shipmentDetails.remark" class="to-be-filled" size="auto">*To be Filled</ion-col>
-        <ion-col *ngIf="shipmentDetails.remark" size="auto">₹ {{shipmentDetails.remark}}</ion-col>
+        <ion-col *ngIf="!shipmentDetails.voucherData?.remark" class="to-be-filled" size="auto">*To be Filled</ion-col>
+        <ion-col *ngIf="shipmentDetails.voucherData?.remark" size="auto">{{shipmentDetails.voucherData?.remark}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Time Stamp</ion-col>
-        <ion-col size="auto">{{shipmentDetails.createdAt && formatDate(shipmentDetails.createdAt, 'DD MMM YYYY')}}</ion-col>
+        <ion-col size="auto">{{shipmentDetails.voucherData?.createdAt && formatDate(shipmentDetails.voucherData?.createdAt, 'DD MMM YYYY')}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Filled By</ion-col>
-        <ion-col class="" size="auto">{{shipmentDetails.filledBy}}</ion-col>
+        <ion-col class="" size="auto">{{shipmentDetails.voucherData?.createdByName}}</ion-col>
       </ion-row>
     </ion-grid>
 
@@ -303,7 +303,7 @@
         class="active-btn"
         >Fill Post Dlv.</ion-button
       >
-      <ion-button *ngIf="shipmentDetails.status != shipmentStatus.Suspended" shape="round" (click)="isSuspended=true">Suspend</ion-button>
+      <ion-button *ngIf="shipmentDetails.status === shipmentStatus.PendingDispatch" shape="round" (click)="isSuspended=true">Suspend</ion-button>
     </div>
   </ion-card>
 

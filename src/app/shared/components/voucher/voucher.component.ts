@@ -74,13 +74,13 @@ export class VoucherComponent implements OnInit {
       const data = {
         ...shipment.data(),
         CustomerName: uniq(vendors.map((item: any) => {
-          return item.WSName;
+          return item?.WSName;
         })).join(','),
         WSTown: uniq(vendors.map((item: any) => {
-          return item.WSTown;
+          return item?.WSTown;
         })).join(','),
         WSCode: uniq(vendors.map((item: any) => {
-          return item.WSCode;
+          return item?.WSCode;
         })).join(','),
         vendors,
         id: shipment.id

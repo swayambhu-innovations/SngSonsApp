@@ -76,8 +76,12 @@ export class ShipmentsService {
         await updateDoc(doc(this.firestore, Config.collection.shipments, shipmentId), { voucher });
     }
 
-    async updShipmentVoucher(shipmentId: string, voucherData: any) {
-        await updateDoc(doc(this.firestore, Config.collection.shipments, shipmentId), { voucherData });
+    async updShipmentVoucher(shipmentId: string, data: any) {
+        await updateDoc(doc(this.firestore, Config.collection.shipments, shipmentId), { ...data });
+    }
+
+    async addAccountExpense(accountId: string, expenseId: string, data: any) {
+        await setDoc(doc(this.firestore, Config.collection.account, accountId, 'expense', expenseId), data);
     }
 
 }
