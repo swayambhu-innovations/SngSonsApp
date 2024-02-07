@@ -22,6 +22,7 @@ export const Config = {
     zsdInvalidInvoiceNo: 'Invoice already added',
     fillAllExpenses: 'Please fill all the expenses',
     fillAllFields: 'Please fill all the fields',
+    invalidAmount: 'Amount is not between defined limit ',
   },
   collection: {
     account: 'account',

@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { LoadingController, NavController } from '@ionic/angular';
 import { Config } from 'src/app/config';
 import { ShipmentsService } from 'src/app/main/home/tabs/shipments/shipments.service';
@@ -12,14 +12,14 @@ import { uniq } from 'lodash';
   templateUrl: './voucher.component.html',
   styleUrls: ['./voucher.component.scss'],
 })
-export class VoucherComponent implements OnChanges {
+export class VoucherComponent implements OnChanges, OnInit {
   constructor(
     private navCtrl: NavController,
     private loadingController: LoadingController,
     private shipmentsService: ShipmentsService,
     private voucherService: VoucherService
   ) {
-    console.log(this.data)
+    
   }
 
   @Input() heading = '';
@@ -27,6 +27,7 @@ export class VoucherComponent implements OnChanges {
   @Input() tableData: any[] = [];
   @Input() data: any[] = [];
   @Input() showCal: boolean = true;
+  @Input() fetchDefault = true;
 
   showAll = false;
   loader: any;
@@ -35,7 +36,15 @@ export class VoucherComponent implements OnChanges {
   vendorData: any = {};
 
   async ionViewDidEnter() {
-    if (this.data.length == 0) {
+    if (this.data.length == 0 && this.fetchDefault) {
+      this.getShipments();
+    } else {
+      this.shipmentsData = this.data;
+    }
+  }
+
+  async ngOnInit() {
+    if (this.data.length == 0 && this.fetchDefault) {
       this.getShipments();
     } else {
       this.shipmentsData = this.data;
@@ -43,10 +52,9 @@ export class VoucherComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['data']?.currentValue?.length != changes['data']?.previousValue?.length) {
+    if (changes['data']?.currentValue) {
       this.shipmentsData = changes['data'].currentValue;
     }
-    console.log(this.shipmentsData)
   }
 
   openShipmentDetail(shipment: any) {

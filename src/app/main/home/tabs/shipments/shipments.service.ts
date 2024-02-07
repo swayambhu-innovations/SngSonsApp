@@ -16,9 +16,7 @@ import {
     updateDoc,
     where,
 } from '@angular/fire/firestore';
-import { isEmpty } from "lodash";
 import { Config } from "src/app/config";
-import { ShipmentStatus } from "src/app/utils/enum";
 
 @Injectable({
     providedIn: 'root',
@@ -33,7 +31,7 @@ export class ShipmentsService {
     vendorsById:any = {};
     vehicles: any = {};
 
-    getShipmentsByDate(date: string, edate?: string) {
+    getShipmentsByDate(date: string, edate?: string, status?: string[]) {
         const startDate = new Date(date);
         startDate.setHours(0, 0, 0);
         let endDate = new Date(date);
@@ -41,8 +39,25 @@ export class ShipmentsService {
             endDate = new Date(edate);
         }
         endDate.setHours(23, 59, 59);
-        console.log(startDate, endDate)
-        return getDocs(query(collectionGroup(this.firestore, Config.collection.shipments), where('BillingDate', '>=', Timestamp.fromDate(startDate)), where('BillingDate', '<=', Timestamp.fromDate(endDate))));
+        
+        if (status) {
+            return getDocs(
+                query(
+                    collectionGroup(this.firestore, Config.collection.shipments),
+                    where('BillingDate', '>=', Timestamp.fromDate(startDate)),
+                    where('BillingDate', '<=', Timestamp.fromDate(endDate)),
+                    where('status', 'in', ['completed', 'suspended'])
+                )
+            );
+        } else {
+            return getDocs(
+                query(
+                    collectionGroup(this.firestore, Config.collection.shipments),
+                    where('BillingDate', '>=', Timestamp.fromDate(startDate)),
+                    where('BillingDate', '<=', Timestamp.fromDate(endDate))
+                )
+            );
+        }
     }
 
     getShipmentsByDateRange(date1: string, date2: string) {
@@ -92,8 +107,8 @@ export class ShipmentsService {
         await updateDoc(doc(this.firestore, Config.collection.shipments, shipmentId), { ...data });
     }
 
-    async addAccountExpense(accountId: string, expenseId: string, data: any) {
-        await setDoc(doc(this.firestore, Config.collection.account, accountId, 'expense', expenseId), data);
+    async addAccountExpense(accountId: string, expenseId: string, data: any, collectionId: string) {
+        await setDoc(doc(this.firestore, Config.collection.account, accountId, 'expense', 'expense', collectionId, expenseId), data);
     }
 
 }

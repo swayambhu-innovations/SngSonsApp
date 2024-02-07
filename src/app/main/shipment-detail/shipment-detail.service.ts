@@ -12,6 +12,9 @@ export class ShipmentDetailService {
     }
 
     async formatShipment(shipmentData: any) {
+        if (!shipmentData.vendor) {
+            shipmentData.vendor = [];
+        }
         shipmentData.vendorDetails = {
             GSTNo: [],
             WSCode: [],
@@ -24,6 +27,7 @@ export class ShipmentDetailService {
             kot: [],
             invoiceNumber: [],
             gstInvoiceNumber: [],
+            totalInvoiceAmount: [],
         };
         await(await this.shipmentService.getVendor(shipmentData.vendorData.map((i: any, idx: number) => { return i.vendor }))).docs.map((vendor: any) => {
             const vdata = vendor.data();
@@ -65,6 +69,10 @@ export class ShipmentDetailService {
         shipmentData.vendorDetails.gstInvoiceNumber = shipmentData.vendorData.map((item: any) => {
             return item.GSTInvoiceNumber;
           }).join(', ');
+        shipmentData.vendorDetails.totalInvoiceAmount = shipmentData.vendorData.reduce((acc: number, item: any) => {
+            acc += parseInt(item.TotalInvoiceAmount);
+            return acc;
+          }, 0);
         return shipmentData;
     }
 }
