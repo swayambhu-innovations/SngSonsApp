@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.shreeva.newAppName.app-mergeDebugResources-24:/values-v29/values-v29.xml",
+            "map": [
+                {
+                    "source": "/Users/kumarsaptam/.gradle/caches/transforms-3/c4d44ff4210e58ee74a8707e6c8405aa/transformed/core-splashscreen-1.0.1/res/values-v29/values-v29.xml",
+                    "from": {
+                        "startLines": "2,7",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,374",
+                        "endLines": "6,8",
+                        "endColumns": "12,12",
+                        "endOffsets": "369,464"
+                    }
+                }
+            ]
+        }
+    ]
+}
