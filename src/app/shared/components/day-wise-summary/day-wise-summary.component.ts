@@ -23,6 +23,7 @@ export class DayWiseSummaryComponent implements OnInit {
   }
 
   dispDate(e: any) {
+    console.log(e);
     this.daywiseSummaryService.selectedDate = e.target.value;
     this.daywiseSummaryService.getShipments();
   }
