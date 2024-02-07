@@ -1,4 +1,7 @@
 {
+  "projects": {
+    "default": "jaipurservicecompany-demo"
+  },
   "targets": {
     "SNGSONS": {
       "hosting": {
@@ -20,9 +23,14 @@
           "jaipurservicecompany-demo"
         ]
       }
+    },
+    "sngtesc": {
+      "hosting": {
+        "app": [
+          "sngtesc"
+        ]
+      }
     }
   },
-  "projects": {
-    "default": "jaipurservicecompany-demo"
-  }
+  "etags": {}
 }
