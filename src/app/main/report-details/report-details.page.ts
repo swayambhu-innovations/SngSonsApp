@@ -135,13 +135,28 @@ export class ReportDetailsPage implements OnInit {
             isActive: true
           },
           {
+            text: 'W/S GST',
+            identifier : 'GSTNo',
+            isActive: true
+          },
+          {
             text: 'PAN No',
             identifier : 'panNo',
             isActive: true
           },
           {
+            text: 'W/S Contact no.',
+            identifier : 'phoneNO',
+            isActive: true
+          },
+          {
             text: 'KOT Shipped',
             identifier : 'totalKot',
+            isActive: true
+          }, 
+          {
+            text: 'Distance(Km)',
+            identifier : 'distance',
             isActive: true
           },  
           {
