@@ -161,5 +161,6 @@ ion-modal ion-content {
 }
 
 .wrapper {
-  height: 200px;
+  height: 100%;
+  overflow-y: scroll;
 }

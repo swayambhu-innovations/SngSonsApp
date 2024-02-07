@@ -81,6 +81,7 @@ export class ReportDetailsPage implements OnInit {
             if(!(this.vendors[data.vendor]?.['shipments'])){
               this.vendors[data.vendor]['shipments'] = [];
               const vendorShipment = [];
+              data['voucherData'] = shipment.data()['voucherData'];
               vendorShipment.push(data);
               const shipmentObject = {
                 fullShipment : shipment.data(),
@@ -111,38 +112,92 @@ export class ReportDetailsPage implements OnInit {
           {
             text: 'S No',
             identifier : 'serialNo',
-            isActive: true,
-            width: 1
+            isActive: true
           },
           {
             text: 'W/S code',
             identifier : 'WSCode',
-            isActive: true,
-            width: 3
+            isActive: true
           },
           {
             text: 'W/S name',
             identifier : 'WSName',
-            isActive: true,
-            width: 5
+            isActive: true
+          },
+          {
+            text: 'Area',
+            identifier : 'WSTown',
+            isActive: true
           },
           {
             text: 'Postal Code',
             identifier : 'postalCode',
-            isActive: true,
-            width: 5
+            isActive: true
           },
           {
             text: 'PAN No',
             identifier : 'panNo',
-            isActive: true,
-            width: 5
-          },          
+            isActive: true
+          },
+          {
+            text: 'KOT Shipped',
+            identifier : 'totalKot',
+            isActive: true
+          },  
+          {
+            text: 'Diesel Expense',
+            identifier : 'totalDieselExpenseAmount',
+            isActive: true
+          },  
+          {
+            text: 'Khuraki Expense',
+            identifier : 'totalKhurakiExpenseAmount',
+            isActive: true
+          }, 
+          {
+            text: 'Labour Expense',
+            identifier : 'totalLabourExpenseAmount',
+            isActive: true
+          },   
+          {
+            text: 'Other Expense',
+            identifier : 'totalOtherExpenseAmount',
+            isActive: true
+          },       
           {
             text: 'Shipment Count',
             identifier : 'shipmentCount',
-            isActive: true,
-            width: 3
+            isActive: true
+          },
+          {
+            text: 'Total Expense',
+            identifier : 'totalExpense',
+            isActive: true
+          },
+          {
+            text: 'Total Shipment Cost',
+            identifier : 'totalShipmentCost',
+            isActive: true
+          },
+          {
+            text: 'Total Invoice Anount',
+            identifier : 'totalInvoiceAmount',
+            isActive: true
+          },
+          {
+            text: 'Pending Shipments',
+            identifier : 'pendingShipmentCount',
+            isActive: true
+          },
+          {
+            text: 'Completed Shipments',
+            identifier : 'completedShipmentCount',
+            isActive: true
+          },
+          {
+            text: 'Discarded Shipments',
+            identifier : 'discardedShipmentCount',
+            isActive: true
           },
         ];
         this.activeColumnCount = this.tableColumns.length;
@@ -152,7 +207,8 @@ export class ReportDetailsPage implements OnInit {
           this.vendors[vendor]['serialNo'] = vendorCount;
           this.vendors[vendor]['shipmentCount'] = this.vendors[vendor].shipments?.length || 0;
         });
-        this.reportData = Object.keys(this.vendors).map((key) => this.vendors[key]);
+        this.vendors = this.calculateVoucherExpense( Object.keys(this.vendors).map((key) => this.vendors[key]));
+        this.reportData = this.vendors;
         this.onChangeColumn();
       });
     }
@@ -381,5 +437,64 @@ export class ReportDetailsPage implements OnInit {
       this.date1Text = moment(new Date(e.target.value)).format("DD/MM/YY");
     }
     this.getReport(this.id);
+  }
+
+  calculateVoucherExpense(expenseObject:any){
+    expenseObject.forEach((vendorData:any) => {
+      // Initialize variables for each vendorData
+      let totalExpenseAmounts:any = {
+          diesel: 0,
+          freight: 0,
+          khuraki: 0,
+          labour: 0,
+          other: 0,
+          repair: 0,
+          toll: 0
+      };
+      let totalShipmentCost = 0;
+      let totalInvoiceAmount = 0;
+      let completedShipmentCount = 0;
+      let discardedShipmentCount = 0;
+      let pendingShipmentCount = 0;
+      let totalKot = 0;
+  
+      // Iterate through each shipment
+      vendorData?.shipments?.forEach((shipment:any) => {
+          shipment.vendorShipment.forEach((vendorShipmentData:any) => {
+              // Sum up each expense type
+              Object.keys(totalExpenseAmounts).forEach((key:string) => {
+                  totalExpenseAmounts[key] += +vendorShipmentData?.voucherData?.[`${key}ExpenseAmount`] || 0;
+              });
+              // Sum up shipment cost and invoice amount
+              totalShipmentCost += +vendorShipmentData?.ShipmentCost || 0;
+              totalInvoiceAmount += +vendorShipmentData?.TotalInvoiceAmount || 0;
+              totalKot += +vendorShipmentData?.['KOT'] || 0;
+          });
+          
+          // Increment counts based on shipment status
+          const status = shipment?.fullShipment?.status?.toLowerCase();
+          if (status === 'completed') completedShipmentCount++;
+          else if (status === 'suspended') discardedShipmentCount++;
+          else if (status === 'pending-dispatch') pendingShipmentCount++;
+      });
+  
+      // Assign calculated values to vendorData
+      vendorData.totalDieselExpenseAmount = totalExpenseAmounts.diesel;
+      vendorData.totalFreightExpenseAmount = totalExpenseAmounts.freight;
+      vendorData.totalKhurakiExpenseAmount = totalExpenseAmounts.khuraki;
+      vendorData.totalLabourExpenseAmount = totalExpenseAmounts.labour;
+      vendorData.totalOtherExpenseAmount = totalExpenseAmounts.other;
+      vendorData.totalRepairExpenseAmount = totalExpenseAmounts.repair;
+      vendorData.totalTollExpenseAmount = totalExpenseAmounts.toll;
+      vendorData.totalShipmentCost = totalShipmentCost;
+      vendorData.totalInvoiceAmount = totalInvoiceAmount;
+      vendorData.completedShipmentCount = completedShipmentCount;
+      vendorData.discardedShipmentCount = discardedShipmentCount;
+      vendorData.pendingShipmentCount = pendingShipmentCount;
+      vendorData.totalKot = totalKot;
+      vendorData.totalExpense = Object.values(totalExpenseAmounts).reduce((acc:any, curr:any) => acc + curr, 0);
+    });
+  
+    return expenseObject;
   }
 }
