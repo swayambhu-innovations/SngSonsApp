@@ -68,8 +68,14 @@ export class ReportDetailsPage implements OnInit {
 
   getReport(report:string){
     if(report.toLowerCase() == "vendor wise expenses report"){
+      this.vendors = structuredClone(this.shipmentService.vendorsById);
+      if(Object.keys(this.vendors).length == 0){
+        setTimeout(() => {
+          this.getReport("vendor wise expenses report");
+        },300);
+        return;
+      }
       this.shipmentService.getShipmentsByDateRange(this.date1,this.date2).then((shipmentData) => {
-        this.vendors = structuredClone(this.shipmentService.vendorsById);
         this.shipments =  shipmentData.docs.map((shipment) => {
           return { ...shipment.data(), id: shipment.id };
         });
@@ -341,8 +347,14 @@ export class ReportDetailsPage implements OnInit {
       });
     }
     else if(report.toLowerCase() == "area wise expenses report"){
+      this.vendors = structuredClone(this.shipmentService.vendorsById);
+      if(Object.keys(this.vendors).length == 0){
+        setTimeout(() => {
+          this.getReport("area wise expenses report");
+        },300);
+        return;
+      }
       this.shipmentService.getShipmentsByDateRange(this.date1,this.date2).then((shipmentData) => {
-        this.vendors = structuredClone(this.shipmentService.vendorsById);
         this.shipments =  shipmentData.docs.map((shipment) => {
           shipment.data()['vendorData'].map((data:any) => {
             if(!data.vendor || !this.vendors[data.vendor]){
@@ -489,6 +501,13 @@ export class ReportDetailsPage implements OnInit {
       });
     }
     else if(report.toLowerCase() == "shipments wise expenses report"){
+      this.vendors = structuredClone(this.shipmentService.vendorsById);
+      if(Object.keys(this.vendors).length == 0){
+        setTimeout(() => {
+          this.getReport("shipments wise expenses report");
+        },300);
+        return;
+      }
       this.shipmentService.getShipmentsByDateRange(this.date1,this.date2).then((shipmentData) => {
         this.shipments =  shipmentData.docs.map((shipment) => {
           return { ...shipment.data(), id: shipment.id };
@@ -496,9 +515,47 @@ export class ReportDetailsPage implements OnInit {
         let shipmentSerialNo = 0;
         this.shipments.map((shipment:any) => {
           shipmentSerialNo++;
+          let totalExpenseAmounts:any = {
+            diesel: 0,
+            freight: 0,
+            khuraki: 0,
+            labour: 0,
+            other: 0,
+            repair: 0,
+            toll: 0
+          };
+          Object.keys(totalExpenseAmounts).forEach((key:string) => {
+            totalExpenseAmounts[key] = +shipment?.voucherData?.[`${key}ExpenseAmount`] || 0;
+          });
+          shipment['WSCode'] = "";
+          shipment['WSName'] = "";
+          shipment['postalCode'] = "";
+          shipment.vendorData?.map((shipmentVendor:any) => {
+            shipmentVendor['vendorFullData'] = this.vendors[shipmentVendor.vendor] || "";
+            shipmentVendor['vendorFullData']?.WSCode && (shipment['WSCode'] += ","+shipmentVendor['vendorFullData'].WSCode);
+            shipmentVendor['vendorFullData']?.WSName && (shipment['WSName'] += ","+shipmentVendor['vendorFullData'].WSName);
+            shipmentVendor['vendorFullData']?.postalCode && (shipment['postalCode'] += ","+shipmentVendor['vendorFullData'].postalCode);
+          });
+          shipment['WSCode'] && (shipment['WSCode'] = shipment['WSCode'].substring(1));
+          shipment['WSName'] && (shipment['WSName'] = shipment['WSName'].substring(1));
+          shipment['postalCode'] && (shipment['postalCode'] = shipment['postalCode'].substring(1));
           shipment['serialNo'] = shipmentSerialNo;
           shipment['VendorsCount'] = shipment.vendorData?.length || 0;
           shipment['Url'] = "/main/shipment/"+shipment.id;
+          shipment['Url'] = "/main/shipment/"+shipment.id;
+          shipment['timeStamp'] = shipment.voucherData?.createdAt ? moment(shipment.voucherData.createdAt.toDate()).format('DD MMM YYYY') : "";
+          shipment['timeStampPostDelivery'] = shipment.postDeliveryData?.createdAt ? moment(shipment.postDeliveryData.createdAt.toDate()).format('DD MMM YYYY') : "";
+          shipment['remark'] = shipment.voucherData?.remark;
+          shipment['postDeliveryFilledBy'] = shipment.postDeliveryData?.createdByName;
+          shipment.totalDieselExpenseAmount = totalExpenseAmounts.diesel;
+          shipment.totalFreightExpenseAmount = totalExpenseAmounts.freight;
+          shipment.totalKhurakiExpenseAmount = totalExpenseAmounts.khuraki;
+          shipment.totalLabourExpenseAmount = totalExpenseAmounts.labour;
+          shipment.totalOtherExpenseAmount = totalExpenseAmounts.other;
+          shipment.totalRepairExpenseAmount = totalExpenseAmounts.repair;
+          shipment.totalTollExpenseAmount = totalExpenseAmounts.toll;
+          shipment.totalExpense = Object.values(totalExpenseAmounts).reduce((acc:any, curr:any) => acc + curr, 0);
+          
         });
         this.tableColumns = [
           {
@@ -524,6 +581,76 @@ export class ReportDetailsPage implements OnInit {
           {
             text: 'Vendors Count',
             identifier : 'VendorsCount',
+            isActive: true
+          },
+          {
+            text: 'W/S code',
+            identifier : 'WSCode',
+            isActive: true
+          },
+          {
+            text: 'W/S name',
+            identifier : 'WSName',
+            isActive: true
+          },
+          {
+            text: 'Postal Code',
+            identifier : 'postalCode',
+            isActive: true
+          },
+          {
+            text: 'Diesel Expense',
+            identifier : 'totalDieselExpenseAmount',
+            isActive: true
+          },  
+          {
+            text: 'Khuraki Expense',
+            identifier : 'totalKhurakiExpenseAmount',
+            isActive: true
+          }, 
+          {
+            text: 'Labour Expense',
+            identifier : 'totalLabourExpenseAmount',
+            isActive: true
+          },  
+          {
+            text: 'Total Expense',
+            identifier : 'totalTollExpenseAmount',
+            isActive: true
+          }, 
+          {
+            text: 'Other Expense',
+            identifier : 'totalOtherExpenseAmount',
+            isActive: true
+          },
+          {
+            text: 'Total Expense',
+            identifier : 'totalExpense',
+            isActive: true
+          },
+          {
+            text: 'Remark',
+            identifier : 'remark',
+            isActive: true
+          },
+          {
+            text: 'Timestamp of voucher generated',
+            identifier : 'timeStamp',
+            isActive: true
+          },
+          {
+            text: 'Timestamp of Post Deliver',
+            identifier : 'timeStampPostDelivery',
+            isActive: true
+          },
+          {
+            text: 'Post Delivery Filled By',
+            identifier : 'postDeliveryFilledBy',
+            isActive: true
+          },
+          {
+            text: 'Current Status',
+            identifier : 'status',
             isActive: true
           },
           {
@@ -686,7 +813,6 @@ export class ReportDetailsPage implements OnInit {
   }
 
   calculateVoucherExpenseAreaWise(areaObject:any){
-    console.log(areaObject);
     areaObject.map((expenseObject:any) => {
       expenseObject.totalDieselExpenseAmount = 0;
       expenseObject.totalFreightExpenseAmount = 0;
