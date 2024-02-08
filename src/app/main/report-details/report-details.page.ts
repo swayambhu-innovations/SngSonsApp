@@ -42,7 +42,7 @@ export class ReportDetailsPage implements OnInit {
   
   ionViewWillEnter(){
     this.id = this.route.snapshot.paramMap.get('id');
-    this.date1 = moment(new Date()).subtract(15,"days").format("YYYY-MM-DD");
+    this.date1 = moment(new Date()).subtract(45,"days").format("YYYY-MM-DD");
     this.date1Text = moment(new Date()).subtract(15,"days").format("DD/MM/YY");
     this.date2 = moment(new Date()).format("YYYY-MM-DD");
     this.date2Text = moment(new Date()).format("DD/MM/YY");
@@ -213,7 +213,7 @@ export class ReportDetailsPage implements OnInit {
             text: 'Discarded Shipments',
             identifier : 'discardedShipmentCount',
             isActive: true
-          },
+          }
         ];
         this.activeColumnCount = this.tableColumns.length;
         let vendorCount = 0;
@@ -268,6 +268,66 @@ export class ReportDetailsPage implements OnInit {
             identifier : 'VendorCount',
             isActive: true
           },
+          {
+            text: 'KOT Shipped',
+            identifier : 'totalKot',
+            isActive: true
+          }, 
+          {
+            text: 'Distance(Km)',
+            identifier : 'distance',
+            isActive: true
+          },  
+          {
+            text: 'Diesel Expense',
+            identifier : 'totalDieselExpenseAmount',
+            isActive: true
+          },  
+          {
+            text: 'Khuraki Expense',
+            identifier : 'totalKhurakiExpenseAmount',
+            isActive: true
+          }, 
+          {
+            text: 'Labour Expense',
+            identifier : 'totalLabourExpenseAmount',
+            isActive: true
+          },   
+          {
+            text: 'Other Expense',
+            identifier : 'totalOtherExpenseAmount',
+            isActive: true
+          },
+          {
+            text: 'Total Expense',
+            identifier : 'totalExpense',
+            isActive: true
+          },
+          {
+            text: 'Total Shipment Cost',
+            identifier : 'totalShipmentCost',
+            isActive: true
+          },
+          {
+            text: 'Total Invoice Anount',
+            identifier : 'totalInvoiceAmount',
+            isActive: true
+          },
+          {
+            text: 'Pending Shipments',
+            identifier : 'pendingShipmentCount',
+            isActive: true
+          },
+          {
+            text: 'Completed Shipments',
+            identifier : 'completedShipmentCount',
+            isActive: true
+          },
+          {
+            text: 'Discarded Shipments',
+            identifier : 'discardedShipmentCount',
+            isActive: true
+          }
         ];
         this.activeColumnCount = this.tableColumns.length;
         let vendorCount = 0;
@@ -276,7 +336,7 @@ export class ReportDetailsPage implements OnInit {
           vehicleData[vehicle]['serialNo'] = vendorCount;
           vehicleData[vehicle]['VendorCount'] = vehicleData[vehicle].dataArray?.length || 0;
         });
-        this.reportData = Object.keys(vehicleData).map((key) => vehicleData[key]);
+        this.reportData = this.calculateVoucherExpenseVehicleWise( Object.keys(vehicleData).map((key) => vehicleData[key]));
         this.onChangeColumn();
       });
     }
@@ -338,6 +398,61 @@ export class ReportDetailsPage implements OnInit {
             identifier : 'TotalShipmentCount',
             isActive: true
           },
+          {
+            text: 'KOT Shipped',
+            identifier : 'totalKot',
+            isActive: true
+          }, 
+          {
+            text: 'Diesel Expense',
+            identifier : 'totalDieselExpenseAmount',
+            isActive: true
+          },  
+          {
+            text: 'Khuraki Expense',
+            identifier : 'totalKhurakiExpenseAmount',
+            isActive: true
+          }, 
+          {
+            text: 'Labour Expense',
+            identifier : 'totalLabourExpenseAmount',
+            isActive: true
+          },   
+          {
+            text: 'Other Expense',
+            identifier : 'totalOtherExpenseAmount',
+            isActive: true
+          },
+          {
+            text: 'Total Expense',
+            identifier : 'totalExpense',
+            isActive: true
+          },
+          {
+            text: 'Total Shipment Cost',
+            identifier : 'totalShipmentCost',
+            isActive: true
+          },
+          {
+            text: 'Total Invoice Anount',
+            identifier : 'totalInvoiceAmount',
+            isActive: true
+          },
+          {
+            text: 'Pending Shipments',
+            identifier : 'pendingShipmentCount',
+            isActive: true
+          },
+          {
+            text: 'Completed Shipments',
+            identifier : 'completedShipmentCount',
+            isActive: true
+          },
+          {
+            text: 'Discarded Shipments',
+            identifier : 'discardedShipmentCount',
+            isActive: true
+          }
         ];
         this.activeColumnCount = this.tableColumns.length;
         let vendorCount = 0;
@@ -369,7 +484,7 @@ export class ReportDetailsPage implements OnInit {
           item['TotalShipmentCount'] = shipmentCount;
           item['serialNo'] = index+1;
         });
-        this.reportData = areaFinalData;
+        this.reportData = this.calculateVoucherExpenseAreaWise(areaFinalData);
         this.onChangeColumn();
       });
     }
@@ -483,7 +598,7 @@ export class ReportDetailsPage implements OnInit {
               // Sum up shipment cost and invoice amount
               totalShipmentCost += +vendorShipmentData?.ShipmentCost || 0;
               totalInvoiceAmount += +vendorShipmentData?.TotalInvoiceAmount || 0;
-              totalKot += +vendorShipmentData?.['KOT'] || 0;
+              totalKot += parseFloat(vendorShipmentData?.['KOT']) || 0;
           });
           
           // Increment counts based on shipment status
@@ -506,10 +621,147 @@ export class ReportDetailsPage implements OnInit {
       vendorData.completedShipmentCount = completedShipmentCount;
       vendorData.discardedShipmentCount = discardedShipmentCount;
       vendorData.pendingShipmentCount = pendingShipmentCount;
-      vendorData.totalKot = totalKot;
+      vendorData.totalKot = totalKot.toFixed(2);;
       vendorData.totalExpense = Object.values(totalExpenseAmounts).reduce((acc:any, curr:any) => acc + curr, 0);
     });
   
     return expenseObject;
+  }
+
+  calculateVoucherExpenseVehicleWise(expenseObject:any){
+    expenseObject.forEach((vehicleData:any) => {
+      // Initialize variables for each vendorData
+      let totalExpenseAmounts:any = {
+          diesel: 0,
+          freight: 0,
+          khuraki: 0,
+          labour: 0,
+          other: 0,
+          repair: 0,
+          toll: 0
+      };
+      let totalShipmentCost = 0;
+      let totalInvoiceAmount = 0;
+      let completedShipmentCount = 0;
+      let discardedShipmentCount = 0;
+      let pendingShipmentCount = 0;
+      let totalKot = 0;
+  
+      // Iterate through each shipment
+      vehicleData?.dataArray?.forEach((shipment:any) => {
+          Object.keys(totalExpenseAmounts).forEach((key:string) => {
+              totalExpenseAmounts[key] += +shipment?.voucherData?.[`${key}ExpenseAmount`] || 0;
+          });
+          shipment.vendorData.map((vendor:any) => {
+            totalKot += parseFloat(vendor?.['KOT']) || 0;
+            totalShipmentCost += parseFloat(vendor?.ShipmentCost) || 0;
+            totalInvoiceAmount += parseFloat(vendor?.TotalInvoiceAmount) || 0;
+          });
+          
+          // Increment counts based on shipment status
+          const status = shipment?.status?.toLowerCase();
+          if (status === 'completed') completedShipmentCount++;
+          else if (status === 'suspended') discardedShipmentCount++;
+          else if (status === 'pending-dispatch') pendingShipmentCount++;
+      });
+  
+      // Assign calculated values to vendorData
+      vehicleData.totalDieselExpenseAmount = totalExpenseAmounts.diesel;
+      vehicleData.totalFreightExpenseAmount = totalExpenseAmounts.freight;
+      vehicleData.totalKhurakiExpenseAmount = totalExpenseAmounts.khuraki;
+      vehicleData.totalLabourExpenseAmount = totalExpenseAmounts.labour;
+      vehicleData.totalOtherExpenseAmount = totalExpenseAmounts.other;
+      vehicleData.totalRepairExpenseAmount = totalExpenseAmounts.repair;
+      vehicleData.totalTollExpenseAmount = totalExpenseAmounts.toll;
+      vehicleData.totalShipmentCost = totalShipmentCost.toFixed(2);;
+      vehicleData.totalInvoiceAmount = totalInvoiceAmount.toFixed(2);;
+      vehicleData.completedShipmentCount = completedShipmentCount;
+      vehicleData.discardedShipmentCount = discardedShipmentCount;
+      vehicleData.pendingShipmentCount = pendingShipmentCount;
+      vehicleData.totalKot = totalKot.toFixed(2);
+      vehicleData.totalExpense = Object.values(totalExpenseAmounts).reduce((acc:any, curr:any) => acc + curr, 0);
+    });
+  
+    return expenseObject;
+  }
+
+  calculateVoucherExpenseAreaWise(areaObject:any){
+    console.log(areaObject);
+    areaObject.map((expenseObject:any) => {
+      expenseObject.totalDieselExpenseAmount = 0;
+      expenseObject.totalFreightExpenseAmount = 0;
+      expenseObject.totalKhurakiExpenseAmount = 0;
+      expenseObject.totalLabourExpenseAmount = 0;
+      expenseObject.totalOtherExpenseAmount = 0;
+      expenseObject.totalRepairExpenseAmount = 0;
+      expenseObject.totalTollExpenseAmount = 0;
+      expenseObject.totalShipmentCost = 0;
+      expenseObject.totalInvoiceAmount = 0;
+      expenseObject.completedShipmentCount = 0;
+      expenseObject.discardedShipmentCount = 0;
+      expenseObject.pendingShipmentCount = 0;
+      expenseObject.totalKot = 0;
+      expenseObject.totalExpense = 0;
+      let totalExpenseAmounts:any = {
+        diesel: 0,
+        freight: 0,
+        khuraki: 0,
+        labour: 0,
+        other: 0,
+        repair: 0,
+        toll: 0
+      };
+      let totalShipmentCost = 0;
+      let totalInvoiceAmount = 0;
+      let completedShipmentCount = 0;
+      let discardedShipmentCount = 0;
+      let pendingShipmentCount = 0;
+      let totalKot = 0;
+      expenseObject.vendors?.forEach((vendorData:any) => {
+        // Initialize variables for each vendorData
+    
+        // Iterate through each shipment
+        vendorData?.shipments?.forEach((shipment:any) => {
+            const vendorShipmentData = shipment.fullShipment;
+                // Sum up each expense type
+                Object.keys(totalExpenseAmounts).forEach((key:string) => {
+                    totalExpenseAmounts[key] += +vendorShipmentData?.voucherData?.[`${key}ExpenseAmount`] || 0;
+                });
+                // Sum up shipment cost and invoice amount
+                
+            // Increment counts based on shipment status
+            
+            shipment.vendorShipment.map((vendorShipmentActual:any) => {
+              totalShipmentCost += parseFloat(vendorShipmentActual?.ShipmentCost) || 0;
+              totalInvoiceAmount += parseFloat(vendorShipmentActual?.TotalInvoiceAmount) || 0;
+              totalKot += parseFloat(vendorShipmentActual?.['KOT']) || 0;
+            });
+
+            const status = shipment?.fullShipment?.status?.toLowerCase();
+            if (status === 'completed') completedShipmentCount++;
+            else if (status === 'suspended') discardedShipmentCount++;
+            else if (status === 'pending-dispatch') pendingShipmentCount++;
+        });
+        // Assign calculated values to vendorData
+        expenseObject.totalDieselExpenseAmount += totalExpenseAmounts.diesel;
+        expenseObject.totalFreightExpenseAmount += totalExpenseAmounts.freight;
+        expenseObject.totalKhurakiExpenseAmount += totalExpenseAmounts.khuraki;
+        expenseObject.totalLabourExpenseAmount += totalExpenseAmounts.labour;
+        expenseObject.totalOtherExpenseAmount += totalExpenseAmounts.other;
+        expenseObject.totalRepairExpenseAmount += totalExpenseAmounts.repair;
+        expenseObject.totalTollExpenseAmount += totalExpenseAmounts.toll;
+        expenseObject.totalShipmentCost += totalShipmentCost;
+        expenseObject.totalInvoiceAmount += totalInvoiceAmount;
+        expenseObject.completedShipmentCount += completedShipmentCount;
+        expenseObject.discardedShipmentCount += discardedShipmentCount;
+        expenseObject.pendingShipmentCount += pendingShipmentCount;
+        expenseObject.totalKot += (+totalKot);
+        expenseObject.totalExpense += Object.values(totalExpenseAmounts).reduce((acc:any, curr:any) => acc + curr, 0);
+      });
+      expenseObject.totalShipmentCost = expenseObject.totalShipmentCost.toFixed(2);
+      expenseObject.totalInvoiceAmount = expenseObject.totalInvoiceAmount.toFixed(2);
+      expenseObject.totalKot =  expenseObject.totalKot.toFixed(2);
+    })
+    return areaObject;
   }
 }
