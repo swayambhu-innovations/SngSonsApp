@@ -22,7 +22,11 @@ jobs:
        bundler-cache: true
  
    - name: Setup Node & Capacitor
-     run: npx cap update
+     uses: node/setup-node@v1
+     with: 
+       distribution: "temurin"
+       node-version: 18.16.0
+       
      
   #  - name: Run tests
   #    run: bundle exec fastlane android test
