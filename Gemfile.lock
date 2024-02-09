@@ -206,10 +206,11 @@ GEM
 PLATFORMS
   arm64-darwin-23
   ruby
+  x86_64-linux
 
 DEPENDENCIES
   fastlane
   fastlane-plugin-increment_version_code
 
 BUNDLED WITH
-   2.5.4
+   2.5.6
