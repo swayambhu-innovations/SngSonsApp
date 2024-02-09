@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { ShipmentsService } from '../home/tabs/shipments/shipments.service';
 import * as moment from 'moment';
+import { AccountExpenseService } from '../settings/component/account-expense/account-expense.service';
 
 @Component({
   selector: 'app-report-details',
@@ -32,6 +33,7 @@ export class ReportDetailsPage implements OnInit {
     private navCtrl: NavController, 
     private route: ActivatedRoute,
     private shipmentService: ShipmentsService,
+    private accountExpenseService: AccountExpenseService,
   ) {
     
   }
@@ -614,7 +616,7 @@ export class ReportDetailsPage implements OnInit {
             isActive: true
           },  
           {
-            text: 'Total Expense',
+            text: 'Toll Expense',
             identifier : 'totalTollExpenseAmount',
             isActive: true
           }, 
@@ -664,6 +666,96 @@ export class ReportDetailsPage implements OnInit {
         this.reportData = this.shipments;
         this.onChangeColumn();
       });
+    }
+    else if(report.toLowerCase() == "account wise payment report"){
+      this.accountExpenseService.getAccounts().then((accounts) => {
+        const accountsData:any = {};
+        accounts.docs.map((account) => {
+          accountsData[account.id] = { ...account.data(), id: account.id };
+        });
+        
+        this.shipmentService.getShipmentsByDateRange(this.date1,this.date2).then((shipmentData) => {
+          this.shipments =  shipmentData.docs.map((shipment) => {
+            return { ...shipment.data(), id: shipment.id };
+          });
+          this.tableColumns = [
+            {
+              text: 'S No',
+              identifier : 'serialNo',
+              isActive: true
+            },
+            {
+              text: 'Account Number',
+              identifier : 'accountName',
+              isActive: true
+            },
+            {
+              text: 'Diesel Expense',
+              identifier : 'totalDieselExpenseAmount',
+              isActive: true
+            },  
+            {
+              text: 'Khuraki Expense',
+              identifier : 'totalKhurakiExpenseAmount',
+              isActive: true
+            }, 
+            {
+              text: 'Labour Expense',
+              identifier : 'totalLabourExpenseAmount',
+              isActive: true
+            },  
+            {
+              text: 'Other Expense',
+              identifier : 'totalOtherExpenseAmount',
+              isActive: true
+            },
+            {
+              text: 'Toll Expense',
+              identifier : 'totalTollExpenseAmount',
+              isActive: true
+            }, 
+            {
+              text: 'Repair Expense',
+              identifier : 'totalRepairExpenseAmount',
+              isActive: true
+            }, 
+            {
+              text: 'Total Expense',
+              identifier : 'totalExpense',
+              isActive: true
+            }
+          ];
+          Object.keys(accountsData).map((key,index) => {
+            accountsData[key]['serialNo'] = index + 1;
+            accountsData[key]['totalDieselExpenseAmount'] = 0;
+            accountsData[key]['totalFreightExpenseAmount'] = 0;
+            accountsData[key]['totalKhurakiExpenseAmount'] = 0;
+            accountsData[key]['totalLabourExpenseAmount'] = 0;
+            accountsData[key]['totalOtherExpenseAmount'] = 0;
+            accountsData[key]['totalRepairExpenseAmount'] = 0;
+            accountsData[key]['totalTollExpenseAmount'] = 0;
+          });
+          
+          this.shipments.map((shipment:any) => {
+            if(shipment.voucherData){
+              accountsData[shipment.voucherData.dieselExpenseBank]['totalDieselExpenseAmount']+= (+shipment.voucherData.dieselExpenseAmount) || 0;
+              accountsData[shipment.voucherData.freightExpenseBank]['totalFreightExpenseAmount']+= (+shipment.voucherData.freightExpenseAmount) || 0;
+              accountsData[shipment.voucherData.khurakiExpenseBank]['totalKhurakiExpenseAmount']+= (+shipment.voucherData.khurakiExpenseAmount) || 0;
+              accountsData[shipment.voucherData.labourExpenseBank]['totalLabourExpenseAmount']+= (+shipment.voucherData.labourExpenseAmount) || 0;
+              accountsData[shipment.voucherData.otherExpenseBank]['totalOtherExpenseAmount']+= (+shipment.voucherData.otherExpenseAmount) || 0;
+              accountsData[shipment.voucherData.repairExpenseBank]['totalRepairExpenseAmount']+= (+shipment.voucherData.repairExpenseAmount) || 0;
+              accountsData[shipment.voucherData.tollExpenseBank]['totalTollExpenseAmount']+= (+shipment.voucherData.tollExpenseAmount) || 0;
+            }
+          });
+          Object.keys(accountsData).map((key) => {
+            accountsData[key].totalExpense = accountsData[key]['totalDieselExpenseAmount'] + accountsData[key]['totalFreightExpenseAmount'] + accountsData[key]['totalKhurakiExpenseAmount'] + accountsData[key]['totalLabourExpenseAmount'] + accountsData[key]['totalOtherExpenseAmount'] + accountsData[key]['totalRepairExpenseAmount'] + accountsData[key]['totalTollExpenseAmount'];
+          });
+          this.activeColumnCount = this.tableColumns.length;
+          this.reportData = Object.keys(accountsData).map((key) => accountsData[key]);
+          this.onChangeColumn();
+        });
+      })
+      
     }
   }
 
