@@ -5,6 +5,7 @@ import { NavController } from '@ionic/angular';
 import { ShipmentsService } from '../home/tabs/shipments/shipments.service';
 import * as moment from 'moment';
 import { AccountExpenseService } from '../settings/component/account-expense/account-expense.service';
+import { LabourMasterService } from '../settings/component/labour-master/labour-master.service';
 
 @Component({
   selector: 'app-report-details',
@@ -34,6 +35,7 @@ export class ReportDetailsPage implements OnInit {
     private route: ActivatedRoute,
     private shipmentService: ShipmentsService,
     private accountExpenseService: AccountExpenseService,
+    private labourMasterService: LabourMasterService,
   ) {
     
   }
@@ -757,6 +759,66 @@ export class ReportDetailsPage implements OnInit {
       })
       
     }
+    else if(report.toLowerCase() == "labour party wise expenses report"){
+      this.labourMasterService.getLabourParty().then((labours) => {
+        const labourData:any = {};
+        labours.docs.map((labour) => {
+          labourData[labour.id] = { ...labour.data(), id: labour.id };
+        });
+        this.shipmentService.getShipmentsByDateRange(this.date1,this.date2).then((shipmentData) => {
+          this.shipments =  shipmentData.docs.map((shipment) => {
+            return { ...shipment.data(), id: shipment.id };
+          });
+          this.tableColumns = [
+            {
+              text: 'S No',
+              identifier : 'serialNo',
+              isActive: true
+            },
+            {
+              text: 'Labour Party Name',
+              identifier : 'labourPartyName',
+              isActive: true
+            },
+            {
+              text: 'Total Labour Expense',
+              identifier : 'totalLabourExpenseAmount',
+              isActive: true
+            },  
+            {
+              text: 'No. of Shipments',
+              identifier : 'shipmentsCount',
+              isActive: true
+            },
+            {
+              text: 'KOTs Loaded',
+              identifier : 'kotLoaded',
+              isActive: true
+            }
+          ];
+          Object.keys(labourData).map((key,index) => {
+            labourData[key]['serialNo'] = index + 1;
+            labourData[key]['totalLabourExpenseAmount'] = 0;
+            labourData[key]['kotLoaded'] = 0;
+            labourData[key]['shipmentsCount'] = 0;
+          });
+          
+          this.shipments.map((shipment:any) => {
+            if(shipment.voucherData){
+              labourData[shipment.voucherData.labour]['totalLabourExpenseAmount']+= (+shipment.voucherData.labourExpenseAmount) || 0;
+              labourData[shipment.voucherData.labour]['shipmentsCount']+= 1;
+              shipment.vendorData.map((vendorShipmentData:any) => {
+                labourData[shipment.voucherData.labour]['kotLoaded'] += parseFloat(vendorShipmentData?.['KOT'].toFixed(2)) || 0;
+              });
+            }
+          });
+          this.activeColumnCount = this.tableColumns.length;
+          this.reportData = Object.keys(labourData).map((key) => labourData[key]);
+          this.onChangeColumn();
+        });
+      });
+      
+    }
   }
 
   goBack() {
@@ -840,7 +902,7 @@ export class ReportDetailsPage implements OnInit {
       vendorData.completedShipmentCount = completedShipmentCount;
       vendorData.discardedShipmentCount = discardedShipmentCount;
       vendorData.pendingShipmentCount = pendingShipmentCount;
-      vendorData.totalKot = totalKot.toFixed(2);;
+      vendorData.totalKot = totalKot.toFixed(2);
       vendorData.totalExpense = Object.values(totalExpenseAmounts).reduce((acc:any, curr:any) => acc + curr, 0);
     });
   

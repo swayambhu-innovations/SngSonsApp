@@ -69,7 +69,6 @@ ion-card {
 		width: 50px;
 		height: 100%;
 		border-radius: 10px 0 0 10px / 50% 0 0 50%;
-		box-shadow: -5px 0 10px rgba(0, 0, 0, 0.25);
 		content: '';
 	}
   
@@ -113,14 +112,14 @@ ion-card {
     }
     
     th {
-      background: #ddd;
+      background: #f2f2f2;
       font-weight: 900;
       text-align: left;
       white-space: nowrap;
     }
     
-    tbody tr:nth-child(odd) {
-      background: #f3f3f3;
+    tr:nth-child(odd) {
+      background: #f9f9f9;
     }
   }
 }
