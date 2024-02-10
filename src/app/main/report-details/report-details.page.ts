@@ -29,7 +29,15 @@ export class ReportDetailsPage implements OnInit {
   selectedDate: any;
   vendors: any;
   finalColumnCount: any;
-  
+  isAsc:boolean = true;
+  defaultEvent: any = {
+    detail: {
+      value : {
+        identifier : 'serialNo',
+        type: 'numeric'
+      }
+    }
+  }
   constructor(
     private navCtrl: NavController, 
     private route: ActivatedRoute,
@@ -122,107 +130,128 @@ export class ReportDetailsPage implements OnInit {
           {
             text: 'S No',
             identifier : 'serialNo',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'W/S code',
             identifier : 'WSCode',
-            isActive: true
+            isActive: true,
+            type: 'text'
           },
           {
             text: 'W/S name',
             identifier : 'WSName',
-            isActive: true
+            isActive: true,
+            type: 'text'
           },
           {
             text: 'Area',
             identifier : 'WSTown',
-            isActive: true
+            isActive: true,
+            type: 'text'
           },
           {
             text: 'Postal Code',
             identifier : 'postalCode',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'W/S GST',
             identifier : 'GSTNo',
-            isActive: true
+            isActive: true,
+            type: 'text'
           },
           {
             text: 'PAN No',
             identifier : 'panNo',
-            isActive: true
+            isActive: true,
+            type: 'text'
           },
           {
             text: 'W/S Contact no.',
             identifier : 'phoneNO',
-            isActive: true
+            isActive: true,
+            type: 'text'
           },
           {
             text: 'KOT Shipped',
             identifier : 'totalKot',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           }, 
           {
             text: 'Distance(Km)',
             identifier : 'distance',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },  
           {
             text: 'Diesel Expense',
             identifier : 'totalDieselExpenseAmount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },  
           {
             text: 'Khuraki Expense',
             identifier : 'totalKhurakiExpenseAmount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           }, 
           {
             text: 'Labour Expense',
             identifier : 'totalLabourExpenseAmount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },   
           {
             text: 'Other Expense',
             identifier : 'totalOtherExpenseAmount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },       
           {
             text: 'Shipment Count',
             identifier : 'shipmentCount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'Total Expense',
             identifier : 'totalExpense',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'Total Shipment Cost',
             identifier : 'totalShipmentCost',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'Total Invoice Anount',
             identifier : 'totalInvoiceAmount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'Pending Shipments',
             identifier : 'pendingShipmentCount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'Completed Shipments',
             identifier : 'completedShipmentCount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'Discarded Shipments',
             identifier : 'discardedShipmentCount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           }
         ];
         this.activeColumnCount = this.tableColumns.length;
@@ -256,87 +285,104 @@ export class ReportDetailsPage implements OnInit {
           {
             text: 'S No',
             identifier : 'serialNo',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'Vehicle No',
             identifier : 'vehicle',
-            isActive: true
+            isActive: true,
+            type: 'text'
           },
           {
             text: 'Transporter Name',
             identifier : 'TransporterName',
-            isActive: true
+            isActive: true,
+            type: 'text'
           },
           {
             text: 'Ownership',
             identifier : 'Ownership',
             isActive: true,
+            type: 'text'
           },
           {
             text: 'Order Count',
             identifier : 'VendorCount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'KOT Shipped',
             identifier : 'totalKot',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           }, 
           {
             text: 'Distance(Km)',
             identifier : 'distance',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },  
           {
             text: 'Diesel Expense',
             identifier : 'totalDieselExpenseAmount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },  
           {
             text: 'Khuraki Expense',
             identifier : 'totalKhurakiExpenseAmount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           }, 
           {
             text: 'Labour Expense',
             identifier : 'totalLabourExpenseAmount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },   
           {
             text: 'Other Expense',
             identifier : 'totalOtherExpenseAmount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'Total Expense',
             identifier : 'totalExpense',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'Total Shipment Cost',
             identifier : 'totalShipmentCost',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'Total Invoice Anount',
             identifier : 'totalInvoiceAmount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'Pending Shipments',
             identifier : 'pendingShipmentCount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'Completed Shipments',
             identifier : 'completedShipmentCount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'Discarded Shipments',
             identifier : 'discardedShipmentCount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           }
         ];
         this.activeColumnCount = this.tableColumns.length;
@@ -397,77 +443,92 @@ export class ReportDetailsPage implements OnInit {
           {
             text: 'S No',
             identifier : 'serialNo',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'W/S Town',
             identifier : 'WSTown',
-            isActive: true
+            isActive: true,
+            type: 'text'
           },
           {
             text: 'Vendors Count',
             identifier : 'VendorsCount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'Shipment Count',
             identifier : 'TotalShipmentCount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'KOT Shipped',
             identifier : 'totalKot',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           }, 
           {
             text: 'Diesel Expense',
             identifier : 'totalDieselExpenseAmount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },  
           {
             text: 'Khuraki Expense',
             identifier : 'totalKhurakiExpenseAmount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           }, 
           {
             text: 'Labour Expense',
             identifier : 'totalLabourExpenseAmount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },   
           {
             text: 'Other Expense',
             identifier : 'totalOtherExpenseAmount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'Total Expense',
             identifier : 'totalExpense',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'Total Shipment Cost',
             identifier : 'totalShipmentCost',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'Total Invoice Anount',
             identifier : 'totalInvoiceAmount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'Pending Shipments',
             identifier : 'pendingShipmentCount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'Completed Shipments',
             identifier : 'completedShipmentCount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'Discarded Shipments',
             identifier : 'discardedShipmentCount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           }
         ];
         this.activeColumnCount = this.tableColumns.length;
@@ -565,97 +626,116 @@ export class ReportDetailsPage implements OnInit {
           {
             text: 'S No',
             identifier : 'serialNo',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'Shipment Number',
             identifier : 'ShipmentNumber',
-            isActive: true
+            isActive: true,
+            type: 'text'
           },
           {
             text: 'Vehicle',
             identifier : 'vehicle',
-            isActive: true
+            isActive: true,
+            type: 'text'
           },
           {
             text: 'Ownership',
             identifier : 'Ownership',
-            isActive: true
+            isActive: true,
+            type: 'text'
           },
           {
             text: 'Vendors Count',
             identifier : 'VendorsCount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'W/S code',
             identifier : 'WSCode',
-            isActive: true
+            isActive: true,
+            type: 'text'
           },
           {
             text: 'W/S name',
             identifier : 'WSName',
-            isActive: true
+            isActive: true,
+            type: 'text'
           },
           {
             text: 'Postal Code',
             identifier : 'postalCode',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'Diesel Expense',
             identifier : 'totalDieselExpenseAmount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },  
           {
             text: 'Khuraki Expense',
             identifier : 'totalKhurakiExpenseAmount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           }, 
           {
             text: 'Labour Expense',
             identifier : 'totalLabourExpenseAmount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },  
           {
             text: 'Toll Expense',
             identifier : 'totalTollExpenseAmount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           }, 
           {
             text: 'Other Expense',
             identifier : 'totalOtherExpenseAmount',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'Total Expense',
             identifier : 'totalExpense',
-            isActive: true
+            isActive: true,
+            type: 'numeric'
           },
           {
             text: 'Remark',
             identifier : 'remark',
-            isActive: true
+            isActive: true,
+            type: 'text'
           },
           {
             text: 'Timestamp of voucher generated',
             identifier : 'timeStamp',
-            isActive: true
+            isActive: true,
+            type: 'date'
           },
           {
             text: 'Timestamp of Post Deliver',
             identifier : 'timeStampPostDelivery',
-            isActive: true
+            isActive: true,
+            type: 'date'
           },
           {
             text: 'Post Delivery Filled By',
             identifier : 'postDeliveryFilledBy',
-            isActive: true
+            isActive: true,
+            type: 'text'
           },
           {
             text: 'Current Status',
             identifier : 'status',
-            isActive: true
+            isActive: true,
+            type: 'text'
           },
           {
             text: '',
@@ -684,47 +764,56 @@ export class ReportDetailsPage implements OnInit {
             {
               text: 'S No',
               identifier : 'serialNo',
-              isActive: true
+              isActive: true,
+              type: 'numeric'
             },
             {
               text: 'Account Number',
               identifier : 'accountName',
-              isActive: true
+              isActive: true,
+              type: 'numeric'
             },
             {
               text: 'Diesel Expense',
               identifier : 'totalDieselExpenseAmount',
-              isActive: true
+              isActive: true,
+              type: 'numeric'
             },  
             {
               text: 'Khuraki Expense',
               identifier : 'totalKhurakiExpenseAmount',
-              isActive: true
+              isActive: true,
+              type: 'numeric'
             }, 
             {
               text: 'Labour Expense',
               identifier : 'totalLabourExpenseAmount',
-              isActive: true
+              isActive: true,
+              type: 'numeric'
             },  
             {
               text: 'Other Expense',
               identifier : 'totalOtherExpenseAmount',
-              isActive: true
+              isActive: true,
+              type: 'numeric'
             },
             {
               text: 'Toll Expense',
               identifier : 'totalTollExpenseAmount',
-              isActive: true
+              isActive: true,
+              type: 'numeric'
             }, 
             {
               text: 'Repair Expense',
               identifier : 'totalRepairExpenseAmount',
-              isActive: true
+              isActive: true,
+              type: 'numeric'
             }, 
             {
               text: 'Total Expense',
               identifier : 'totalExpense',
-              isActive: true
+              isActive: true,
+              type: 'numeric'
             }
           ];
           Object.keys(accountsData).map((key,index) => {
@@ -773,27 +862,32 @@ export class ReportDetailsPage implements OnInit {
             {
               text: 'S No',
               identifier : 'serialNo',
-              isActive: true
+              isActive: true,
+              type: 'numeric'
             },
             {
               text: 'Labour Party Name',
               identifier : 'labourPartyName',
-              isActive: true
+              isActive: true,
+              type: 'text'
             },
             {
               text: 'Total Labour Expense',
               identifier : 'totalLabourExpenseAmount',
-              isActive: true
+              isActive: true,
+              type: 'numeric'
             },  
             {
               text: 'No. of Shipments',
               identifier : 'shipmentsCount',
-              isActive: true
+              isActive: true,
+              type: 'numeric'
             },
             {
               text: 'KOTs Loaded',
               identifier : 'kotLoaded',
-              isActive: true
+              isActive: true,
+              type: 'numeric'
             }
           ];
           Object.keys(labourData).map((key,index) => {
@@ -1043,5 +1137,48 @@ export class ReportDetailsPage implements OnInit {
       expenseObject.totalKot =  expenseObject.totalKot.toFixed(2);
     })
     return areaObject;
+  }
+
+  onSortByChange(event:any){
+    this.defaultEvent = event;
+    const sortType = event.detail.value.type || false;
+    this.reportData.sort((a:any,b:any) =>  {
+      if(this.isAsc){
+        if(sortType == 'numeric'){
+          return a[event.detail.value.identifier] - b[event.detail.value.identifier];
+        }
+        else if(sortType == 'text'){
+          let x = a[event.detail.value.identifier].toLowerCase();
+          let y = b[event.detail.value.identifier].toLowerCase();
+          if(x>y){return 1;} 
+          if(x<y){return -1;}
+          return 0;
+        }
+        else{
+          return 0;
+        }
+      }
+      else{
+        if(sortType == 'numeric'){
+          return b[event.detail.value.identifier] - a[event.detail.value.identifier];
+        }
+        else if(sortType == 'text'){
+          let x = b[event.detail.value.identifier].toLowerCase();
+          let y = a[event.detail.value.identifier].toLowerCase();
+          if(x>y){return 1;} 
+          if(x<y){return -1;}
+          return 0;
+        }
+        else{
+          return 0;
+        }
+      }
+      
+    });
+  }
+
+  changeSorting(){
+    this.isAsc = !this.isAsc;
+    this.onSortByChange(this.defaultEvent);
   }
 }
