@@ -13,7 +13,7 @@ export class ReportsPage implements OnInit {
     { area: 'Area Wise Expenses Report' },
     { accounts: 'Account Wise Payment Report' },
     { shipments: 'Shipments Wise Expenses Report' },
-    { labor: 'Labor Party Wise Expenses Report' },
+    { labor: 'Labour Party Wise Expenses Report' },
   ];
   id: string = '';
 
