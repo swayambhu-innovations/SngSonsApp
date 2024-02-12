@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.shreeva.newAppName',
-  appName: 'newAppName',
+  appId: 'com.shreeva.sngSonsDispatch',
+  appName: 'sngSonsDispatch',
   webDir: 'www',
   server: {
     androidScheme: 'https',

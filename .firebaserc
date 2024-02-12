@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "jaipurservicecompany-demo"
+    "default": "sngtesc"
   },
   "targets": {
     "SNGSONS": {
