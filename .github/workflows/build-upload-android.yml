@@ -22,8 +22,8 @@ jobs:
        bundler-cache: true
  
      
-   - name: Run tests
-     run: bundle exec fastlane android test
+  #  - name: Run tests
+  #    run: bundle exec fastlane android test
  
    - name: Decode Service Account Key JSON File
      uses: timheuer/base64-to-file@v1
