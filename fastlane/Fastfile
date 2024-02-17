@@ -26,6 +26,7 @@ platform :android do
   desc "Deploy a new version to the Google Play"
   lane :deploy do
     fetch_and_increment_build_number
+    increment_version_name
     gradle(
       task: "clean bundle", # or "assemble", if you want to build an APK
       build_type: "release",
@@ -60,28 +61,28 @@ platform :android do
       version_code: updated_version_code
     )
 
-    new_version_name = "1."
-    new_version_name += updated_version_code.to_s
-    increment_version_name(
-      version_name: new_version_name
-    )
+    # new_version_name = "1."
+    # new_version_name += updated_version_code.to_s
+    # increment_version_name(
+    #   version_name: new_version_name
+    # )
 
   end
 
-  # desc "Increment the version name"
-  # lane :increment_version_name do
-  #   # Get the current version name from the build.gradle file
-  #   current_version_name = get_version_name
+  desc "Increment the version name"
+  lane :increment_version_name do
+    # Get the current version name from the build.gradle file
+    current_version_name = get_version_name
 
-  #   # Split the version name into major, minor, and patch parts
-  #   parts = current_version_name.split('.')
+    # Split the version name into major, minor, and patch parts
+    parts = current_version_name.split('.')
 
-  #   # Increment the appropriate part (e.g., major, minor, or patch)
-  #   # You can modify this logic based on your versioning scheme
-  #   new_version_name = "#{parts[0]}.to_i + 1}"
+    # Increment the appropriate part (e.g., major, minor, or patch)
+    # You can modify this logic based on your versioning scheme
+    new_version_name = "#{parts[0]}.to_i + 1}"
 
-  #   # Update the version name in the build.gradle file
-  #   update_version_name(version_name: new_version_name)
-  # end
+    # Update the version name in the build.gradle file
+    update_version_name(version_name: new_version_name)
+  end
 
 end
