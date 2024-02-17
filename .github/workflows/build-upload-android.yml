@@ -26,8 +26,8 @@ jobs:
      with:
         node-version: 19.x
 
-  #  - name: Install app dependencies
-  #    run: npm install
+   - name: Install app dependencies
+     run: npm install
 
    - name: Build project app
      run: npm run build
