@@ -20,6 +20,23 @@ jobs:
      with:
        ruby-version: 3.0.0
        bundler-cache: true
+
+   - name: Setup Node.js
+     uses: actions/setup-node@v3
+     with:
+        node-version: 19.x
+
+   - name: Install app dependencies
+     run: npm install
+
+   - name: Build project app
+     run: npm run build
+
+   - name: Capacitor update
+     run: npx cap update
+
+   - name: Capacitor copy
+     run: npx cap copy
  
      
   #  - name: Run tests
