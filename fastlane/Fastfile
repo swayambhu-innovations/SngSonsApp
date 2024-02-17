@@ -69,20 +69,20 @@ platform :android do
 
   end
 
-  desc "Increment the version name"
-  lane :increment_version_name do
-    # Get the current version name from the build.gradle file
-    current_version_name = get_version_name
+  # desc "Increment the version name"
+  # lane :increment_version_name do
+  #   # Get the current version name from the build.gradle file
+  #   current_version_name = get_version_name
 
-    # Split the version name into major, minor, and patch parts
-    parts = current_version_name.split('.')
+  #   # Split the version name into major, minor, and patch parts
+  #   parts = current_version_name.split('.')
 
-    # Increment the appropriate part (e.g., major, minor, or patch)
-    # You can modify this logic based on your versioning scheme
-    new_version_name = "#{parts[0]}.to_i + 1}"
+  #   # Increment the appropriate part (e.g., major, minor, or patch)
+  #   # You can modify this logic based on your versioning scheme
+  #   new_version_name = "#{parts[0]}.to_i + 1}"
 
-    # Update the version name in the build.gradle file
-    update_version_name(version_name: new_version_name)
-  end
+  #   # Update the version name in the build.gradle file
+  #   update_version_name(version_name: new_version_name)
+  # end
 
 end
