@@ -61,7 +61,7 @@ platform :android do
     )
 
     new_version_name = "1."
-    new_version_name += str(updated_version_code)
+    new_version_name += updated_version_code.to_str
     update_version_name(version_name: new_version_name)
 
   end
