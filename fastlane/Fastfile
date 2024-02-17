@@ -60,7 +60,7 @@ platform :android do
       version_code: updated_version_code
     )
 
-    new_version_name = "1."+updated_version_code
+    new_version_name = "1."+updated_version_code.toString()
     update_version_name(version_name: new_version_name)
 
   end
