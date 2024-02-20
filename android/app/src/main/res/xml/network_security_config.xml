@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">console.firebase.google.com</domain>
+		<domain includeSubdomains="true">firebase.google.com</domain>
+		<domain includeSubdomains="true">com.shreeva.sngSonsDispatch</domain>
+		<domain includeSubdomains="true">com.shreeva.newAppName</domain>
+		<domain includeSubdomains="true">www.w3.org</domain>
+		<domain includeSubdomains="true">cordova.apache.org</domain>
+    </domain-config>
+</network-security-config>
