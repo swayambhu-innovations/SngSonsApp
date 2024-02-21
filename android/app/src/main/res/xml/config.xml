@@ -1,8 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget version="1.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.w3.org/ns/widgets ">
+<widget version="1.0.0" xmlns="https://www.w3.org/ns/widgets" xmlns:cdv="https://cordova.apache.org/ns/1.0">
   <access origin="*" />
-
-
+  
+  
 </widget>
