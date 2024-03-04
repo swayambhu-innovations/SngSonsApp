@@ -70,6 +70,8 @@ export class FormSettingComponent implements OnInit {
 
   closeModal() {
     this.isModalOpen = false;
+    this.dropDrownArray.clear();
+    this.dropDrownArray.push(this.createdropDownValueForm());
     this.formSettings.reset(this.formInitalValue);
   }
 
@@ -111,6 +113,8 @@ export class FormSettingComponent implements OnInit {
         this.config.messages.updatedSuccessfully
       );
     }
+    this.dropDrownArray.clear();
+    this.dropDrownArray.push(this.createdropDownValueForm());
     this.formSettings.reset(this.formInitalValue);
     this.getSettings(this.formVariable);
     this.modalCtrl.dismiss();
@@ -120,16 +124,13 @@ export class FormSettingComponent implements OnInit {
   editVariable(variableData: any, formId: string) {
     this.isModalOpen = true;
     this.formVariable = formId;
-    const dropDownArray = this.formSettings.get('dropDownArray') as FormArray;
-        while (dropDownArray.length) {
-          dropDownArray.removeAt(0);
+        while (this.dropDrownArray.length) {
+          this.dropDrownArray.removeAt(0);
         }
     this.formSettings.patchValue(variableData);
     variableData?.dropDownArray?.forEach((ele:any) => {
-      dropDownArray.push(this.fb.group(ele));
+      this.dropDrownArray.push(this.fb.group(ele));
     });
-    console.log(this.formSettings.value);
-    return;
   }
 
   async delete(confirmation: any) {
