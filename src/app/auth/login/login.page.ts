@@ -58,10 +58,19 @@ export class LoginPage implements OnInit {
     return this.loginForm.value.otp && this.loginForm.value.otp.toString()?.length > 0;
   }
 
-  limitInputLength($event: any, maxLength = 10) {
-    if($event.target.value.length>=maxLength) {
-        $event.preventDefault();
-        return;
+  // limitInputLength($event: any, maxLength = 10) {
+  //   if($event.target.value.length>=maxLength) {
+  //       $event.preventDefault();
+  //       return;
+  //   }
+  // }
+  onKeyPress(event: KeyboardEvent) {
+    const allowedChars = /[0-9]/;
+    const allowedSpecialKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'];
+    const keyPressed = event.key;
+
+    if (!allowedChars.test(keyPressed) && !allowedSpecialKeys.includes(keyPressed)) {
+      event.preventDefault();
     }
   }
 
