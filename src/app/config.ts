@@ -7,6 +7,7 @@ export const Config = {
     addedSuccessfully: 'Added Successfully',
     updatedSuccessfully: 'Updated Successfully',
     deletedSuccessfully: 'Deleted Successfully',
+    savedSuccessfully: 'Saved Successfully',
     vehiclesPresent: 'Already Present Vehicles',
     errorOccurred: 'Error Occurred. Please try again',
     pleaseWait: 'Please wait...',
@@ -16,6 +17,13 @@ export const Config = {
     smsError: 'SMS could not be sent. Please try Again!',
     invalidOTP: 'Invalid OTP',
     zsdSuccess: 'ZSD Uploaded Successfully',
+    zsdInvalid: 'Invalid ZSD',
+    zsdNoData: 'No records to upload',
+    zsdInvalidInvoiceNo: 'Invoice already added',
+    add2Value: 'Please Add At Least 2 Value',
+    fillAllExpenses: 'Please fill all the expenses',
+    fillAllFields: 'Please fill all the fields',
+    invalidAmount: 'Amount is not between defined limit ',
   },
   collection: {
     account: 'account',
@@ -29,12 +37,14 @@ export const Config = {
     vehiclesCategory: 'vehicles-Category',
     vehicles: 'vehicles',
     shipments: 'shipments',
+    zsd: 'zsd',
   },
   storage: {
     labourParty: 'labourParty-Library',
     vendors: 'vendors-Library',
     userPhoto: 'user-photo',
     vehicleDocuments: 'vehicle-Documnets',
+    shipment: 'shipment',
   },
   hardData: {
     postalCode: ['226029', '211001', '110241', '224531'],
@@ -53,7 +63,6 @@ export const Config = {
   },
   url: {
     dicebear: 'https://api.dicebear.com/7.x/initials/svg?seed=',
-    defaultProfile:
-      'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697',
+    defaultProfile: 'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697',
   },
 };

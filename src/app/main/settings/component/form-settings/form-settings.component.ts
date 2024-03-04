@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormSettingService } from './form-settings.service';
 import { Config } from 'src/app/config';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { NotificationService } from 'src/app/utils/notification';
+import { drop } from 'lodash';
 
 @Component({
   selector: 'app-form-setting',
@@ -12,16 +13,23 @@ import { NotificationService } from 'src/app/utils/notification';
 })
 export class FormSettingComponent implements OnInit {
   presentingElement: any = '' || null;
-  formSettings: FormGroup = new FormGroup({
-    variableName: new FormControl('', [Validators.required]),
-    variableType: new FormControl('', [Validators.required]),
-    lowerLimit: new FormControl('', [Validators.required]),
-    upperLimit: new FormControl('', [Validators.required]),
-    active: new FormControl(true, []),
-    createdAt: new FormControl(new Date(), []),
-    isZSD: new FormControl(false, []),
-    id: new FormControl(''),
+  formSettings= this.fb.group({
+    variableName:  ['',Validators.required],
+    variableType:  ['',Validators.required],
+    text:  [''],
+    lowerLimit:  [''],
+    upperLimit:  [''],
+    active:  [true],
+    createdAt:  [new Date()],
+    isZSD:  [false],
+    id:  [''],
+    dropDownArray: this.fb.array([this.createdropDownValueForm()])
   });
+  createdropDownValueForm(): FormGroup {
+    return this.fb.group({
+      question: ['']
+    });
+  }
   public formInitalValue = this.formSettings.value;
   isModalOpen: boolean = false;
   public config = Config;
@@ -39,8 +47,9 @@ export class FormSettingComponent implements OnInit {
     private formSettingService: FormSettingService,
     private loadingController: LoadingController,
     private notificationService: NotificationService,
-    private modalCtrl: ModalController
-  ) {}
+    private modalCtrl: ModalController,
+    public fb: FormBuilder
+  ) { }
 
   async ngOnInit() {
     this.presentingElement = document.querySelector('.ion-page');
@@ -73,6 +82,14 @@ export class FormSettingComponent implements OnInit {
   }
 
   async submitForm() {
+    if (this.formSettings.get('variableType')?.value == 'Drop Down') {
+      if (this.dropDrownArray.length < 2) {
+        this.notificationService.showError(
+          this.config.messages.add2Value
+        );
+        return;
+      }
+    }
     if (!this.formSettings.valid) {
       this.formSettings.markAllAsTouched();
       return;
@@ -103,7 +120,16 @@ export class FormSettingComponent implements OnInit {
   editVariable(variableData: any, formId: string) {
     this.isModalOpen = true;
     this.formVariable = formId;
-    this.formSettings.setValue(variableData);
+    const dropDownArray = this.formSettings.get('dropDownArray') as FormArray;
+        while (dropDownArray.length) {
+          dropDownArray.removeAt(0);
+        }
+    this.formSettings.patchValue(variableData);
+    variableData?.dropDownArray?.forEach((ele:any) => {
+      dropDownArray.push(this.fb.group(ele));
+    });
+    console.log(this.formSettings.value);
+    return;
   }
 
   async delete(confirmation: any) {
@@ -137,5 +163,21 @@ export class FormSettingComponent implements OnInit {
     );
     await this.getSettings(formVariable);
     this.loader.dismiss();
+  }
+
+  get dropDrownArray() {
+    return this.formSettings.get("dropDownArray") as FormArray;
+  }
+
+  addDropDownValue() {
+    this.dropDrownArray.push(this.createdropDownValueForm());
+  }
+
+  getControls() {
+    return (this.formSettings.get('dropDownArray') as FormArray).controls;
+  }
+
+  deleteDropDownValue(index: number) {
+    this.dropDrownArray.removeAt(index);
   }
 }

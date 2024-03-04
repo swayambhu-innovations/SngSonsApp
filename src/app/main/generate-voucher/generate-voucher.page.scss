@@ -51,7 +51,6 @@ ion-content {
     box-shadow: 2px 2px 5px 2px rgba(53, 122, 248, 0.1);
     background-color: rgb(254, 254, 254);
     filter: drop-shadow(0px 4px 10px rgba(53, 122, 248, 0.1));
-    backdrop-filter: blur(25px);
 
     .heading {
       color: var(--Primary, #1540bd);
@@ -63,7 +62,6 @@ ion-content {
     ion-item {
       --background: #f0f7ff;
       --border-radius: 16px;
-      backdrop-filter: blur(25px);
       --border-width: 0;
       margin: 10px 0;
     }
@@ -77,10 +75,14 @@ ion-content {
     }
 
     ion-accordion-group {
-      --background: #f0f7ff;
+      --background: #fff;
 
       ion-item {
-        --background: #f0f7ff;
+        --background: #fff;
+
+        &.select-dd {
+          color: #505E86;
+        }
         ion-label {
           --color: #1540bd;
         }
@@ -163,7 +165,6 @@ ion-content {
     margin-inline: auto;
     border-radius: 60px;
     background: rgba(168, 205, 255, 0.29);
-    backdrop-filter: blur(15px);
     margin-top: 20px;
 
     button {
@@ -184,7 +185,7 @@ ion-content {
   }
 }
 
-ion-modal ion-content {
+ion-modal .ion-container {
   .active {
     background: #1540bd !important;
     color: #fff !important;
@@ -220,7 +221,6 @@ ion-modal ion-content {
     gap: 8px;
     border-radius: 60px;
     background: #ffe7d0;
-    backdrop-filter: blur(15px);
 
     button {
       display: flex;
@@ -240,6 +240,54 @@ ion-modal ion-content {
       gap: 16px;
       background: #f2825c !important;
       color: #fff !important;
+    }
+  }
+}
+
+.switch {
+  position: absolute;
+  right: 10px;
+  z-index: 99999;
+}
+
+ion-input {
+  opacity: 10 !important;
+}
+
+.generatedModal {
+  .wrapper {
+    margin: 0 auto;
+    height: 380px;
+
+    ion-item {
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
+
+    ion-text {
+      color: #1540bd;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 100%; /* 20px */
+      letter-spacing: -0.22px;
+      text-align: center;
+    }
+
+    button {
+      width: 100px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50px;
+      border-width: 2px;
+      background: var(--Primary, #1540bd);
+      color: #fff;
+    }
+
+    div {
+      display: flex;
+      justify-content: center;
     }
   }
 }

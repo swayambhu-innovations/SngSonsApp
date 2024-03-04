@@ -5,7 +5,7 @@
         <ion-row class="ion-justify-content-center ion-align-items-center">
           <ion-col id="nav" size="auto">
             <svg
-              xmlns="http://www.w3.org/2000/svg"
+              xmlns="https://www.w3.org/2000/svg"
               width="30"
               height="30"
               viewBox="0 0 26 26"
@@ -19,7 +19,7 @@
             </svg>
 
             <svg
-              xmlns="http://www.w3.org/2000/svg"
+              xmlns="https://www.w3.org/2000/svg"
               width="25"
               height="26"
               viewBox="0 0 25 26"
@@ -42,7 +42,7 @@
       <ion-col size="auto">
         <!-- PDF Download -->
         <svg
-          xmlns="http://www.w3.org/2000/svg"
+          xmlns="https://www.w3.org/2000/svg"
           width="26"
           height="26"
           viewBox="0 0 26 26"
@@ -57,7 +57,7 @@
 
         <!-- Excel Download -->
         <svg
-          xmlns="http://www.w3.org/2000/svg"
+          xmlns="https://www.w3.org/2000/svg"
           width="26"
           height="26"
           viewBox="0 0 26 26"
@@ -71,11 +71,12 @@
         </svg>
 
         <svg
-          xmlns="http://www.w3.org/2000/svg"
+          xmlns="https://www.w3.org/2000/svg"
           width="25"
           height="22"
           viewBox="0 0 25 22"
           fill="none"
+          (click)="getShipmentDetails()"
         >
           <path
             d="M0 11.5583L2.94974 9.20389C3.08698 9.09344 3.25717 9.0333 3.43254 9.0333C3.6079 9.0333 3.77809 9.09344 3.91533 9.20389L6.86819 11.5583L5.90882 12.7969L4.15206 11.3975C4.2305 13.1056 4.81474 14.7504 5.82888 16.1182C6.84302 17.486 8.2402 18.5136 9.83895 19.0676C11.4377 19.6216 13.1641 19.6763 14.794 19.2246C16.4239 18.773 17.8819 17.8359 18.9786 16.535L20.1623 17.5562C18.8678 19.1033 17.1427 20.2198 15.2118 20.7601C13.2809 21.3004 11.234 21.2395 9.33786 20.5852C7.44174 19.9309 5.78447 18.7137 4.58217 17.0922C3.37987 15.4707 2.68834 13.5203 2.59776 11.4953L0.962481 12.7969L0 11.5583ZM18.3401 10.4426L21.2929 12.7969C21.4302 12.9074 21.6004 12.9675 21.7757 12.9675C21.9511 12.9675 22.1213 12.9074 22.2585 12.7969L25.2114 10.4426L24.2489 9.20389L22.5451 10.5623C22.4658 8.53178 21.7821 6.57285 20.5837 4.94221C19.3853 3.31156 17.728 2.08525 15.829 1.42396C13.93 0.762675 11.8779 0.697254 9.9416 1.23627C8.00525 1.77529 6.27498 2.8936 4.97749 4.44468L6.16112 5.46586C7.25461 4.16891 8.70724 3.23346 10.3314 2.78031C11.9556 2.32716 13.6768 2.37713 15.2726 2.92376C16.8685 3.47039 18.2657 4.48858 19.2839 5.84684C20.3021 7.2051 20.8945 8.84104 20.9846 10.5434L19.3026 9.20389L18.3401 10.4426Z"
@@ -93,12 +94,12 @@
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Invoice Number</ion-col>
-        <ion-col size="auto">7652547287265</ion-col>
+        <ion-col size="auto">{{this.shipmentDetails.vendorDetails?.invoiceNumber}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">GST Number</ion-col>
-        <ion-col size="auto">UPHFF5671GG26755</ion-col>
+        <ion-col size="auto">{{shipmentDetails.GSTNumber}}</ion-col>
       </ion-row>
     </ion-grid>
 
@@ -108,39 +109,39 @@
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Vehicle Number</ion-col>
-        <ion-col size="auto">UP70JL7879</ion-col>
+        <ion-col size="auto">{{shipmentDetails.vehicle?.registrationNo}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Vehicle Fuel Capacity</ion-col>
-        <ion-col size="auto">65 Ltrs</ion-col>
+        <ion-col size="auto">{{shipmentDetails.vehicle?.fuelTankCapacity}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Ownership</ion-col>
-        <ion-col size="auto">Owned</ion-col>
+        <ion-col size="auto">{{shipmentDetails.vehicle?.ownershipType}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Fuel Type</ion-col>
-        <ion-col size="auto">Diesel</ion-col>
+        <ion-col size="auto">{{shipmentDetails.vehicle?.fuelType}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Fuel Tank Status</ion-col>
-        <ion-col size="auto">45 Ltrs</ion-col>
+        <ion-col size="auto">{{shipmentDetails.vehicle?.fuelTankCapacity}} Ltrs</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto"
           >Tachometer Opening Reading</ion-col
         >
-        <ion-col size="auto">650022 km</ion-col>
+        <ion-col size="auto">{{shipmentDetails.vehicle?.OpeningReading}} km</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Vehicle Dispatch Type</ion-col>
-        <ion-col size="auto">30 Aug 2023</ion-col>
+        <ion-col size="auto">{{shipmentDetails.vehicle?.DispatchType}}</ion-col>
       </ion-row>
     </ion-grid>
 
@@ -150,37 +151,37 @@
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">W/S Code</ion-col>
-        <ion-col size="auto">767675172</ion-col>
+        <ion-col size="auto">{{shipmentDetails.vendorDetails?.WSCode}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">W/S Name</ion-col>
-        <ion-col size="auto">Shree Ram Ltd.</ion-col>
+        <ion-col size="auto">{{shipmentDetails.vendorDetails?.WSName}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">W/S GST Number</ion-col>
-        <ion-col size="auto">GH76252752HH2791</ion-col>
+        <ion-col size="auto">{{shipmentDetails.vendorDetails?.GSTNo}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">W/S PAN Number</ion-col>
-        <ion-col size="auto">JLDYT636186</ion-col>
+        <ion-col size="auto">{{shipmentDetails.vendorDetails?.panNo}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">W/S Phone No</ion-col>
-        <ion-col size="auto">9775625621</ion-col>
+        <ion-col size="auto">{{shipmentDetails.vendorDetails?.phoneNO}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">W/S Postal Code</ion-col>
-        <ion-col size="auto">101100</ion-col>
+        <ion-col size="auto">{{shipmentDetails.vendorDetails?.postalCode}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Distance</ion-col>
-        <ion-col size="auto">106 km</ion-col>
+        <ion-col size="auto">{{this.shipmentDetails.vendorDetails?.distance || 0}} km</ion-col>
       </ion-row>
     </ion-grid>
 
@@ -190,27 +191,28 @@
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">KOT</ion-col>
-        <ion-col size="auto">306.75</ion-col>
+        <ion-col size="auto">{{this.shipmentDetails.vendorDetails?.kot || 0}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">MLR Number</ion-col>
-        <ion-col size="auto">84252252821</ion-col>
+        <ion-col size="auto">{{shipmentDetails.LRNo}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Diesel Voucher Number</ion-col>
-        <ion-col size="auto">65271</ion-col>
+        <ion-col size="auto">{{shipmentDetails.voucher || ''}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">W/S PAN Number</ion-col>
-        <ion-col size="auto">JLDYT636186</ion-col>
+        <ion-col size="auto">{{shipmentDetails.vendorDetails?.panNo}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Diesel Amount</ion-col>
-        <ion-col class="to-be-filled" size="auto">*To be Filled</ion-col>
+        <!-- <ion-col *ngIf="!shipmentDetails.dieselAmount" class="to-be-filled" size="auto">*To be Filled</ion-col> -->
+        <ion-col size="auto">₹ {{shipmentDetails.voucherData?.dieselExpenseAmount || 0}}</ion-col>
       </ion-row>
     </ion-grid>
 
@@ -220,65 +222,60 @@
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Labour Expense</ion-col>
-        <ion-col size="auto">₹ 306.75</ion-col>
+        <ion-col size="auto">₹ {{shipmentDetails.voucherData?.labourExpenseAmount || 0}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Khuraki Expense</ion-col>
-        <ion-col size="auto">₹ 82532</ion-col>
+        <ion-col size="auto">₹ {{shipmentDetails.voucherData?.khurakiExpenseAmount || 0}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Frieght</ion-col>
-        <ion-col size="auto">₹ 6512</ion-col>
+        <ion-col size="auto">₹ {{shipmentDetails.voucherData?.freightExpenseAmount || 0}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Toll Expense</ion-col>
-        <ion-col size="auto">JLDYT636186</ion-col>
+        <ion-col size="auto">₹ {{shipmentDetails.voucherData?.tollExpenseAmount || 0}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Repairs Expense</ion-col>
-        <ion-col class="to-be-filled" size="auto">*To be Filled</ion-col>
+        <ion-col size="auto">₹ {{shipmentDetails.voucherData?.repairExpenseAmount || 0}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Other Expense</ion-col>
-        <ion-col class="to-be-filled" size="auto">*To be Filled</ion-col>
+        <ion-col size="auto">₹ {{shipmentDetails.voucherData?.otherExpenseAmount || 0}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Total Expense</ion-col>
-        <ion-col class="to-be-filled" size="auto"
-          >*To be Calculated by System</ion-col
-        >
+        <ion-col class="" size="auto">₹ {{totalExpense}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Remark</ion-col>
-        <ion-col class="to-be-filled" size="auto">*To be Filled</ion-col>
+        <ion-col *ngIf="!shipmentDetails.voucherData?.remark" class="to-be-filled" size="auto">*To be Filled</ion-col>
+        <ion-col *ngIf="shipmentDetails.voucherData?.remark" size="auto">{{shipmentDetails.voucherData?.remark}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Time Stamp</ion-col>
-        <ion-col class="to-be-filled" size="auto"
-          >*To be Calculated by System</ion-col
-        >
+        <ion-col size="auto">{{shipmentDetails.voucherData?.createdAt && formatDate(shipmentDetails.voucherData?.createdAt, 'DD MMM YYYY')}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Filled By</ion-col>
-        <ion-col class="to-be-filled" size="auto"
-          >*To be Calculated by System</ion-col
-        >
+        <ion-col class="" size="auto">{{shipmentDetails.voucherData?.createdByName}}</ion-col>
       </ion-row>
     </ion-grid>
 
     <div class="ion-margin-vertical">
       <p class="heading">RC Photo</p>
       <img
-        src="https://ik.imagekit.io/xji6otwwkb/default-image.jpg?updatedAt=1680849653455"
+        src="{{shipmentDetails.vehicle ? shipmentDetails.vehicle.permitPhoto : config.url.defaultProfile}}"
         alt="Upload Image"
       />
     </div>
@@ -286,22 +283,31 @@
     <div class="ion-margin-vertical">
       <p class="heading">Insurance Photo</p>
       <img
-        src="https://ik.imagekit.io/xji6otwwkb/default-image.jpg?updatedAt=1680849653455"
+      src="{{shipmentDetails.vehicle ? shipmentDetails?.vehicle.insurancePhoto : config.url.defaultProfile}}"
         alt="Upload Image"
       />
     </div>
 
     <div class="tab-bar">
       <ion-button
+        *ngIf="homeService.userAccessData?.fill_shipment_voucher && (shipmentDetails.status == shipmentStatus.PendingDispatch || shipmentDetails.status == shipmentStatus.Suspended)"
         (click)="openFillVoucherPage()"
         shape="round"
         class="active-btn"
         >Fill Voucher</ion-button
       >
-      <ion-button shape="round">Suspend</ion-button>
+      <ion-button
+        *ngIf="homeService.userAccessData?.discard_vouchers && shipmentDetails.status == shipmentStatus.PendingPostDelivery"
+        (click)="openFillDeliveryPage()"
+        shape="round"
+        class="active-btn"
+        >Fill Post Dlv.</ion-button
+      >
+      <ion-button *ngIf="shipmentDetails.status === shipmentStatus.PendingDispatch" shape="round" (click)="isSuspended=true">Suspend</ion-button>
     </div>
   </ion-card>
 
+  <app-confirmation (event)="suspend($event)" [show]="showConfirm"></app-confirmation>
   <div class="below-space"></div>
 </ion-content>
 
@@ -326,7 +332,7 @@
             height="133"
             viewBox="0 0 123 133"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+            xmlns="https://www.w3.org/2000/svg"
           >
             <path
               fill-rule="evenodd"
@@ -552,7 +558,7 @@
             height="24"
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+            xmlns="https://www.w3.org/2000/svg"
           >
             <path
               d="M2 4C2 3.44772 2.44772 3 3 3H10.4142L12.4142 5H21C21.5523 5 22 5.44772 22 6V20C22 20.5523 21.5523 21 21 21H3C2.45 21 2 20.55 2 20V4ZM10.5858 6L9.58579 5H4V7H9.58579L10.5858 6ZM4 9V19H20V7H12.4142L10.4142 9H4Z"
@@ -591,7 +597,7 @@
             height="133"
             viewBox="0 0 137 133"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+            xmlns="https://www.w3.org/2000/svg"
           >
             <path
               d="M24.134 17.8278L66.481 6.4789C81.9129 2.3432 93.0915 9.08995 97.3895 25.1335L109.173 69.1171C113.471 85.1607 107.163 96.5938 91.7309 100.73L49.3839 112.078C33.952 116.214 22.8137 109.457 18.5157 93.413L6.73238 49.4294C2.43429 33.3858 8.70217 21.9635 24.134 17.8278Z"
@@ -793,7 +799,7 @@
             height="24"
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+            xmlns="https://www.w3.org/2000/svg"
           >
             <path
               d="M2 4C2 3.44772 2.44772 3 3 3H10.4142L12.4142 5H21C21.5523 5 22 5.44772 22 6V20C22 20.5523 21.5523 21 21 21H3C2.45 21 2 20.55 2 20V4ZM10.5858 6L9.58579 5H4V7H9.58579L10.5858 6ZM4 9V19H20V7H12.4142L10.4142 9H4Z"
@@ -808,5 +814,207 @@
         </div>
       </div>
     </ion-content>
+  </ng-template>
+</ion-modal>
+
+<!-- suspended-modal -->
+<ion-modal #modal [canDismiss]="dismissModal" [isOpen]="isSuspended" [initialBreakpoint]="1" [breakpoints]="[0, 1]" class="dismissModal">
+  <ng-template>
+      <div class="ion-padding ion-margin wrapper">
+        <div lines="none" class="ion-text-center my-2">
+          <svg
+            width="203"
+            height="137"
+            viewBox="0 0 203 137"
+            fill="none"
+            xmlns="https://www.w3.org/2000/svg"
+          >
+            <path
+              d="M130.136 78.1793L71.1967 19.1379C64.9925 12.8061 54.6843 12.6291 48.2767 18.8193C46.0432 20.8873 44.512 23.5841 43.7913 26.4283L22.138 107.646C20.9877 116.413 27.3007 124.479 36.1918 125.565C37.9582 125.738 39.778 125.668 41.5214 125.312L122.536 103.605C126.628 102.273 129.961 99.4403 131.962 95.6183C133.96 91.7854 134.327 87.4018 133.004 83.3478C132.421 81.617 131.58 80.0261 130.136 78.1793Z"
+              fill="url(#paint0_linear_705_1280)"
+            />
+            <g filter="url(#filter0_f_705_1280)">
+              <path
+                d="M107.202 83.2888L73.4107 49.4389C69.8537 45.8087 63.9437 45.7072 60.2701 49.2562C58.9895 50.4418 58.1117 51.988 57.6985 53.6186L45.2841 100.183C44.6246 105.209 48.244 109.834 53.3415 110.456C54.3542 110.556 55.3976 110.515 56.3971 110.311L102.845 97.8658C105.191 97.1025 107.102 95.4783 108.249 93.287C109.394 91.0895 109.605 88.5763 108.846 86.2521C108.512 85.2597 108.03 84.3476 107.202 83.2888Z"
+                fill="#F8794E"
+              />
+            </g>
+            <g filter="url(#filter1_b_705_1280)">
+              <path
+                d="M199.763 106.735L145.81 13.098C140.17 3.09525 127.331 -0.582253 117.238 5.0149C113.75 6.85365 110.93 9.71475 109.075 13.0319L54.751 107.397C50.3724 117.98 55.5673 130.19 66.3282 134.529C68.4804 135.338 70.781 135.86 73.0816 136H181.73C187.296 135.706 192.416 133.279 196.201 129.167C199.986 125.041 201.915 119.679 201.619 114.163C201.47 111.802 200.951 109.529 199.763 106.735Z"
+                fill="#FE783E"
+                fill-opacity="0.35"
+              />
+              <path
+                d="M200.224 106.539C200.216 106.52 200.207 106.502 200.197 106.485L146.246 12.8525C146.246 12.8518 146.245 12.8511 146.245 12.8504C140.47 2.61232 127.333 -1.1518 117 4.57508C113.426 6.46088 110.539 9.39087 108.64 12.7849C108.64 12.7859 108.639 12.7868 108.639 12.7878L54.3176 107.147C54.3068 107.166 54.2972 107.185 54.2889 107.205C49.8022 118.051 55.1273 130.551 66.1412 134.993L66.1411 134.993L66.1523 134.997C68.3469 135.822 70.6965 136.356 73.0513 136.499C73.0614 136.5 73.0715 136.5 73.0816 136.5H181.73C181.738 136.5 181.747 136.5 181.756 136.499C187.454 136.198 192.696 133.713 196.569 129.506L196.57 129.505C200.444 125.281 202.422 119.788 202.118 114.136L202.118 114.132C201.965 111.709 201.431 109.381 200.224 106.539Z"
+                stroke="url(#paint1_linear_705_1280)"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </g>
+            <g filter="url(#filter2_bd_705_1280)">
+              <mask id="path-5-inside-1_705_1280" fill="white">
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M127.408 81.2882C130.97 81.2882 133.864 78.3388 133.864 74.8084V54.0011C133.864 50.4634 130.97 47.6023 127.408 47.6023C123.845 47.6023 120.877 50.4634 120.877 54.0011V74.8084C120.877 78.3388 123.845 81.2882 127.408 81.2882ZM120.877 99.9665C120.877 103.49 123.845 106.439 127.408 106.439C130.97 106.439 133.864 103.49 133.864 99.8856C133.864 96.3626 130.97 93.4868 127.408 93.4868C123.845 93.4868 120.877 96.4288 120.877 99.9665Z"
+                />
+              </mask>
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M127.408 81.2882C130.97 81.2882 133.864 78.3388 133.864 74.8084V54.0011C133.864 50.4634 130.97 47.6023 127.408 47.6023C123.845 47.6023 120.877 50.4634 120.877 54.0011V74.8084C120.877 78.3388 123.845 81.2882 127.408 81.2882ZM120.877 99.9665C120.877 103.49 123.845 106.439 127.408 106.439C130.97 106.439 133.864 103.49 133.864 99.8856C133.864 96.3626 130.97 93.4868 127.408 93.4868C123.845 93.4868 120.877 96.4288 120.877 99.9665Z"
+                fill="url(#paint2_linear_705_1280)"
+              />
+              <path
+                d="M133.464 74.8084C133.464 78.1211 130.746 80.8882 127.408 80.8882V81.6882C131.194 81.6882 134.264 78.5566 134.264 74.8084H133.464ZM133.464 54.0011V74.8084H134.264V54.0011H133.464ZM127.408 48.0023C130.753 48.0023 133.464 50.688 133.464 54.0011H134.264C134.264 50.2388 131.187 47.2023 127.408 47.2023V48.0023ZM121.277 54.0011C121.277 50.6939 124.057 48.0023 127.408 48.0023V47.2023C123.634 47.2023 120.477 50.2329 120.477 54.0011H121.277ZM121.277 74.8084V54.0011H120.477V74.8084H121.277ZM127.408 80.8882C124.064 80.8882 121.277 78.1151 121.277 74.8084H120.477C120.477 78.5625 123.627 81.6882 127.408 81.6882V80.8882ZM127.408 106.039C124.063 106.039 121.277 103.266 121.277 99.9665H120.477C120.477 103.714 123.628 106.839 127.408 106.839V106.039ZM133.464 99.8856C133.464 103.275 130.743 106.039 127.408 106.039V106.839C131.197 106.839 134.264 103.704 134.264 99.8856H133.464ZM127.408 93.8868C130.752 93.8868 133.464 96.5866 133.464 99.8856H134.264C134.264 96.1386 131.188 93.0868 127.408 93.0868V93.8868ZM121.277 99.9665C121.277 96.6528 124.063 93.8868 127.408 93.8868V93.0868C123.628 93.0868 120.477 96.2048 120.477 99.9665H121.277Z"
+                fill="url(#paint3_linear_705_1280)"
+                mask="url(#path-5-inside-1_705_1280)"
+              />
+            </g>
+            <defs>
+              <filter
+                id="filter0_f_705_1280"
+                x="26.207"
+                y="27.6543"
+                width="102.086"
+                height="101.854"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+              >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feBlend
+                  mode="normal"
+                  in="SourceGraphic"
+                  in2="BackgroundImageFix"
+                  result="shape"
+                />
+                <feGaussianBlur
+                  stdDeviation="9.5"
+                  result="effect1_foregroundBlur_705_1280"
+                />
+              </filter>
+              <filter
+                id="filter1_b_705_1280"
+                x="28.1973"
+                y="-22.6062"
+                width="198.451"
+                height="183.606"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+              >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feGaussianBlur in="BackgroundImageFix" stdDeviation="12" />
+                <feComposite
+                  in2="SourceAlpha"
+                  operator="in"
+                  result="effect1_backgroundBlur_705_1280"
+                />
+                <feBlend
+                  mode="normal"
+                  in="SourceGraphic"
+                  in2="effect1_backgroundBlur_705_1280"
+                  result="shape"
+                />
+              </filter>
+              <filter
+                id="filter2_bd_705_1280"
+                x="105.877"
+                y="32.6023"
+                width="42.9863"
+                height="88.8367"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+              >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feGaussianBlur in="BackgroundImageFix" stdDeviation="7.5" />
+                <feComposite
+                  in2="SourceAlpha"
+                  operator="in"
+                  result="effect1_backgroundBlur_705_1280"
+                />
+                <feColorMatrix
+                  in="SourceAlpha"
+                  type="matrix"
+                  values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                  result="hardAlpha"
+                />
+                <feOffset dx="5" dy="5" />
+                <feGaussianBlur stdDeviation="5" />
+                <feColorMatrix
+                  type="matrix"
+                  values="0 0 0 0 1 0 0 0 0 0.537255 0 0 0 0 0.392157 0 0 0 1 0"
+                />
+                <feBlend
+                  mode="normal"
+                  in2="effect1_backgroundBlur_705_1280"
+                  result="effect2_dropShadow_705_1280"
+                />
+                <feBlend
+                  mode="normal"
+                  in="SourceGraphic"
+                  in2="effect2_dropShadow_705_1280"
+                  result="shape"
+                />
+              </filter>
+              <linearGradient
+                id="paint0_linear_705_1280"
+                x1="78.6312"
+                y1="69.1303"
+                x2="-0.983813"
+                y2="144.366"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stop-color="#FF9878" />
+                <stop offset="1" stop-color="#F2825C" />
+              </linearGradient>
+              <linearGradient
+                id="paint1_linear_705_1280"
+                x1="76.8283"
+                y1="17.9593"
+                x2="159.75"
+                y2="132.071"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stop-color="white" stop-opacity="0.25" />
+                <stop offset="1" stop-color="white" stop-opacity="0" />
+              </linearGradient>
+              <linearGradient
+                id="paint2_linear_705_1280"
+                x1="127.372"
+                y1="50.9211"
+                x2="115.448"
+                y2="49.8168"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stop-color="white" stop-opacity="0.75" />
+                <stop offset="1" stop-color="white" stop-opacity="0.2" />
+              </linearGradient>
+              <linearGradient
+                id="paint3_linear_705_1280"
+                x1="122.944"
+                y1="54.4568"
+                x2="142.477"
+                y2="59.7968"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stop-color="white" stop-opacity="0.25" />
+                <stop offset="1" stop-color="white" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <div lines="none" class="ion-text-center mb-2">
+          <ion-text class="error">This Shipment will be Suspended !</ion-text>
+        </div>
+
+        <div class="d-flex justify-center">
+          <div class="tab-bar-error ion-text-center">
+            <button (click)="suspend(true)" class="active-btn">Confirm</button>
+            <button (click)="isSuspended=false">Back</button>
+          </div>
+        </div>
+      </div>
   </ng-template>
 </ion-modal>

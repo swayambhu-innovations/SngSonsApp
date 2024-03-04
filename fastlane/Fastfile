@@ -1,0 +1,80 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test", project_dir: 'android/')
+  end
+
+  
+
+  desc "Deploy a new version to the Google Play"
+  lane :deploy do
+    fetch_and_increment_build_number
+    gradle(
+      task: "clean bundle", # or "assemble", if you want to build an APK
+      build_type: "release",
+      project_dir: 'android/',
+      properties: {
+        "android.injected.signing.store.file" => ENV["KEYSTORE_FILE"],
+        "android.injected.signing.store.password" => ENV["KEYSTORE_PASSWORD"],
+        "android.injected.signing.key.alias" => ENV["KEY_ALIAS"],
+        "android.injected.signing.key.password" => ENV["KEY_PASSWORD"],
+      }  
+    )
+    
+    upload_to_play_store(
+      track: "internal",
+      json_key: ENV["ANDROID_JSON_KEY_FILE"]
+    )
+  end
+
+  desc "Fetches the latest version code from the Play Console and increments it by 1"
+  lane :fetch_and_increment_build_number do
+    app_identifier = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
+
+    version_codes = google_play_track_version_codes(
+      package_name: app_identifier,
+      track: "internal",
+      json_key: ENV["ANDROID_JSON_KEY_FILE"]
+    )
+    
+    updated_version_code = version_codes[0] + 1
+    
+    increment_version_code(
+      version_code: updated_version_code
+    )
+  end
+
+  # desc "Increment the version name"
+  # lane :increment_version_name do
+  #   # Get the current version name from the build.gradle file
+  #   current_version_name = get_version_name
+
+  #   # Split the version name into major, minor, and patch parts
+  #   parts = current_version_name.split('.')
+
+  #   # Increment the appropriate part (e.g., major, minor, or patch)
+  #   # You can modify this logic based on your versioning scheme
+  #   new_version_name = "#{parts[0]}.to_i + 1}"
+
+  #   # Update the version name in the build.gradle file
+  #   update_version_name(version_name: new_version_name)
+  # end
+
+end

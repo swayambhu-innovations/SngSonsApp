@@ -17,6 +17,21 @@ export class UtilService {
         return userdata;
     }
 
+    getUserId() {
+        const data: any = this.getUserdata();
+        return data.access.id;
+    }
+
+    getUserName() {
+        const data: any = this.getUserdata();
+        return data.access.userName;
+    }
+
+    getUserAccessData() {
+        const data: any = this.getUserdata();
+        return data.access.access;
+    }
+
     setUserdata(obj: any) {
         const data: any = { ...this.getUserdata() };
         data.access = { ...data.access, ...obj };
@@ -33,17 +48,17 @@ export class UtilService {
         const hours = Math.round(diff.asHours());
         const minutes = Math.round(diff.asMinutes());
         const seconds = Math.round(diff.asSeconds());
-        if(years > 0) {
+        if (years > 0) {
             return `${years} Years`;
-        } else if(months > 0) {
+        } else if (months > 0) {
             return `${months} Months`;
-        } else if(days > 0) {
+        } else if (days > 0) {
             return `${days} Days`;
-        } else if(hours > 0) {
+        } else if (hours > 0) {
             return `${hours} Hours`;
-        } else if(minutes > 0) {
+        } else if (minutes > 0) {
             return `${minutes} Minutes`;
-        } else if(seconds > 0) {
+        } else if (seconds > 0) {
             return `${seconds} Seconds`;
         }
         return '';
@@ -51,11 +66,11 @@ export class UtilService {
 
     getUserPhoto() {
         const userData: any = this.getUserdata();
-    
+
         if (!userData.access.photoURL) {
-          return `${Config.url.dicebear}${userData.access.userName}`;
+            return `${Config.url.dicebear}${userData.access.userName}`;
         } else {
-          return userData.access.photoURL;
+            return userData.access.photoURL;
         }
-      }
+    }
 }

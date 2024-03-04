@@ -2,11 +2,11 @@
   <ion-grid>
     <ion-row class="ion-justify-content-between ion-align-items-center">
       <ion-col size="auto">Day Wise Summary</ion-col>
-      <ion-col size="auto">
+      <ion-col size="auto" class="cal-icon">
         <button>
           <span>
             <label for="selectDate">
-              {{ date }}
+              {{ dateText }}
             </label>
           </span>
           <svg
@@ -38,23 +38,30 @@
     <ion-row class="ion-justify-content-between ion-align-items-center">
       <ion-col size="auto">
         <div class="circle dispatch"></div>
-        <span>Pending Dispatch : 20</span>
+        <span>Pending Dispatch : {{daywiseSummaryService.chartData['pending-dispatch'].count}}</span>
       </ion-col>
       <ion-col size="auto">
         <div class="circle completed"></div>
-        <span>Completed : 50</span>
+        <span>Completed : {{daywiseSummaryService.chartData['completed'].count}}</span>
       </ion-col>
     </ion-row>
 
     <ion-row class="ion-justify-content-between ion-align-items-center">
       <ion-col size="auto">
         <div class="circle post-delivery"></div>
-        <span>Pending Post Delivery : 15</span>
+        <span>Pending Post Delivery : {{daywiseSummaryService.chartData['pending-post-delivery'].count}}</span>
       </ion-col>
       <ion-col size="auto">
         <div class="circle suspended"></div>
-        <span>Suspended : 12</span>
+        <span>Suspended : {{daywiseSummaryService.chartData['suspended'].count}}</span>
       </ion-col>
     </ion-row>
+    <div class="donut-chart" [hidden]="daywiseSummaryService.totalShipment == 0">
+      <canvas id="donut-chart" #chart>{{chart}}</canvas>
+      <div class="stats">
+        <p>Total Shipments</p>
+        <p class="total">{{daywiseSummaryService.totalShipment}}</p>
+      </div>
+    </div>
   </ion-grid>
 </ion-card>

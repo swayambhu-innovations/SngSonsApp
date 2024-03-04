@@ -17,22 +17,24 @@
             <ion-button shape="round">
               <span>
                 <label for="Date1">
-                  {{ date1 }}
+                  {{ formatDate(date1, 'DD MMM') }}
                   <input
                     id="Date1"
                     type="date"
                     onfocus="this.showPicker()"
                     (change)="startDate($event)"
+                    [value]="date1"
                   />
                 </label>
                 -
                 <label for="Date2"
-                  >{{ date2}}
+                  >{{ formatDate(date2, 'DD MMM') }}
                   <input
                     id="Date2"
                     type="date"
                     onfocus="this.showPicker()"
                     (change)="endDate($event)"
+                    [value]="date2"
                   />
                 </label>
               </span>
@@ -274,7 +276,7 @@
                 </linearGradient>
               </defs>
             </svg>
-            <p id="KOT">1500</p>
+            <p id="KOT">{{statsData.kot}}</p>
             <p>KOT Shipped</p>
           </ion-card>
         </ion-col>
@@ -453,7 +455,7 @@
                 </linearGradient>
               </defs>
             </svg>
-            <p id="Vendor">13</p>
+            <p id="Vendor">{{statsData.vendors}}</p>
             <p>Vendors Served</p>
           </ion-card>
         </ion-col>
@@ -665,7 +667,7 @@
                 </linearGradient>
               </defs>
             </svg>
-            <p id="Shipments">22</p>
+            <p id="Shipments">{{statsData.shipments}}</p>
             <p>Shipments Sent</p>
           </ion-card>
         </ion-col>
@@ -969,14 +971,14 @@
                 </linearGradient>
               </defs>
             </svg>
-            <p id="Sales">₹ 1500420</p>
+            <p id="Sales">₹ {{statsData.total}}</p>
             <p>Total Sales</p>
           </ion-card>
         </ion-col>
       </ion-row>
     </ion-grid>
 
-    <app-voucher></app-voucher>
+    <app-voucher [heading]="'Shipment Wise Voucher'" [search]="'Shipment'" [tableData]="tableData" [data]="shipmentsData" [showCal]="false" [fetchDefault]="false"></app-voucher>
 
     <div class="below-space"></div>
   </div>

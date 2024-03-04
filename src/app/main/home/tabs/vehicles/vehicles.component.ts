@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HomeService } from '../../home.service';
 
 @Component({
   selector: 'app-vehicles',
@@ -6,7 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./vehicles.component.scss'],
 })
 export class VehiclesComponent implements OnInit {
-  constructor() {}
+  tableData = [
+    { name: 'Vehicle No.', key: 'LorryNo', size: '4' },
+    { name: 'Party Name', key: 'CustomerName', size: '3' },
+    { name: 'Area', key: 'WSTown', size: '3' }
+  ];
+  constructor(public homeService: HomeService) {}
 
   ngOnInit() {}
 }

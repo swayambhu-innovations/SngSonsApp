@@ -1,910 +1,694 @@
 <ion-content [fullscreen]="true">
-  <ion-grid>
-    <ion-row class="ion-justify-content-between ion-align-items-center">
-      <ion-col size="auto">
-        <ion-row class="ion-justify-content-center ion-align-items-center">
-          <ion-col size="auto">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="30"
-              height="30"
-              viewBox="0 0 26 26"
-              fill="none"
-              (click)="goBack()"
-            >
-              <path
-                d="M11.7301 13.0008L17.0924 18.3629L15.5603 19.895L8.66602 13.0008L15.5603 6.10645L17.0924 7.63851L11.7301 13.0008Z"
-                fill="#1540BD"
-              />
-            </svg>
-          </ion-col>
-          <ion-col size="auto">
-            <div>
-              <ion-text id="heading"> Post Delivery Expense Entry </ion-text>
-              <ion-text> Synced 2 Min Ago </ion-text>
+  <form [formGroup]="postDeliveryForm">
+    <ion-grid>
+      <ion-row class="ion-justify-content-between ion-align-items-center">
+        <ion-col size="auto">
+          <ion-row class="ion-justify-content-center ion-align-items-center">
+            <ion-col size="auto">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="30"
+                height="30"
+                viewBox="0 0 26 26"
+                fill="none"
+                (click)="goBack()"
+              >
+                <path
+                  d="M11.7301 13.0008L17.0924 18.3629L15.5603 19.895L8.66602 13.0008L15.5603 6.10645L17.0924 7.63851L11.7301 13.0008Z"
+                  fill="#1540BD"
+                />
+              </svg>
+            </ion-col>
+            <ion-col size="auto">
+              <div>
+                <ion-text id="heading"> Post Delivery Expense Entry </ion-text>
+                <ion-text> Synced 2 Min Ago </ion-text>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="auto">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="25"
+            height="22"
+            viewBox="0 0 25 22"
+            fill="none"
+          >
+            <path
+              d="M0 11.5583L2.94974 9.20389C3.08698 9.09344 3.25717 9.0333 3.43254 9.0333C3.6079 9.0333 3.77809 9.09344 3.91533 9.20389L6.86819 11.5583L5.90882 12.7969L4.15206 11.3975C4.2305 13.1056 4.81474 14.7504 5.82888 16.1182C6.84302 17.486 8.2402 18.5136 9.83895 19.0676C11.4377 19.6216 13.1641 19.6763 14.794 19.2246C16.4239 18.773 17.8819 17.8359 18.9786 16.535L20.1623 17.5562C18.8678 19.1033 17.1427 20.2198 15.2118 20.7601C13.2809 21.3004 11.234 21.2395 9.33786 20.5852C7.44174 19.9309 5.78447 18.7137 4.58217 17.0922C3.37987 15.4707 2.68834 13.5203 2.59776 11.4953L0.962481 12.7969L0 11.5583ZM18.3401 10.4426L21.2929 12.7969C21.4302 12.9074 21.6004 12.9675 21.7757 12.9675C21.9511 12.9675 22.1213 12.9074 22.2585 12.7969L25.2114 10.4426L24.2489 9.20389L22.5451 10.5623C22.4658 8.53178 21.7821 6.57285 20.5837 4.94221C19.3853 3.31156 17.728 2.08525 15.829 1.42396C13.93 0.762675 11.8779 0.697254 9.9416 1.23627C8.00525 1.77529 6.27498 2.8936 4.97749 4.44468L6.16112 5.46586C7.25461 4.16891 8.70724 3.23346 10.3314 2.78031C11.9556 2.32716 13.6768 2.37713 15.2726 2.92376C16.8685 3.47039 18.2657 4.48858 19.2839 5.84684C20.3021 7.2051 20.8945 8.84104 20.9846 10.5434L19.3026 9.20389L18.3401 10.4426Z"
+              fill="#1540BD"
+            />
+          </svg>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-card class="ion-padding">
+      <p class="heading">Shipment ID : {{id}}</p>
+
+      <!-- Invoice Number -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="Invoice Number" fill="solid" class="custom" labelPlacement="floating"
+            placeholder="Invoice Number" value="{{this.shipmentDetails.vendorDetails?.invoiceNumber}}"
+            disabled="true"></ion-input>
+      </ion-item>
+
+      <!-- Vehicle Number-->
+      <ion-accordion-group>
+        <ion-accordion value="first">
+          <ion-item slot="header">
+            <ion-input lines="none" label="Vehicle Number" fill="solid" class="custom" labelPlacement="floating"
+              placeholder="Vehicle Number" value="{{this.shipmentDetails.vehicle?.registrationNo}}"
+              disabled="true"></ion-input>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <ion-grid>
+              <ion-row class="ion-justify-content-between ion-align-items-center">
+                <ion-col class="head" size="auto"> Vehicle Type </ion-col>
+                <ion-col size="auto"> {{shipmentDetails.vehicle?.vehicleCat}} </ion-col>
+              </ion-row>
+
+              <ion-row class="ion-justify-content-between ion-align-items-center">
+                <ion-col class="head" size="auto">
+                  Vehicle Fuel Capacity
+                </ion-col>
+                <ion-col size="auto"> {{shipmentDetails.vehicle?.fuelTankCapacity}} Ltr </ion-col>
+              </ion-row>
+
+              <ion-row class="ion-justify-content-between ion-align-items-center">
+                <ion-col class="head" size="auto"> Ownership </ion-col>
+                <ion-col size="auto"> {{shipmentDetails.vehicle?.ownershipType}} </ion-col>
+              </ion-row>
+
+              <ion-row class="ion-justify-content-between ion-align-items-center">
+                <ion-col class="head" size="auto"> Fueling Type </ion-col>
+                <ion-col size="auto"> {{shipmentDetails.vehicle?.fuelType}}</ion-col>
+              </ion-row>
+
+              <ion-row class="ion-justify-content-between ion-align-items-center">
+                <ion-col class="head" size="auto"> Fuel Tank Status </ion-col>
+                <ion-col size="auto"> 0 Ltr </ion-col>
+              </ion-row>
+
+              <ion-row class="ion-justify-content-between ion-align-items-center">
+                <ion-col class="head" size="auto">
+                  Tacometer Opening Reading
+                </ion-col>
+                <ion-col size="auto"> {{shipmentDetails.vehicle?.currOdometerReading}} km </ion-col>
+              </ion-row>
+              <ion-row class="ion-justify-content-between ion-align-items-center">
+                <ion-col class="head" size="auto">
+                  Vehicle Dispatch Date
+                </ion-col>
+                <ion-col size="auto"> {{formatDate(shipmentDetails?.BillingDate, 'DD MMM YYYY')}} </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+
+      <!-- GST Invoice Number -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="GST Invoice Number" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="GST Invoice Number" value="{{shipmentDetails.vendorDetails?.gstInvoiceNumber}}"
+          disabled="true"></ion-input>
+      </ion-item>
+
+      <p class="heading ion-margin-vertical">W/S Details</p>
+
+      <!-- W/S Code -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="W/S Code" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="W/S Code" value="{{shipmentDetails.vendorDetails?.WSCode}}" disabled="true"></ion-input>
+      </ion-item>
+
+      <!-- W/S Name -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="W/S Name" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="W/S Name" value="{{shipmentDetails.vendorDetails?.WSName}}" disabled="true"></ion-input>
+      </ion-item>
+
+      <!-- W/S Pan Number -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="W/S Pan Number" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="W/S Pan Number" value="{{shipmentDetails.vendorDetails?.panNo}}" disabled="true"></ion-input>
+      </ion-item>
+
+      <!-- W/S Phone no -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="W/S Phone no" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="W/S Phone no" value="{{shipmentDetails.vendorDetails?.phoneNO}}" disabled="true"></ion-input>
+      </ion-item>
+
+      <!-- W/S Postal Code -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="W/S Postal Code" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="W/S Postal Code" value="{{shipmentDetails.vendorDetails?.postalCode}}" disabled="true"></ion-input>
+      </ion-item>
+
+      <!-- Distance -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="Distance" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="Distance" value="{{shipmentDetails.vendorDetails?.distance}} km" disabled="true"></ion-input>
+      </ion-item>
+
+      <p class="heading ion-margin-vertical">Shipment Details</p>
+
+      <!-- KOT -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="KOT" fill="solid" class="custom" labelPlacement="floating" placeholder="KOT"
+          value="{{shipmentDetails.vendorDetails?.kot}}" disabled="true"></ion-input>
+      </ion-item>
+
+      <!-- MLR Number -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="MLR Number" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="MLR Number" value="{{shipmentDetails.LRNo}}" disabled="true"></ion-input>
+      </ion-item>
+
+      <!-- Diesel Voucher Number -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="Diesel Voucher Number" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="Diesel Voucher Number" disabled="true" value="{{shipmentDetails.voucher}}"></ion-input>
+        <!-- <label class="switch">
+          <input type="checkbox" [checked]="true" />
+          <span class="slider round"></span>
+        </label> -->
+      </ion-item>
+
+      <!-- Diesel Amoumt -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="Diesel Amoumt" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="Diesel Amoumt" disabled="true" value="₹ {{shipmentDetails.voucherData?.dieselExpenseAmount || 0}}"></ion-input>
+      </ion-item>
+
+      <p class="heading ion-margin-vertical">Cash Expense</p>
+
+      <!-- Labour Expense -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="Labour Expense" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="Labour Expense" disabled="true" value="₹ {{shipmentDetails.voucherData?.labourExpenseAmount || 0}}"></ion-input>
+      </ion-item>
+
+      <!-- Khuraki Expense -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="Khuraki Expense" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="Khuraki Expense" disabled="true" value="₹ {{shipmentDetails.voucherData?.khurakiExpenseAmount || 0}}"></ion-input>
+      </ion-item>
+
+      <!-- Frieght -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="Frieght" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="Frieght" disabled="true" value="₹ {{shipmentDetails.voucherData?.freightExpenseAmount || 0}}"></ion-input>
+      </ion-item>
+
+      <!-- Toll Expenses -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="Toll Expenses" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="Toll Expenses" disabled="true" value="₹ {{shipmentDetails.voucherData?.tollExpenseAmount || 0}}"></ion-input>
+      </ion-item>
+
+      <!-- Repair Expenses -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="Repair Expenses" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="Repair Expenses" disabled="true" value="₹ {{shipmentDetails.voucherData?.repairExpenseAmount || 0}}"></ion-input>
+      </ion-item>
+
+      <!-- Other Expenses -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="Other Expenses" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="Other Expenses" disabled="true" value="₹ {{shipmentDetails.voucherData?.otherExpenseAmount || 0}}"></ion-input>
+      </ion-item>
+
+      <!-- Diesel Amoumt -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="Diesel Amoumt" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="Diesel Amoumt" disabled="true" value="₹ {{shipmentDetails.voucherData?.dieselExpenseAmount || 0}}"></ion-input>
+      </ion-item>
+
+      <!-- Total Expense -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="Total Expense" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="Total Expense" disabled="true" value="₹ {{totalExpense || 0}}"></ion-input>
+      </ion-item>
+
+      <!-- Remarks -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="Remarks" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="Remarks" disabled="true" value="{{shipmentDetails.voucherData?.remark || ''}}"></ion-input>
+      </ion-item>
+
+      <!-- Time Stamp -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="Time Stamp" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="Time Stamp" disabled="true" value="{{shipmentDetails.voucherData?.createdAt && formatDate(shipmentDetails.voucherData?.createdAt, 'DD MMM YYYY')}}"></ion-input>
+      </ion-item>
+
+      <!-- Filled By -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="Filled By" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="Filled By" disabled="true" value="{{shipmentDetails.voucherData?.createdByName}}"></ion-input>
+      </ion-item>
+
+      <p class="heading ion-margin-vertical">Post Delivery Expense</p>
+
+      <!-- Cash Expenses -->
+      <ion-accordion-group>
+        <ion-accordion value="first">
+          <ion-item slot="header" color="light">
+            <ion-label>Cash Expense if any (₹)</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <div class="input-box">
+              <input formControlName="cashExpenseAmount" type="number" placeholder="Enter here..." />
+              <button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="26"
+                  height="26"
+                  viewBox="0 0 26 26"
+                  fill="none"
+                >
+                  <path
+                    d="M14.2699 13.0008L8.9076 18.3629L10.4397 19.895L17.334 13.0008L10.4397 6.10645L8.9076 7.63851L14.2699 13.0008Z"
+                    fill="white"
+                  />
+                </svg>
+              </button>
             </div>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-      <ion-col size="auto">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="25"
-          height="22"
-          viewBox="0 0 25 22"
-          fill="none"
-        >
-          <path
-            d="M0 11.5583L2.94974 9.20389C3.08698 9.09344 3.25717 9.0333 3.43254 9.0333C3.6079 9.0333 3.77809 9.09344 3.91533 9.20389L6.86819 11.5583L5.90882 12.7969L4.15206 11.3975C4.2305 13.1056 4.81474 14.7504 5.82888 16.1182C6.84302 17.486 8.2402 18.5136 9.83895 19.0676C11.4377 19.6216 13.1641 19.6763 14.794 19.2246C16.4239 18.773 17.8819 17.8359 18.9786 16.535L20.1623 17.5562C18.8678 19.1033 17.1427 20.2198 15.2118 20.7601C13.2809 21.3004 11.234 21.2395 9.33786 20.5852C7.44174 19.9309 5.78447 18.7137 4.58217 17.0922C3.37987 15.4707 2.68834 13.5203 2.59776 11.4953L0.962481 12.7969L0 11.5583ZM18.3401 10.4426L21.2929 12.7969C21.4302 12.9074 21.6004 12.9675 21.7757 12.9675C21.9511 12.9675 22.1213 12.9074 22.2585 12.7969L25.2114 10.4426L24.2489 9.20389L22.5451 10.5623C22.4658 8.53178 21.7821 6.57285 20.5837 4.94221C19.3853 3.31156 17.728 2.08525 15.829 1.42396C13.93 0.762675 11.8779 0.697254 9.9416 1.23627C8.00525 1.77529 6.27498 2.8936 4.97749 4.44468L6.16112 5.46586C7.25461 4.16891 8.70724 3.23346 10.3314 2.78031C11.9556 2.32716 13.6768 2.37713 15.2726 2.92376C16.8685 3.47039 18.2657 4.48858 19.2839 5.84684C20.3021 7.2051 20.8945 8.84104 20.9846 10.5434L19.3026 9.20389L18.3401 10.4426Z"
-            fill="#1540BD"
-          />
-        </svg>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <ion-card class="ion-padding">
-    <p class="heading">Shipment ID : {{id}}</p>
-
-    <!-- Invoice Number -->
-    <ion-item lines="none">
-      <ion-input
-        lines="none"
-        label="Invoice Number"
-        fill="solid"
-        class="custom"
-        labelPlacement="floating"
-        placeholder="Invoice Number"
-        value="Bo25094447759"
-      ></ion-input>
-    </ion-item>
-
-    <!-- Vehicle Number-->
-    <ion-accordion-group>
-      <ion-accordion value="first">
-        <ion-item slot="header" color="light">
-          <ion-input
-            lines="none"
-            label="Vehicle Number"
-            fill="solid"
-            class="custom"
-            labelPlacement="floating"
-            placeholder="Vehicle Number"
-            value="UP70ET8032"
-          ></ion-input>
-        </ion-item>
-        <div class="ion-padding" slot="content">
-          <ion-grid>
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col class="head" size="auto"> Vehicle Type </ion-col>
-              <ion-col size="auto"> Tata Ace 407 </ion-col>
-            </ion-row>
-
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col class="head" size="auto">
-                Vehicle Fuel Capacity
-              </ion-col>
-              <ion-col size="auto"> 65 Ltr </ion-col>
-            </ion-row>
-
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col class="head" size="auto"> Ownership </ion-col>
-              <ion-col size="auto"> Owned </ion-col>
-            </ion-row>
-
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col class="head" size="auto"> Fueling Type </ion-col>
-              <ion-col size="auto"> Diesel</ion-col>
-            </ion-row>
-
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col class="head" size="auto"> Fuel Tank Status </ion-col>
-              <ion-col size="auto"> 45 Ltr </ion-col>
-            </ion-row>
-
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col class="head" size="auto">
-                Tacometer Opening Reading
-              </ion-col>
-              <ion-col size="auto"> 650022 km </ion-col>
-            </ion-row>
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col class="head" size="auto">
-                Vehicle Dispatch Date
-              </ion-col>
-              <ion-col size="auto"> 30 Aug 2023 </ion-col>
-            </ion-row>
-          </ion-grid>
-        </div>
-      </ion-accordion>
-    </ion-accordion-group>
-
-    <!-- GST Invoice Number -->
-    <ion-item lines="none">
-      <ion-input
-        lines="none"
-        label="GST Invoice Number"
-        fill="solid"
-        class="custom"
-        labelPlacement="floating"
-        placeholder="GST Invoice Number"
-        value="UPHFS62684GG8255"
-      ></ion-input>
-    </ion-item>
-
-    <p class="heading ion-margin-vertical">W/S Details</p>
-
-    <!-- W/S Code -->
-    <ion-item lines="none">
-      <ion-input
-        lines="none"
-        label="W/S Code"
-        fill="solid"
-        class="custom"
-        labelPlacement="floating"
-        placeholder="W/S Code"
-        value="766272814"
-      ></ion-input>
-    </ion-item>
-
-    <!-- W/S Name -->
-    <ion-item lines="none">
-      <ion-input
-        lines="none"
-        label="W/S Name"
-        fill="solid"
-        class="custom"
-        labelPlacement="floating"
-        placeholder="W/S Name"
-        value="Shree Ram Chandra Ltd."
-      ></ion-input>
-    </ion-item>
-
-    <!-- W/S Pan Number -->
-    <ion-item lines="none">
-      <ion-input
-        lines="none"
-        label="W/S Pan Number"
-        fill="solid"
-        class="custom"
-        labelPlacement="floating"
-        placeholder="W/S Pan Number"
-        value="JLD65268177"
-      ></ion-input>
-    </ion-item>
-
-    <!-- W/S Phone no -->
-    <ion-item lines="none">
-      <ion-input
-        lines="none"
-        label="W/S Phone no"
-        fill="solid"
-        class="custom"
-        labelPlacement="floating"
-        placeholder="W/S Phone no"
-        value="9557269177"
-      ></ion-input>
-    </ion-item>
-
-    <!-- W/S Postal Code -->
-    <ion-item lines="none">
-      <ion-input
-        lines="none"
-        label="W/S Postal Code"
-        fill="solid"
-        class="custom"
-        labelPlacement="floating"
-        placeholder="W/S Postal Code"
-        value="101101"
-      ></ion-input>
-    </ion-item>
-
-    <!-- Distance -->
-    <ion-item lines="none">
-      <ion-input
-        lines="none"
-        label="Distance"
-        fill="solid"
-        class="custom"
-        labelPlacement="floating"
-        placeholder="Distance"
-        value="108 km"
-      ></ion-input>
-    </ion-item>
-
-    <p class="heading ion-margin-vertical">Shipment Details</p>
-
-    <!-- KOT -->
-    <ion-item lines="none">
-      <ion-input
-        lines="none"
-        label="KOT"
-        fill="solid"
-        class="custom"
-        labelPlacement="floating"
-        placeholder="KOT"
-        value="306.75"
-      ></ion-input>
-    </ion-item>
-
-    <!-- MLR Number -->
-    <ion-item lines="none">
-      <ion-input
-        lines="none"
-        label="MLR Number"
-        fill="solid"
-        class="custom"
-        labelPlacement="floating"
-        placeholder="MLR Number"
-        value="2527681"
-      ></ion-input>
-    </ion-item>
-
-    <!-- Diesel Voucher Number -->
-    <ion-item lines="none">
-      <ion-input
-        lines="none"
-        label="Diesel Voucher Number"
-        fill="solid"
-        class="custom"
-        labelPlacement="floating"
-        placeholder="Diesel Voucher Number"
-        value="7757544"
-      ></ion-input>
-    </ion-item>
-
-    <!-- Diesel Amoumt -->
-    <ion-item lines="none">
-      <ion-input
-        lines="none"
-        label="Diesel Amoumt"
-        fill="solid"
-        class="custom"
-        labelPlacement="floating"
-        placeholder="Diesel Amoumt"
-        value="₹ 5000"
-      ></ion-input>
-    </ion-item>
-
-    <p class="heading ion-margin-vertical">Cash Expense</p>
-
-    <!-- Labour Expense -->
-    <ion-item lines="none">
-      <ion-input
-        lines="none"
-        label="Labour Expense"
-        fill="solid"
-        class="custom"
-        labelPlacement="floating"
-        placeholder="Labour Expense"
-        value="306.75"
-      ></ion-input>
-    </ion-item>
-
-    <!-- Khuraki Expense -->
-    <ion-item lines="none">
-      <ion-input
-        lines="none"
-        label="Khuraki Expense"
-        fill="solid"
-        class="custom"
-        labelPlacement="floating"
-        placeholder="Khuraki Expense"
-        value="87628516"
-      ></ion-input>
-    </ion-item>
-
-    <!-- Frieght -->
-    <ion-item lines="none">
-      <ion-input
-        lines="none"
-        label="Frieght"
-        fill="solid"
-        class="custom"
-        labelPlacement="floating"
-        placeholder="Frieght"
-        value="2547244"
-      ></ion-input>
-    </ion-item>
-
-    <!-- Repair Expenses -->
-    <ion-item lines="none">
-      <ion-input
-        lines="none"
-        label="Repair Expense"
-        fill="solid"
-        class="custom"
-        labelPlacement="floating"
-        placeholder="Repair Expense"
-        value="₹ 5000"
-      ></ion-input>
-    </ion-item>
-
-    <!-- Other Expenses -->
-    <ion-item lines="none">
-      <ion-input
-        lines="none"
-        label="Other Expense"
-        fill="solid"
-        class="custom"
-        labelPlacement="floating"
-        placeholder="Other Expense"
-        value="₹ 25487"
-      ></ion-input>
-    </ion-item>
-
-    <!-- Diesel Amoumt -->
-    <ion-item lines="none">
-      <ion-input
-        lines="none"
-        label="Diesel Amoumt"
-        fill="solid"
-        class="custom"
-        labelPlacement="floating"
-        placeholder="Diesel Amoumt"
-        value="₹ 5000"
-      ></ion-input>
-    </ion-item>
-
-    <!-- Total Expense -->
-    <ion-item lines="none">
-      <ion-input
-        lines="none"
-        label="Total Expense"
-        fill="solid"
-        class="custom"
-        labelPlacement="floating"
-        placeholder="Total Expense"
-        value="*Fill up to Calculate by System"
-      ></ion-input>
-    </ion-item>
-
-    <!-- Remarks -->
-    <ion-item lines="none">
-      <ion-input
-        lines="none"
-        label="Remarks"
-        fill="solid"
-        class="custom"
-        labelPlacement="floating"
-        placeholder="Remarks"
-        value="Shipment is deliverd succesfully"
-      ></ion-input>
-    </ion-item>
-
-    <!-- Time Stamp -->
-    <ion-item lines="none">
-      <ion-input
-        lines="none"
-        label="Time Stamp"
-        fill="solid"
-        class="custom"
-        labelPlacement="floating"
-        placeholder="Time Stamp"
-        value="*Auto Generated by System"
-      ></ion-input>
-    </ion-item>
-
-    <!-- Filled By -->
-    <ion-item lines="none">
-      <ion-input
-        lines="none"
-        label="Filled By"
-        fill="solid"
-        class="custom"
-        labelPlacement="floating"
-        placeholder="Filled By"
-        value="*Auto Genrated by System"
-      ></ion-input>
-    </ion-item>
-
-    <p class="heading ion-margin-vertical">Post Delivery Expense</p>
-
-    <!-- Cash Expenses -->
-    <ion-accordion-group>
-      <ion-accordion value="first">
-        <ion-item slot="header" color="light">
-          <ion-label>Cash Expense if any (₹)</ion-label>
-        </ion-item>
-        <div class="ion-padding" slot="content">
-          <div class="input-box">
-            <input type="number" placeholder="Enter here..." />
-            <button>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="26"
-                height="26"
-                viewBox="0 0 26 26"
-                fill="none"
-              >
-                <path
-                  d="M14.2699 13.0008L8.9076 18.3629L10.4397 19.895L17.334 13.0008L10.4397 6.10645L8.9076 7.63851L14.2699 13.0008Z"
-                  fill="white"
-                />
-              </svg>
-            </button>
           </div>
-        </div>
-      </ion-accordion>
-    </ion-accordion-group>
+        </ion-accordion>
+      </ion-accordion-group>
 
-    <!-- Toll Expenses -->
-    <ion-accordion-group>
-      <ion-accordion value="first">
-        <ion-item slot="header" color="light">
-          <ion-label>Toll Expense if any (₹)</ion-label>
-        </ion-item>
-        <div class="ion-padding" slot="content">
-          <div class="input-box">
-            <input type="number" placeholder="Enter here..." />
-            <button>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="26"
-                height="26"
-                viewBox="0 0 26 26"
-                fill="none"
-              >
-                <path
-                  d="M14.2699 13.0008L8.9076 18.3629L10.4397 19.895L17.334 13.0008L10.4397 6.10645L8.9076 7.63851L14.2699 13.0008Z"
-                  fill="white"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </ion-accordion>
-    </ion-accordion-group>
-
-    <!-- Invoice Acknowledgement -->
-    <ion-accordion-group>
-      <ion-accordion value="first">
-        <ion-item slot="header" color="light">
-          <ion-label>Invoice Acknowledgement</ion-label>
-        </ion-item>
-        <div class="ion-padding" slot="content">
-          <div class="upload-row">
-            <button>
-              <label for="upload-invoice">
-                <span>Upload Invoice Photo</span>
+      <!-- Toll Expenses -->
+      <ion-accordion-group>
+        <ion-accordion value="first">
+          <ion-item slot="header" color="light">
+            <ion-label>Toll Expense if any (₹)</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <div class="input-box">
+              <input formControlName="tollExpenseAmount" type="number" placeholder="Enter here..." />
+              <button>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="14"
-                  viewBox="0 0 16 14"
+                  width="26"
+                  height="26"
+                  viewBox="0 0 26 26"
                   fill="none"
                 >
                   <path
-                    d="M2.19584 12.1341H13.9032V7.01212H15.3666V12.8658C15.3666 13.2699 15.039 13.5975 14.6349 13.5975H1.46413C1.06002 13.5975 0.732422 13.2699 0.732422 12.8658V7.01212H2.19584V12.1341ZM8.7812 4.817V9.93895H7.31779V4.817H3.65925L8.04949 0.426758L12.4397 4.817H8.7812Z"
-                    fill="#1540BD"
+                    d="M14.2699 13.0008L8.9076 18.3629L10.4397 19.895L17.334 13.0008L10.4397 6.10645L8.9076 7.63851L14.2699 13.0008Z"
+                    fill="white"
                   />
                 </svg>
-              </label>
-            </button>
-            <input
-              id="upload-invoice"
-              style="display: none"
-              type="file"
-              (change)="uploadInvoice($event)"
-              accept="image/x-png,image/gif,image/jpeg"
-            />
-            <button (click)="removeInv()">
-              <span>Remove</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-              >
-                <path
-                  d="M12.8291 4.62141H16.4877V6.08482H15.0242V15.597C15.0242 16.0011 14.6967 16.3287 14.2925 16.3287H4.04864C3.64453 16.3287 3.31693 16.0011 3.31693 15.597V6.08482H1.85352V4.62141H5.51205V2.42629C5.51205 2.02218 5.83965 1.69458 6.24376 1.69458H12.0974C12.5015 1.69458 12.8291 2.02218 12.8291 2.42629V4.62141ZM13.5608 6.08482H4.78034V14.8653H13.5608V6.08482ZM6.97547 8.27995H8.43888V12.6702H6.97547V8.27995ZM9.9023 8.27995H11.3657V12.6702H9.9023V8.27995ZM6.97547 3.15799V4.62141H11.3657V3.15799H6.97547Z"
-                  fill="#EA712E"
-                />
-              </svg>
-            </button>
+              </button>
+            </div>
           </div>
-          <div class="preview-box">
-            <img [src]="invoiceSrc" alt="invoice-png" />
-          </div>
-        </div>
-      </ion-accordion>
-    </ion-accordion-group>
+        </ion-accordion>
+      </ion-accordion-group>
 
-    <!-- MLR Acknowledgement -->
-    <ion-accordion-group>
-      <ion-accordion value="first">
-        <ion-item slot="header" color="light">
-          <ion-label>MLR Acknowledgement</ion-label>
-        </ion-item>
-        <div class="ion-padding" slot="content">
-          <div class="upload-row">
-            <button>
-              <label for="upload-MLR">
-                <span>Upload MLR Photo</span>
+      <!-- Invoice Acknowledgement -->
+      <ion-accordion-group>
+        <ion-accordion value="first">
+          <ion-item slot="header" color="light">
+            <ion-label>Invoice Acknowledgement</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <div class="upload-row">
+              <button>
+                <label for="upload-invoice">
+                  <span>Upload Invoice Photo</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="14"
+                    viewBox="0 0 16 14"
+                    fill="none"
+                  >
+                    <path
+                      d="M2.19584 12.1341H13.9032V7.01212H15.3666V12.8658C15.3666 13.2699 15.039 13.5975 14.6349 13.5975H1.46413C1.06002 13.5975 0.732422 13.2699 0.732422 12.8658V7.01212H2.19584V12.1341ZM8.7812 4.817V9.93895H7.31779V4.817H3.65925L8.04949 0.426758L12.4397 4.817H8.7812Z"
+                      fill="#1540BD"
+                    />
+                  </svg>
+                </label>
+              </button>
+              <input
+                id="upload-invoice"
+                style="display: none"
+                type="file"
+                (change)="uploadPhoto($event, 'invoiceAck')"
+                accept="image/x-png,image/gif,image/jpeg"
+              />
+              <button (click)="removeInv()">
+                <span>Remove</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="14"
-                  viewBox="0 0 16 14"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
                   fill="none"
                 >
                   <path
-                    d="M2.19584 12.1341H13.9032V7.01212H15.3666V12.8658C15.3666 13.2699 15.039 13.5975 14.6349 13.5975H1.46413C1.06002 13.5975 0.732422 13.2699 0.732422 12.8658V7.01212H2.19584V12.1341ZM8.7812 4.817V9.93895H7.31779V4.817H3.65925L8.04949 0.426758L12.4397 4.817H8.7812Z"
-                    fill="#1540BD"
+                    d="M12.8291 4.62141H16.4877V6.08482H15.0242V15.597C15.0242 16.0011 14.6967 16.3287 14.2925 16.3287H4.04864C3.64453 16.3287 3.31693 16.0011 3.31693 15.597V6.08482H1.85352V4.62141H5.51205V2.42629C5.51205 2.02218 5.83965 1.69458 6.24376 1.69458H12.0974C12.5015 1.69458 12.8291 2.02218 12.8291 2.42629V4.62141ZM13.5608 6.08482H4.78034V14.8653H13.5608V6.08482ZM6.97547 8.27995H8.43888V12.6702H6.97547V8.27995ZM9.9023 8.27995H11.3657V12.6702H9.9023V8.27995ZM6.97547 3.15799V4.62141H11.3657V3.15799H6.97547Z"
+                    fill="#EA712E"
                   />
                 </svg>
-              </label>
-            </button>
-            <input
-              id="upload-MLR"
-              style="display: none"
-              type="file"
-              (change)="uploadAckn($event)"
-              accept="image/x-png,image/gif,image/jpeg"
-            />
-            <button (click)="removeMLR()">
-              <span>Remove</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-              >
-                <path
-                  d="M12.8291 4.62141H16.4877V6.08482H15.0242V15.597C15.0242 16.0011 14.6967 16.3287 14.2925 16.3287H4.04864C3.64453 16.3287 3.31693 16.0011 3.31693 15.597V6.08482H1.85352V4.62141H5.51205V2.42629C5.51205 2.02218 5.83965 1.69458 6.24376 1.69458H12.0974C12.5015 1.69458 12.8291 2.02218 12.8291 2.42629V4.62141ZM13.5608 6.08482H4.78034V14.8653H13.5608V6.08482ZM6.97547 8.27995H8.43888V12.6702H6.97547V8.27995ZM9.9023 8.27995H11.3657V12.6702H9.9023V8.27995ZM6.97547 3.15799V4.62141H11.3657V3.15799H6.97547Z"
-                  fill="#EA712E"
-                />
-              </svg>
-            </button>
+              </button>
+            </div>
+            <div class="preview-box">
+              <img [src]="postDeliveryForm.value.invoiceAck || config.url.defaultProfile" alt="invoice-png" />
+            </div>
           </div>
-          <div class="preview-box">
-            <img [src]="MLRAcknSrc" alt="invoice-png" />
+        </ion-accordion>
+      </ion-accordion-group>
+
+      <!-- MLR Acknowledgement -->
+      <ion-accordion-group>
+        <ion-accordion value="first">
+          <ion-item slot="header" color="light">
+            <ion-label>MLR Acknowledgement</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <div class="upload-row">
+              <button>
+                <label for="upload-MLR">
+                  <span>Upload MLR Photo</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="14"
+                    viewBox="0 0 16 14"
+                    fill="none"
+                  >
+                    <path
+                      d="M2.19584 12.1341H13.9032V7.01212H15.3666V12.8658C15.3666 13.2699 15.039 13.5975 14.6349 13.5975H1.46413C1.06002 13.5975 0.732422 13.2699 0.732422 12.8658V7.01212H2.19584V12.1341ZM8.7812 4.817V9.93895H7.31779V4.817H3.65925L8.04949 0.426758L12.4397 4.817H8.7812Z"
+                      fill="#1540BD"
+                    />
+                  </svg>
+                </label>
+              </button>
+              <input
+                id="upload-MLR"
+                style="display: none"
+                type="file"
+                (change)="uploadPhoto($event, 'mlrAck')"
+                accept="image/x-png,image/gif,image/jpeg"
+              />
+              <button (click)="removeMLR()">
+                <span>Remove</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                >
+                  <path
+                    d="M12.8291 4.62141H16.4877V6.08482H15.0242V15.597C15.0242 16.0011 14.6967 16.3287 14.2925 16.3287H4.04864C3.64453 16.3287 3.31693 16.0011 3.31693 15.597V6.08482H1.85352V4.62141H5.51205V2.42629C5.51205 2.02218 5.83965 1.69458 6.24376 1.69458H12.0974C12.5015 1.69458 12.8291 2.02218 12.8291 2.42629V4.62141ZM13.5608 6.08482H4.78034V14.8653H13.5608V6.08482ZM6.97547 8.27995H8.43888V12.6702H6.97547V8.27995ZM9.9023 8.27995H11.3657V12.6702H9.9023V8.27995ZM6.97547 3.15799V4.62141H11.3657V3.15799H6.97547Z"
+                    fill="#EA712E"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div class="preview-box">
+              <img [src]="postDeliveryForm.value.mlrAck || config.url.defaultProfile" alt="invoice-png" />
+            </div>
           </div>
-        </div>
-      </ion-accordion>
-    </ion-accordion-group>
+        </ion-accordion>
+      </ion-accordion-group>
 
-    <!-- Remark -->
-    <ion-accordion-group>
-      <ion-accordion value="first">
-        <ion-item slot="header" color="light">
-          <ion-label>Remark</ion-label>
-        </ion-item>
-        <div class="ion-padding" slot="content">
-          <div class="input-box">
-            <input type="number" placeholder="Enter here..." />
-            <button>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="26"
-                height="26"
-                viewBox="0 0 26 26"
-                fill="none"
-              >
-                <path
-                  d="M14.2699 13.0008L8.9076 18.3629L10.4397 19.895L17.334 13.0008L10.4397 6.10645L8.9076 7.63851L14.2699 13.0008Z"
-                  fill="white"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </ion-accordion>
-    </ion-accordion-group>
+      <!-- Remark -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="Remark" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="Remark" formControlName="remark"></ion-input>
+      </ion-item>
 
-    <!-- End Odometer Reading -->
-    <ion-accordion-group>
-      <ion-accordion value="first">
-        <ion-item slot="header" color="light">
-          <ion-label>End Odometer Reading</ion-label>
-        </ion-item>
-        <div class="ion-padding" slot="content">
-          <div class="input-box">
-            <input type="number" placeholder="Enter here..." />
-            <button>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="26"
-                height="26"
-                viewBox="0 0 26 26"
-                fill="none"
-              >
-                <path
-                  d="M14.2699 13.0008L8.9076 18.3629L10.4397 19.895L17.334 13.0008L10.4397 6.10645L8.9076 7.63851L14.2699 13.0008Z"
-                  fill="white"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </ion-accordion>
-    </ion-accordion-group>
+      <!-- End Odometer Reading -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="End Odometer Reading" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="End Odometer Reading" formControlName="endOdometer"></ion-input>
+      </ion-item>
+      
+      <!-- Time Stamp -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="Time Stamp" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="Time Stamp" disabled="true" value="{{createdAt}}"></ion-input>
+      </ion-item>
 
-    <!-- Time Stamp -->
-    <ion-item lines="none">
-      <ion-input
-        lines="none"
-        label="Time Stamp"
-        fill="solid"
-        class="custom"
-        labelPlacement="floating"
-        placeholder="Time Stamp"
-        value="*Auto Generated by System"
-      ></ion-input>
-    </ion-item>
+      <!-- Filled By -->
+      <ion-item lines="none">
+        <ion-input lines="none" label="Filled By" fill="solid" class="custom" labelPlacement="floating"
+          placeholder="Filled By" disabled="true" value="{{createdByName}}"></ion-input>
+      </ion-item>
+    </ion-card>
 
-    <!-- Filled By -->
-    <ion-item lines="none">
-      <ion-input
-        lines="none"
-        label="Filled By"
-        fill="solid"
-        class="custom"
-        labelPlacement="floating"
-        placeholder="Filled By"
-        value="*Auto Generated by System"
-      ></ion-input>
-    </ion-item>
-  </ion-card>
-
-  <div class="tab-bar">
-    <button (click)="isCompleted= !isCompleted" class="active-btn">
-      Submit
-    </button>
-    <button>Save Draft</button>
-    <button>Cancel</button>
-  </div>
+    <div class="tab-bar">
+      <button (click)="addPostDelivery('Submit')" class="active-btn">Submit</button>
+      <button (click)="addPostDelivery('Draft')">Save Draft</button>
+      <button (click)="goBack()">Cancel</button>
+    </div>
+  </form>
 
   <div class="below-space"></div>
 </ion-content>
 
 <!-- done-modal -->
-<ion-modal
-  #modal
-  trigger="completed-modal"
-  [isOpen]="isCompleted"
-  [initialBreakpoint]="0.45"
-  [breakpoints]="[0, 0.25, 0.5, 0.75]"
->
+<ion-modal [backdropDismiss]=false #modal [canDismiss]="dismissModal"  trigger="excel-export-modal" [isOpen]="isCompleted" [initialBreakpoint]="1" [breakpoints]="[0, 1]" class="completedModal">
   <ng-template>
-    <ion-content>
-      <div class="ion-padding ion-margin">
-        <ion-item lines="none">
-          <ion-text>Shipment Completed</ion-text>
-        </ion-item>
-
-        <ion-item lines="none">
-          <svg
-            width="127"
-            height="137"
-            viewBox="0 0 127 137"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M98.202 30.8943L98.202 26.0995C98.202 11.6921 86.5707 6.08182e-06 72.306 3.81792e-06L28.6341 0C15.0277 -1.1895e-06 4.00001 11.138 4 24.8804L4 79.9336L4.00003 84.7284C4.00003 99.1357 15.6313 110.828 29.896 110.828H73.5679C87.1743 110.828 98.202 99.6899 98.202 85.9475V30.8943Z"
-              fill="url(#paint0_linear_705_1272)"
+    <div class="ion-padding ion-margin wrapper">
+      <div class="mt-2">
+        <ion-text>Shipment Completed</ion-text>
+      </div>
+      <div class="my-3">
+        <svg
+          width="127"
+          height="137"
+          viewBox="0 0 127 137"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M98.202 30.8943L98.202 26.0995C98.202 11.6921 86.5707 6.08182e-06 72.306 3.81792e-06L28.6341 0C15.0277 -1.1895e-06 4.00001 11.138 4 24.8804L4 79.9336L4.00003 84.7284C4.00003 99.1357 15.6313 110.828 29.896 110.828H73.5679C87.1743 110.828 98.202 99.6899 98.202 85.9475V30.8943Z"
+            fill="url(#paint0_linear_705_1272)"
+          />
+          <g opacity="0.5" filter="url(#filter0_f_705_1272)">
+            <rect
+              x="21.8086"
+              y="79.6831"
+              width="57.5349"
+              height="49.3156"
+              rx="5"
+              transform="rotate(-90 21.8086 79.6831)"
+              fill="#1EA51F"
+              fill-opacity="0.5"
             />
-            <g opacity="0.5" filter="url(#filter0_f_705_1272)">
-              <rect
-                x="21.8086"
-                y="79.6831"
-                width="57.5349"
-                height="49.3156"
-                rx="5"
-                transform="rotate(-90 21.8086 79.6831)"
-                fill="#1EA51F"
-                fill-opacity="0.5"
-              />
-            </g>
-            <g filter="url(#filter1_b_705_1272)">
-              <path
-                d="M49.3395 25.1743L90.0786 25.1743L118.798 56.0666L118.798 111.12C118.798 124.862 107.77 136 94.1636 136H50.4916C36.2269 136 24.5957 124.308 24.5957 109.901L24.5957 50.1655C24.5957 36.4231 35.6783 25.1743 49.3395 25.1743Z"
-                fill="#72DC60"
-                fill-opacity="0.35"
-              />
-              <path
-                d="M90.4448 24.8339C90.3502 24.7321 90.2175 24.6743 90.0786 24.6743L49.3395 24.6743C35.3967 24.6743 24.0957 36.1524 24.0957 50.1655L24.0957 109.901C24.0957 124.581 35.9475 136.5 50.4916 136.5H94.1636C108.051 136.5 119.298 125.134 119.298 111.12L119.298 56.0666C119.298 55.9403 119.25 55.8186 119.164 55.7261L90.4448 24.8339Z"
-                stroke="url(#paint1_linear_705_1272)"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </g>
-            <mask id="path-5-inside-1_705_1272" fill="white">
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M71.282 68.6492H52.7379C50.4884 68.6492 48.623 70.5332 48.623 72.8051C48.623 75.0771 50.4884 76.9057 52.7379 76.9057H71.282C73.5314 76.9057 75.3968 75.0771 75.3968 72.8051C75.3968 70.5332 73.5314 68.6492 71.282 68.6492ZM52.738 104.611H82.5841C84.8336 104.611 86.699 102.727 86.699 100.455C86.699 98.1827 84.8336 96.354 82.5841 96.354H52.738C50.4886 96.354 48.6232 98.1827 48.6232 100.455C48.6232 102.727 50.4886 104.611 52.738 104.611Z"
-              />
-            </mask>
+          </g>
+          <g filter="url(#filter1_b_705_1272)">
+            <path
+              d="M49.3395 25.1743L90.0786 25.1743L118.798 56.0666L118.798 111.12C118.798 124.862 107.77 136 94.1636 136H50.4916C36.2269 136 24.5957 124.308 24.5957 109.901L24.5957 50.1655C24.5957 36.4231 35.6783 25.1743 49.3395 25.1743Z"
+              fill="#72DC60"
+              fill-opacity="0.35"
+            />
+            <path
+              d="M90.4448 24.8339C90.3502 24.7321 90.2175 24.6743 90.0786 24.6743L49.3395 24.6743C35.3967 24.6743 24.0957 36.1524 24.0957 50.1655L24.0957 109.901C24.0957 124.581 35.9475 136.5 50.4916 136.5H94.1636C108.051 136.5 119.298 125.134 119.298 111.12L119.298 56.0666C119.298 55.9403 119.25 55.8186 119.164 55.7261L90.4448 24.8339Z"
+              stroke="url(#paint1_linear_705_1272)"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </g>
+          <mask id="path-5-inside-1_705_1272" fill="white">
             <path
               fill-rule="evenodd"
               clip-rule="evenodd"
               d="M71.282 68.6492H52.7379C50.4884 68.6492 48.623 70.5332 48.623 72.8051C48.623 75.0771 50.4884 76.9057 52.7379 76.9057H71.282C73.5314 76.9057 75.3968 75.0771 75.3968 72.8051C75.3968 70.5332 73.5314 68.6492 71.282 68.6492ZM52.738 104.611H82.5841C84.8336 104.611 86.699 102.727 86.699 100.455C86.699 98.1827 84.8336 96.354 82.5841 96.354H52.738C50.4886 96.354 48.6232 98.1827 48.6232 100.455C48.6232 102.727 50.4886 104.611 52.738 104.611Z"
-              fill="url(#paint2_linear_705_1272)"
             />
-            <path
-              d="M52.7379 69.0492H71.282V68.2492H52.7379V69.0492ZM49.023 72.8051C49.023 70.7504 50.7131 69.0492 52.7379 69.0492V68.2492C50.2638 68.2492 48.223 70.3161 48.223 72.8051H49.023ZM52.7379 76.5057C50.7061 76.5057 49.023 74.8529 49.023 72.8051H48.223C48.223 75.3012 50.2708 77.3057 52.7379 77.3057V76.5057ZM71.282 76.5057H52.7379V77.3057H71.282V76.5057ZM74.9968 72.8051C74.9968 74.8529 73.3137 76.5057 71.282 76.5057V77.3057C73.7491 77.3057 75.7968 75.3012 75.7968 72.8051H74.9968ZM71.282 69.0492C73.3068 69.0492 74.9968 70.7504 74.9968 72.8051H75.7968C75.7968 70.3161 73.7561 68.2492 71.282 68.2492V69.0492ZM82.5841 104.211H52.738V105.011H82.5841V104.211ZM86.299 100.455C86.299 102.509 84.6089 104.211 82.5841 104.211V105.011C85.0582 105.011 87.099 102.944 87.099 100.455H86.299ZM82.5841 96.754C84.6159 96.754 86.299 98.4068 86.299 100.455H87.099C87.099 97.9585 85.0513 95.954 82.5841 95.954V96.754ZM52.738 96.754H82.5841V95.954H52.738V96.754ZM49.0232 100.455C49.0232 98.4068 50.7062 96.754 52.738 96.754V95.954C50.2709 95.954 48.2232 97.9585 48.2232 100.455H49.0232ZM52.738 104.211C50.7132 104.211 49.0232 102.509 49.0232 100.455H48.2232C48.2232 102.944 50.2639 105.011 52.738 105.011V104.211Z"
-              fill="url(#paint3_linear_705_1272)"
-              mask="url(#path-5-inside-1_705_1272)"
-            />
-            <g filter="url(#filter2_bd_705_1272)">
-              <mask id="path-7-inside-2_705_1272" fill="white">
-                <path
-                  d="M95.1579 60.4913C98.982 60.5301 104.298 60.5467 108.808 60.5301C111.118 60.5245 112.292 57.7372 110.69 56.0582C104.896 49.9739 94.5325 39.0853 88.6016 32.8568C86.9612 31.1335 84.0918 32.3193 84.0918 34.7076V49.3145C84.0918 55.4431 89.0899 60.4913 95.1579 60.4913Z"
-                />
-              </mask>
+          </mask>
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M71.282 68.6492H52.7379C50.4884 68.6492 48.623 70.5332 48.623 72.8051C48.623 75.0771 50.4884 76.9057 52.7379 76.9057H71.282C73.5314 76.9057 75.3968 75.0771 75.3968 72.8051C75.3968 70.5332 73.5314 68.6492 71.282 68.6492ZM52.738 104.611H82.5841C84.8336 104.611 86.699 102.727 86.699 100.455C86.699 98.1827 84.8336 96.354 82.5841 96.354H52.738C50.4886 96.354 48.6232 98.1827 48.6232 100.455C48.6232 102.727 50.4886 104.611 52.738 104.611Z"
+            fill="url(#paint2_linear_705_1272)"
+          />
+          <path
+            d="M52.7379 69.0492H71.282V68.2492H52.7379V69.0492ZM49.023 72.8051C49.023 70.7504 50.7131 69.0492 52.7379 69.0492V68.2492C50.2638 68.2492 48.223 70.3161 48.223 72.8051H49.023ZM52.7379 76.5057C50.7061 76.5057 49.023 74.8529 49.023 72.8051H48.223C48.223 75.3012 50.2708 77.3057 52.7379 77.3057V76.5057ZM71.282 76.5057H52.7379V77.3057H71.282V76.5057ZM74.9968 72.8051C74.9968 74.8529 73.3137 76.5057 71.282 76.5057V77.3057C73.7491 77.3057 75.7968 75.3012 75.7968 72.8051H74.9968ZM71.282 69.0492C73.3068 69.0492 74.9968 70.7504 74.9968 72.8051H75.7968C75.7968 70.3161 73.7561 68.2492 71.282 68.2492V69.0492ZM82.5841 104.211H52.738V105.011H82.5841V104.211ZM86.299 100.455C86.299 102.509 84.6089 104.211 82.5841 104.211V105.011C85.0582 105.011 87.099 102.944 87.099 100.455H86.299ZM82.5841 96.754C84.6159 96.754 86.299 98.4068 86.299 100.455H87.099C87.099 97.9585 85.0513 95.954 82.5841 95.954V96.754ZM52.738 96.754H82.5841V95.954H52.738V96.754ZM49.0232 100.455C49.0232 98.4068 50.7062 96.754 52.738 96.754V95.954C50.2709 95.954 48.2232 97.9585 48.2232 100.455H49.0232ZM52.738 104.211C50.7132 104.211 49.0232 102.509 49.0232 100.455H48.2232C48.2232 102.944 50.2639 105.011 52.738 105.011V104.211Z"
+            fill="url(#paint3_linear_705_1272)"
+            mask="url(#path-5-inside-1_705_1272)"
+          />
+          <g filter="url(#filter2_bd_705_1272)">
+            <mask id="path-7-inside-2_705_1272" fill="white">
               <path
                 d="M95.1579 60.4913C98.982 60.5301 104.298 60.5467 108.808 60.5301C111.118 60.5245 112.292 57.7372 110.69 56.0582C104.896 49.9739 94.5325 39.0853 88.6016 32.8568C86.9612 31.1335 84.0918 32.3193 84.0918 34.7076V49.3145C84.0918 55.4431 89.0899 60.4913 95.1579 60.4913Z"
-                fill="url(#paint4_linear_705_1272)"
               />
-              <path
-                d="M108.808 60.5301L108.807 60.1301L108.807 60.1301L108.808 60.5301ZM110.69 56.0582L110.4 56.3341L110.401 56.3344L110.69 56.0582ZM88.6016 32.8568L88.3119 33.1326L88.312 33.1327L88.6016 32.8568ZM95.1539 60.8912C98.9799 60.9301 104.298 60.9467 108.81 60.93L108.807 60.1301C104.299 60.1467 98.984 60.1301 95.162 60.0913L95.1539 60.8912ZM108.809 60.9301C111.477 60.9237 112.82 57.7107 110.979 55.7821L110.401 56.3344C111.765 57.7638 110.759 60.1254 108.807 60.1301L108.809 60.9301ZM110.98 55.7824C105.183 49.695 94.8251 38.8126 88.8913 32.581L88.312 33.1327C94.2398 39.358 104.61 50.2528 110.4 56.3341L110.98 55.7824ZM88.8914 32.5811C86.992 30.5857 83.6918 31.9726 83.6918 34.7076H84.4918C84.4918 32.6661 86.9304 31.6813 88.3119 33.1326L88.8914 32.5811ZM83.6918 34.7076V49.3145H84.4918V34.7076H83.6918ZM83.6918 49.3145C83.6918 55.6603 88.8653 60.8913 95.1579 60.8913V60.0913C89.3146 60.0913 84.4918 55.226 84.4918 49.3145H83.6918Z"
-                fill="url(#paint5_linear_705_1272)"
-                mask="url(#path-7-inside-2_705_1272)"
+            </mask>
+            <path
+              d="M95.1579 60.4913C98.982 60.5301 104.298 60.5467 108.808 60.5301C111.118 60.5245 112.292 57.7372 110.69 56.0582C104.896 49.9739 94.5325 39.0853 88.6016 32.8568C86.9612 31.1335 84.0918 32.3193 84.0918 34.7076V49.3145C84.0918 55.4431 89.0899 60.4913 95.1579 60.4913Z"
+              fill="url(#paint4_linear_705_1272)"
+            />
+            <path
+              d="M108.808 60.5301L108.807 60.1301L108.807 60.1301L108.808 60.5301ZM110.69 56.0582L110.4 56.3341L110.401 56.3344L110.69 56.0582ZM88.6016 32.8568L88.3119 33.1326L88.312 33.1327L88.6016 32.8568ZM95.1539 60.8912C98.9799 60.9301 104.298 60.9467 108.81 60.93L108.807 60.1301C104.299 60.1467 98.984 60.1301 95.162 60.0913L95.1539 60.8912ZM108.809 60.9301C111.477 60.9237 112.82 57.7107 110.979 55.7821L110.401 56.3344C111.765 57.7638 110.759 60.1254 108.807 60.1301L108.809 60.9301ZM110.98 55.7824C105.183 49.695 94.8251 38.8126 88.8913 32.581L88.312 33.1327C94.2398 39.358 104.61 50.2528 110.4 56.3341L110.98 55.7824ZM88.8914 32.5811C86.992 30.5857 83.6918 31.9726 83.6918 34.7076H84.4918C84.4918 32.6661 86.9304 31.6813 88.3119 33.1326L88.8914 32.5811ZM83.6918 34.7076V49.3145H84.4918V34.7076H83.6918ZM83.6918 49.3145C83.6918 55.6603 88.8653 60.8913 95.1579 60.8913V60.0913C89.3146 60.0913 84.4918 55.226 84.4918 49.3145H83.6918Z"
+              fill="url(#paint5_linear_705_1272)"
+              mask="url(#path-7-inside-2_705_1272)"
+            />
+          </g>
+          <defs>
+            <filter
+              id="filter0_f_705_1272"
+              x="0.808594"
+              y="1.14819"
+              width="91.3164"
+              height="99.5349"
+              filterUnits="userSpaceOnUse"
+              color-interpolation-filters="sRGB"
+            >
+              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feBlend
+                mode="normal"
+                in="SourceGraphic"
+                in2="BackgroundImageFix"
+                result="shape"
               />
-            </g>
-            <defs>
-              <filter
-                id="filter0_f_705_1272"
-                x="0.808594"
-                y="1.14819"
-                width="91.3164"
-                height="99.5349"
-                filterUnits="userSpaceOnUse"
-                color-interpolation-filters="sRGB"
-              >
-                <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                <feBlend
-                  mode="normal"
-                  in="SourceGraphic"
-                  in2="BackgroundImageFix"
-                  result="shape"
-                />
-                <feGaussianBlur
-                  stdDeviation="10.5"
-                  result="effect1_foregroundBlur_705_1272"
-                />
-              </filter>
-              <filter
-                id="filter1_b_705_1272"
-                x="-0.404297"
-                y="0.174316"
-                width="144.201"
-                height="160.826"
-                filterUnits="userSpaceOnUse"
-                color-interpolation-filters="sRGB"
-              >
-                <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                <feGaussianBlur in="BackgroundImageFix" stdDeviation="12" />
-                <feComposite
-                  in2="SourceAlpha"
-                  operator="in"
-                  result="effect1_backgroundBlur_705_1272"
-                />
-                <feBlend
-                  mode="normal"
-                  in="SourceGraphic"
-                  in2="effect1_backgroundBlur_705_1272"
-                  result="shape"
-                />
-              </filter>
-              <filter
-                id="filter2_bd_705_1272"
-                x="69.0918"
-                y="17.0398"
-                width="57.3379"
-                height="58.4966"
-                filterUnits="userSpaceOnUse"
-                color-interpolation-filters="sRGB"
-              >
-                <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                <feGaussianBlur in="BackgroundImageFix" stdDeviation="7.5" />
-                <feComposite
-                  in2="SourceAlpha"
-                  operator="in"
-                  result="effect1_backgroundBlur_705_1272"
-                />
-                <feColorMatrix
-                  in="SourceAlpha"
-                  type="matrix"
-                  values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                  result="hardAlpha"
-                />
-                <feOffset dx="5" dy="5" />
-                <feGaussianBlur stdDeviation="5" />
-                <feColorMatrix
-                  type="matrix"
-                  values="0 0 0 0 0.454902 0 0 0 0 0.870588 0 0 0 0 0.376471 0 0 0 0.5 0"
-                />
-                <feBlend
-                  mode="normal"
-                  in2="effect1_backgroundBlur_705_1272"
-                  result="effect2_dropShadow_705_1272"
-                />
-                <feBlend
-                  mode="normal"
-                  in="SourceGraphic"
-                  in2="effect2_dropShadow_705_1272"
-                  result="shape"
-                />
-              </filter>
-              <linearGradient
-                id="paint0_linear_705_1272"
-                x1="71.614"
-                y1="0"
-                x2="71.614"
-                y2="110.828"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stop-color="#9BF763" />
-                <stop offset="1" stop-color="#26AB5B" />
-              </linearGradient>
-              <linearGradient
-                id="paint1_linear_705_1272"
-                x1="39.5911"
-                y1="38.0857"
-                x2="111.815"
-                y2="114.119"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stop-color="white" stop-opacity="0.25" />
-                <stop offset="1" stop-color="white" stop-opacity="0" />
-              </linearGradient>
-              <linearGradient
-                id="paint2_linear_705_1272"
-                x1="83.9994"
-                y1="75.1431"
-                x2="41.5919"
-                y2="76.607"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stop-color="white" />
-                <stop offset="1" stop-color="white" stop-opacity="0.2" />
-              </linearGradient>
-              <linearGradient
-                id="paint3_linear_705_1272"
-                x1="54.6841"
-                y1="72.8387"
-                x2="77.3141"
-                y2="102.515"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stop-color="white" stop-opacity="0.25" />
-                <stop offset="1" stop-color="white" stop-opacity="0" />
-              </linearGradient>
-              <linearGradient
-                id="paint4_linear_705_1272"
-                x1="109.491"
-                y1="37.1857"
-                x2="79.0372"
-                y2="38.1382"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stop-color="white" />
-                <stop offset="1" stop-color="white" stop-opacity="0.2" />
-              </linearGradient>
-              <linearGradient
-                id="paint5_linear_705_1272"
-                x1="88.4434"
-                y1="35.3597"
-                x2="106.766"
-                y2="57.1291"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stop-color="white" stop-opacity="0.25" />
-                <stop offset="1" stop-color="white" stop-opacity="0" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </ion-item>
-
-        <button (click)="isCompleted=!isCompleted" class="active">Done</button>
+              <feGaussianBlur
+                stdDeviation="10.5"
+                result="effect1_foregroundBlur_705_1272"
+              />
+            </filter>
+            <filter
+              id="filter1_b_705_1272"
+              x="-0.404297"
+              y="0.174316"
+              width="144.201"
+              height="160.826"
+              filterUnits="userSpaceOnUse"
+              color-interpolation-filters="sRGB"
+            >
+              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feGaussianBlur in="BackgroundImageFix" stdDeviation="12" />
+              <feComposite
+                in2="SourceAlpha"
+                operator="in"
+                result="effect1_backgroundBlur_705_1272"
+              />
+              <feBlend
+                mode="normal"
+                in="SourceGraphic"
+                in2="effect1_backgroundBlur_705_1272"
+                result="shape"
+              />
+            </filter>
+            <filter
+              id="filter2_bd_705_1272"
+              x="69.0918"
+              y="17.0398"
+              width="57.3379"
+              height="58.4966"
+              filterUnits="userSpaceOnUse"
+              color-interpolation-filters="sRGB"
+            >
+              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feGaussianBlur in="BackgroundImageFix" stdDeviation="7.5" />
+              <feComposite
+                in2="SourceAlpha"
+                operator="in"
+                result="effect1_backgroundBlur_705_1272"
+              />
+              <feColorMatrix
+                in="SourceAlpha"
+                type="matrix"
+                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                result="hardAlpha"
+              />
+              <feOffset dx="5" dy="5" />
+              <feGaussianBlur stdDeviation="5" />
+              <feColorMatrix
+                type="matrix"
+                values="0 0 0 0 0.454902 0 0 0 0 0.870588 0 0 0 0 0.376471 0 0 0 0.5 0"
+              />
+              <feBlend
+                mode="normal"
+                in2="effect1_backgroundBlur_705_1272"
+                result="effect2_dropShadow_705_1272"
+              />
+              <feBlend
+                mode="normal"
+                in="SourceGraphic"
+                in2="effect2_dropShadow_705_1272"
+                result="shape"
+              />
+            </filter>
+            <linearGradient
+              id="paint0_linear_705_1272"
+              x1="71.614"
+              y1="0"
+              x2="71.614"
+              y2="110.828"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stop-color="#9BF763" />
+              <stop offset="1" stop-color="#26AB5B" />
+            </linearGradient>
+            <linearGradient
+              id="paint1_linear_705_1272"
+              x1="39.5911"
+              y1="38.0857"
+              x2="111.815"
+              y2="114.119"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stop-color="white" stop-opacity="0.25" />
+              <stop offset="1" stop-color="white" stop-opacity="0" />
+            </linearGradient>
+            <linearGradient
+              id="paint2_linear_705_1272"
+              x1="83.9994"
+              y1="75.1431"
+              x2="41.5919"
+              y2="76.607"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stop-color="white" />
+              <stop offset="1" stop-color="white" stop-opacity="0.2" />
+            </linearGradient>
+            <linearGradient
+              id="paint3_linear_705_1272"
+              x1="54.6841"
+              y1="72.8387"
+              x2="77.3141"
+              y2="102.515"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stop-color="white" stop-opacity="0.25" />
+              <stop offset="1" stop-color="white" stop-opacity="0" />
+            </linearGradient>
+            <linearGradient
+              id="paint4_linear_705_1272"
+              x1="109.491"
+              y1="37.1857"
+              x2="79.0372"
+              y2="38.1382"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stop-color="white" />
+              <stop offset="1" stop-color="white" stop-opacity="0.2" />
+            </linearGradient>
+            <linearGradient
+              id="paint5_linear_705_1272"
+              x1="88.4434"
+              y1="35.3597"
+              x2="106.766"
+              y2="57.1291"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stop-color="white" stop-opacity="0.25" />
+              <stop offset="1" stop-color="white" stop-opacity="0" />
+            </linearGradient>
+          </defs>
+        </svg>
       </div>
-    </ion-content>
+      <div><button (click)="dismissModal(); goBack();" class="active">Done</button></div>
+    </div>
   </ng-template>
 </ion-modal>

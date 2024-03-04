@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-accordion-type-expenses',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./accordion-type-expenses.component.scss'],
 })
 export class AccordionTypeExpensesComponent implements OnInit {
+  @Input() heading = '';
   constructor() {}
 
   ngOnInit() {}
