@@ -85,6 +85,9 @@
       word-wrap: break-word;
       text-overflow: ellipsis;
       font-weight: 400;
+      p{
+        margin: 0px;
+      }
     }
   }
 }
