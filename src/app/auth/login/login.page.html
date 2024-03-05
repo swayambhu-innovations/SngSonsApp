@@ -12,9 +12,9 @@
           <ion-input
             class="ion-margin-start"
             formControlName="phone"
-            type="number"
+            type="tel"
             placeholder="Contact Number"
-            (keypress)="limitInputLength($event)"
+            (keypress)="onKeyPress($event)"
           ></ion-input>
         </ion-item>
 

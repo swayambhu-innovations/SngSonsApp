@@ -174,4 +174,6 @@ export class LabourMasterComponent implements OnInit {
       return;
     }
   }
+
+  
 }

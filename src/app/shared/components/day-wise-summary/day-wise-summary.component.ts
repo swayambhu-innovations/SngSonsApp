@@ -8,28 +8,22 @@ import { DaywiseSummaryService } from './day-wise-summary-service';
   styleUrls: ['./day-wise-summary.component.scss'],
 })
 export class DayWiseSummaryComponent implements OnInit {
-
-  constructor(
-    public daywiseSummaryService: DaywiseSummaryService
-  ) {}
+  constructor(public daywiseSummaryService: DaywiseSummaryService) {}
 
   async ngOnInit() {
     this.daywiseSummaryService.getShipments();
   }
 
   get dateText() {
-    const dt = new DatePipe('en-US').transform(this.daywiseSummaryService.selectedDate, 'dd MMM')
-    return dt
+    const dt = new DatePipe('en-US').transform(
+      this.daywiseSummaryService.selectedDate,
+      'dd MMM'
+    );
+    return dt;
   }
 
   dispDate(e: any) {
-    console.log(e);
     this.daywiseSummaryService.selectedDate = e.target.value;
     this.daywiseSummaryService.getShipments();
   }
-  
-  test(){
-    console.log("working")
-  }
-  
 }

@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 import { FileuploadService } from 'src/app/utils/fileupload';
 import { UtilService } from 'src/app/utils/util';
 import { UserPermissionService } from '../user-permission/user-permission.service';
@@ -16,6 +16,7 @@ import { NotificationService } from 'src/app/utils/notification';
 export class EditProfileComponent implements OnInit {
   constructor(
     private loadingController: LoadingController,
+    private navCtrl: NavController,
     private fileuploadService: FileuploadService,
     private utilService: UtilService,
     private userPermissionService: UserPermissionService,
@@ -80,5 +81,6 @@ export class EditProfileComponent implements OnInit {
     this.notification.showSuccess(Config.messages.updatedSuccessfully);
     this.utilService.setUserdata(data);
     this.loader.dismiss();
+    this.navCtrl.back();
   }
 }
