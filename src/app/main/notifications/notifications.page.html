@@ -19,12 +19,8 @@
   </header>
 
   <!-- Show vector image if there are no notifications -->
-  <div
-    *ngIf="!isNotifications"
-    align="center"
-    class="ion-padding ion-margin no-notifications"
-  >
-    <img src="assets/images/Notification.png" alt="Vector Image" />
+  <div *ngIf="!isNotifications" align="center" class="ion-padding ion-margin no-notifications">
+    <img src="assets/images/notification.png" alt="Vector Image" />
     <p class="notification-head">No Notifications</p>
     <p>You're up-to-date</p>
   </div>
@@ -40,7 +36,32 @@
         <ion-grid>
           <ion-row class="ion-justify-content-between ion-align-items-center">
             <ion-col class="preview-text" size="10">
-              New ZSD imported. 10 New Pending Shipments added.
+
+              <!-- <p>New ZSD imported.</p>
+              <p> 10 New Pending Shipments added by xyz and 5 successfully completed</p>
+              <p>23 New Pending Shipments added buy xyz</p> -->
+              <ion-accordion-group style="--ion-background-color: rgba(0, 0, 0, 0);" [multiple]="true">
+                <ion-accordion value="first">
+                  <ion-item slot="header" >
+                    <ion-label>
+                      <ion-row class="ion-justify-content-between ion-align-items-center">
+                        <ion-col size="10" >New ZSD imported</ion-col>
+
+                      </ion-row>
+                    </ion-label>
+                  </ion-item>
+
+                  <div class="ion-padding" slot="content">
+                    <ion-row class="ion-justify-content-between ion-align-items-center">
+                      <ion-col size="auto">5 shipment are added by xyz</ion-col>
+                    </ion-row>
+                    <ion-row class="ion-justify-content-between ion-align-items-center">
+                      <ion-col size="auto">7 shipment are added by xyz</ion-col>
+                    </ion-row>
+                  </div>
+                </ion-accordion>
+              </ion-accordion-group>
+
             </ion-col>
             <ion-col size="auto">
               <img src="assets/icon/delete-notification.svg" alt="svg" />
@@ -54,7 +75,7 @@
         <ion-grid>
           <ion-row class="ion-justify-content-between ion-align-items-center">
             <ion-col class="preview-text" size="10">
-              Shipment #12567878 suspended.
+              Shipment #12567878 suspended buy xyz
             </ion-col>
             <ion-col size="auto">
               <img src="assets/icon/delete-notification.svg" alt="svg" />
@@ -154,7 +175,20 @@
       </div>
       <!-- </div> -->
     </section>
+
+    <div class="tab-bar">
+      <div>
+        <ion-button type="submit" shape="round" class="active-btn">Mark Read</ion-button>
+        <ion-button shape="round">Delete All</ion-button>
+      </div>
+    </div>
+    
+  <div class="below-space"></div>
   </div>
 
   <div class="below-space"></div>
+
+  
+
+
 </ion-content>
