@@ -39,7 +39,7 @@
     <p class="user-type">{{ userData.access?.roleName || "" }}</p>
   </section>
 
-  <section>
+  <section class="min-div">
     <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()" #f="ngForm">
       <!-- name -->
       <ion-item lines="none" class="Variable">
@@ -201,5 +201,5 @@
     </form>
   </section>
 
-  <div class="below-space"></div>
+ 
 </ion-content>
