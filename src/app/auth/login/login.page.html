@@ -6,7 +6,7 @@
 
     <div align="center" class="login-credentials ion-padding">
       <form [formGroup]="loginForm">
-        <!-- Email -->
+        <!-- Contact No -->
         <ion-item class="ion-margin-vertical input-text">
           <ion-icon name="person"></ion-icon>
           <ion-input
@@ -18,13 +18,20 @@
           ></ion-input>
         </ion-item>
 
-        <!-- <p *ngIf="loginPermissionService.showOtp" class="resend-otp" (click)="requestOTP(true)">Resend OTP</p> -->
-
-        <ion-button [disabled]="!isValidNumber" (click)="requestOTP()" *ngIf="!loginPermissionService.showOtp" shape="round"
+        <!-- OTP Request -->
+        <ion-button
+          [disabled]="!isValidNumber"
+          (click)="requestOTP()"
+          *ngIf="!loginPermissionService.showOtp"
+          shape="round"
           >Request OTP</ion-button
         >
 
-        <ion-item class="ion-margin-vertical input-text" *ngIf="loginPermissionService.showOtp">
+        <!-- OTP -->
+        <ion-item
+          class="ion-margin-vertical input-text"
+          *ngIf="loginPermissionService.showOtp"
+        >
           <ion-icon name="lock-open"></ion-icon>
           <ion-input
             class="ion-margin-start"
@@ -33,46 +40,14 @@
           ></ion-input>
         </ion-item>
 
-        <!-- Password -->
-        <!-- <ion-item class="ion-margin-vertical input-text">
-          <ion-icon name="lock-open"></ion-icon>
-          <ion-input
-            class="ion-margin-start"
-            formControlName="password"
-            placeholder="Password"
-          ></ion-input>
-        </ion-item> -->
-
         <!-- Submit -->
-        <ion-button [disabled]="!isValidOTP" (click)="submitOTP()" *ngIf="loginPermissionService.showOtp" shape="round"
+        <ion-button
+          [disabled]="!isValidOTP"
+          (click)="submitOTP()"
+          *ngIf="loginPermissionService.showOtp"
+          shape="round"
           >Log In</ion-button
         >
-
-        <!-- <p class="ion-margin-vertical ion-padding-vertical">
-          <a
-            routerLink="reset-password"
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page"
-          >
-            Forgot Password?
-          </a>
-        </p> -->
-
-        <!-- <p class="ion-margin-vertical ion-padding-vertical">
-          <ion-text color="medium">or sign in with</ion-text>
-        </p>
-
-        <ion-button large fill="clear" shape="circle" class="ion-margin">
-          <ion-icon size="large" slot="icon-only" name="logo-google"></ion-icon>
-        </ion-button>
-
-        <ion-button large fill="clear" shape="circle" class="ion-margin">
-          <ion-icon
-            size="large"
-            slot="icon-only"
-            name="logo-facebook"
-          ></ion-icon>
-        </ion-button> -->
       </form>
       <div id="recaptcha-container"></div>
     </div>

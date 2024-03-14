@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { DaywiseSummaryService } from './day-wise-summary-service';
+import { log } from 'console';
 
 @Component({
   selector: 'app-day-wise-summary',

@@ -40,13 +40,17 @@ ion-card {
 
 .donut-chart {
   padding: 0 70px 10px;
+  margin-top: 0.75rem;
+
   .stats {
     position: fixed;
-    bottom: 5px;
-    left: 140px;
+    top: 83%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
     .total {
       font-size: 20px;
-      color: #1540BD;
+      color: #1540bd;
     }
   }
 }

@@ -13,7 +13,8 @@ export class DaywiseSummaryService {
     private shipmentsService: ShipmentsService,
     private loadingController: LoadingController
   ) {}
-  selectedDate: any = new DatePipe('en-US').transform(new Date(), 'YYYY-MM-dd');
+  // selectedDate: any = new DatePipe('en-US').transform(new Date(), 'YYYY-MM-dd');
+  selectedDate: any = '2024-02-10';
   chartData: any = {
     'pending-dispatch': {
       count: 0,
@@ -86,7 +87,6 @@ export class DaywiseSummaryService {
         },
       },
     });
-    console.log('chart');
     this.loader.dismiss();
   }
 }

@@ -39,7 +39,7 @@ export class ExcelUploadService {
             event.target.value = "";
         } else {
             const reader: FileReader = new FileReader();
-            reader.readAsBinaryString(target.files[0]);
+            reader.readAsArrayBuffer(target.files[0]);
             reader.onload = (e: any) => {
                 /* create workbook */
                 const binarystr: string = e.target.result;

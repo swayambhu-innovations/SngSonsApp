@@ -3,7 +3,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Config } from 'src/app/config';
 import { NotificationService } from 'src/app/utils/notification';
 import { LoginPermissionService } from './login-permission.service';
-import { Auth, RecaptchaVerifier, getAuth, signInWithPhoneNumber } from '@angular/fire/auth';
+import {
+  Auth,
+  RecaptchaVerifier,
+  getAuth,
+  signInWithPhoneNumber,
+} from '@angular/fire/auth';
 import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
@@ -15,7 +20,11 @@ import { Router } from '@angular/router';
 export class LoginPage implements OnInit {
   recaptchaVerifier: RecaptchaVerifier | undefined;
   loginForm = new FormGroup({
-    phone: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]),
+    phone: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(10),
+      Validators.minLength(10),
+    ]),
     otp: new FormControl(''),
   });
 
@@ -32,12 +41,14 @@ export class LoginPage implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.loader = await this.loadingController.create({ message: Config.messages.pleaseWait });
+    this.loader = await this.loadingController.create({
+      message: Config.messages.pleaseWait,
+    });
     setTimeout(() => {
       this.recaptchaVerifier = new RecaptchaVerifier(
         this.auth,
         'recaptcha-container',
-        { size: 'invisible' },
+        { size: 'invisible' }
       );
       this.resetRecaptchaVerifier();
     }, 1000);
@@ -55,7 +66,10 @@ export class LoginPage implements OnInit {
   }
 
   get isValidOTP() {
-    return this.loginForm.value.otp && this.loginForm.value.otp.toString()?.length > 0;
+    return (
+      this.loginForm.value.otp &&
+      this.loginForm.value.otp.toString()?.length > 0
+    );
   }
 
   // limitInputLength($event: any, maxLength = 10) {
@@ -66,10 +80,19 @@ export class LoginPage implements OnInit {
   // }
   onKeyPress(event: KeyboardEvent) {
     const allowedChars = /[0-9]/;
-    const allowedSpecialKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'];
+    const allowedSpecialKeys = [
+      'Backspace',
+      'Delete',
+      'ArrowLeft',
+      'ArrowRight',
+      'Tab',
+    ];
     const keyPressed = event.key;
 
-    if (!allowedChars.test(keyPressed) && !allowedSpecialKeys.includes(keyPressed)) {
+    if (
+      !allowedChars.test(keyPressed) &&
+      !allowedSpecialKeys.includes(keyPressed)
+    ) {
       event.preventDefault();
     }
   }
@@ -84,14 +107,19 @@ export class LoginPage implements OnInit {
     }
     this.loader.present();
     if (this.recaptchaVerifier) {
-      await signInWithPhoneNumber(this.auth, `+91${phoneNumber}`, this.recaptchaVerifier)
-      .then((confirmationResult) => {
-        this.otpConfirmation = confirmationResult;
-        this.loginPermissionService.showOtp = true;
-      }).catch((error) => {
-        this.resetRecaptchaVerifier();
-        this.notification.showError(Config.messages.smsError);
-      });
+      await signInWithPhoneNumber(
+        this.auth,
+        `+91${phoneNumber}`,
+        this.recaptchaVerifier
+      )
+        .then((confirmationResult) => {
+          this.otpConfirmation = confirmationResult;
+          this.loginPermissionService.showOtp = true;
+        })
+        .catch((error) => {
+          this.resetRecaptchaVerifier();
+          this.notification.showError(Config.messages.smsError);
+        });
     }
     this.loader.dismiss();
   }
@@ -102,15 +130,23 @@ export class LoginPage implements OnInit {
       return;
     }
     this.loader.present();
-    await this.otpConfirmation.confirm(otp).then(async (result: any) => {
-      const user = { ...result.user, phoneNumber: result.user.phoneNumber.replace('+91', '') };
-      this.loginPermissionService.setLocal(user);
-      await this.loginPermissionService.redirectUser(this.loader);
-      this.loader.dismiss();
-    }).catch((error: any) => {
-      this.loader.dismiss();
-      this.notification.showError(Config.messages.invalidOTP);
+    this.loginForm.patchValue({
+      otp: '',
     });
+    await this.otpConfirmation
+      .confirm(otp)
+      .then(async (result: any) => {
+        const user = {
+          ...result.user,
+          phoneNumber: result.user.phoneNumber.replace('+91', ''),
+        };
+        this.loginPermissionService.setLocal(user);
+        await this.loginPermissionService.redirectUser(this.loader);
+        this.loader.dismiss();
+      })
+      .catch((error: any) => {
+        this.loader.dismiss();
+        this.notification.showError(Config.messages.invalidOTP);
+      });
   }
-
 }
