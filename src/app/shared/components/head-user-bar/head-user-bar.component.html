@@ -2,68 +2,134 @@
   <div class="user">
     <img (click)="goHome()" src="../assets/images/logo.png" alt="Logo" />
     <div>
-      <p>Hi, {{userName}}</p>
+      <p>Hi, {{ userName }}</p>
       <p class="sub">2 Min Ago</p>
     </div>
   </div>
   <div class="actions">
     <!-- mode -->
-    <svg xmlns="https://www.w3.org/2000/svg" width="22" height="18" viewBox="0 0 22 18" fill="none"
-      (click)="dashboardEye()">
+    <svg
+      xmlns="https://www.w3.org/2000/svg"
+      width="22"
+      height="18"
+      viewBox="0 0 22 18"
+      fill="none"
+      (click)="dashboardEye()"
+    >
       <path
         d="M11.0003 0C16.3924 0 20.8784 3.87976 21.8189 9C20.8784 14.1202 16.3924 18 11.0003 18C5.60812 18 1.12215 14.1202 0.181641 9C1.12215 3.87976 5.60812 0 11.0003 0ZM11.0003 16C15.2359 16 18.8603 13.052 19.7777 9C18.8603 4.94803 15.2359 2 11.0003 2C6.7646 2 3.14022 4.94803 2.22278 9C3.14022 13.052 6.7646 16 11.0003 16ZM11.0003 13.5C8.51498 13.5 6.50026 11.4853 6.50026 9C6.50026 6.51472 8.51498 4.5 11.0003 4.5C13.4855 4.5 15.5003 6.51472 15.5003 9C15.5003 11.4853 13.4855 13.5 11.0003 13.5ZM11.0003 11.5C12.381 11.5 13.5003 10.3807 13.5003 9C13.5003 7.6193 12.381 6.5 11.0003 6.5C9.6196 6.5 8.50026 7.6193 8.50026 9C8.50026 10.3807 9.6196 11.5 11.0003 11.5Z"
-        fill="#1540BD" />
+        fill="#1540BD"
+      />
     </svg>
     <!-- refresh -->
-    <svg xmlns="https://www.w3.org/2000/svg" width="26" height="22" viewBox="0 0 26 22" fill="none"
-      class="ion-margin-horizontal">
+    <svg
+      xmlns="https://www.w3.org/2000/svg"
+      width="26"
+      height="22"
+      viewBox="0 0 26 22"
+      fill="none"
+      class="ion-margin-horizontal"
+    >
       <path
         d="M0.333984 11.5583L3.28372 9.20389C3.42097 9.09344 3.59116 9.0333 3.76652 9.0333C3.94189 9.0333 4.11207 9.09344 4.24932 9.20389L7.20217 11.5583L6.24281 12.7969L4.48605 11.3975C4.56449 13.1056 5.14872 14.7504 6.16286 16.1182C7.17701 17.486 8.57419 18.5136 10.1729 19.0676C11.7717 19.6216 13.4981 19.6763 15.128 19.2246C16.7579 18.773 18.2159 17.8359 19.3126 16.535L20.4962 17.5562C19.2018 19.1033 17.4766 20.2198 15.5458 20.7601C13.6149 21.3004 11.568 21.2395 9.67184 20.5852C7.77573 19.9309 6.11845 18.7137 4.91615 17.0922C3.71385 15.4707 3.02233 13.5203 2.93175 11.4953L1.29647 12.7969L0.333984 11.5583ZM18.6741 10.4426L21.6269 12.7969C21.7642 12.9074 21.9344 12.9675 22.1097 12.9675C22.2851 12.9675 22.4553 12.9074 22.5925 12.7969L25.5454 10.4426L24.5829 9.20389L22.8791 10.5623C22.7998 8.53178 22.1161 6.57285 20.9177 4.94221C19.7192 3.31156 18.062 2.08525 16.163 1.42396C14.264 0.762675 12.2119 0.697254 10.2756 1.23627C8.33923 1.77529 6.60896 2.8936 5.31147 4.44468L6.49511 5.46586C7.58859 4.16891 9.04123 3.23346 10.6654 2.78031C12.2896 2.32716 14.0108 2.37713 15.6066 2.92376C17.2025 3.47039 18.5997 4.48858 19.6179 5.84684C20.6361 7.2051 21.2285 8.84104 21.3186 10.5434L19.6366 9.20389L18.6741 10.4426Z"
-        fill="#1540BD" />
+        fill="#1540BD"
+      />
     </svg>
     <!-- notification -->
-    <svg xmlns="https://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
-      (click)="openNotifications()">
-      <path
-        d="M8.66419 16.6667C8.75523 17.5 9.45343 18.1481 10.3012 18.1481C11.1491 18.1481 11.8473 17.5 11.9383 16.6667H8.66419ZM13.7738 16.6667C13.6786 18.5238 12.1603 20 10.3012 20C8.44221 20 6.92391 18.5238 6.82874 16.6667H2.24919C1.33922 16.6667 0.601562 15.9212 0.601562 15.0007V14.629C0.601562 13.2864 1.54484 12.1664 2.79772 11.908V7.59231C2.79772 3.39812 6.15667 0 10.3012 0C14.4459 0 17.8048 3.39892 17.8048 7.59231V11.9078C19.0592 12.1657 20.0009 13.2851 20.0009 14.629V15.0007C20.0009 15.9236 19.2634 16.6667 18.3533 16.6667H13.7738ZM18.1708 14.629C18.1708 14.1171 17.7619 13.7037 17.2524 13.7037C16.5462 13.7037 15.9747 13.1211 15.9747 12.4101V7.59231C15.9747 4.42166 13.4351 1.85185 10.3012 1.85185C7.16734 1.85185 4.62785 4.42096 4.62785 7.59231V12.4101C4.62785 13.1242 4.05339 13.7037 3.35013 13.7037C2.84264 13.7037 2.43169 14.1187 2.43169 14.629V14.8148H18.1708V14.629Z"
-        fill="#1540BD" />
-    </svg>
+    <div class="push-notification">
+      <svg
+        xmlns="https://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        (click)="openNotifications()"
+      >
+        <path
+          d="M8.66419 16.6667C8.75523 17.5 9.45343 18.1481 10.3012 18.1481C11.1491 18.1481 11.8473 17.5 11.9383 16.6667H8.66419ZM13.7738 16.6667C13.6786 18.5238 12.1603 20 10.3012 20C8.44221 20 6.92391 18.5238 6.82874 16.6667H2.24919C1.33922 16.6667 0.601562 15.9212 0.601562 15.0007V14.629C0.601562 13.2864 1.54484 12.1664 2.79772 11.908V7.59231C2.79772 3.39812 6.15667 0 10.3012 0C14.4459 0 17.8048 3.39892 17.8048 7.59231V11.9078C19.0592 12.1657 20.0009 13.2851 20.0009 14.629V15.0007C20.0009 15.9236 19.2634 16.6667 18.3533 16.6667H13.7738ZM18.1708 14.629C18.1708 14.1171 17.7619 13.7037 17.2524 13.7037C16.5462 13.7037 15.9747 13.1211 15.9747 12.4101V7.59231C15.9747 4.42166 13.4351 1.85185 10.3012 1.85185C7.16734 1.85185 4.62785 4.42096 4.62785 7.59231V12.4101C4.62785 13.1242 4.05339 13.7037 3.35013 13.7037C2.84264 13.7037 2.43169 14.1187 2.43169 14.629V14.8148H18.1708V14.629Z"
+          fill="#1540BD"
+        />
+      </svg>
+      <ion-badge *ngIf="notificationCount < 10">{{
+        notificationCount
+      }}</ion-badge>
+      <div *ngIf="notificationCount >= 10" class="notifiaction-dot"></div>
+    </div>
   </div>
 </div>
 
 <!-- set-mode-modal -->
-<ion-modal #modal [isOpen]="openMode" [canDismiss]="dismissModal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+<ion-modal
+  #modal
+  [isOpen]="openMode"
+  [canDismiss]="dismissModal"
+  [initialBreakpoint]="1"
+  [breakpoints]="[0, 1]"
+>
   <ng-template>
     <section id="select-mode">
       <div class="ion-padding">
         <p>Select View Mode</p>
         <div class="tabs-array">
-          <div (click)="changeTab('simple')" [ngClass]="{ active: tabStatus=='simple' }" class="icon-box">
+          <div
+            (click)="changeTab('simple')"
+            [ngClass]="{ active: tabStatus == 'simple' }"
+            class="icon-box"
+          >
             <!-- icon: simple -->
-            <svg xmlns="https://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <svg
+              xmlns="https://www.w3.org/2000/svg"
+              width="40"
+              height="40"
+              viewBox="0 0 40 40"
+              fill="none"
+            >
               <path
                 d="M35 33.3338C35 34.2543 34.2538 35.0005 33.3333 35.0005H6.66667C5.7462 35.0005 5 34.2543 5 33.3338V15.5236C5 15.0133 5.23378 14.5312 5.63442 14.2151L18.9678 3.697C19.573 3.21949 20.427 3.21949 21.0322 3.697L34.3655 14.2151C34.7662 14.5312 35 15.0133 35 15.5236V33.3338ZM13.3333 20.0005C12.4129 20.0005 11.6493 20.7542 11.8312 21.6565C12.5992 25.4655 15.9647 28.3338 20 28.3338C24.0353 28.3338 27.4008 25.4655 28.1688 21.6565C28.3507 20.7542 27.5871 20.0005 26.6667 20.0005C25.7462 20.0005 25.0272 20.7671 24.7261 21.6369C24.0483 23.5947 22.1884 25.0005 20 25.0005C17.8116 25.0005 15.9517 23.5947 15.2739 21.6369C14.9728 20.7671 14.2538 20.0005 13.3333 20.0005Z"
-                fill="#1659BE" />
+                fill="#1659BE"
+              />
             </svg>
             <p>Simple</p>
           </div>
 
-          <div (click)="changeTab('expert')" [ngClass]="{ active: tabStatus=='expert' }" class="icon-box">
+          <div
+            (click)="changeTab('expert')"
+            [ngClass]="{ active: tabStatus == 'expert' }"
+            class="icon-box"
+          >
             <!-- icon: expert -->
-            <svg xmlns="https://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <svg
+              xmlns="https://www.w3.org/2000/svg"
+              width="40"
+              height="40"
+              viewBox="0 0 40 40"
+              fill="none"
+            >
               <path
                 d="M28.334 21.6667C32.0158 21.6667 35.0007 24.6515 35.0007 28.3333C35.0007 32.0152 32.0158 35 28.334 35C25.3153 35 22.6354 32.8673 21.8794 29.9821C21.6461 29.0917 20.9211 28.3333 20.0007 28.3333C19.0802 28.3333 18.3554 29.0911 18.1283 29.9831C17.3941 32.867 14.7798 35 11.6673 35C7.98542 35 5.00065 32.0152 5.00065 28.3333C5.00065 24.6515 7.98542 21.6667 11.6673 21.6667C13.216 21.6667 14.6414 22.1947 15.7732 23.0807C17.0201 24.0567 18.4171 24.9998 20.0006 24.9998C21.5842 24.9998 22.9812 24.0567 24.2281 23.0806C25.3599 22.1947 26.7853 21.6667 28.334 21.6667ZM5.00065 20C4.08017 20 3.33398 19.2538 3.33398 18.3333C3.33398 17.4129 4.08018 16.6667 5.00065 16.6667C5.92113 16.6667 6.66732 15.9205 6.66732 15V11.6667C6.66732 7.98477 9.65208 5 13.334 5H26.6673C30.3492 5 33.334 7.98477 33.334 11.6667V15C33.334 15.9205 34.0802 16.6667 35.0007 16.6667C35.9211 16.6667 36.6673 17.4129 36.6673 18.3333C36.6673 19.2538 35.9211 20 35.0007 20H5.00065Z"
-                fill="#1659BE" />
+                fill="#1659BE"
+              />
             </svg>
             <p>Expert</p>
           </div>
 
-          <div (click)="changeTab('custom')" [ngClass]="{ active: tabStatus=='custom' }" class="icon-box">
+          <div
+            (click)="changeTab('custom')"
+            [ngClass]="{ active: tabStatus == 'custom' }"
+            class="icon-box"
+          >
             <!-- icon: custom -->
-            <svg xmlns="https://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <svg
+              xmlns="https://www.w3.org/2000/svg"
+              width="40"
+              height="40"
+              viewBox="0 0 40 40"
+              fill="none"
+            >
               <path
                 d="M27.71 5.21446L15.4864 17.438L15.4988 24.5166L22.5623 24.5043L34.781 12.2855C35.986 14.5909 36.6673 17.2133 36.6673 19.9948C36.6673 29.1996 29.2053 36.6615 20.0007 36.6615C10.7959 36.6615 3.33398 29.1996 3.33398 19.9948C3.33398 10.7901 10.7959 3.32812 20.0007 3.32812C22.7822 3.32812 25.4045 4.00951 27.71 5.21446ZM34.1428 3.49564L36.4998 5.85266L21.1792 21.1733L18.8263 21.1775L18.8222 18.8163L34.1428 3.49564Z"
-                fill="#1659BE" />
+                fill="#1659BE"
+              />
             </svg>
             <p>Custom</p>
           </div>
@@ -77,9 +143,13 @@
               <!-- Day Wise Summary -->
               <div class="tab-card">
                 <ion-grid>
-                  <ion-row class="ion-justify-content-between ion-align-items-center">
+                  <ion-row
+                    class="ion-justify-content-between ion-align-items-center"
+                  >
                     <ion-col size="auto">
-                      <ion-row class="ion-justify-content-evenly ion-align-items-center">
+                      <ion-row
+                        class="ion-justify-content-evenly ion-align-items-center"
+                      >
                         <svg
                           xmlns="https://www.w3.org/2000/svg"
                           width="26"
@@ -93,30 +163,41 @@
                             fill="#9FA7B2"
                           />
                         </svg>
-            
+
                         <div class="text">
                           <p>Day Wise Summary Chart</p>
                           <p class="sub-text">Pie Chart Card</p>
                         </div>
                       </ion-row>
                     </ion-col>
-            
+
                     <ion-col size="auto">
-                      <label class="switch" [ngClass]="{disable : !(tabStatus=='custom')}">
-                        <input formControlName="shipment_DayWise" type="checkbox" [checked]="true"/>
+                      <label
+                        class="switch"
+                        [ngClass]="{ disable: !(tabStatus == 'custom') }"
+                      >
+                        <input
+                          formControlName="shipment_DayWise"
+                          type="checkbox"
+                          [checked]="true"
+                        />
                         <span class="slider round"></span>
                       </label>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
               </div>
-            
+
               <!-- Shipment Wise Voucher -->
               <div class="tab-card">
                 <ion-grid>
-                  <ion-row class="ion-justify-content-between ion-align-items-center">
+                  <ion-row
+                    class="ion-justify-content-between ion-align-items-center"
+                  >
                     <ion-col size="auto">
-                      <ion-row class="ion-justify-content-evenly ion-align-items-center">
+                      <ion-row
+                        class="ion-justify-content-evenly ion-align-items-center"
+                      >
                         <svg
                           xmlns="https://www.w3.org/2000/svg"
                           width="26"
@@ -130,30 +211,41 @@
                             fill="#9FA7B2"
                           />
                         </svg>
-            
+
                         <div class="text">
                           <p>Shipment Wise Voucher</p>
                           <p class="sub-text">Table List View</p>
                         </div>
                       </ion-row>
                     </ion-col>
-            
+
                     <ion-col size="auto">
-                      <label class="switch" [ngClass]="{disable : !(tabStatus=='custom')}">
-                        <input type="checkbox" formControlName="shipment_Shipment" [checked]="true" />
+                      <label
+                        class="switch"
+                        [ngClass]="{ disable: !(tabStatus == 'custom') }"
+                      >
+                        <input
+                          type="checkbox"
+                          formControlName="shipment_Shipment"
+                          [checked]="true"
+                        />
                         <span class="slider round"></span>
                       </label>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
               </div>
-            
+
               <!-- Expenses So far vs Avg (₹) -->
               <div class="tab-card">
                 <ion-grid>
-                  <ion-row class="ion-justify-content-between ion-align-items-center">
+                  <ion-row
+                    class="ion-justify-content-between ion-align-items-center"
+                  >
                     <ion-col size="auto">
-                      <ion-row class="ion-justify-content-evenly ion-align-items-center">
+                      <ion-row
+                        class="ion-justify-content-evenly ion-align-items-center"
+                      >
                         <svg
                           xmlns="https://www.w3.org/2000/svg"
                           width="26"
@@ -167,30 +259,41 @@
                             fill="#9FA7B2"
                           />
                         </svg>
-            
+
                         <div class="text">
                           <p>Expenses So far vs Avg (₹)</p>
                           <p class="sub-text">Bar Graph Card</p>
                         </div>
                       </ion-row>
                     </ion-col>
-            
+
                     <ion-col size="auto">
-                      <label class="switch" [ngClass]="{disable : !(tabStatus=='custom')}">
-                        <input type="checkbox" formControlName="shipment_Expense" [checked]="true" />
+                      <label
+                        class="switch"
+                        [ngClass]="{ disable: !(tabStatus == 'custom') }"
+                      >
+                        <input
+                          type="checkbox"
+                          formControlName="shipment_Expense"
+                          [checked]="true"
+                        />
                         <span class="slider round"></span>
                       </label>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
               </div>
-            
+
               <!-- Today vs Avg Shipements -->
               <div class="tab-card">
                 <ion-grid>
-                  <ion-row class="ion-justify-content-between ion-align-items-center">
+                  <ion-row
+                    class="ion-justify-content-between ion-align-items-center"
+                  >
                     <ion-col size="auto">
-                      <ion-row class="ion-justify-content-evenly ion-align-items-center">
+                      <ion-row
+                        class="ion-justify-content-evenly ion-align-items-center"
+                      >
                         <svg
                           xmlns="https://www.w3.org/2000/svg"
                           width="26"
@@ -204,32 +307,43 @@
                             fill="#9FA7B2"
                           />
                         </svg>
-            
+
                         <div class="text">
                           <p>Today vs Avg Shipements</p>
                           <p class="sub-text">Bar Graph Card</p>
                         </div>
                       </ion-row>
                     </ion-col>
-            
+
                     <ion-col size="auto">
-                      <label class="switch" [ngClass]="{disable : !(tabStatus=='custom')}">
-                        <input type="checkbox" formControlName="shipment_TodayAvg" [checked]="true" />
+                      <label
+                        class="switch"
+                        [ngClass]="{ disable: !(tabStatus == 'custom') }"
+                      >
+                        <input
+                          type="checkbox"
+                          formControlName="shipment_TodayAvg"
+                          [checked]="true"
+                        />
                         <span class="slider round"></span>
                       </label>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
               </div>
-            
+
               <p class="head">Vehicles Tab Cards</p>
-            
+
               <!-- Day Wise Summary -->
               <div class="tab-card">
                 <ion-grid>
-                  <ion-row class="ion-justify-content-between ion-align-items-center">
+                  <ion-row
+                    class="ion-justify-content-between ion-align-items-center"
+                  >
                     <ion-col size="auto">
-                      <ion-row class="ion-justify-content-evenly ion-align-items-center">
+                      <ion-row
+                        class="ion-justify-content-evenly ion-align-items-center"
+                      >
                         <svg
                           xmlns="https://www.w3.org/2000/svg"
                           width="26"
@@ -243,30 +357,41 @@
                             fill="#9FA7B2"
                           />
                         </svg>
-            
+
                         <div class="text">
                           <p>Day Wise Summary Chart</p>
                           <p class="sub-text">Pie Chart Card</p>
                         </div>
                       </ion-row>
                     </ion-col>
-            
+
                     <ion-col size="auto">
-                      <label class="switch" [ngClass]="{disable : !(tabStatus=='custom')}">
-                        <input type="checkbox" formControlName="vehicle_DayWise" [checked]="true" />
+                      <label
+                        class="switch"
+                        [ngClass]="{ disable: !(tabStatus == 'custom') }"
+                      >
+                        <input
+                          type="checkbox"
+                          formControlName="vehicle_DayWise"
+                          [checked]="true"
+                        />
                         <span class="slider round"></span>
                       </label>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
               </div>
-            
+
               <!-- Vehicle No. Wise Voucher -->
               <div class="tab-card">
                 <ion-grid>
-                  <ion-row class="ion-justify-content-between ion-align-items-center">
+                  <ion-row
+                    class="ion-justify-content-between ion-align-items-center"
+                  >
                     <ion-col size="auto">
-                      <ion-row class="ion-justify-content-evenly ion-align-items-center">
+                      <ion-row
+                        class="ion-justify-content-evenly ion-align-items-center"
+                      >
                         <svg
                           xmlns="https://www.w3.org/2000/svg"
                           width="26"
@@ -280,30 +405,41 @@
                             fill="#9FA7B2"
                           />
                         </svg>
-            
+
                         <div class="text">
                           <p>Vehicle No. Wise Voucher</p>
                           <p class="sub-text">Table List View</p>
                         </div>
                       </ion-row>
                     </ion-col>
-            
+
                     <ion-col size="auto">
-                      <label class="switch" [ngClass]="{disable : !(tabStatus=='custom')}">
-                        <input type="checkbox" formControlName="vehicle_VehicleNo" [checked]="true" />
+                      <label
+                        class="switch"
+                        [ngClass]="{ disable: !(tabStatus == 'custom') }"
+                      >
+                        <input
+                          type="checkbox"
+                          formControlName="vehicle_VehicleNo"
+                          [checked]="true"
+                        />
                         <span class="slider round"></span>
                       </label>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
               </div>
-            
+
               <!-- Vehicle Type Wise Expenses -->
               <div class="tab-card">
                 <ion-grid>
-                  <ion-row class="ion-justify-content-between ion-align-items-center">
+                  <ion-row
+                    class="ion-justify-content-between ion-align-items-center"
+                  >
                     <ion-col size="auto">
-                      <ion-row class="ion-justify-content-evenly ion-align-items-center">
+                      <ion-row
+                        class="ion-justify-content-evenly ion-align-items-center"
+                      >
                         <svg
                           xmlns="https://www.w3.org/2000/svg"
                           width="26"
@@ -317,30 +453,41 @@
                             fill="#9FA7B2"
                           />
                         </svg>
-            
+
                         <div class="text">
                           <p>Vehicle Type Wise Expenses</p>
                           <p class="sub-text">Table View with collpsable</p>
                         </div>
                       </ion-row>
                     </ion-col>
-            
+
                     <ion-col size="auto">
-                      <label class="switch" [ngClass]="{disable : !(tabStatus=='custom')}">
-                        <input type="checkbox" formControlName="vehicle_VehicleType" [checked]="true" />
+                      <label
+                        class="switch"
+                        [ngClass]="{ disable: !(tabStatus == 'custom') }"
+                      >
+                        <input
+                          type="checkbox"
+                          formControlName="vehicle_VehicleType"
+                          [checked]="true"
+                        />
                         <span class="slider round"></span>
                       </label>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
               </div>
-            
+
               <!-- Today vs Avg Shipements -->
               <div class="tab-card">
                 <ion-grid>
-                  <ion-row class="ion-justify-content-between ion-align-items-center">
+                  <ion-row
+                    class="ion-justify-content-between ion-align-items-center"
+                  >
                     <ion-col size="auto">
-                      <ion-row class="ion-justify-content-evenly ion-align-items-center">
+                      <ion-row
+                        class="ion-justify-content-evenly ion-align-items-center"
+                      >
                         <svg
                           xmlns="https://www.w3.org/2000/svg"
                           width="26"
@@ -354,30 +501,41 @@
                             fill="#9FA7B2"
                           />
                         </svg>
-            
+
                         <div class="text">
                           <p>Today vs Avg Shipements</p>
                           <p class="sub-text">Bar Graph Card</p>
                         </div>
                       </ion-row>
                     </ion-col>
-            
+
                     <ion-col size="auto">
-                      <label class="switch" [ngClass]="{disable : !(tabStatus=='custom')}">
-                        <input type="checkbox" formControlName="vehicle_VehicleWise" [checked]="true" />
+                      <label
+                        class="switch"
+                        [ngClass]="{ disable: !(tabStatus == 'custom') }"
+                      >
+                        <input
+                          type="checkbox"
+                          formControlName="vehicle_VehicleWise"
+                          [checked]="true"
+                        />
                         <span class="slider round"></span>
                       </label>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
               </div>
-            
+
               <!-- Today vs Avg Shipements -->
               <div class="tab-card">
                 <ion-grid>
-                  <ion-row class="ion-justify-content-between ion-align-items-center">
+                  <ion-row
+                    class="ion-justify-content-between ion-align-items-center"
+                  >
                     <ion-col size="auto">
-                      <ion-row class="ion-justify-content-evenly ion-align-items-center">
+                      <ion-row
+                        class="ion-justify-content-evenly ion-align-items-center"
+                      >
                         <svg
                           xmlns="https://www.w3.org/2000/svg"
                           width="26"
@@ -391,30 +549,41 @@
                             fill="#9FA7B2"
                           />
                         </svg>
-            
+
                         <div class="text">
                           <p>Today vs Avg Shipements</p>
                           <p class="sub-text">Bar Graph Card</p>
                         </div>
                       </ion-row>
                     </ion-col>
-            
+
                     <ion-col size="auto">
-                      <label class="switch" [ngClass]="{disable : !(tabStatus=='custom')}">
-                        <input type="checkbox" formControlName="vehicle_PartyWise" [checked]="true" />
+                      <label
+                        class="switch"
+                        [ngClass]="{ disable: !(tabStatus == 'custom') }"
+                      >
+                        <input
+                          type="checkbox"
+                          formControlName="vehicle_PartyWise"
+                          [checked]="true"
+                        />
                         <span class="slider round"></span>
                       </label>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
               </div>
-            
+
               <!-- Today vs Avg Shipements -->
               <div class="tab-card">
                 <ion-grid>
-                  <ion-row class="ion-justify-content-between ion-align-items-center">
+                  <ion-row
+                    class="ion-justify-content-between ion-align-items-center"
+                  >
                     <ion-col size="auto">
-                      <ion-row class="ion-justify-content-evenly ion-align-items-center">
+                      <ion-row
+                        class="ion-justify-content-evenly ion-align-items-center"
+                      >
                         <svg
                           xmlns="https://www.w3.org/2000/svg"
                           width="26"
@@ -428,17 +597,24 @@
                             fill="#9FA7B2"
                           />
                         </svg>
-            
+
                         <div class="text">
                           <p>Today vs Avg Shipements</p>
                           <p class="sub-text">Bar Graph Card</p>
                         </div>
                       </ion-row>
                     </ion-col>
-            
+
                     <ion-col size="auto">
-                      <label class="switch" [ngClass]="{disable : !(tabStatus=='custom')}">
-                        <input type="checkbox" formControlName="vehicle_DieselV" [checked]="true" />
+                      <label
+                        class="switch"
+                        [ngClass]="{ disable: !(tabStatus == 'custom') }"
+                      >
+                        <input
+                          type="checkbox"
+                          formControlName="vehicle_DieselV"
+                          [checked]="true"
+                        />
                         <span class="slider round"></span>
                       </label>
                     </ion-col>
@@ -448,9 +624,13 @@
 
               <div class="tab-card">
                 <ion-grid>
-                  <ion-row class="ion-justify-content-between ion-align-items-center">
+                  <ion-row
+                    class="ion-justify-content-between ion-align-items-center"
+                  >
                     <ion-col size="auto">
-                      <ion-row class="ion-justify-content-evenly ion-align-items-center">
+                      <ion-row
+                        class="ion-justify-content-evenly ion-align-items-center"
+                      >
                         <svg
                           xmlns="https://www.w3.org/2000/svg"
                           width="26"
@@ -464,32 +644,43 @@
                             fill="#9FA7B2"
                           />
                         </svg>
-            
+
                         <div class="text">
                           <p>Today vs Avg Shipements</p>
                           <p class="sub-text">Bar Graph Card</p>
                         </div>
                       </ion-row>
                     </ion-col>
-            
+
                     <ion-col size="auto">
-                      <label class="switch" [ngClass]="{disable : !(tabStatus=='custom')}">
-                        <input type="checkbox" formControlName="vehicle_AttachedO" [checked]="true" />
+                      <label
+                        class="switch"
+                        [ngClass]="{ disable: !(tabStatus == 'custom') }"
+                      >
+                        <input
+                          type="checkbox"
+                          formControlName="vehicle_AttachedO"
+                          [checked]="true"
+                        />
                         <span class="slider round"></span>
                       </label>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
               </div>
-            
+
               <p class="head">Vendors Tab Cards</p>
-            
+
               <!-- Day Wise Summary -->
               <div class="tab-card">
                 <ion-grid>
-                  <ion-row class="ion-justify-content-between ion-align-items-center">
+                  <ion-row
+                    class="ion-justify-content-between ion-align-items-center"
+                  >
                     <ion-col size="auto">
-                      <ion-row class="ion-justify-content-evenly ion-align-items-center">
+                      <ion-row
+                        class="ion-justify-content-evenly ion-align-items-center"
+                      >
                         <svg
                           xmlns="https://www.w3.org/2000/svg"
                           width="26"
@@ -503,30 +694,41 @@
                             fill="#9FA7B2"
                           />
                         </svg>
-            
+
                         <div class="text">
                           <p>Day Wise Summary Chart</p>
                           <p class="sub-text">Pie Chart Card</p>
                         </div>
                       </ion-row>
                     </ion-col>
-            
+
                     <ion-col size="auto">
-                      <label class="switch" [ngClass]="{disable : !(tabStatus=='custom')}">
-                        <input type="checkbox" formControlName="vendor_DayWise" [checked]="true" />
+                      <label
+                        class="switch"
+                        [ngClass]="{ disable: !(tabStatus == 'custom') }"
+                      >
+                        <input
+                          type="checkbox"
+                          formControlName="vendor_DayWise"
+                          [checked]="true"
+                        />
                         <span class="slider round"></span>
                       </label>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
               </div>
-            
+
               <!-- Shipment Wise Voucher -->
               <div class="tab-card">
                 <ion-grid>
-                  <ion-row class="ion-justify-content-between ion-align-items-center">
+                  <ion-row
+                    class="ion-justify-content-between ion-align-items-center"
+                  >
                     <ion-col size="auto">
-                      <ion-row class="ion-justify-content-evenly ion-align-items-center">
+                      <ion-row
+                        class="ion-justify-content-evenly ion-align-items-center"
+                      >
                         <svg
                           xmlns="https://www.w3.org/2000/svg"
                           width="26"
@@ -540,30 +742,41 @@
                             fill="#9FA7B2"
                           />
                         </svg>
-            
+
                         <div class="text">
                           <p>Shipment Wise Voucher</p>
                           <p class="sub-text">Table List View</p>
                         </div>
                       </ion-row>
                     </ion-col>
-            
+
                     <ion-col size="auto">
-                      <label class="switch" [ngClass]="{disable : !(tabStatus=='custom')}">
-                        <input type="checkbox" formControlName="vendor_VendorWise" [checked]="true" />
+                      <label
+                        class="switch"
+                        [ngClass]="{ disable: !(tabStatus == 'custom') }"
+                      >
+                        <input
+                          type="checkbox"
+                          formControlName="vendor_VendorWise"
+                          [checked]="true"
+                        />
                         <span class="slider round"></span>
                       </label>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
               </div>
-            
+
               <!-- Expenses So far vs Avg (₹) -->
               <div class="tab-card">
                 <ion-grid>
-                  <ion-row class="ion-justify-content-between ion-align-items-center">
+                  <ion-row
+                    class="ion-justify-content-between ion-align-items-center"
+                  >
                     <ion-col size="auto">
-                      <ion-row class="ion-justify-content-evenly ion-align-items-center">
+                      <ion-row
+                        class="ion-justify-content-evenly ion-align-items-center"
+                      >
                         <svg
                           xmlns="https://www.w3.org/2000/svg"
                           width="26"
@@ -577,30 +790,41 @@
                             fill="#9FA7B2"
                           />
                         </svg>
-            
+
                         <div class="text">
                           <p>Expenses So far vs Avg (₹)</p>
                           <p class="sub-text">Bar Graph Card</p>
                         </div>
                       </ion-row>
                     </ion-col>
-            
+
                     <ion-col size="auto">
-                      <label class="switch" [ngClass]="{disable : !(tabStatus=='custom')}">
-                        <input type="checkbox" formControlName="vendor_VehicleType" [checked]="true" />
+                      <label
+                        class="switch"
+                        [ngClass]="{ disable: !(tabStatus == 'custom') }"
+                      >
+                        <input
+                          type="checkbox"
+                          formControlName="vendor_VehicleType"
+                          [checked]="true"
+                        />
                         <span class="slider round"></span>
                       </label>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
               </div>
-            
+
               <!-- Today vs Avg Shipements -->
               <div class="tab-card">
                 <ion-grid>
-                  <ion-row class="ion-justify-content-between ion-align-items-center">
+                  <ion-row
+                    class="ion-justify-content-between ion-align-items-center"
+                  >
                     <ion-col size="auto">
-                      <ion-row class="ion-justify-content-evenly ion-align-items-center">
+                      <ion-row
+                        class="ion-justify-content-evenly ion-align-items-center"
+                      >
                         <svg
                           xmlns="https://www.w3.org/2000/svg"
                           width="26"
@@ -614,17 +838,24 @@
                             fill="#9FA7B2"
                           />
                         </svg>
-            
+
                         <div class="text">
                           <p>Today vs Avg Shipements</p>
                           <p class="sub-text">Bar Graph Card</p>
                         </div>
                       </ion-row>
                     </ion-col>
-            
+
                     <ion-col size="auto">
-                      <label class="switch" [ngClass]="{disable : !(tabStatus=='custom')}">
-                        <input type="checkbox" formControlName="vendor_PartyWiseE" [checked]="true" />
+                      <label
+                        class="switch"
+                        [ngClass]="{ disable: !(tabStatus == 'custom') }"
+                      >
+                        <input
+                          type="checkbox"
+                          formControlName="vendor_PartyWiseE"
+                          [checked]="true"
+                        />
                         <span class="slider round"></span>
                       </label>
                     </ion-col>
@@ -634,9 +865,13 @@
 
               <div class="tab-card">
                 <ion-grid>
-                  <ion-row class="ion-justify-content-between ion-align-items-center">
+                  <ion-row
+                    class="ion-justify-content-between ion-align-items-center"
+                  >
                     <ion-col size="auto">
-                      <ion-row class="ion-justify-content-evenly ion-align-items-center">
+                      <ion-row
+                        class="ion-justify-content-evenly ion-align-items-center"
+                      >
                         <svg
                           xmlns="https://www.w3.org/2000/svg"
                           width="26"
@@ -650,17 +885,24 @@
                             fill="#9FA7B2"
                           />
                         </svg>
-            
+
                         <div class="text">
                           <p>Today vs Avg Shipements</p>
                           <p class="sub-text">Bar Graph Card</p>
                         </div>
                       </ion-row>
                     </ion-col>
-            
+
                     <ion-col size="auto">
-                      <label class="switch" [ngClass]="{disable : !(tabStatus=='custom')}">
-                        <input type="checkbox" formControlName="vendor_PartyWiseS" [checked]="true" />
+                      <label
+                        class="switch"
+                        [ngClass]="{ disable: !(tabStatus == 'custom') }"
+                      >
+                        <input
+                          type="checkbox"
+                          formControlName="vendor_PartyWiseS"
+                          [checked]="true"
+                        />
                         <span class="slider round"></span>
                       </label>
                     </ion-col>
@@ -669,11 +911,17 @@
               </div>
               <div class="tab-bar">
                 <div>
-                  <ion-button type="submit" shape="round" class="active-btn">Save</ion-button>
-                  <ion-button shape="round" (click)="closeModal();modal.dismiss()">Cancel</ion-button>
+                  <ion-button type="submit" shape="round" class="active-btn"
+                    >Save</ion-button
+                  >
+                  <ion-button
+                    shape="round"
+                    (click)="closeModal(); modal.dismiss()"
+                    >Cancel</ion-button
+                  >
                 </div>
               </div>
-            </div> 
+            </div>
           </div>
         </form>
       </div>

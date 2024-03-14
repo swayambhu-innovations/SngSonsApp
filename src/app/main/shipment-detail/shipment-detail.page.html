@@ -99,7 +99,7 @@
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">GST Number</ion-col>
-        <ion-col size="auto">{{shipmentDetails.GSTNumber}}</ion-col>
+        <ion-col size="auto">{{shipmentDetails.vendorDetails?.gstInvoiceNumber}}</ion-col>
       </ion-row>
     </ion-grid>
 
@@ -276,7 +276,7 @@
       <p class="heading">RC Photo</p>
       <img
         src="{{shipmentDetails.vehicle ? shipmentDetails.vehicle.permitPhoto : config.url.defaultProfile}}"
-        alt="Upload Image"
+        alt="Upload RC Photo"
       />
     </div>
 
@@ -284,7 +284,7 @@
       <p class="heading">Insurance Photo</p>
       <img
       src="{{shipmentDetails.vehicle ? shipmentDetails?.vehicle.insurancePhoto : config.url.defaultProfile}}"
-        alt="Upload Image"
+        alt="Upload Insurance Photo"
       />
     </div>
 
@@ -313,11 +313,9 @@
 
 <!-- pdf-export-modal -->
 <ion-modal
-  #modal
-  trigger="pdf-export-modal"
   [isOpen]="isPDF"
   [initialBreakpoint]="0.65"
-  [breakpoints]="[0, 0.25, 0.5, 0.75]"
+  [breakpoints]="[0, 0.25, 0.5, 0.65]"
 >
   <ng-template>
     <ion-content>
@@ -578,7 +576,6 @@
 
 <!-- excel-export-modal -->
 <ion-modal
-  #modal
   trigger="excel-export-modal"
   [isOpen]="isExcel"
   [initialBreakpoint]="0.65"
@@ -818,7 +815,7 @@
 </ion-modal>
 
 <!-- suspended-modal -->
-<ion-modal #modal [canDismiss]="dismissModal" [isOpen]="isSuspended" [initialBreakpoint]="1" [breakpoints]="[0, 1]" class="dismissModal">
+<ion-modal [canDismiss]="dismissModal" [isOpen]="isSuspended" [initialBreakpoint]="1" [breakpoints]="[0, 1]" class="dismissModal">
   <ng-template>
       <div class="ion-padding ion-margin wrapper">
         <div lines="none" class="ion-text-center my-2">

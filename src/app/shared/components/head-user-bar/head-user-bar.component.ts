@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder,
+} from '@angular/forms';
 import { LoadingController, NavController } from '@ionic/angular';
 import { UtilService } from 'src/app/utils/util';
 import { HeadUserBarService } from './head-user-bar.service';
@@ -19,9 +24,11 @@ export class HeadUserBarComponent implements OnInit {
     private loadingController: LoadingController,
     private homeService: HomeService,
     private util: UtilService
-  ) { }
+  ) {}
 
-  expertSetting={
+  notificationCount: number = 8;
+
+  expertSetting = {
     shipment_DayWise: true,
     shipment_Shipment: true,
     shipment_Expense: true,
@@ -39,12 +46,12 @@ export class HeadUserBarComponent implements OnInit {
     vendor_PartyWiseE: true,
     vendor_PartyWiseS: true,
     vendor_KOT: true,
-  }
+  };
   openMode: boolean = false;
   userName: string = '';
   tabStatus: any = 'simple';
   private loader: any;
-  userId=this.util.getUserId();
+  userId = this.util.getUserId();
   modeFormSettings = this.fb.group({
     shipment_DayWise: [true, []],
     shipment_Shipment: [true, []],
@@ -63,20 +70,24 @@ export class HeadUserBarComponent implements OnInit {
     vendor_PartyWiseE: [false, []],
     vendor_PartyWiseS: [false, []],
     vendor_KOT: [false, []],
-    tab: [this.tabStatus]
+    tab: [this.tabStatus],
   });
 
   public initalFormValue: object = { ...this.modeFormSettings.value };
 
   async ngOnInit() {
-
-    this.loader = await this.loadingController.create({ message: 'please wait' })
+    this.loader = await this.loadingController.create({
+      message: 'please wait',
+    });
     this.getUserName();
-    this.homeService.dashBoardSettingFormData = (await this.headBarService.getDashBoardSetting(this.userId)).data() || {};
-    if(Object.keys(this.homeService.dashBoardSettingFormData).length) {
-      this.modeFormSettings.patchValue(this.homeService.dashBoardSettingFormData);
+    this.homeService.dashBoardSettingFormData =
+      (await this.headBarService.getDashBoardSetting(this.userId)).data() || {};
+    if (Object.keys(this.homeService.dashBoardSettingFormData).length) {
+      this.modeFormSettings.patchValue(
+        this.homeService.dashBoardSettingFormData
+      );
       this.tabStatus = this.modeFormSettings.get('tab')?.value;
-    }else {
+    } else {
       this.homeService.dashBoardSettingFormData = this.expertSetting;
     }
   }
@@ -90,43 +101,41 @@ export class HeadUserBarComponent implements OnInit {
   }
 
   changeTab(id: string) {
-    this.tabStatus = id
-    this.modeFormSettings.patchValue({ 'tab': this.tabStatus });
+    this.tabStatus = id;
+    this.modeFormSettings.patchValue({ tab: this.tabStatus });
     if (this.tabStatus == 'simple') {
       this.modeFormSettings.patchValue(this.initalFormValue);
       this.modeFormSettings.disable();
-    }
-    else if(this.tabStatus=='expert') {
+    } else if (this.tabStatus == 'expert') {
       this.modeFormSettings.patchValue(this.expertSetting);
       this.modeFormSettings.disable();
-    }
-    else {
-      if(Object.keys(this.homeService.dashBoardSettingFormData).length) {
-        this.modeFormSettings.patchValue(this.homeService.dashBoardSettingFormData);
+    } else {
+      if (Object.keys(this.homeService.dashBoardSettingFormData).length) {
+        this.modeFormSettings.patchValue(
+          this.homeService.dashBoardSettingFormData
+        );
       }
-      this.modeFormSettings.patchValue({ 'tab': this.tabStatus });
+      this.modeFormSettings.patchValue({ tab: this.tabStatus });
       this.modeFormSettings.enable();
     }
   }
 
   dismissModal = async () => {
-    this.openMode=false;
+    this.openMode = false;
     return true;
-}
+  };
 
   getUserName() {
     const data: any = this.utilService.getUserdata();
     this.userName = data?.access?.userName || '';
   }
 
-  getDashboardSettingData() {
-    
-  }
+  getDashboardSettingData() {}
 
   dashboardEye() {
     this.openMode = true;
-    if(this.tabStatus=='simple') { 
-      this.modeFormSettings.disable()
+    if (this.tabStatus == 'simple') {
+      this.modeFormSettings.disable();
     }
   }
 
@@ -135,11 +144,14 @@ export class HeadUserBarComponent implements OnInit {
   }
 
   async onSubmit() {
-    console.log(this.modeFormSettings.get('tab')?.value)
+    console.log(this.modeFormSettings.get('tab')?.value);
     this.loader.present();
     this.homeService.dashBoardSettingFormData = this.modeFormSettings.value;
-    await this.headBarService.setDashBoardSetting(this.modeFormSettings.value , this.userId);
-    this.openMode=false;
+    await this.headBarService.setDashBoardSetting(
+      this.modeFormSettings.value,
+      this.userId
+    );
+    this.openMode = false;
     this.loader.dismiss();
   }
 }
