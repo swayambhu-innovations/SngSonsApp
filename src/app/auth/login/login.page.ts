@@ -72,12 +72,10 @@ export class LoginPage implements OnInit {
     );
   }
 
-  // limitInputLength($event: any, maxLength = 10) {
-  //   if($event.target.value.length>=maxLength) {
-  //       $event.preventDefault();
-  //       return;
-  //   }
-  // }
+  get isOTPAvailable() {
+    return this.loginForm.value.otp && this.loginForm.value.otp == '';
+  }
+
   onKeyPress(event: KeyboardEvent) {
     const allowedChars = /[0-9]/;
     const allowedSpecialKeys = [
@@ -97,13 +95,18 @@ export class LoginPage implements OnInit {
     }
   }
 
-  async requestOTP(resend = false) {
+  async requestOTP(resend: boolean) {
     const phoneNumber = this.loginForm.value.phone;
     if (!phoneNumber) {
       return;
     }
     if (resend) {
+      this.loader.present();
+      this.loginForm.patchValue({
+        otp: '',
+      });
       this.resetRecaptchaVerifier();
+      this.loader.dismiss();
     }
     this.loader.present();
     if (this.recaptchaVerifier) {
@@ -119,6 +122,7 @@ export class LoginPage implements OnInit {
         .catch((error) => {
           this.resetRecaptchaVerifier();
           this.notification.showError(Config.messages.smsError);
+          this.loginForm.reset();
         });
     }
     this.loader.dismiss();

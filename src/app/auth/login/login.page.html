@@ -21,7 +21,7 @@
         <!-- OTP Request -->
         <ion-button
           [disabled]="!isValidNumber"
-          (click)="requestOTP()"
+          (click)="requestOTP(false)"
           *ngIf="!loginPermissionService.showOtp"
           shape="round"
           >Request OTP</ion-button
@@ -48,6 +48,15 @@
           shape="round"
           >Log In</ion-button
         >
+
+        <!-- Resend OTP -->
+        <ion-button
+          (click)="requestOTP(true)"
+          shape="round"
+          *ngIf="loginPermissionService.showOtp"
+        >
+          Resend OTP
+        </ion-button>
       </form>
       <div id="recaptcha-container"></div>
     </div>

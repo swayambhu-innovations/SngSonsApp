@@ -39,6 +39,37 @@
     svg {
       cursor: pointer;
     }
+
+    .push-notification {
+      position: relative;
+
+      ion-badge {
+        position: absolute;
+        border-radius: 50%;
+        font-size: 8px !important;
+        text-align: center;
+        --padding-top: 1.5px !important;
+        --padding-start: 0.5px !important;
+        --padding-bottom: 0 !important;
+        --padding-end: 0 !important;
+        top: 0;
+        left: 10px;
+        height: 10px;
+        width: 10px;
+        --background: #1540bd;
+        --color: white;
+      }
+
+      .notifiaction-dot {
+        position: absolute;
+        top: 0;
+        left: 10px;
+        height: 10px;
+        width: 10px;
+        border-radius: 50%;
+        background: #1540bd;
+      }
+    }
   }
 }
 
@@ -175,10 +206,9 @@ ion-modal #select-mode {
   }
 }
 
-.disable input:checked + .slider{
-  background-color: #ADADAD;
+.disable input:checked + .slider {
+  background-color: #adadad;
 }
-
 
 .switch {
   width: 20px;
@@ -193,7 +223,7 @@ ion-modal #select-mode {
     border-radius: 50%;
   }
 
-  input:checked+.slider:before {
+  input:checked + .slider:before {
     -webkit-transform: translateX(9px);
     -ms-transform: translateX(9px);
     transform: translateX(9px);

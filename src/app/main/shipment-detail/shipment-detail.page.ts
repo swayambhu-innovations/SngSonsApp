@@ -33,8 +33,7 @@ export class ShipmentDetailPage implements OnInit {
     private notification: NotificationService,
     private shipmentDetailService: ShipmentDetailService,
     public homeService: HomeService
-  ) {
-  }
+  ) {}
 
   async ionViewWillEnter() {
     this.loader = await this.loadingController.create({
@@ -44,9 +43,7 @@ export class ShipmentDetailPage implements OnInit {
     this.getShipmentDetails();
   }
 
-  async ngOnInit() {
-    
-  }
+  async ngOnInit() {}
 
   async openFillVoucherPage() {
     if (!this.shipmentDetails.voucher) {
@@ -75,23 +72,39 @@ export class ShipmentDetailPage implements OnInit {
     if (!data) {
       return 0;
     }
-    return parseFloat(data.dieselExpenseAmount || 0) + parseFloat(data.labourExpenseAmount || 0) + parseFloat(data.khurakiExpenseAmount || 0) + parseFloat(data.freightExpenseAmount || 0) + parseFloat(data.tollExpenseAmount || 0) + parseFloat(data.repairExpenseAmount || 0) + parseFloat(data.otherExpenseAmount || 0);
+    return (
+      parseFloat(data.dieselExpenseAmount || 0) +
+      parseFloat(data.labourExpenseAmount || 0) +
+      parseFloat(data.khurakiExpenseAmount || 0) +
+      parseFloat(data.freightExpenseAmount || 0) +
+      parseFloat(data.tollExpenseAmount || 0) +
+      parseFloat(data.repairExpenseAmount || 0) +
+      parseFloat(data.otherExpenseAmount || 0)
+    );
   }
 
   async getShipmentDetails() {
     this.loader.present();
-    await (await this.shipmentService.getShipmentsById(this.id)).docs.map(async (shipment: any) => {
-      const shipmentData = { ...shipment.data(), id: shipment.id, vendor: [] };
-      this.shipmentDetails = await this.shipmentDetailService.formatShipment(shipmentData);
-      console.log(this.shipmentDetails)
-    })
+    (await this.shipmentService.getShipmentsById(this.id)).docs.map(
+      async (shipment: any) => {
+        const shipmentData = {
+          ...shipment.data(),
+          id: shipment.id,
+          vendor: [],
+        };
+        this.shipmentDetails = await this.shipmentDetailService.formatShipment(
+          shipmentData
+        );
+        console.log(this.shipmentDetails);
+      }
+    );
     this.loader.dismiss();
   }
 
   async suspend(confirmation: any) {
     if (confirmation) {
       this.loader.present();
-      await this.shipmentService.updShipmentStatus(this.id, ShipmentStatus.Suspended);
+      this.shipmentService.updShipmentStatus(this.id, ShipmentStatus.Suspended);
       this.shipmentDetails.status = ShipmentStatus.Suspended;
       this.loader.dismiss();
       this.notification.showSuccess(this.config.messages.updatedSuccessfully);
@@ -102,5 +115,5 @@ export class ShipmentDetailPage implements OnInit {
   dismissModal = async () => {
     this.isSuspended = false;
     return true;
-  }
+  };
 }
