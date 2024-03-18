@@ -67,6 +67,11 @@ export class ShipmentDetailPage implements OnInit {
     this.navCtrl.back();
   }
 
+  openExcel() {
+    this.isExcel = true;
+    console.log("excel")
+  }
+
   get totalExpense() {
     const data = this.shipmentDetails?.voucherData;
     if (!data) {
