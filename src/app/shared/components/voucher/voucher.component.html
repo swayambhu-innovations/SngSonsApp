@@ -70,7 +70,8 @@
     <ion-row
       (click)="openShipmentDetail(shipment)"
       class="ion-justify-content-between ion-align-items-center"
-      *ngFor="let shipment of shipmentsData"
+      *ngFor="let shipment of shipmentsData; index as i"
+      [ngClass]="{ 'd-none': i > 4 && !showAll }"
     >
       <ion-col size="0.75">
         <svg
@@ -201,9 +202,10 @@
     <ion-row
       id="view-more"
       class="ion-justify-content-between ion-align-items-center"
+      *ngIf="shipmentsData.length > 5"
     >
       <ion-col size="auto"></ion-col>
-      <ion-col size="auto" (click)="showAll = !showAll">
+      <ion-col style="cursor: pointer" size="auto" (click)="showAll = !showAll">
         <span *ngIf="!showAll">View More</span>
         <span *ngIf="showAll">View Less</span>
         <ion-icon name="chevron-forward-outline"></ion-icon>

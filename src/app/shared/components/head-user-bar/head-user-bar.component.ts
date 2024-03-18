@@ -144,7 +144,6 @@ export class HeadUserBarComponent implements OnInit {
   }
 
   async onSubmit() {
-    console.log(this.modeFormSettings.get('tab')?.value);
     this.loader.present();
     this.homeService.dashBoardSettingFormData = this.modeFormSettings.value;
     await this.headBarService.setDashBoardSetting(
