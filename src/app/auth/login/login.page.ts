@@ -86,6 +86,7 @@ export class LoginPage implements OnInit {
       'Tab',
     ];
     const keyPressed = event.key;
+    this.loginPermissionService.showOtp = false;
 
     if (
       !allowedChars.test(keyPressed) &&
@@ -96,20 +97,19 @@ export class LoginPage implements OnInit {
   }
 
   async requestOTP(resend: boolean) {
+    this.loader.present();
     const phoneNumber = this.loginForm.value.phone;
     if (!phoneNumber) {
       return;
     }
     if (resend) {
-      this.loader.present();
       this.loginForm.patchValue({
         otp: '',
       });
       this.resetRecaptchaVerifier();
-      this.loader.dismiss();
     }
-    this.loader.present();
     if (this.recaptchaVerifier) {
+      this.loader.present();
       await signInWithPhoneNumber(
         this.auth,
         `+91${phoneNumber}`,
@@ -124,6 +124,7 @@ export class LoginPage implements OnInit {
           this.notification.showError(Config.messages.smsError);
           this.loginForm.reset();
         });
+      this.loader.dismiss();
     }
     this.loader.dismiss();
   }
@@ -146,6 +147,7 @@ export class LoginPage implements OnInit {
         };
         this.loginPermissionService.setLocal(user);
         await this.loginPermissionService.redirectUser(this.loader);
+        this.loginForm.reset();
         this.loader.dismiss();
       })
       .catch((error: any) => {

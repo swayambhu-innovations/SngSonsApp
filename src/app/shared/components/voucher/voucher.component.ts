@@ -1,9 +1,15 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { LoadingController, NavController } from '@ionic/angular';
 import { Config } from 'src/app/config';
 import { ShipmentsService } from 'src/app/main/home/tabs/shipments/shipments.service';
-import { ShipmentStatus } from "src/app/utils/enum";
+import { ShipmentStatus } from 'src/app/utils/enum';
 import { VoucherService } from './voucher.service';
 import { uniq } from 'lodash';
 
@@ -18,9 +24,7 @@ export class VoucherComponent implements OnChanges, OnInit {
     private loadingController: LoadingController,
     private shipmentsService: ShipmentsService,
     private voucherService: VoucherService
-  ) {
-    
-  }
+  ) {}
 
   @Input() heading = '';
   @Input() search = '';
@@ -30,6 +34,7 @@ export class VoucherComponent implements OnChanges, OnInit {
   @Input() fetchDefault = true;
 
   showAll = false;
+  count: number = 5;
   loader: any;
   shipmentsData: any[] = [];
   shipmentStatus = ShipmentStatus;
@@ -63,13 +68,23 @@ export class VoucherComponent implements OnChanges, OnInit {
     });
   }
 
+  showMoreShipments() {
+    this.count += 5;
+  }
+
   get dateText() {
-    const dt = new DatePipe('en-US').transform(this.voucherService.selectedDate, 'dd MMM')
-    return dt
+    const dt = new DatePipe('en-US').transform(
+      this.voucherService.selectedDate,
+      'dd MMM'
+    );
+    return dt;
   }
 
   onChange(e: any) {
-    this.voucherService.selectedDate = new DatePipe('en-US').transform(e.target.value, 'YYYY-MM-dd');
+    this.voucherService.selectedDate = new DatePipe('en-US').transform(
+      e.target.value,
+      'YYYY-MM-dd'
+    );
     this.getShipments();
   }
 
@@ -81,34 +96,54 @@ export class VoucherComponent implements OnChanges, OnInit {
       message: Config.messages.pleaseWait,
     });
     this.loader.present();
-    const shipmentData = await this.shipmentsService.getShipmentsByDate(this.voucherService.selectedDate);
+    const shipmentData = await this.shipmentsService.getShipmentsByDate(
+      this.voucherService.selectedDate
+    );
+    shipmentData.docs.map((shipment: any) => {
+      console.log(shipment.data());
+    });
     this.shipmentsData = [];
     shipmentData.docs.map(async (shipment: any) => {
       if (!this.vendorData[shipment.data().vendor]) {
-        (await this.shipmentsService.getVendor(shipment.data().vendorData.map((item: any) => {
-          return item.vendor;
-        }))).docs.map((vendor: any) => {
-          this.vendorData[vendor.id] = { ...vendor.data() }
-        })
+        (
+          await this.shipmentsService.getVendor(
+            shipment.data().vendorData.map((item: any) => {
+              return item.vendor;
+            })
+          )
+        ).docs.map((vendor: any) => {
+          this.vendorData[vendor.id] = { ...vendor.data() };
+        });
       }
       const vendors = shipment.data().vendorData.map((item: any) => {
         return this.vendorData[item.vendor];
       });
       const data = {
         ...shipment.data(),
-        CustomerName: uniq(vendors.map((item: any) => {
-          return item?.WSName;
-        })).join(','),
-        WSTown: uniq(vendors.map((item: any) => {
-          return item?.WSTown;
-        })).join(','),
-        WSCode: uniq(vendors.map((item: any) => {
-          return item?.WSCode;
-        })).join(','),
+        CustomerName: uniq(
+          vendors.map((item: any) => {
+            return item?.WSName;
+          })
+        ).join(','),
+        WSTown: uniq(
+          vendors.map((item: any) => {
+            return item?.WSTown;
+          })
+        ).join(','),
+        WSCode: uniq(
+          vendors.map((item: any) => {
+            return item?.WSCode;
+          })
+        ).join(','),
         vendors,
-        id: shipment.id
+        id: shipment.id,
       };
-      this.shipmentsData.push({ "_1": data[this.tableData[0].key], "_2": data[this.tableData[1].key], "_3": data[this.tableData[2].key], ...data });
+      this.shipmentsData.push({
+        _1: data[this.tableData[0].key],
+        _2: data[this.tableData[1].key],
+        _3: data[this.tableData[2].key],
+        ...data,
+      });
     });
     this.loader.dismiss();
   }

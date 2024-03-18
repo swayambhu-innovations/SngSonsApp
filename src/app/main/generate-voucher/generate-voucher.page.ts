@@ -10,7 +10,7 @@ import { ShipmentDetailService } from '../shipment-detail/shipment-detail.servic
 import { HomeService } from '../home/home.service';
 import { AccountExpenseService } from '../settings/component/account-expense/account-expense.service';
 import { LabourMasterService } from '../settings/component/labour-master/labour-master.service';
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UtilService } from 'src/app/utils/util';
 import * as moment from 'moment';
 
@@ -46,9 +46,8 @@ export class GenerateVoucherPage implements OnInit {
     public homeService: HomeService,
     private accountExpenseService: AccountExpenseService,
     private labourMasterService: LabourMasterService,
-    private utilService: UtilService,
-  ) {
-  }
+    private utilService: UtilService
+  ) {}
 
   voucherForm: FormGroup = new FormGroup({
     id: new FormControl('', [Validators.required]),
@@ -90,7 +89,15 @@ export class GenerateVoucherPage implements OnInit {
 
   get totalExpense() {
     const data = this.voucherForm.value;
-    return parseFloat(data.dieselExpenseAmount || 0) + parseFloat(data.labourExpenseAmount || 0) + parseFloat(data.khurakiExpenseAmount || 0) + parseFloat(data.freightExpenseAmount || 0) + parseFloat(data.tollExpenseAmount || 0) + parseFloat(data.repairExpenseAmount || 0) + parseFloat(data.otherExpenseAmount || 0);
+    return (
+      parseFloat(data.dieselExpenseAmount || 0) +
+      parseFloat(data.labourExpenseAmount || 0) +
+      parseFloat(data.khurakiExpenseAmount || 0) +
+      parseFloat(data.freightExpenseAmount || 0) +
+      parseFloat(data.tollExpenseAmount || 0) +
+      parseFloat(data.repairExpenseAmount || 0) +
+      parseFloat(data.otherExpenseAmount || 0)
+    );
   }
 
   get createdAt() {
@@ -105,9 +112,13 @@ export class GenerateVoucherPage implements OnInit {
 
   async getShipmentDetails() {
     this.loader.present();
-    await (await this.shipmentService.getShipmentsById(this.id)).docs.map(async (shipment: any) => {
+    await (
+      await this.shipmentService.getShipmentsById(this.id)
+    ).docs.map(async (shipment: any) => {
       const shipmentData = { ...shipment.data(), id: shipment.id, vendor: [] };
-      this.shipmentDetails = await this.shipmentDetailService.formatShipment(shipmentData);
+      this.shipmentDetails = await this.shipmentDetailService.formatShipment(
+        shipmentData
+      );
       if (this.shipmentDetails.voucherData) {
         this.voucherForm.patchValue(this.shipmentDetails.voucherData);
       } else {
@@ -125,7 +136,7 @@ export class GenerateVoucherPage implements OnInit {
           otherExpenseBank: this.expense['Others'].account,
         });
       }
-    })
+    });
     this.loader.dismiss();
   }
 
@@ -133,34 +144,42 @@ export class GenerateVoucherPage implements OnInit {
     (await this.accountExpenseService.getAccounts()).docs.map((item: any) => {
       const data = { ...item.data(), id: item.id };
       if (data.active) {
-        this.accounts.push(data)
+        this.accounts.push(data);
       }
-    })
+    });
   }
 
   async getExpense() {
-    (await this.accountExpenseService.getExpenseType()).docs.map((item: any) => {
-      const data = { ...item.data(), id: item.id };
-      if (data.active) {
-        this.expense[data.expenseName] = data;
-        this.expenseAccount[data.account] = data;
+    (await this.accountExpenseService.getExpenseType()).docs.map(
+      (item: any) => {
+        const data = { ...item.data(), id: item.id };
+        if (data.active) {
+          this.expense[data.expenseName] = data;
+          this.expenseAccount[data.account] = data;
+        }
+        console.log(this.expense);
       }
-    });
+    );
   }
 
   async getLabours() {
     (await this.labourMasterService.getLabourParty()).docs.map((item: any) => {
       const data = { ...item.data(), id: item.id };
       if (data.active) {
-        this.labours.push(data)
+        this.labours.push(data);
       }
-    })
+    });
   }
 
   checkValidAmount(formData: any, bank: string, amount: string, key: string) {
     const expense = this.expenseAccount[formData.voucherData[bank]];
-    if (formData.voucherData[amount] < expense.minDispense || formData.voucherData[amount] > expense.maxDispense) {
-      this.notification.showError(`${Config.messages.invalidAmount}for ${key} Expense`);
+    if (
+      formData.voucherData[amount] < expense.minDispense ||
+      formData.voucherData[amount] > expense.maxDispense
+    ) {
+      this.notification.showError(
+        `${Config.messages.invalidAmount}for ${key} Expense`
+      );
       return false;
     }
     return true;
@@ -174,14 +193,49 @@ export class GenerateVoucherPage implements OnInit {
     const formData: any = { voucherData: this.voucherForm.value };
 
     if (
-      !this.checkValidAmount(formData, 'dieselExpenseBank', 'dieselExpenseAmount', 'Diesel') ||
-      !this.checkValidAmount(formData, 'labourExpenseBank', 'labourExpenseAmount', 'Labour') ||
-      !this.checkValidAmount(formData, 'khurakiExpenseBank', 'khurakiExpenseAmount', 'Khuraki') ||
-      !this.checkValidAmount(formData, 'freightExpenseBank', 'freightExpenseAmount', 'Freight') ||
-      !this.checkValidAmount(formData, 'tollExpenseBank', 'tollExpenseAmount', 'Toll') ||
-      !this.checkValidAmount(formData, 'repairExpenseBank', 'repairExpenseAmount', 'Repair') ||
-      !this.checkValidAmount(formData, 'otherExpenseBank', 'otherExpenseAmount', 'Other')
-    ){
+      !this.checkValidAmount(
+        formData,
+        'dieselExpenseBank',
+        'dieselExpenseAmount',
+        'Diesel'
+      ) ||
+      !this.checkValidAmount(
+        formData,
+        'labourExpenseBank',
+        'labourExpenseAmount',
+        'Labour'
+      ) ||
+      !this.checkValidAmount(
+        formData,
+        'khurakiExpenseBank',
+        'khurakiExpenseAmount',
+        'Khuraki'
+      ) ||
+      !this.checkValidAmount(
+        formData,
+        'freightExpenseBank',
+        'freightExpenseAmount',
+        'Freight'
+      ) ||
+      !this.checkValidAmount(
+        formData,
+        'tollExpenseBank',
+        'tollExpenseAmount',
+        'Toll'
+      ) ||
+      !this.checkValidAmount(
+        formData,
+        'repairExpenseBank',
+        'repairExpenseAmount',
+        'Repair'
+      ) ||
+      !this.checkValidAmount(
+        formData,
+        'otherExpenseBank',
+        'otherExpenseAmount',
+        'Other'
+      )
+    ) {
       return;
     }
 
@@ -191,41 +245,76 @@ export class GenerateVoucherPage implements OnInit {
     }
     await this.shipmentService.updShipmentVoucher(this.id, formData);
     if (stat === 'Submit') {
-      await this.shipmentService.addAccountExpense(formData.voucherData.dieselExpenseBank, `${this.id}-diesel`, {
-        amount: formData.voucherData.dieselExpenseAmount,
-        date: new Date(),
-        shipmentId: this.id
-      }, moment(new Date()).format('MMYYYY'));
-      await this.shipmentService.addAccountExpense(formData.voucherData.labourExpenseBank, `${this.id}-labour`, {
-        amount: formData.voucherData.labourExpenseAmount,
-        date: new Date(),
-        shipmentId: this.id
-      }, moment(new Date()).format('MMYYYY'));
-      await this.shipmentService.addAccountExpense(formData.voucherData.khurakiExpenseBank, `${this.id}-khuraki`, {
-        amount: formData.voucherData.khurakiExpenseAmount,
-        date: new Date(),
-        shipmentId: this.id
-      }, moment(new Date()).format('MMYYYY'));
-      await this.shipmentService.addAccountExpense(formData.voucherData.freightExpenseBank, `${this.id}-freight`, {
-        amount: formData.voucherData.freightExpenseAmount,
-        date: new Date(),
-        shipmentId: this.id
-      }, moment(new Date()).format('MMYYYY'));
-      await this.shipmentService.addAccountExpense(formData.voucherData.tollExpenseBank, `${this.id}-toll`, {
-        amount: formData.voucherData.tollExpenseAmount,
-        date: new Date(),
-        shipmentId: this.id
-      }, moment(new Date()).format('MMYYYY'));
-      await this.shipmentService.addAccountExpense(formData.voucherData.repairExpenseBank, `${this.id}-repair`, {
-        amount: formData.voucherData.repairExpenseAmount,
-        date: new Date(),
-        shipmentId: this.id
-      }, moment(new Date()).format('MMYYYY'));
-      await this.shipmentService.addAccountExpense(formData.voucherData.otherExpenseBank, `${this.id}-other`, {
-        amount: formData.voucherData.otherExpenseAmount,
-        date: new Date(),
-        shipmentId: this.id
-      }, moment(new Date()).format('MMYYYY'));
+      await this.shipmentService.addAccountExpense(
+        formData.voucherData.dieselExpenseBank,
+        `${this.id}-diesel`,
+        {
+          amount: formData.voucherData.dieselExpenseAmount,
+          date: new Date(),
+          shipmentId: this.id,
+        },
+        moment(new Date()).format('MMYYYY')
+      );
+      await this.shipmentService.addAccountExpense(
+        formData.voucherData.labourExpenseBank,
+        `${this.id}-labour`,
+        {
+          amount: formData.voucherData.labourExpenseAmount,
+          date: new Date(),
+          shipmentId: this.id,
+        },
+        moment(new Date()).format('MMYYYY')
+      );
+      await this.shipmentService.addAccountExpense(
+        formData.voucherData.khurakiExpenseBank,
+        `${this.id}-khuraki`,
+        {
+          amount: formData.voucherData.khurakiExpenseAmount,
+          date: new Date(),
+          shipmentId: this.id,
+        },
+        moment(new Date()).format('MMYYYY')
+      );
+      await this.shipmentService.addAccountExpense(
+        formData.voucherData.freightExpenseBank,
+        `${this.id}-freight`,
+        {
+          amount: formData.voucherData.freightExpenseAmount,
+          date: new Date(),
+          shipmentId: this.id,
+        },
+        moment(new Date()).format('MMYYYY')
+      );
+      await this.shipmentService.addAccountExpense(
+        formData.voucherData.tollExpenseBank,
+        `${this.id}-toll`,
+        {
+          amount: formData.voucherData.tollExpenseAmount,
+          date: new Date(),
+          shipmentId: this.id,
+        },
+        moment(new Date()).format('MMYYYY')
+      );
+      await this.shipmentService.addAccountExpense(
+        formData.voucherData.repairExpenseBank,
+        `${this.id}-repair`,
+        {
+          amount: formData.voucherData.repairExpenseAmount,
+          date: new Date(),
+          shipmentId: this.id,
+        },
+        moment(new Date()).format('MMYYYY')
+      );
+      await this.shipmentService.addAccountExpense(
+        formData.voucherData.otherExpenseBank,
+        `${this.id}-other`,
+        {
+          amount: formData.voucherData.otherExpenseAmount,
+          date: new Date(),
+          shipmentId: this.id,
+        },
+        moment(new Date()).format('MMYYYY')
+      );
       this.isDone = true;
     } else {
       this.notification.showSuccess(this.config.messages.savedSuccessfully);
@@ -236,5 +325,5 @@ export class GenerateVoucherPage implements OnInit {
   dismissModal = async () => {
     this.isDone = false;
     return true;
-  }
+  };
 }
