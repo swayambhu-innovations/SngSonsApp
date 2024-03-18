@@ -78,6 +78,5 @@ export class ImportExportComponent implements OnInit {
                 id: '',
             }
         });
-        console.log(data);
     }
 }

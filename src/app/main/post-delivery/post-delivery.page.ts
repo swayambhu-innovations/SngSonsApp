@@ -122,7 +122,6 @@ export class PostDeliveryPage implements OnInit {
           createdByName: this.utilService.getUserName(),
         });
       }
-      console.log(this.postDeliveryForm.value)
     })
     this.loader.dismiss();
   }

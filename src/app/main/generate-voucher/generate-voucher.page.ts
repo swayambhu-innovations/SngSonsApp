@@ -157,7 +157,6 @@ export class GenerateVoucherPage implements OnInit {
           this.expense[data.expenseName] = data;
           this.expenseAccount[data.account] = data;
         }
-        console.log(this.expense);
       }
     );
   }

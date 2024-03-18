@@ -324,28 +324,16 @@
     <div class="ion-margin-vertical">
       <p class="heading">RC Photo</p>
       <img
-        *ngIf="shipmentDetails.vehicle?.permitPhoto"
-        [src]="shipmentDetails.vehicle.permitPhoto"
-        alt="RC Photo not Filled"
-      />
-      <img
-        *ngIf="!shipmentDetails.vehicle?.permitPhoto"
-        [src]="config.url.defaultProfile"
-        alt="RC Photo not Filled"
+        [src]="shipmentDetails.vehicle?.permitPhoto"
+        alt="Upload RC Photo in Vehicle Master"
       />
     </div>
 
     <div class="ion-margin-vertical">
       <p class="heading">Insurance Photo</p>
       <img
-        *ngIf="shipmentDetails.vehicle?.insurancePhoto"
-        [src]="shipmentDetails?.vehicle.insurancePhoto"
-        alt="Insurance Photo not Filled"
-      />
-      <img
-        *ngIf="!shipmentDetails.vehicle?.insurancePhoto"
-        [src]="config.url.defaultProfile"
-        alt="Insurance Photo not Filled"
+        [src]="shipmentDetails?.vehicle?.insurancePhoto"
+        alt="Upload Insurance Photo in Vehicle Master"
       />
     </div>
 

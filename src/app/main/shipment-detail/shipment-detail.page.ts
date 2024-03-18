@@ -69,7 +69,6 @@ export class ShipmentDetailPage implements OnInit {
 
   openExcel() {
     this.isExcel = true;
-    console.log("excel")
   }
 
   get totalExpense() {
@@ -100,7 +99,6 @@ export class ShipmentDetailPage implements OnInit {
         this.shipmentDetails = await this.shipmentDetailService.formatShipment(
           shipmentData
         );
-        console.log(this.shipmentDetails);
       }
     );
     this.loader.dismiss();

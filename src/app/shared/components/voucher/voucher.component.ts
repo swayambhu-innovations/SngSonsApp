@@ -100,7 +100,6 @@ export class VoucherComponent implements OnChanges, OnInit {
       this.voucherService.selectedDate
     );
     shipmentData.docs.map((shipment: any) => {
-      console.log(shipment.data());
     });
     this.shipmentsData = [];
     shipmentData.docs.map(async (shipment: any) => {
