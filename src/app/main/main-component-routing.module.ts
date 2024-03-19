@@ -5,6 +5,11 @@ import { MainComponent } from './main.component';
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+  {
+    path: '',
     component: MainComponent,
     children: [
       {
@@ -72,4 +77,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class MainComponentRoutingModule { }
+export class MainComponentRoutingModule {}

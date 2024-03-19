@@ -60,6 +60,7 @@ export class AddVehicleComponent implements OnInit {
   public vehicleData: any; // store vehicle details for editing
   public categoryID: any; // store category selected
   private loader: any;
+  public config = Config; // fetching constant from app config file
   private files: any = {
     RCPhoto: null,
     insurancePhoto: null,
@@ -91,19 +92,10 @@ export class AddVehicleComponent implements OnInit {
       this.categories = JSON.parse(history.state.vehicleCategories);
     }
 
-    if (
-      this.addVehicleForm.controls['id'].value != '' &&
-      this.addVehicleForm.controls['vehicleCat'].value
-    )
-      for (let key in this.categories) {
-        if (
-          this.categories[key].categoryName ==
-          this.addVehicleForm.controls['vehicleCat'].value
-        ) {
-          this.categoryID = this.categories[key].id;
-          break;
-        }
-      }
+    if (this.vehicleCategory)
+      this.addVehicleForm.patchValue({
+        vehicleCat: this.vehicleCategory.id,
+      });
   }
 
   dispDate(e: any, label: string) {
@@ -155,6 +147,7 @@ export class AddVehicleComponent implements OnInit {
   async submitForm() {
     if (!this.addVehicleForm.valid) {
       this.addVehicleForm.markAllAsTouched();
+      this.notificationService.showError(Config.messages.fillAllFields);
       return;
     }
     try {
@@ -176,52 +169,44 @@ export class AddVehicleComponent implements OnInit {
                 : Config.url.defaultProfile,
           });
       }
+      this.categoryID = this.addVehicleForm.controls['vehicleCat'].value;
+      this.categories.map((category: any) => {
+        if (category.id == this.categoryID)
+          this.addVehicleForm.patchValue({
+            vehicleCat: category.categoryName,
+          });
+      });
 
-      if (this.addVehicleForm.controls['id'].value == '') {
-        for (let key in this.categories) {
-          if (
-            this.categories[key].categoryName ==
-            this.addVehicleForm.controls['vehicleCat'].value
-          ) {
-            this.categoryID = this.categories[key].id;
-            break;
-          }
-        }
-        await this.vehicleMasterService.addVehicleCategoryData(
-          this.addVehicleForm.value,
-          this.categoryID
-        );
-      } else {
-        this.categoryID = this.categoryID ? this.categoryID : 'pending';
+      await this.vehicleMasterService.addVehicleCategoryData(
+        this.addVehicleForm.value,
+        this.categoryID
+      );
+
+      if (
+        this.addVehicleForm.controls['id'].value !== '' &&
+        !this.vehicleCategory
+      ) {
         await this.vehicleMasterService.deleteVehicle(
-          this.categoryID,
+          'pending',
           this.addVehicleForm.controls['id'].value
-        );
-        for (let key in this.categories) {
-          if (
-            this.categories[key].categoryName ==
-            this.addVehicleForm.controls['vehicleCat'].value
-          ) {
-            this.categoryID = this.categories[key].id;
-            break;
-          }
-        }
-        await this.vehicleMasterService.addVehicleCategoryData(
-          this.addVehicleForm.value,
-          this.categoryID
         );
       }
 
       if (this.addVehicleForm.controls['id'].value == '')
-        this.notificationService.showSuccess(Config.messages.addedSuccessfully);
+        this.notificationService.showSuccess(
+          this.config.messages.addedSuccessfully
+        );
       else
         this.notificationService.showSuccess(
-          Config.messages.updatedSuccessfully
+          this.config.messages.updatedSuccessfully
         );
+
       this.loader.dismiss();
       this.goBack();
     } catch (error) {
       console.log(error);
+      this.loader.dismiss();
+      this.goBack();
       this.notificationService.showError('Something Went Wrong');
       return;
     }

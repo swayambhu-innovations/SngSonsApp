@@ -165,15 +165,13 @@ export class LabourMasterComponent implements OnInit {
         this.notificationService.showSuccess(
           this.config.messages.updatedSuccessfully
         );
-      // this.loader.dismiss();
       this.isModalOpen = false;
       this.modalController.dismiss();
+      this.loader.dismiss();
     } catch (error) {
       console.log(error);
       this.notificationService.showError('Something Went Wrong');
       return;
     }
   }
-
-  
 }
