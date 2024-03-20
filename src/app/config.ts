@@ -11,6 +11,7 @@ export const Config = {
     vehiclesPresent: 'Already Present Vehicles',
     errorOccurred: 'Error Occurred. Please try again',
     pleaseWait: 'Please wait...',
+    uploadWait: 'Uploading Data',
     areYouSure: 'Are You Sure',
     emailExist: 'Email ID Already exist',
     contactExist: 'Contact Number already exist',

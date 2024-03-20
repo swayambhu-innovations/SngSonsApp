@@ -34,7 +34,7 @@
             type="file"
             id="uploadZSD"
             accept=".xlsx, .xls, .csv"
-            (change)="excelUploadService.parseExcel($event, addZSD, this)"
+            (change)="uploadExcel($event)"
             style="display: none"
           />
         </ion-col>

@@ -17,6 +17,7 @@ export class ShipmentsComponent implements OnInit {
   isError: boolean = false;
   isData: boolean = false;
   loader: any;
+  loader2: any;
 
   tableData = [
     { name: 'Shipment ID', key: 'ShipmentNumber', size: '4' },
@@ -57,6 +58,15 @@ export class ShipmentsComponent implements OnInit {
       ] = { ...vendor.data(), id: vendor.id };
       return { ...vendor.data(), id: vendor.id };
     });
+    this.loader.dismiss();
+  }
+
+  async uploadExcel(e: any) {
+    this.loader2 = await this.loadingController.create({
+      message: Config.messages.uploadWait,
+    });
+    this.loader2.present;
+    this.excelUploadService.parseExcel(e, this.addZSD, this);
     this.loader.dismiss();
   }
 
