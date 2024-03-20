@@ -82,7 +82,7 @@ export class VoucherComponent implements OnChanges, OnInit {
 
   onChange(e: any) {
     this.voucherService.selectedDate = new DatePipe('en-US').transform(
-      e.target.value,
+      e.target.value ? e.target.value : new Date(),
       'YYYY-MM-dd'
     );
     this.getShipments();
@@ -99,8 +99,7 @@ export class VoucherComponent implements OnChanges, OnInit {
     const shipmentData = await this.shipmentsService.getShipmentsByDate(
       this.voucherService.selectedDate
     );
-    shipmentData.docs.map((shipment: any) => {
-    });
+    shipmentData.docs.map((shipment: any) => {});
     this.shipmentsData = [];
     shipmentData.docs.map(async (shipment: any) => {
       if (!this.vendorData[shipment.data().vendor]) {
