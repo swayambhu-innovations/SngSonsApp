@@ -25,6 +25,19 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
+::-webkit-datetime-edit-year-field:not([aria-valuenow]),
+::-webkit-datetime-edit-month-field:not([aria-valuenow]),
+::-webkit-datetime-edit-day-field:not([aria-valuenow]) {
+  color: transparent;
+}
+
+input[type="date"]:in-range::-webkit-datetime-edit-year-field,
+input[type="date"]:in-range::-webkit-datetime-edit-month-field,
+input[type="date"]:in-range::-webkit-datetime-edit-day-field,
+input[type="date"]:in-range::-webkit-datetime-edit-text {
+  color: transparent;
+}
+
 .switch {
   position: relative;
   display: inline-block;
@@ -70,7 +83,7 @@
       background: #adadad;
     }
   }
-  input:disabled + .slider{
+  input:disabled + .slider {
     background: #212227;
   }
 
@@ -388,7 +401,8 @@ ion-item.ion-touched.ion-invalid {
       position: absolute;
       opacity: 0;
       top: 0;
-      left: 0;
+      right: 24px;
+      font-size: 25px;
       width: 100%;
       height: 100%;
     }

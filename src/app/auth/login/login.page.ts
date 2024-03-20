@@ -31,6 +31,7 @@ export class LoginPage implements OnInit {
   otpConfirmation: any = null;
   recaptchaWidgetId: any;
   private loader: any;
+  private loader1: any;
 
   constructor(
     private notification: NotificationService,
@@ -97,7 +98,10 @@ export class LoginPage implements OnInit {
   }
 
   async requestOTP(resend: boolean) {
-    this.loader.present();
+    this.loader1 = await this.loadingController.create({
+      message: Config.messages.pleaseWait,
+    });
+    this.loader1.present();
     const phoneNumber = this.loginForm.value.phone;
     if (!phoneNumber) {
       return;
@@ -109,7 +113,6 @@ export class LoginPage implements OnInit {
       this.resetRecaptchaVerifier();
     }
     if (this.recaptchaVerifier) {
-      this.loader.present();
       await signInWithPhoneNumber(
         this.auth,
         `+91${phoneNumber}`,
@@ -124,9 +127,8 @@ export class LoginPage implements OnInit {
           this.notification.showError(Config.messages.smsError);
           this.loginForm.reset();
         });
-      this.loader.dismiss();
     }
-    this.loader.dismiss();
+    this.loader1.dismiss();
   }
 
   async submitOTP() {
@@ -135,9 +137,6 @@ export class LoginPage implements OnInit {
       return;
     }
     this.loader.present();
-    this.loginForm.patchValue({
-      otp: '',
-    });
     await this.otpConfirmation
       .confirm(otp)
       .then(async (result: any) => {
@@ -147,12 +146,12 @@ export class LoginPage implements OnInit {
         };
         this.loginPermissionService.setLocal(user);
         await this.loginPermissionService.redirectUser(this.loader);
-        this.loginForm.reset();
         this.loader.dismiss();
       })
       .catch((error: any) => {
         this.loader.dismiss();
         this.notification.showError(Config.messages.invalidOTP);
       });
+    this.loginForm.reset();
   }
 }
