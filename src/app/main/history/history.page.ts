@@ -16,8 +16,8 @@ import { SharedService } from 'src/app/shared/shared.service';
   styleUrls: ['./history.page.scss'],
 })
 export class HistoryPage implements OnInit {
-  date1: string = moment(new Date()).startOf('month').format('YYYY-MM-DD');
-  date2: string = moment(new Date()).format('YYYY-MM-DD');
+  date1: string = moment(new Date()).startOf('month').format('dd-MM-YYYY');
+  date2: string = moment(new Date()).format('dd-MM-YYYY');
   formatDate = formatDate;
   loader: any;
   shipmentsData: any[] = [];
