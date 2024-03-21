@@ -9,6 +9,7 @@ import { LoadingController, NavController } from '@ionic/angular';
 import { UtilService } from 'src/app/utils/util';
 import { HeadUserBarService } from './head-user-bar.service';
 import { HomeService } from 'src/app/main/home/home.service';
+import { SharedService } from '../../shared.service';
 
 @Component({
   selector: 'app-head-user-bar',
@@ -21,6 +22,7 @@ export class HeadUserBarComponent implements OnInit {
     private utilService: UtilService,
     private headBarService: HeadUserBarService,
     private fb: FormBuilder,
+    private sharedService: SharedService,
     private loadingController: LoadingController,
     private homeService: HomeService,
     private util: UtilService
@@ -95,6 +97,10 @@ export class HeadUserBarComponent implements OnInit {
 
   goHome() {
     this.navCtrl.navigateForward('main/home');
+  }
+
+  refreshAll() {
+    this.sharedService.refresh.next(true);
   }
 
   openNotifications() {

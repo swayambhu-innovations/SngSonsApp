@@ -11,7 +11,7 @@ export const Config = {
     vehiclesPresent: 'Already Present Vehicles',
     errorOccurred: 'Error Occurred. Please try again',
     pleaseWait: 'Please wait...',
-    refresh: 'Fetching Details...',
+    refresh: 'Fetching Details from DB',
     logginIn: 'Logging you In...',
     logginOut: 'Logging you Out...',
     sentOTP: 'OTP sent on this Number. Please enter OTP',

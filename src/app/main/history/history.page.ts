@@ -8,6 +8,7 @@ import { Config } from 'src/app/config';
 import { uniq } from 'lodash';
 import { ShipmentStatus } from 'src/app/utils/enum';
 import { ShipmentDetailService } from '../shipment-detail/shipment-detail.service';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-history',
@@ -39,8 +40,15 @@ export class HistoryPage implements OnInit {
   constructor(
     private loadingController: LoadingController,
     private shipmentsService: ShipmentsService,
-    private shipmentDetailServie: ShipmentDetailService
-  ) {}
+    private shipmentDetailServie: ShipmentDetailService,
+    private sharedService: SharedService
+  ) {
+    this.sharedService.refresh.subscribe((db) => {
+      if (db) {
+        this.getShipments();
+      }
+    });
+  }
 
   ngOnInit() {
     this.getShipments();

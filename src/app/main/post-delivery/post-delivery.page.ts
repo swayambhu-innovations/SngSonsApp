@@ -38,12 +38,12 @@ export class PostDeliveryPage implements OnInit {
     public homeService: HomeService,
     private utilService: UtilService,
     private fileuploadService: FileuploadService
-  ) { }
+  ) {}
 
   postDeliveryForm: FormGroup = new FormGroup({
     id: new FormControl('', [Validators.required]),
-    cashExpenseAmount: new FormControl('', [Validators.required]),
-    tollExpenseAmount: new FormControl('', [Validators.required]),
+    cashExpenseAmount: new FormControl('',[]),
+    tollExpenseAmount: new FormControl('',[]),
     invoiceAck: new FormControl('', [Validators.required]),
     mlrAck: new FormControl('', [Validators.required]),
     remark: new FormControl('', []),
@@ -61,9 +61,7 @@ export class PostDeliveryPage implements OnInit {
     this.getShipmentDetails();
   }
 
-  async ngOnInit() {
-
-  }
+  async ngOnInit() {}
 
   get createdAt() {
     const data = this.postDeliveryForm.value;
@@ -80,49 +78,72 @@ export class PostDeliveryPage implements OnInit {
   }
 
   async uploadPhoto(e: any, field: string) {
+    this.loader = await this.loadingController.create({
+      message: Config.messages.pleaseWait,
+    });
     this.loader.present();
     const file = e.target.files[0];
-    const url = await this.fileuploadService.uploadFile(
-      file,
-      Config.storage.shipment,
-      `${this.id}_${field}.${file.name.split('.').pop()}`
-    );
-    this.postDeliveryForm.patchValue({
-      [field]: url
-    });
+    try {
+      const url = await this.fileuploadService.uploadFile(
+        file,
+        Config.storage.shipment,
+        `${this.id}_${field}.${file.name.split('.').pop()}`
+      );
+      this.postDeliveryForm.patchValue({
+        [field]: url,
+      });
+    } catch (err) {
+      this.notification.showError(this.config.messages.errorOccurred);
+    }
     this.loader.dismiss();
   }
 
-  removeInv() {
-  }
+  removeInv() {}
 
-  removeMLR() {
-  }
+  removeMLR() {}
 
   get totalExpense() {
     const data = this.shipmentDetails?.voucherData;
     if (!data) {
       return 0;
     }
-    return parseFloat(data.dieselExpenseAmount || 0) + parseFloat(data.labourExpenseAmount || 0) + parseFloat(data.khurakiExpenseAmount || 0) + parseFloat(data.freightExpenseAmount || 0) + parseFloat(data.tollExpenseAmount || 0) + parseFloat(data.repairExpenseAmount || 0) + parseFloat(data.otherExpenseAmount || 0);
+    return (
+      parseFloat(data.dieselExpenseAmount || 0) +
+      parseFloat(data.labourExpenseAmount || 0) +
+      parseFloat(data.khurakiExpenseAmount || 0) +
+      parseFloat(data.freightExpenseAmount || 0) +
+      parseFloat(data.tollExpenseAmount || 0) +
+      parseFloat(data.repairExpenseAmount || 0) +
+      parseFloat(data.otherExpenseAmount || 0)
+    );
   }
 
   async getShipmentDetails() {
     this.loader.present();
-    await (await this.shipmentService.getShipmentsById(this.id)).docs.map(async (shipment: any) => {
-      const shipmentData = { ...shipment.data(), id: shipment.id, vendor: [] };
-      this.shipmentDetails = await this.shipmentDetailService.formatShipment(shipmentData);
-      if (this.shipmentDetails.postDeliveryData) {
-        this.postDeliveryForm.patchValue(this.shipmentDetails.postDeliveryData);
-      } else {
-        this.postDeliveryForm.patchValue({
-          id: this.id,
-          createdAt: new Date(),
-          createdById: this.utilService.getUserId(),
-          createdByName: this.utilService.getUserName(),
-        });
+    (await this.shipmentService.getShipmentsById(this.id)).docs.map(
+      async (shipment: any) => {
+        const shipmentData = {
+          ...shipment.data(),
+          id: shipment.id,
+          vendor: [],
+        };
+        this.shipmentDetails = await this.shipmentDetailService.formatShipment(
+          shipmentData
+        );
+        if (this.shipmentDetails.postDeliveryData) {
+          this.postDeliveryForm.patchValue(
+            this.shipmentDetails.postDeliveryData
+          );
+        } else {
+          this.postDeliveryForm.patchValue({
+            id: this.id,
+            createdAt: new Date(),
+            createdById: this.utilService.getUserId(),
+            createdByName: this.utilService.getUserName(),
+          });
+        }
       }
-    })
+    );
     this.loader.dismiss();
   }
 
@@ -132,6 +153,10 @@ export class PostDeliveryPage implements OnInit {
       this.notification.showError(this.config.messages.fillAllFields);
       return;
     }
+
+    this.loader = await this.loadingController.create({
+      message: Config.messages.pleaseWait,
+    });
     this.loader.present();
     const formData: any = { postDeliveryData: this.postDeliveryForm.value };
     if (stat === 'Submit') {
@@ -149,5 +174,5 @@ export class PostDeliveryPage implements OnInit {
   dismissModal = async () => {
     this.isCompleted = false;
     return true;
-  }
+  };
 }

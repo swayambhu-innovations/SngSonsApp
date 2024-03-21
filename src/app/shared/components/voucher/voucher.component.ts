@@ -12,6 +12,7 @@ import { ShipmentsService } from 'src/app/main/home/tabs/shipments/shipments.ser
 import { ShipmentStatus } from 'src/app/utils/enum';
 import { VoucherService } from './voucher.service';
 import { uniq } from 'lodash';
+import { SharedService } from '../../shared.service';
 
 @Component({
   selector: 'app-voucher',
@@ -23,8 +24,19 @@ export class VoucherComponent implements OnChanges, OnInit {
     private navCtrl: NavController,
     private loadingController: LoadingController,
     private shipmentsService: ShipmentsService,
-    private voucherService: VoucherService
-  ) {}
+    private voucherService: VoucherService,
+    private sharedService: SharedService
+  ) {
+    this.sharedService.refresh.subscribe((db) => {
+      if (db) {
+        if (this.data.length == 0 && this.fetchDefault) {
+          this.getShipments();
+        } else {
+          this.shipmentsData = this.data;
+        }
+      }
+    });
+  }
 
   @Input() heading = '';
   @Input() search = '';

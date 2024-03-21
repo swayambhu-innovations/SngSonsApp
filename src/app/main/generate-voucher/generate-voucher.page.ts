@@ -112,31 +112,35 @@ export class GenerateVoucherPage implements OnInit {
 
   async getShipmentDetails() {
     this.loader.present();
-    await (
-      await this.shipmentService.getShipmentsById(this.id)
-    ).docs.map(async (shipment: any) => {
-      const shipmentData = { ...shipment.data(), id: shipment.id, vendor: [] };
-      this.shipmentDetails = await this.shipmentDetailService.formatShipment(
-        shipmentData
-      );
-      if (this.shipmentDetails.voucherData) {
-        this.voucherForm.patchValue(this.shipmentDetails.voucherData);
-      } else {
-        this.voucherForm.patchValue({
-          id: this.id,
-          createdAt: new Date(),
-          createdById: this.utilService.getUserId(),
-          createdByName: this.utilService.getUserName(),
-          dieselExpenseBank: this.expense['Diesel'].account,
-          labourExpenseBank: this.expense['Labour'].account,
-          khurakiExpenseBank: this.expense['Khuraki'].account,
-          freightExpenseBank: this.expense['Freight'].account,
-          tollExpenseBank: this.expense['Toll'].account,
-          repairExpenseBank: this.expense['Repair'].account,
-          otherExpenseBank: this.expense['Others'].account,
-        });
+    (await this.shipmentService.getShipmentsById(this.id)).docs.map(
+      async (shipment: any) => {
+        const shipmentData = {
+          ...shipment.data(),
+          id: shipment.id,
+          vendor: [],
+        };
+        this.shipmentDetails = await this.shipmentDetailService.formatShipment(
+          shipmentData
+        );
+        if (this.shipmentDetails.voucherData) {
+          this.voucherForm.patchValue(this.shipmentDetails.voucherData);
+        } else {
+          this.voucherForm.patchValue({
+            id: this.id,
+            createdAt: new Date(),
+            createdById: this.utilService.getUserId(),
+            createdByName: this.utilService.getUserName(),
+            dieselExpenseBank: this.expense['Diesel'].account,
+            labourExpenseBank: this.expense['Labour'].account,
+            khurakiExpenseBank: this.expense['Khuraki'].account,
+            freightExpenseBank: this.expense['Freight'].account,
+            tollExpenseBank: this.expense['Toll'].account,
+            repairExpenseBank: this.expense['Repair'].account,
+            otherExpenseBank: this.expense['Others'].account,
+          });
+        }
       }
-    });
+    );
     this.loader.dismiss();
   }
 
@@ -238,6 +242,9 @@ export class GenerateVoucherPage implements OnInit {
       return;
     }
 
+    this.loader = await this.loadingController.create({
+      message: Config.messages.pleaseWait,
+    });
     this.loader.present();
     if (stat === 'Submit') {
       formData['status'] = ShipmentStatus.PendingPostDelivery;

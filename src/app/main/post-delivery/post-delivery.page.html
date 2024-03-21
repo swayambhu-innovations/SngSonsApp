@@ -49,59 +49,99 @@
 
       <!-- Invoice Number -->
       <ion-item lines="none">
-        <ion-input lines="none" label="Invoice Number" fill="solid" class="custom" labelPlacement="floating"
-            placeholder="Invoice Number" value="{{this.shipmentDetails.vendorDetails?.invoiceNumber}}"
-            disabled="true"></ion-input>
+        <ion-input
+          lines="none"
+          label="Invoice Number"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="Invoice Number"
+          value="{{this.shipmentDetails.vendorDetails?.invoiceNumber}}"
+          disabled="true"
+        ></ion-input>
       </ion-item>
 
       <!-- Vehicle Number-->
       <ion-accordion-group>
         <ion-accordion value="first">
           <ion-item slot="header">
-            <ion-input lines="none" label="Vehicle Number" fill="solid" class="custom" labelPlacement="floating"
-              placeholder="Vehicle Number" value="{{this.shipmentDetails.vehicle?.registrationNo}}"
-              disabled="true"></ion-input>
+            <ion-input
+              lines="none"
+              label="Vehicle Number"
+              fill="solid"
+              class="custom"
+              labelPlacement="floating"
+              placeholder="Vehicle Number"
+              value="{{this.shipmentDetails.vehicle?.registrationNo}}"
+              disabled="true"
+            ></ion-input>
           </ion-item>
           <div class="ion-padding" slot="content">
             <ion-grid>
-              <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-row
+                class="ion-justify-content-between ion-align-items-center"
+              >
                 <ion-col class="head" size="auto"> Vehicle Type </ion-col>
-                <ion-col size="auto"> {{shipmentDetails.vehicle?.vehicleCat}} </ion-col>
+                <ion-col size="auto">
+                  {{shipmentDetails.vehicle?.vehicleCat}}
+                </ion-col>
               </ion-row>
 
-              <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-row
+                class="ion-justify-content-between ion-align-items-center"
+              >
                 <ion-col class="head" size="auto">
                   Vehicle Fuel Capacity
                 </ion-col>
-                <ion-col size="auto"> {{shipmentDetails.vehicle?.fuelTankCapacity}} Ltr </ion-col>
+                <ion-col size="auto">
+                  {{shipmentDetails.vehicle?.fuelTankCapacity}} Ltr
+                </ion-col>
               </ion-row>
 
-              <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-row
+                class="ion-justify-content-between ion-align-items-center"
+              >
                 <ion-col class="head" size="auto"> Ownership </ion-col>
-                <ion-col size="auto"> {{shipmentDetails.vehicle?.ownershipType}} </ion-col>
+                <ion-col size="auto">
+                  {{shipmentDetails.vehicle?.ownershipType}}
+                </ion-col>
               </ion-row>
 
-              <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-row
+                class="ion-justify-content-between ion-align-items-center"
+              >
                 <ion-col class="head" size="auto"> Fueling Type </ion-col>
-                <ion-col size="auto"> {{shipmentDetails.vehicle?.fuelType}}</ion-col>
+                <ion-col size="auto">
+                  {{shipmentDetails.vehicle?.fuelType}}</ion-col
+                >
               </ion-row>
 
-              <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-row
+                class="ion-justify-content-between ion-align-items-center"
+              >
                 <ion-col class="head" size="auto"> Fuel Tank Status </ion-col>
                 <ion-col size="auto"> 0 Ltr </ion-col>
               </ion-row>
 
-              <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-row
+                class="ion-justify-content-between ion-align-items-center"
+              >
                 <ion-col class="head" size="auto">
                   Tacometer Opening Reading
                 </ion-col>
-                <ion-col size="auto"> {{shipmentDetails.vehicle?.currOdometerReading}} km </ion-col>
+                <ion-col size="auto">
+                  {{shipmentDetails.vehicle?.currOdometerReading}} km
+                </ion-col>
               </ion-row>
-              <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-row
+                class="ion-justify-content-between ion-align-items-center"
+              >
                 <ion-col class="head" size="auto">
                   Vehicle Dispatch Date
                 </ion-col>
-                <ion-col size="auto"> {{formatDate(shipmentDetails?.BillingDate, 'dd MMM YYYY')}} </ion-col>
+                <ion-col size="auto">
+                  {{formatDate(shipmentDetails?.BillingDate, 'dd MMM YYYY')}}
+                </ion-col>
               </ion-row>
             </ion-grid>
           </div>
@@ -110,67 +150,146 @@
 
       <!-- GST Invoice Number -->
       <ion-item lines="none">
-        <ion-input lines="none" label="GST Invoice Number" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="GST Invoice Number" value="{{shipmentDetails.vendorDetails?.gstInvoiceNumber}}"
-          disabled="true"></ion-input>
+        <ion-input
+          lines="none"
+          label="GST Invoice Number"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="GST Invoice Number"
+          value="{{shipmentDetails.vendorDetails?.gstInvoiceNumber}}"
+          disabled="true"
+        ></ion-input>
       </ion-item>
 
       <p class="heading ion-margin-vertical">W/S Details</p>
 
       <!-- W/S Code -->
       <ion-item lines="none">
-        <ion-input lines="none" label="W/S Code" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="W/S Code" value="{{shipmentDetails.vendorDetails?.WSCode}}" disabled="true"></ion-input>
+        <ion-input
+          lines="none"
+          label="W/S Code"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="W/S Code"
+          value="{{shipmentDetails.vendorDetails?.WSCode}}"
+          disabled="true"
+        ></ion-input>
       </ion-item>
 
       <!-- W/S Name -->
       <ion-item lines="none">
-        <ion-input lines="none" label="W/S Name" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="W/S Name" value="{{shipmentDetails.vendorDetails?.WSName}}" disabled="true"></ion-input>
+        <ion-input
+          lines="none"
+          label="W/S Name"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="W/S Name"
+          value="{{shipmentDetails.vendorDetails?.WSName}}"
+          disabled="true"
+        ></ion-input>
       </ion-item>
 
       <!-- W/S Pan Number -->
       <ion-item lines="none">
-        <ion-input lines="none" label="W/S Pan Number" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="W/S Pan Number" value="{{shipmentDetails.vendorDetails?.panNo}}" disabled="true"></ion-input>
+        <ion-input
+          lines="none"
+          label="W/S Pan Number"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="W/S Pan Number"
+          value="{{shipmentDetails.vendorDetails?.panNo}}"
+          disabled="true"
+        ></ion-input>
       </ion-item>
 
       <!-- W/S Phone no -->
       <ion-item lines="none">
-        <ion-input lines="none" label="W/S Phone no" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="W/S Phone no" value="{{shipmentDetails.vendorDetails?.phoneNO}}" disabled="true"></ion-input>
+        <ion-input
+          lines="none"
+          label="W/S Phone no"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="W/S Phone no"
+          value="{{shipmentDetails.vendorDetails?.phoneNO}}"
+          disabled="true"
+        ></ion-input>
       </ion-item>
 
       <!-- W/S Postal Code -->
       <ion-item lines="none">
-        <ion-input lines="none" label="W/S Postal Code" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="W/S Postal Code" value="{{shipmentDetails.vendorDetails?.postalCode}}" disabled="true"></ion-input>
+        <ion-input
+          lines="none"
+          label="W/S Postal Code"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="W/S Postal Code"
+          value="{{shipmentDetails.vendorDetails?.postalCode}}"
+          disabled="true"
+        ></ion-input>
       </ion-item>
 
       <!-- Distance -->
       <ion-item lines="none">
-        <ion-input lines="none" label="Distance" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="Distance" value="{{shipmentDetails.vendorDetails?.distance}} km" disabled="true"></ion-input>
+        <ion-input
+          lines="none"
+          label="Distance"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="Distance"
+          value="{{shipmentDetails.vendorDetails?.distance}} km"
+          disabled="true"
+        ></ion-input>
       </ion-item>
 
       <p class="heading ion-margin-vertical">Shipment Details</p>
 
       <!-- KOT -->
       <ion-item lines="none">
-        <ion-input lines="none" label="KOT" fill="solid" class="custom" labelPlacement="floating" placeholder="KOT"
-          value="{{shipmentDetails.vendorDetails?.kot}}" disabled="true"></ion-input>
+        <ion-input
+          lines="none"
+          label="KOT"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="KOT"
+          value="{{shipmentDetails.vendorDetails?.kot}}"
+          disabled="true"
+        ></ion-input>
       </ion-item>
 
       <!-- MLR Number -->
       <ion-item lines="none">
-        <ion-input lines="none" label="MLR Number" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="MLR Number" value="{{shipmentDetails.LRNo}}" disabled="true"></ion-input>
+        <ion-input
+          lines="none"
+          label="MLR Number"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="MLR Number"
+          value="{{shipmentDetails.LRNo}}"
+          disabled="true"
+        ></ion-input>
       </ion-item>
 
       <!-- Diesel Voucher Number -->
       <ion-item lines="none">
-        <ion-input lines="none" label="Diesel Voucher Number" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="Diesel Voucher Number" disabled="true" value="{{shipmentDetails.voucher}}"></ion-input>
+        <ion-input
+          lines="none"
+          label="Diesel Voucher Number"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="Diesel Voucher Number"
+          disabled="true"
+          value="{{shipmentDetails.voucher}}"
+        ></ion-input>
         <!-- <label class="switch">
           <input type="checkbox" [checked]="true" />
           <span class="slider round"></span>
@@ -179,76 +298,172 @@
 
       <!-- Diesel Amoumt -->
       <ion-item lines="none">
-        <ion-input lines="none" label="Diesel Amoumt" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="Diesel Amoumt" disabled="true" value="₹ {{shipmentDetails.voucherData?.dieselExpenseAmount || 0}}"></ion-input>
+        <ion-input
+          lines="none"
+          label="Diesel Amoumt"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="Diesel Amoumt"
+          disabled="true"
+          value="₹ {{shipmentDetails.voucherData?.dieselExpenseAmount || 0}}"
+        ></ion-input>
       </ion-item>
 
       <p class="heading ion-margin-vertical">Cash Expense</p>
 
       <!-- Labour Expense -->
       <ion-item lines="none">
-        <ion-input lines="none" label="Labour Expense" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="Labour Expense" disabled="true" value="₹ {{shipmentDetails.voucherData?.labourExpenseAmount || 0}}"></ion-input>
+        <ion-input
+          lines="none"
+          label="Labour Expense"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="Labour Expense"
+          disabled="true"
+          value="₹ {{shipmentDetails.voucherData?.labourExpenseAmount || 0}}"
+        ></ion-input>
       </ion-item>
 
       <!-- Khuraki Expense -->
       <ion-item lines="none">
-        <ion-input lines="none" label="Khuraki Expense" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="Khuraki Expense" disabled="true" value="₹ {{shipmentDetails.voucherData?.khurakiExpenseAmount || 0}}"></ion-input>
+        <ion-input
+          lines="none"
+          label="Khuraki Expense"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="Khuraki Expense"
+          disabled="true"
+          value="₹ {{shipmentDetails.voucherData?.khurakiExpenseAmount || 0}}"
+        ></ion-input>
       </ion-item>
 
       <!-- Frieght -->
       <ion-item lines="none">
-        <ion-input lines="none" label="Frieght" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="Frieght" disabled="true" value="₹ {{shipmentDetails.voucherData?.freightExpenseAmount || 0}}"></ion-input>
+        <ion-input
+          lines="none"
+          label="Frieght"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="Frieght"
+          disabled="true"
+          value="₹ {{shipmentDetails.voucherData?.freightExpenseAmount || 0}}"
+        ></ion-input>
       </ion-item>
 
       <!-- Toll Expenses -->
       <ion-item lines="none">
-        <ion-input lines="none" label="Toll Expenses" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="Toll Expenses" disabled="true" value="₹ {{shipmentDetails.voucherData?.tollExpenseAmount || 0}}"></ion-input>
+        <ion-input
+          lines="none"
+          label="Toll Expenses"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="Toll Expenses"
+          disabled="true"
+          value="₹ {{shipmentDetails.voucherData?.tollExpenseAmount || 0}}"
+        ></ion-input>
       </ion-item>
 
       <!-- Repair Expenses -->
       <ion-item lines="none">
-        <ion-input lines="none" label="Repair Expenses" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="Repair Expenses" disabled="true" value="₹ {{shipmentDetails.voucherData?.repairExpenseAmount || 0}}"></ion-input>
+        <ion-input
+          lines="none"
+          label="Repair Expenses"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="Repair Expenses"
+          disabled="true"
+          value="₹ {{shipmentDetails.voucherData?.repairExpenseAmount || 0}}"
+        ></ion-input>
       </ion-item>
 
       <!-- Other Expenses -->
       <ion-item lines="none">
-        <ion-input lines="none" label="Other Expenses" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="Other Expenses" disabled="true" value="₹ {{shipmentDetails.voucherData?.otherExpenseAmount || 0}}"></ion-input>
+        <ion-input
+          lines="none"
+          label="Other Expenses"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="Other Expenses"
+          disabled="true"
+          value="₹ {{shipmentDetails.voucherData?.otherExpenseAmount || 0}}"
+        ></ion-input>
       </ion-item>
 
       <!-- Diesel Amoumt -->
       <ion-item lines="none">
-        <ion-input lines="none" label="Diesel Amoumt" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="Diesel Amoumt" disabled="true" value="₹ {{shipmentDetails.voucherData?.dieselExpenseAmount || 0}}"></ion-input>
+        <ion-input
+          lines="none"
+          label="Diesel Amoumt"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="Diesel Amoumt"
+          disabled="true"
+          value="₹ {{shipmentDetails.voucherData?.dieselExpenseAmount || 0}}"
+        ></ion-input>
       </ion-item>
 
       <!-- Total Expense -->
       <ion-item lines="none">
-        <ion-input lines="none" label="Total Expense" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="Total Expense" disabled="true" value="₹ {{totalExpense || 0}}"></ion-input>
+        <ion-input
+          lines="none"
+          label="Total Expense"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="Total Expense"
+          disabled="true"
+          value="₹ {{totalExpense || 0}}"
+        ></ion-input>
       </ion-item>
 
       <!-- Remarks -->
       <ion-item lines="none">
-        <ion-input lines="none" label="Remarks" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="Remarks" disabled="true" value="{{shipmentDetails.voucherData?.remark || ''}}"></ion-input>
+        <ion-input
+          lines="none"
+          label="Remarks"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="Remarks"
+          disabled="true"
+          value="{{shipmentDetails.voucherData?.remark || ''}}"
+        ></ion-input>
       </ion-item>
 
       <!-- Time Stamp -->
       <ion-item lines="none">
-        <ion-input lines="none" label="Time Stamp" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="Time Stamp" disabled="true" value="{{shipmentDetails.voucherData?.createdAt && formatDate(shipmentDetails.voucherData?.createdAt, 'dd MMM YYYY')}}"></ion-input>
+        <ion-input
+          lines="none"
+          label="Time Stamp"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="Time Stamp"
+          disabled="true"
+          value="{{shipmentDetails.voucherData?.createdAt && formatDate(shipmentDetails.voucherData?.createdAt, 'dd MMM YYYY')}}"
+        ></ion-input>
       </ion-item>
 
       <!-- Filled By -->
       <ion-item lines="none">
-        <ion-input lines="none" label="Filled By" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="Filled By" disabled="true" value="{{shipmentDetails.voucherData?.createdByName}}"></ion-input>
+        <ion-input
+          lines="none"
+          label="Filled By"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="Filled By"
+          disabled="true"
+          value="{{shipmentDetails.voucherData?.createdByName}}"
+        ></ion-input>
       </ion-item>
 
       <p class="heading ion-margin-vertical">Post Delivery Expense</p>
@@ -261,7 +476,11 @@
           </ion-item>
           <div class="ion-padding" slot="content">
             <div class="input-box">
-              <input formControlName="cashExpenseAmount" type="number" placeholder="Enter here..." />
+              <input
+                formControlName="cashExpenseAmount"
+                type="number"
+                placeholder="Enter here..."
+              />
               <button>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -289,7 +508,11 @@
           </ion-item>
           <div class="ion-padding" slot="content">
             <div class="input-box">
-              <input formControlName="tollExpenseAmount" type="number" placeholder="Enter here..." />
+              <input
+                formControlName="tollExpenseAmount"
+                type="number"
+                placeholder="Enter here..."
+              />
               <button>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -318,29 +541,26 @@
           <div class="ion-padding" slot="content">
             <div class="upload-row">
               <button>
-                <label for="upload-invoice">
-                  <span>Upload Invoice Photo</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="14"
-                    viewBox="0 0 16 14"
-                    fill="none"
-                  >
-                    <path
-                      d="M2.19584 12.1341H13.9032V7.01212H15.3666V12.8658C15.3666 13.2699 15.039 13.5975 14.6349 13.5975H1.46413C1.06002 13.5975 0.732422 13.2699 0.732422 12.8658V7.01212H2.19584V12.1341ZM8.7812 4.817V9.93895H7.31779V4.817H3.65925L8.04949 0.426758L12.4397 4.817H8.7812Z"
-                      fill="#1540BD"
-                    />
-                  </svg>
-                </label>
+                <span>Upload Invoice Photo</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="14"
+                  viewBox="0 0 16 14"
+                  fill="none"
+                >
+                  <path
+                    d="M2.19584 12.1341H13.9032V7.01212H15.3666V12.8658C15.3666 13.2699 15.039 13.5975 14.6349 13.5975H1.46413C1.06002 13.5975 0.732422 13.2699 0.732422 12.8658V7.01212H2.19584V12.1341ZM8.7812 4.817V9.93895H7.31779V4.817H3.65925L8.04949 0.426758L12.4397 4.817H8.7812Z"
+                    fill="#1540BD"
+                  />
+                </svg>
+                <input
+                  id="upload-invoice"
+                  type="file"
+                  (change)="uploadPhoto($event, 'invoiceAck')"
+                  accept="image/x-png,image/gif,image/jpeg"
+                />
               </button>
-              <input
-                id="upload-invoice"
-                style="display: none"
-                type="file"
-                (change)="uploadPhoto($event, 'invoiceAck')"
-                accept="image/x-png,image/gif,image/jpeg"
-              />
               <button (click)="removeInv()">
                 <span>Remove</span>
                 <svg
@@ -358,7 +578,10 @@
               </button>
             </div>
             <div class="preview-box">
-              <img [src]="postDeliveryForm.value.invoiceAck || config.url.defaultProfile" alt="invoice-png" />
+              <img
+                [src]="postDeliveryForm.value.invoiceAck || config.url.defaultProfile"
+                alt="invoice-png"
+              />
             </div>
           </div>
         </ion-accordion>
@@ -373,29 +596,26 @@
           <div class="ion-padding" slot="content">
             <div class="upload-row">
               <button>
-                <label for="upload-MLR">
-                  <span>Upload MLR Photo</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="14"
-                    viewBox="0 0 16 14"
-                    fill="none"
-                  >
-                    <path
-                      d="M2.19584 12.1341H13.9032V7.01212H15.3666V12.8658C15.3666 13.2699 15.039 13.5975 14.6349 13.5975H1.46413C1.06002 13.5975 0.732422 13.2699 0.732422 12.8658V7.01212H2.19584V12.1341ZM8.7812 4.817V9.93895H7.31779V4.817H3.65925L8.04949 0.426758L12.4397 4.817H8.7812Z"
-                      fill="#1540BD"
-                    />
-                  </svg>
-                </label>
+                <span>Upload MLR Photo</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="14"
+                  viewBox="0 0 16 14"
+                  fill="none"
+                >
+                  <path
+                    d="M2.19584 12.1341H13.9032V7.01212H15.3666V12.8658C15.3666 13.2699 15.039 13.5975 14.6349 13.5975H1.46413C1.06002 13.5975 0.732422 13.2699 0.732422 12.8658V7.01212H2.19584V12.1341ZM8.7812 4.817V9.93895H7.31779V4.817H3.65925L8.04949 0.426758L12.4397 4.817H8.7812Z"
+                    fill="#1540BD"
+                  />
+                </svg>
+                <input
+                  id="upload-MLR"
+                  type="file"
+                  (change)="uploadPhoto($event, 'mlrAck')"
+                  accept="image/x-png,image/gif,image/jpeg"
+                />
               </button>
-              <input
-                id="upload-MLR"
-                style="display: none"
-                type="file"
-                (change)="uploadPhoto($event, 'mlrAck')"
-                accept="image/x-png,image/gif,image/jpeg"
-              />
               <button (click)="removeMLR()">
                 <span>Remove</span>
                 <svg
@@ -413,7 +633,10 @@
               </button>
             </div>
             <div class="preview-box">
-              <img [src]="postDeliveryForm.value.mlrAck || config.url.defaultProfile" alt="invoice-png" />
+              <img
+                [src]="postDeliveryForm.value.mlrAck || config.url.defaultProfile"
+                alt="invoice-png"
+              />
             </div>
           </div>
         </ion-accordion>
@@ -421,31 +644,63 @@
 
       <!-- Remark -->
       <ion-item lines="none">
-        <ion-input lines="none" label="Remark" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="Remark" formControlName="remark"></ion-input>
+        <ion-input
+          lines="none"
+          label="Remark"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="Remark"
+          formControlName="remark"
+        ></ion-input>
       </ion-item>
 
       <!-- End Odometer Reading -->
       <ion-item lines="none">
-        <ion-input lines="none" label="End Odometer Reading" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="End Odometer Reading" formControlName="endOdometer"></ion-input>
+        <ion-input
+          lines="none"
+          label="End Odometer Reading"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="End Odometer Reading"
+          formControlName="endOdometer"
+        ></ion-input>
       </ion-item>
-      
+
       <!-- Time Stamp -->
       <ion-item lines="none">
-        <ion-input lines="none" label="Time Stamp" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="Time Stamp" disabled="true" value="{{createdAt}}"></ion-input>
+        <ion-input
+          lines="none"
+          label="Time Stamp"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="Time Stamp"
+          disabled="true"
+          value="{{createdAt}}"
+        ></ion-input>
       </ion-item>
 
       <!-- Filled By -->
       <ion-item lines="none">
-        <ion-input lines="none" label="Filled By" fill="solid" class="custom" labelPlacement="floating"
-          placeholder="Filled By" disabled="true" value="{{createdByName}}"></ion-input>
+        <ion-input
+          lines="none"
+          label="Filled By"
+          fill="solid"
+          class="custom"
+          labelPlacement="floating"
+          placeholder="Filled By"
+          disabled="true"
+          value="{{createdByName}}"
+        ></ion-input>
       </ion-item>
     </ion-card>
 
     <div class="tab-bar">
-      <button (click)="addPostDelivery('Submit')" class="active-btn">Submit</button>
+      <button (click)="addPostDelivery('Submit')" class="active-btn">
+        Submit
+      </button>
       <button (click)="addPostDelivery('Draft')">Save Draft</button>
       <button (click)="goBack()">Cancel</button>
     </div>
@@ -455,7 +710,16 @@
 </ion-content>
 
 <!-- done-modal -->
-<ion-modal [backdropDismiss]=false #modal [canDismiss]="dismissModal"  trigger="excel-export-modal" [isOpen]="isCompleted" [initialBreakpoint]="1" [breakpoints]="[0, 1]" class="completedModal">
+<ion-modal
+  [backdropDismiss]="false"
+  #modal
+  [canDismiss]="dismissModal"
+  trigger="excel-export-modal"
+  [isOpen]="isCompleted"
+  [initialBreakpoint]="1"
+  [breakpoints]="[0, 1]"
+  class="completedModal"
+>
   <ng-template>
     <div class="ion-padding ion-margin wrapper">
       <div class="mt-2">
@@ -688,7 +952,9 @@
           </defs>
         </svg>
       </div>
-      <div><button (click)="dismissModal(); goBack();" class="active">Done</button></div>
+      <div>
+        <button (click)="dismissModal(); goBack();" class="active">Done</button>
+      </div>
     </div>
   </ng-template>
 </ion-modal>

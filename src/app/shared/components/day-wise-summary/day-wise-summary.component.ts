@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { DaywiseSummaryService } from './day-wise-summary-service';
 import { log } from 'console';
+import { SharedService } from '../../shared.service';
 
 @Component({
   selector: 'app-day-wise-summary',
@@ -9,7 +10,16 @@ import { log } from 'console';
   styleUrls: ['./day-wise-summary.component.scss'],
 })
 export class DayWiseSummaryComponent implements OnInit {
-  constructor(public daywiseSummaryService: DaywiseSummaryService) {}
+  constructor(
+    public daywiseSummaryService: DaywiseSummaryService,
+    private sharedService: SharedService
+  ) {
+    this.sharedService.refresh.subscribe((data) => {
+      if (data) {
+        this.daywiseSummaryService.getShipments();
+      }
+    });
+  }
 
   async ngOnInit() {
     this.daywiseSummaryService.getShipments();
