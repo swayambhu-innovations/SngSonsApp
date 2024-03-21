@@ -15,20 +15,23 @@ ion-col {
 }
 
 .wrapper-settings {
-  --background: linear-gradient(180deg,
-      #d5e6ff -8.94%,
-      #fff 27.36%,
-      #fff 61.93%,
-      #c9deff 101.69%);
+  --background: linear-gradient(
+    180deg,
+    #d5e6ff -8.94%,
+    #fff 27.36%,
+    #fff 61.93%,
+    #c9deff 101.69%
+  );
 
   .header {
     display: flex;
     padding: 10px 0px 0px 10px;
 
-    .img {}
+    .img {
+    }
 
     .head {
-      color: var(--Primary, #1540BD);
+      color: var(--Primary, #1540bd);
       font-size: 20px;
       font-weight: 400;
       padding-top: 4px;
@@ -47,7 +50,6 @@ ion-col {
   .first {
     margin: 10px 15px 15px 15px;
   }
-
 
   ion-grid {
     padding-left: 10px;
@@ -77,7 +79,7 @@ ion-col {
         display: flex;
         width: 105px;
         height: 27px;
-        padding: 8.3px;
+        padding: 8.3px 10px;
         justify-content: center;
         align-items: center;
 
@@ -88,10 +90,10 @@ ion-col {
           margin: 0px;
         }
 
-        .img {
-          margin-bottom: 0px;
-          margin-left: 10px;
-          margin-top: 2px;
+        img {
+          width: 15px;
+          height: 15px;
+          margin: 0 2px;
         }
       }
     }
@@ -172,7 +174,7 @@ ion-col {
     border-radius: 50%;
   }
 
-  input:checked+.slider:before {
+  input:checked + .slider:before {
     -webkit-transform: translateX(9px);
     -ms-transform: translateX(9px);
     transform: translateX(9px);
@@ -180,26 +182,28 @@ ion-col {
 }
 
 .model {
-  --ion-background-color: linear-gradient(180deg,
-      #d5e6ff -8.94%,
-      #fff 27.36%,
-      #fff 61.93%,
-      #c9deff 101.69%);
+  --ion-background-color: linear-gradient(
+    180deg,
+    #d5e6ff -8.94%,
+    #fff 27.36%,
+    #fff 61.93%,
+    #c9deff 101.69%
+  );
 
   section {
     padding: 15px;
     height: 100vh;
-
   }
 
   .header {
     display: flex;
     padding: 0px 10px 10px 10px;
 
-    .img {}
+    .img {
+    }
 
     .head {
-      color: var(--Primary, #1540BD);
+      color: var(--Primary, #1540bd);
       font-size: 20px;
       font-weight: 400;
       padding-top: 3px;
@@ -210,7 +214,7 @@ ion-col {
   .container {
     ion-input.custom {
       --background: transparent;
-      --color: var(--Text3, #9FA7B2);
+      --color: var(--Text3, #9fa7b2);
       --placeholder-color: #ddd;
       --placeholder-opacity: 0.8;
     }
@@ -235,7 +239,7 @@ ion-col {
       }
 
       .img {
-        background-color: #1540BD;
+        background-color: #1540bd;
         width: 20px;
         border-radius: 50%;
         height: 20px;
@@ -321,17 +325,16 @@ ion-col {
       margin-right: 10px;
     }
   }
-
 }
 
 .import-zsd-file {
-  color: var(--Waiting-Post-Delivery-Vehicles, #D97A07);
+  color: var(--Waiting-Post-Delivery-Vehicles, #d97a07);
   font-size: 8px;
   font-weight: 400;
   position: absolute;
   bottom: -50%;
 }
 
-.disable input:checked+.slider {
-  background-color: #ADADAD;
+.disable input:checked + .slider {
+  background-color: #adadad;
 }

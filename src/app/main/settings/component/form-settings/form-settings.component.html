@@ -14,12 +14,12 @@
         [multiple]="true"
       >
         <ion-accordion value="first">
-          <div class="add-vehicle-wrapper-container" slot="header">
-            <!-- <ion-label class="label">
+          <ion-item slot="header">
+            <ion-label class="label">
               <ion-row
                 class="ion-justify-content-between ion-align-items-center"
               >
-                <ion-col size="7" class="head">Voucher Pending Form</ion-col>
+                <ion-col size="auto" class="head">Voucher Pending Form</ion-col>
                 <ion-col
                   size="auto"
                   class="add-variable"
@@ -27,37 +27,16 @@
                   (click)="
                     openModal(
                       $event,
-                      config.formSettingVariable.VoucherPendingForm
+                      config.formSettingVariable.PostDlvPendingForm
                     )
                   "
                 >
-                  <div class="button">
-                    <p class="button-name">Add Variable</p>
-                    <p class="symbol">
-                      <img src="assets/icon/plus-button.svg" alt="" />
-                    </p>
-                  </div>
+                  <p class="text">Add Variable</p>
+                  <img src="assets/icon/plus-button.svg" alt="" />
                 </ion-col>
               </ion-row>
-            </ion-label> -->
-            <div class="inner-container">
-              <div class="label">Voucher Pending Form</div>
-              <div
-                (click)="
-                  openModal(
-                    $event,
-                    config.formSettingVariable.VoucherPendingForm
-                  )
-                "
-                class="button"
-              >
-                <p class="button-name">Add Variable</p>
-                <p class="symbol">
-                  <img src="assets/icon/plus-button.svg" alt="" />
-                </p>
-              </div>
-            </div>
-          </div>
+            </ion-label>
+          </ion-item>
           <div slot="content" class="content">
             <ion-row
               class="disabled-row ion-justify-content-between ion-align-items-center"
@@ -164,9 +143,9 @@
               <ion-row
                 class="ion-justify-content-between ion-align-items-center"
               >
-                <ion-col size="7" class="head">Post Dlv. Pending Form</ion-col>
+                <ion-col size="auto" class="head">Post Dlv. Pending Form</ion-col>
                 <ion-col
-                  size="5"
+                  size="auto"
                   class="add-variable"
                   expand="block"
                   (click)="
@@ -177,9 +156,7 @@
                   "
                 >
                   <p class="text">Add Variable</p>
-                  <p class="img">
-                    <img src="assets/icon/plusIcon.svg" alt="" />
-                  </p>
+                  <img src="assets/icon/plus-button.svg" alt="" />
                 </ion-col>
               </ion-row>
             </ion-label>

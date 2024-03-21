@@ -2,45 +2,71 @@
   <app-header headerName="Users & Permissions"></app-header>
   <section>
     <div class="add-button">
-      <div class="account design" (click)="openRole=true">
+      <div class="account design" (click)="openRole = true">
         <p class="text">Add Role</p>
-        <p><img src="assets/icon/role-icon.svg" alt=""></p>
+        <p><img src="assets/icon/role-icon.svg" alt="" /></p>
       </div>
-      <div class="role design" (click)="openUser=true">
+      <div class="role design" (click)="openUser = true">
         <p class="text">Add User</p>
-        <p><img src="assets/icon/user-icon.svg" alt=""></p>
+        <p><img src="assets/icon/user-icon.svg" alt="" /></p>
       </div>
     </div>
   </section>
   <div class="wrapper-container">
     <ion-grid>
-      <ion-accordion-group style="background-color: transparent" [multiple]="true">
+      <ion-accordion-group
+        style="background-color: transparent"
+        [multiple]="true"
+      >
         <ion-accordion value="first">
           <ion-item slot="header">
             <ion-label class="label">
-              <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-row
+                class="ion-justify-content-between ion-align-items-center"
+              >
                 <ion-col size="7" class="head">Users</ion-col>
               </ion-row>
             </ion-label>
           </ion-item>
           <div slot="content" class="content">
-            <ion-row class="disabled-row ion-justify-content-between ion-align-items-center">
+            <ion-row
+              class="disabled-row ion-justify-content-between ion-align-items-center"
+            >
               <ion-col size="5">User</ion-col>
               <ion-col size="4">Role</ion-col>
               <ion-col size="2" class="actions">Actions</ion-col>
             </ion-row>
           </div>
-          <div class="content-container" slot="content" *ngFor="let user of usersList">
+          <div
+            class="content-container"
+            slot="content"
+            *ngFor="let user of usersList"
+          >
             <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="5" class="text">{{user.userName}}</ion-col>
-              <ion-col size="3" class="type-select drop-down-color">{{roleMapping[user.role].roleName}}</ion-col>
+              <ion-col size="5" class="text">{{ user.userName }}</ion-col>
+              <ion-col size="3" class="type-select drop-down-color">{{
+                roleMapping[user.role].roleName
+              }}</ion-col>
               <ion-col size="3" class="action">
-                <ion-col><label class="switch">
-                    <input type="checkbox" [checked]="user.active" (change)="updUserStatus($event, user.id, !user.active)"/>
-                    <span class="slider round"></span>
-                  </label></ion-col>
-                <ion-col (click)="editUser(user)" class="edit-button"><img src="assets/icon/enable-edit-button.svg" alt=""></ion-col>
-                <ion-col (click)="toDelete={id: user.id, section: 'user'};showConfirm=true"><img src="assets/icon/enable-delete-button.svg" alt=""></ion-col>
+                <ion-col
+                  ><label class="switch">
+                    <input
+                      type="checkbox"
+                      [checked]="user.active"
+                      (change)="updUserStatus($event, user.id, !user.active)"
+                    />
+                    <span class="slider round"></span> </label
+                ></ion-col>
+                <ion-col (click)="editUser(user)" class="edit-button"
+                  ><img src="assets/icon/enable-edit-button.svg" alt=""
+                /></ion-col>
+                <ion-col
+                  (click)="
+                    toDelete = { id: user.id, section: 'user' };
+                    showConfirm = true
+                  "
+                  ><img src="assets/icon/enable-delete-button.svg" alt=""
+                /></ion-col>
               </ion-col>
             </ion-row>
           </div>
@@ -50,33 +76,69 @@
   </div>
   <div class="wrapper-container">
     <ion-grid>
-      <ion-accordion-group style="background-color: transparent" [multiple]="true">
+      <ion-accordion-group
+        style="background-color: transparent"
+        [multiple]="true"
+      >
         <ion-accordion value="first">
           <ion-item slot="header">
             <ion-label class="label">
-              <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-row
+                class="ion-justify-content-between ion-align-items-center"
+              >
                 <ion-col size="7" class="head">Roles</ion-col>
               </ion-row>
             </ion-label>
           </ion-item>
           <div slot="content" class="content">
-            <ion-row class="disabled-row ion-justify-content-between ion-align-items-center">
+            <ion-row
+              class="disabled-row ion-justify-content-between ion-align-items-center"
+            >
               <ion-col size="5">Name</ion-col>
               <ion-col size="2" class="actions">Actions</ion-col>
             </ion-row>
           </div>
-          <div class="content-container" slot="content" *ngFor="let role of rolesList">
+          <div
+            class="content-container"
+            slot="content"
+            *ngFor="let role of rolesList"
+          >
             <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="5" class="text">{{role.roleName}}</ion-col>
+              <ion-col size="5" class="text">{{ role.roleName }}</ion-col>
               <ion-col size="3" class="action">
-                <ion-col><label class="switch">
-                    <input type="checkbox" [disabled]="role.disabled == 'all'" [checked]="role.active" (change)="updRoleStatus($event, role.id, !role.active)" />
-                    <span class="slider round" [ngClass]="{'disabled': role.disabled == 'all'}"></span>
-                  </label></ion-col>
-                <ion-col *ngIf="!role.disabled" class="edit-button" (click)="editRole(role)"><img src="assets/icon/enable-edit-button.svg" alt=""></ion-col>
-                <ion-col *ngIf="!role.disabled" (click)="toDelete={id: role.id, section: 'role'};showConfirm=true"><img src="assets/icon/enable-delete-button.svg" alt=""></ion-col>
-                <ion-col *ngIf="role.disabled" class="edit-button"><img src="assets/icon/disable-edit-button.svg" alt=""></ion-col>
-                <ion-col *ngIf="role.disabled"><img src="assets/icon/disable-delete-button.svg" alt=""></ion-col>
+                <ion-col
+                  ><label class="switch">
+                    <input
+                      type="checkbox"
+                      [disabled]="role.disabled == 'all'"
+                      [checked]="role.active"
+                      (change)="updRoleStatus($event, role.id, !role.active)"
+                    />
+                    <span
+                      class="slider round"
+                      [ngClass]="{ disabled: role.disabled == 'all' }"
+                    ></span> </label
+                ></ion-col>
+                <ion-col
+                  *ngIf="!role.disabled"
+                  class="edit-button"
+                  (click)="editRole(role)"
+                  ><img src="assets/icon/enable-edit-button.svg" alt=""
+                /></ion-col>
+                <ion-col
+                  *ngIf="!role.disabled"
+                  (click)="
+                    toDelete = { id: role.id, section: 'role' };
+                    showConfirm = true
+                  "
+                  ><img src="assets/icon/enable-delete-button.svg" alt=""
+                /></ion-col>
+                <ion-col *ngIf="role.disabled" class="edit-button"
+                  ><img src="assets/icon/disable-edit-button.svg" alt=""
+                /></ion-col>
+                <ion-col *ngIf="role.disabled"
+                  ><img src="assets/icon/disable-delete-button.svg" alt=""
+                /></ion-col>
               </ion-col>
             </ion-row>
           </div>
@@ -86,16 +148,25 @@
   </div>
   <div class="below-space"></div>
 
-  <ion-modal #modal [canDismiss]="dismissModal" [isOpen]="openUser" [initialBreakpoint]="1" [breakpoints]="[0, 1]"
-    class="model">
+  <ion-modal
+    #modal
+    [canDismiss]="dismissModal"
+    [isOpen]="openUser"
+    [initialBreakpoint]="1"
+    [breakpoints]="[0, 0.3, 0.6, 1]"
+    class="model"
+  >
     <ng-template>
-      <section class="user-block" [ngClass]="{'custom' : userForm.value.roleType === 'custom'}">
+      <section
+        class="user-block"
+        [ngClass]="{ custom: userForm.value.roleType === 'custom' }"
+      >
         <header>
           <div class="header">
             <div class="head">Create New User</div>
           </div>
         </header>
-        <div class="container">
+        <div class="container scrollable">
           <form [formGroup]="userForm" (ngSubmit)="addUser()">
             <ion-item lines="none" class="Variable">
               <ion-input
@@ -128,87 +199,157 @@
               ></ion-input>
             </ion-item>
             <ion-item lines="none" class="Variable noborder">
-              <ion-radio-group class="d-flex" formControlName="roleType">
-                <ion-radio value="role">Role Based</ion-radio>
-                <ion-radio value="custom" style="margin-left: 5px;">Custom Permission</ion-radio>
-              </ion-radio-group>
+              <ion-grid>
+                <ion-radio-group value="space-between">
+                  <ion-row
+                    class="ion-justify-content-between ion-align-items-center"
+                  >
+                    <ion-col size="auto">
+                      <ion-radio value="role" justify="space-between"
+                        >Role Based</ion-radio
+                      >
+                    </ion-col>
+                    <ion-col size="auto">
+                      <ion-radio value="custom" justify="space-between"
+                        >Custom Roles</ion-radio
+                      >
+                    </ion-col>
+                  </ion-row>
+                </ion-radio-group>
+              </ion-grid>
             </ion-item>
-            <div class="permission-container" formGroupName="access" *ngIf="userForm.value.roleType=='custom'">
+            <div
+              class="permission-container"
+              formGroupName="access"
+              *ngIf="userForm.value.roleType == 'custom'"
+            >
               <div class="head">
                 <p>Permissions</p>
               </div>
               <div class="name-permit">
-                <div class="header-container"><p>Name</p><p>Permit</p></div>
+                <div class="header-container">
+                  <p>Name</p>
+                  <p>Permit</p>
+                </div>
                 <div class="data-container">
-                  <div class="data-name"><p class="name">Upload New ZSD file</p></div>
+                  <div class="data-name">
+                    <p class="name">Upload New ZSD file</p>
+                  </div>
                   <div class="toggle">
                     <label class="switch">
-                      <input formControlName="upload_new_zsd_file" type="checkbox" [checked]="userForm.value.upload_new_zsd_file" />
+                      <input
+                        formControlName="upload_new_zsd_file"
+                        type="checkbox"
+                        [checked]="userForm.value.upload_new_zsd_file"
+                      />
                       <span class="slider round"></span>
                     </label>
                   </div>
                 </div>
-                <hr>
+                <hr />
                 <div class="data-container">
-                  <div class="data-name"><p class="name">Fill Shipment Voucher</p></div>
+                  <div class="data-name">
+                    <p class="name">Fill Shipment Voucher</p>
+                  </div>
                   <div class="toggle">
                     <label class="switch">
-                      <input formControlName="fill_shipment_voucher" type="checkbox" [checked]="userForm.value.fill_shipment_voucher" />
+                      <input
+                        formControlName="fill_shipment_voucher"
+                        type="checkbox"
+                        [checked]="userForm.value.fill_shipment_voucher"
+                      />
                       <span class="slider round"></span>
                     </label>
                   </div>
                 </div>
-                <hr>
+                <hr />
                 <div class="data-container">
-                  <div class="data-name"><p class="name">Fill post Delivery Form</p></div>
+                  <div class="data-name">
+                    <p class="name">Fill post Delivery Form</p>
+                  </div>
                   <div class="toggle">
                     <label class="switch">
-                      <input formControlName="fill_post_delivery_form" type="checkbox" [checked]="userForm.value.fill_post_delivery_form" />
+                      <input
+                        formControlName="fill_post_delivery_form"
+                        type="checkbox"
+                        [checked]="userForm.value.fill_post_delivery_form"
+                      />
                       <span class="slider round"></span>
                     </label>
                   </div>
                 </div>
-                <hr>
+                <hr />
                 <div class="data-container">
-                  <div class="data-name"><p class="name">Discard Vouchers</p></div>
+                  <div class="data-name">
+                    <p class="name">Discard Vouchers</p>
+                  </div>
                   <div class="toggle">
                     <label class="switch">
-                      <input formControlName="discard_vouchers" type="checkbox" [checked]="userForm.value.discard_vouchers" />
+                      <input
+                        formControlName="discard_vouchers"
+                        type="checkbox"
+                        [checked]="userForm.value.discard_vouchers"
+                      />
                       <span class="slider round"></span>
                     </label>
                   </div>
                 </div>
-                <hr>
+                <hr />
                 <div class="data-container">
-                  <div class="data-name"><p class="name">Edit Account Settings</p></div>
+                  <div class="data-name">
+                    <p class="name">Edit Account Settings</p>
+                  </div>
                   <div class="toggle">
                     <label class="switch">
-                      <input formControlName="edit_account_settings" type="checkbox" [checked]="userForm.value.edit_account_settings" />
+                      <input
+                        formControlName="edit_account_settings"
+                        type="checkbox"
+                        [checked]="userForm.value.edit_account_settings"
+                      />
                       <span class="slider round"></span>
                     </label>
                   </div>
                 </div>
-                <hr>
+                <hr />
                 <div class="data-container">
                   <div class="data-name"><p class="name">View reports</p></div>
                   <div class="toggle">
                     <label class="switch">
-                      <input formControlName="view_reports" type="checkbox" [checked]="userForm.value.view_reports" />
+                      <input
+                        formControlName="view_reports"
+                        type="checkbox"
+                        [checked]="userForm.value.view_reports"
+                      />
                       <span class="slider round"></span>
                     </label>
                   </div>
                 </div>
               </div>
             </div>
-            <ion-item class="dropdown" [ngClass]="{'hidden': userForm.value.roleType!='role'}">
-              <ion-select placeholder="Role" formControlName="role" [required]="userForm.value.roleType=='role'">
-                <ion-select-option *ngFor="let role of rolesList" value="{{role.id}}">{{role.roleName}}</ion-select-option>
+            <ion-item
+              class="dropdown"
+              [ngClass]="{ hidden: userForm.value.roleType != 'role' }"
+            >
+              <ion-select
+                placeholder="Role"
+                formControlName="role"
+                [required]="userForm.value.roleType == 'role'"
+              >
+                <ion-select-option
+                  *ngFor="let role of rolesList"
+                  value="{{ role.id }}"
+                  >{{ role.roleName }}</ion-select-option
+                >
               </ion-select>
             </ion-item>
-            <div class="tab-bar" style="bottom: 5%;">
+            <div class="tab-bar" style="bottom: 5%">
               <div>
-                <ion-button type="Submit" shape="round" class="active-btn">Submit</ion-button>
-                <ion-button shape="round" (click)="openUser=false">Cancel</ion-button>
+                <ion-button type="Submit" shape="round" class="active-btn"
+                  >Submit</ion-button
+                >
+                <ion-button shape="round" (click)="openUser = false"
+                  >Cancel</ion-button
+                >
               </div>
             </div>
           </form>
@@ -216,8 +357,15 @@
       </section>
     </ng-template>
   </ion-modal>
-  <ion-modal #modal [canDismiss]="dismissModal" [isOpen]="openRole" [initialBreakpoint]="1" [breakpoints]="[0, 1]"
-    class="model">
+
+  <ion-modal
+    #modal
+    [canDismiss]="dismissModal"
+    [isOpen]="openRole"
+    [initialBreakpoint]="1"
+    [breakpoints]="[0, 1]"
+    class="model"
+  >
     <ng-template>
       <section class="role-block">
         <header>
@@ -242,72 +390,113 @@
                 <p>Permissions</p>
               </div>
               <div class="name-permit">
-                <div class="header-container"><p>Name</p><p>Permit</p></div>
+                <div class="header-container">
+                  <p>Name</p>
+                  <p>Permit</p>
+                </div>
                 <div class="data-container">
-                  <div class="data-name"><p class="name">Upload New ZSD file</p></div>
+                  <div class="data-name">
+                    <p class="name">Upload New ZSD file</p>
+                  </div>
                   <div class="toggle">
                     <label class="switch">
-                      <input formControlName="upload_new_zsd_file" type="checkbox" [checked]="roleForm.value.upload_new_zsd_file" />
+                      <input
+                        formControlName="upload_new_zsd_file"
+                        type="checkbox"
+                        [checked]="roleForm.value.upload_new_zsd_file"
+                      />
                       <span class="slider round"></span>
                     </label>
                   </div>
                 </div>
-                <hr>
+                <hr />
                 <div class="data-container">
-                  <div class="data-name"><p class="name">Fill Shipment Voucher</p></div>
+                  <div class="data-name">
+                    <p class="name">Fill Shipment Voucher</p>
+                  </div>
                   <div class="toggle">
                     <label class="switch">
-                      <input formControlName="fill_shipment_voucher" type="checkbox" [checked]="roleForm.value.fill_shipment_voucher" />
+                      <input
+                        formControlName="fill_shipment_voucher"
+                        type="checkbox"
+                        [checked]="roleForm.value.fill_shipment_voucher"
+                      />
                       <span class="slider round"></span>
                     </label>
                   </div>
                 </div>
-                <hr>
+                <hr />
                 <div class="data-container">
-                  <div class="data-name"><p class="name">Fill post Delivery Form</p></div>
+                  <div class="data-name">
+                    <p class="name">Fill post Delivery Form</p>
+                  </div>
                   <div class="toggle">
                     <label class="switch">
-                      <input formControlName="fill_post_delivery_form" type="checkbox" [checked]="roleForm.value.fill_post_delivery_form" />
+                      <input
+                        formControlName="fill_post_delivery_form"
+                        type="checkbox"
+                        [checked]="roleForm.value.fill_post_delivery_form"
+                      />
                       <span class="slider round"></span>
                     </label>
                   </div>
                 </div>
-                <hr>
+                <hr />
                 <div class="data-container">
-                  <div class="data-name"><p class="name">Discard Vouchers</p></div>
+                  <div class="data-name">
+                    <p class="name">Discard Vouchers</p>
+                  </div>
                   <div class="toggle">
                     <label class="switch">
-                      <input formControlName="discard_vouchers" type="checkbox" [checked]="roleForm.value.discard_vouchers" />
+                      <input
+                        formControlName="discard_vouchers"
+                        type="checkbox"
+                        [checked]="roleForm.value.discard_vouchers"
+                      />
                       <span class="slider round"></span>
                     </label>
                   </div>
                 </div>
-                <hr>
+                <hr />
                 <div class="data-container">
-                  <div class="data-name"><p class="name">Edit Account Settings</p></div>
+                  <div class="data-name">
+                    <p class="name">Edit Account Settings</p>
+                  </div>
                   <div class="toggle">
                     <label class="switch">
-                      <input formControlName="edit_account_settings" type="checkbox" [checked]="roleForm.value.edit_account_settings" />
+                      <input
+                        formControlName="edit_account_settings"
+                        type="checkbox"
+                        [checked]="roleForm.value.edit_account_settings"
+                      />
                       <span class="slider round"></span>
                     </label>
                   </div>
                 </div>
-                <hr>
+                <hr />
                 <div class="data-container">
                   <div class="data-name"><p class="name">View reports</p></div>
                   <div class="toggle">
                     <label class="switch">
-                      <input formControlName="view_reports" type="checkbox" [checked]="roleForm.value.view_reports" />
+                      <input
+                        formControlName="view_reports"
+                        type="checkbox"
+                        [checked]="roleForm.value.view_reports"
+                      />
                       <span class="slider round"></span>
                     </label>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="tab-bar" style="bottom: 5%;">
+            <div class="tab-bar" style="bottom: 5%">
               <div>
-                <ion-button type="Submit" shape="round" class="active-btn">Submit</ion-button>
-                <ion-button shape="round" (click)="openRole=false">Cancel</ion-button>
+                <ion-button type="Submit" shape="round" class="active-btn"
+                  >Submit</ion-button
+                >
+                <ion-button shape="round" (click)="openRole = false"
+                  >Cancel</ion-button
+                >
               </div>
             </div>
           </form>
@@ -315,5 +504,8 @@
       </section>
     </ng-template>
   </ion-modal>
-  <app-confirmation (event)="delete($event)" [show]="showConfirm"></app-confirmation>
+  <app-confirmation
+    (event)="delete($event)"
+    [show]="showConfirm"
+  ></app-confirmation>
 </ion-content>
