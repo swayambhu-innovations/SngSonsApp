@@ -147,12 +147,7 @@
                 labelPlacement="floating"
               >
               </ion-input>
-              <input
-                id="datePicker"
-                type="date"
-                onfocus="this.showPicker()"
-                (change)="dispDate($event)"
-              />
+              <input id="datePicker" type="date" (change)="dispDate($event)" />
             </div>
           </ion-item>
           <svg
@@ -200,6 +195,4 @@
       </div>
     </form>
   </section>
-
- 
 </ion-content>

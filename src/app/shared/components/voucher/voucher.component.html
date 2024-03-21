@@ -48,6 +48,7 @@
   <ion-searchbar
     class="ion-text-start custom"
     animated="true"
+    (ionInput)="searchShipments($event)"
     placeholder="Search {{ search }}"
   ></ion-searchbar>
 
@@ -65,7 +66,7 @@
     <ion-row
       (click)="openShipmentDetail(shipment)"
       class="ion-justify-content-between ion-align-items-center"
-      *ngFor="let shipment of shipmentsData; index as i"
+      *ngFor="let shipment of filteredShipments; index as i"
       [ngClass]="{ 'd-none': i > 4 && !showAll }"
     >
       <ion-col size="0.75">
@@ -189,7 +190,7 @@
 
     <ion-row
       class="ion-justify-content-between ion-align-items-center no-records"
-      *ngIf="shipmentsData.length == 0"
+      *ngIf="filteredShipments.length == 0"
     >
       <ion-col>No Records Found</ion-col>
     </ion-row>

@@ -27,7 +27,10 @@ export class EditProfileComponent implements OnInit {
     userName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
     phone: new FormControl('', [Validators.required]),
-    dob: new FormControl(),
+    dob: new FormControl(
+      new DatePipe('en-US').transform(new Date(), 'dd MMM YYYY'),
+      [Validators.required]
+    ),
     gender: new FormControl(null, [Validators.required]),
     id: new FormControl(''),
   });
@@ -48,7 +51,7 @@ export class EditProfileComponent implements OnInit {
   dispDate(e: any) {
     const date: any = new DatePipe('en-US').transform(
       e.target.value ? e.target.value : new Date(),
-      'YYYY-MM-dd'
+      'dd MMM YYYY'
     );
     this.editProfileForm.patchValue({ dob: date });
   }
@@ -74,6 +77,7 @@ export class EditProfileComponent implements OnInit {
   async onSubmit() {
     if (!this.editProfileForm.valid) {
       this.editProfileForm.markAllAsTouched();
+      this.notification.showError(Config.messages.fillAllFields);
       return;
     }
     const data = { ...this.userData.access, ...this.editProfileForm.value };

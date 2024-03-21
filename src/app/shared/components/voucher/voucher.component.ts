@@ -37,6 +37,7 @@ export class VoucherComponent implements OnChanges, OnInit {
   count: number = 5;
   loader: any;
   shipmentsData: any[] = [];
+  filteredShipments: any[] = [];
   shipmentStatus = ShipmentStatus;
   vendorData: any = {};
 
@@ -143,6 +144,32 @@ export class VoucherComponent implements OnChanges, OnInit {
         ...data,
       });
     });
+    this.filteredShipments = this.shipmentsData;
     this.loader.dismiss();
+  }
+
+  searchShipments(e: any) {
+    const searchValue = e.detail.value;
+    if (searchValue && searchValue.trim() !== '') {
+      this.filteredShipments = this.shipmentsData.filter(
+        (shipment: any) =>
+          shipment.CustomerName.toLowerCase().includes(
+            searchValue.toLowerCase()
+          ) ||
+          shipment.ShipmentNumber.toLowerCase().includes(
+            searchValue.toLowerCase()
+          ) ||
+          shipment.TransporterName.toLowerCase().includes(
+            searchValue.toLowerCase()
+          ) ||
+          shipment.Ownership.toLowerCase().includes(
+            searchValue.toLowerCase()
+          ) ||
+          shipment.WSCode.toLowerCase().includes(searchValue.toLowerCase()) ||
+          shipment.WSTown.toLowerCase().includes(searchValue.toLowerCase()) ||
+          shipment.status.toLowerCase().includes(searchValue.toLowerCase()) ||
+          shipment.vehicle.toLowerCase().includes(searchValue.toLowerCase())
+      );
+    } else this.filteredShipments = this.shipmentsData;
   }
 }

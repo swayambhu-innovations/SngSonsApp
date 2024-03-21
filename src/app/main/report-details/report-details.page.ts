@@ -639,13 +639,13 @@ export class ReportDetailsPage implements OnInit {
             shipment['Url'] = '/main/shipment/' + shipment.id;
             shipment['timeStamp'] = shipment.voucherData?.createdAt
               ? moment(shipment.voucherData.createdAt.toDate()).format(
-                  'DD MMM YYYY'
+                  'dd MMM YYYY'
                 )
               : '';
             shipment['timeStampPostDelivery'] = shipment.postDeliveryData
               ?.createdAt
               ? moment(shipment.postDeliveryData.createdAt.toDate()).format(
-                  'DD MMM YYYY'
+                  'dd MMM YYYY'
                 )
               : '';
             shipment['remark'] = shipment.voucherData?.remark;

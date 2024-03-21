@@ -67,7 +67,7 @@ export class PostDeliveryPage implements OnInit {
 
   get createdAt() {
     const data = this.postDeliveryForm.value;
-    return formatDate(data.createdAt, 'DD MMM YYYY');
+    return formatDate(data.createdAt, 'dd MMM YYYY');
   }
 
   get createdByName() {

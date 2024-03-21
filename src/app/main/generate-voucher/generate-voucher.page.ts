@@ -102,7 +102,7 @@ export class GenerateVoucherPage implements OnInit {
 
   get createdAt() {
     const data = this.voucherForm.value;
-    return formatDate(data.createdAt, 'DD MMM YYYY');
+    return formatDate(data.createdAt, 'dd MMM YYYY');
   }
 
   get createdByName() {

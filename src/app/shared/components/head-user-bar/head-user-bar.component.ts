@@ -47,6 +47,7 @@ export class HeadUserBarComponent implements OnInit {
     vendor_PartyWiseS: true,
     vendor_KOT: true,
   };
+  @Input() isHome: boolean = false;
   openMode: boolean = false;
   userName: string = '';
   tabStatus: any = 'simple';
