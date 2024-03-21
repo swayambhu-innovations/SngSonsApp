@@ -61,6 +61,7 @@ export class AddVehicleComponent implements OnInit {
   public categoryID: any; // store category selected
   private loader: any;
   public config = Config; // fetching constant from app config file
+  pending: string = 'pending';
   private files: any = {
     RCPhoto: null,
     insurancePhoto: null,
@@ -101,7 +102,7 @@ export class AddVehicleComponent implements OnInit {
   dispDate(e: any, label: string) {
     const date: any = new DatePipe('en-US').transform(
       e.target.value ? e.target.value : new Date(),
-      'YYYY-MM-dd'
+      'dd-MMM-YYYY'
     );
     if (label === 'RC') this.addVehicleForm.patchValue({ RCValidity: date });
     else if (label === 'insurance')
@@ -182,15 +183,10 @@ export class AddVehicleComponent implements OnInit {
         this.categoryID
       );
 
-      if (
-        this.addVehicleForm.controls['id'].value !== '' &&
-        !this.vehicleCategory
-      ) {
-        await this.vehicleMasterService.deleteVehicle(
-          'pending',
-          this.addVehicleForm.controls['id'].value
-        );
-      }
+      await this.vehicleMasterService.deleteVehicle(
+        this.pending,
+        this.addVehicleForm.controls['registrationNo'].value
+      );
 
       if (this.addVehicleForm.controls['id'].value == '')
         this.notificationService.showSuccess(
@@ -205,9 +201,9 @@ export class AddVehicleComponent implements OnInit {
       this.goBack();
     } catch (error) {
       console.log(error);
+      this.notificationService.showError('Something Went Wrong');
       this.loader.dismiss();
       this.goBack();
-      this.notificationService.showError('Something Went Wrong');
       return;
     }
   }

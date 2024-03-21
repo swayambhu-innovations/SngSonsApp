@@ -1,12 +1,13 @@
 <ion-content class="wrapper-settings ion-page" [fullscreen]="true">
   <header>
-    <div class="header">
-      <div class="d-flex" routerLink="/main/settings">
-        <div class="img"><img src="assets/icon/back-button.svg" alt="" /></div>
-        <div class="head">Form Settings</div>
+    <div class="header1">
+      <div routerLink="/main/settings" class="img">
+        <img src="assets/icon/back-button.svg" alt="" />
       </div>
+      <div class="head">Form Settings</div>
     </div>
   </header>
+
   <div class="wrapper-container first">
     <ion-grid>
       <ion-accordion-group
@@ -19,9 +20,9 @@
               <ion-row
                 class="ion-justify-content-between ion-align-items-center"
               >
-                <ion-col size="auto" class="head">Voucher Pending Form</ion-col>
+                <ion-col size="4" class="head"> Voucher Pending Form </ion-col>
                 <ion-col
-                  size="auto"
+                  size="4.5"
                   class="add-variable"
                   expand="block"
                   (click)="
@@ -32,7 +33,7 @@
                   "
                 >
                   <p class="text">Add Variable</p>
-                  <img src="assets/icon/plus-button.svg" alt="" />
+                  <img src="assets/icon/plus-button.svg" alt="Add Variable" />
                 </ion-col>
               </ion-row>
             </ion-label>
@@ -143,9 +144,11 @@
               <ion-row
                 class="ion-justify-content-between ion-align-items-center"
               >
-                <ion-col size="auto" class="head">Post Dlv. Pending Form</ion-col>
+                <ion-col size="4" class="head">
+                  Post Dlv. Pending Form
+                </ion-col>
                 <ion-col
-                  size="auto"
+                  size="4.5"
                   class="add-variable"
                   expand="block"
                   (click)="
@@ -265,8 +268,8 @@
     <ng-template>
       <section>
         <header>
-          <div class="header">
-            <div class="img" (click)="closeModal(); modal.dismiss()">
+          <div class="header1">
+            <div (click)="closeModal(); modal.dismiss()" class="img">
               <img src="assets/icon/back-button.svg" alt="" />
             </div>
             <div class="head">Add New Variable</div>

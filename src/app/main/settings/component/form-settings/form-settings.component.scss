@@ -23,18 +23,25 @@ ion-col {
     #c9deff 101.69%
   );
 
-  .header {
-    display: flex;
-    padding: 10px 0px 0px 10px;
+  --padding-top: 15px;
+  --padding-bottom: 0px;
+  --padding-start: 15px;
+  --padding-end: 15px;
 
-    .img {
+  .header1 {
+    display: flex;
+    margin-top: 0px;
+    padding: 0px 10px 10px 7px;
+
+    img {
+      padding-top: 7px;
     }
 
     .head {
+      padding-top: 4px;
       color: var(--Primary, #1540bd);
       font-size: 20px;
       font-weight: 400;
-      padding-top: 4px;
       padding-left: 8px;
     }
   }
@@ -156,6 +163,12 @@ ion-col {
   }
 }
 
+.fixed-width {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .switch {
   width: 20px;
   height: 12px;
@@ -195,19 +208,21 @@ ion-col {
     height: 100vh;
   }
 
-  .header {
+  .header1 {
     display: flex;
-    padding: 0px 10px 10px 10px;
+    margin-top: 0px;
+    padding: 0px 10px 10px 7px;
 
-    .img {
+    img {
+      padding-top: 7px;
     }
 
     .head {
+      padding-top: 4px;
       color: var(--Primary, #1540bd);
       font-size: 20px;
       font-weight: 400;
-      padding-top: 3px;
-      padding-left: 10px;
+      padding-left: 8px;
     }
   }
 
