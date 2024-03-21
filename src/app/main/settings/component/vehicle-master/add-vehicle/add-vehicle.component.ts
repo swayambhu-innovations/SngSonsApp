@@ -100,8 +100,8 @@ export class AddVehicleComponent implements OnInit {
 
   dispDate(e: any, label: string) {
     const date: any = new DatePipe('en-US').transform(
-      e.target.value,
-      'dd MMM YYYY'
+      e.target.value ? e.target.value : new Date(),
+      'YYYY-MM-dd'
     );
     if (label === 'RC') this.addVehicleForm.patchValue({ RCValidity: date });
     else if (label === 'insurance')

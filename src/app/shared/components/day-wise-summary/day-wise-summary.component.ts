@@ -24,7 +24,10 @@ export class DayWiseSummaryComponent implements OnInit {
   }
 
   dispDate(e: any) {
-    this.daywiseSummaryService.selectedDate = e.target.value;
+    this.daywiseSummaryService.selectedDate = new DatePipe('en-US').transform(
+      e.target.value ? e.target.value : new Date(),
+      'YYYY-MM-dd'
+    );
     this.daywiseSummaryService.getShipments();
   }
 }

@@ -14,11 +14,14 @@ export class BarGraphTableComponent implements OnInit {
   ngOnInit() {}
 
   get dateText() {
-    const dt = new DatePipe('en-US').transform(this.selectedDate, 'dd MMM')
-    return dt
+    const dt = new DatePipe('en-US').transform(this.selectedDate, 'dd MMM');
+    return dt;
   }
 
   onChange(e: any) {
-    this.selectedDate = new DatePipe('en-US').transform(e.target.value, 'YYYY-MM-dd');
+    this.selectedDate = new DatePipe('en-US').transform(
+      e.target.value ? e.target.value : new Date(),
+      'YYYY-MM-dd'
+    );
   }
 }
