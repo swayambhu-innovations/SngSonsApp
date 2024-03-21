@@ -55,6 +55,10 @@ export class HistoryPage implements OnInit {
   }
 
   ngOnInit() {
+    this.statsData.kot = 0;
+    this.statsData.vendors = 0;
+    this.statsData.shipments = 0;
+    this.statsData.total = 0;
     this.getShipments();
   }
 
@@ -62,6 +66,10 @@ export class HistoryPage implements OnInit {
     this.date1 = moment(
       e.target.value ? new Date(e.target.value) : new Date()
     ).format('dd-MMM-YYYY');
+    this.statsData.kot = 0;
+    this.statsData.vendors = 0;
+    this.statsData.shipments = 0;
+    this.statsData.total = 0;
     this.getShipments();
   }
 
@@ -69,6 +77,10 @@ export class HistoryPage implements OnInit {
     this.date2 = moment(
       e.target.value ? new Date(e.target.value) : new Date()
     ).format('dd-MMM-YYYY');
+    this.statsData.kot = 0;
+    this.statsData.vendors = 0;
+    this.statsData.shipments = 0;
+    this.statsData.total = 0;
     this.getShipments();
   }
 
