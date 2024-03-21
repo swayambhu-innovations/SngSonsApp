@@ -99,7 +99,7 @@ export class LoginPage implements OnInit {
 
   async requestOTP(resend: boolean) {
     this.loader1 = await this.loadingController.create({
-      message: Config.messages.pleaseWait,
+      message: Config.messages.sendingOTP,
     });
     this.loader1.present();
     const phoneNumber = this.loginForm.value.phone;
@@ -121,6 +121,7 @@ export class LoginPage implements OnInit {
         .then((confirmationResult) => {
           this.otpConfirmation = confirmationResult;
           this.loginPermissionService.showOtp = true;
+          this.notification.showSuccess(Config.messages.sentOTP);
         })
         .catch((error) => {
           this.resetRecaptchaVerifier();
@@ -136,7 +137,10 @@ export class LoginPage implements OnInit {
     if (!otp) {
       return;
     }
-    this.loader.present();
+    this.loader1 = await this.loadingController.create({
+      message: Config.messages.logginIn,
+    });
+    this.loader1.present();
     await this.otpConfirmation
       .confirm(otp)
       .then(async (result: any) => {
@@ -146,12 +150,14 @@ export class LoginPage implements OnInit {
         };
         this.loginPermissionService.setLocal(user);
         await this.loginPermissionService.redirectUser(this.loader);
-        this.loader.dismiss();
+        this.loginForm.reset();
       })
       .catch((error: any) => {
-        this.loader.dismiss();
         this.notification.showError(Config.messages.invalidOTP);
+        this.loginForm.patchValue({
+          otp: '',
+        });
       });
-    this.loginForm.reset();
+    this.loader1.dismiss();
   }
 }

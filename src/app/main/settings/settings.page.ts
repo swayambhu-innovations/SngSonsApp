@@ -13,14 +13,13 @@ import * as moment from 'moment';
   styleUrls: ['./settings.page.scss'],
 })
 export class SettingsPage implements ViewWillEnter {
-
   constructor(
     private loginPermissionService: LoginPermissionService,
     private loadingController: LoadingController,
     private fileuploadService: FileuploadService,
     private utilService: UtilService,
     private userPermissionService: UserPermissionService
-  ) { }
+  ) {}
 
   displayImage: string = '';
   showLogout = false;
@@ -38,17 +37,23 @@ export class SettingsPage implements ViewWillEnter {
   async changePhoto(e: any) {
     this.loader.present();
     const file = e.target.files[0];
-    const url = await this.fileuploadService.uploadFile(file, Config.storage.userPhoto, `${this.userData.access.id}.${file.name.split('.').pop()}`);
+    const url = await this.fileuploadService.uploadFile(
+      file,
+      Config.storage.userPhoto,
+      `${this.userData.access.id}.${file.name.split('.').pop()}`
+    );
     this.displayImage = url;
     await this.updUserPhoto(url);
-    this.utilService.setUserdata({photoURL: url});
+    this.utilService.setUserdata({ photoURL: url });
     this.loader.dismiss();
   }
 
   get createdDate() {
     let createdAt = this.userData.access?.createdAt;
     if (createdAt) {
-      return `Profile Created ${this.utilService.getDateCreatedBefore(createdAt.seconds * 1000)} ago`;
+      return `Profile Created ${this.utilService.getDateCreatedBefore(
+        createdAt.seconds * 1000
+      )} ago`;
     }
     return '';
   }
@@ -56,11 +61,11 @@ export class SettingsPage implements ViewWillEnter {
   dismissModal = async () => {
     this.showLogout = false;
     return true;
-  }
+  };
 
   async logout() {
     const loader = await this.loadingController.create({
-      message: 'Please wait...',
+      message: Config.messages.logginOut,
     });
     this.showLogout = false;
     this.loginPermissionService.logout(loader);

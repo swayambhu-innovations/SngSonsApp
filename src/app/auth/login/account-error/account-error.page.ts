@@ -9,23 +9,29 @@ import { Config } from 'src/app/config';
   styleUrls: ['./account-error.page.scss'],
 })
 export class AccountErrorPage implements OnInit {
-
   loader: any;
   constructor(
     private loginPermissionService: LoginPermissionService,
-    private loadingController: LoadingController,
-  ) { }
+    private loadingController: LoadingController
+  ) {}
 
   async ngOnInit() {
-    this.loader = await this.loadingController.create({ message: Config.messages.pleaseWait });
+    this.loader = await this.loadingController.create({
+      message: Config.messages.pleaseWait,
+    });
   }
 
-  refresh() {
+  async refresh() {
+    this.loader = await this.loadingController.create({
+      message: Config.messages.refresh,
+    });
     this.loginPermissionService.redirectUser(this.loader);
   }
 
-  logout() {
+  async logout() {
+    this.loader = await this.loadingController.create({
+      message: Config.messages.logginOut,
+    });
     this.loginPermissionService.logout(this.loader);
   }
-
 }
