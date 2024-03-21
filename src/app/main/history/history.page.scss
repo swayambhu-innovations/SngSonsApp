@@ -64,7 +64,7 @@
       }
     }
 
-    #icon-cards {
+    ion-grid {
       ion-card {
         width: 155px;
         height: fit-content;
@@ -110,7 +110,7 @@
     @media only screen and (max-width: 400px) {
       #icon-cards {
         ion-card {
-          width: fit-content;
+          width: 150px;
           margin: 0;
           padding: 10px 7.7px;
         }

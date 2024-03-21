@@ -198,7 +198,7 @@
     <ion-row
       id="view-more"
       class="ion-justify-content-between ion-align-items-center"
-      *ngIf="shipmentsData.length > 5"
+      *ngIf="filteredShipments.length > 5"
     >
       <ion-col size="auto"></ion-col>
       <ion-col style="cursor: pointer" size="auto" (click)="showAll = !showAll">

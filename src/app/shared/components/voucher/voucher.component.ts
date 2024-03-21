@@ -57,7 +57,7 @@ export class VoucherComponent implements OnChanges, OnInit {
     if (this.data.length == 0 && this.fetchDefault) {
       this.getShipments();
     } else {
-      this.shipmentsData = this.data;
+      this.filteredShipments = this.data;
     }
   }
 
@@ -65,13 +65,13 @@ export class VoucherComponent implements OnChanges, OnInit {
     if (this.data.length == 0 && this.fetchDefault) {
       this.getShipments();
     } else {
-      this.shipmentsData = this.data;
+      this.filteredShipments = this.data;
     }
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['data']?.currentValue) {
-      this.shipmentsData = changes['data'].currentValue;
+      this.filteredShipments = changes['data'].currentValue;
     }
   }
 

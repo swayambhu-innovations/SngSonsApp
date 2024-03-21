@@ -45,6 +45,10 @@ export class HistoryPage implements OnInit {
   ) {
     this.sharedService.refresh.subscribe((db) => {
       if (db) {
+        this.statsData.kot = 0;
+        this.statsData.vendors = 0;
+        this.statsData.shipments = 0;
+        this.statsData.total = 0;
         this.getShipments();
       }
     });
@@ -57,14 +61,14 @@ export class HistoryPage implements OnInit {
   startDate(e: any) {
     this.date1 = moment(
       e.target.value ? new Date(e.target.value) : new Date()
-    ).format('YYYY-MM-DD');
+    ).format('dd-MMM-YYYY');
     this.getShipments();
   }
 
   endDate(e: any) {
     this.date2 = moment(
       e.target.value ? new Date(e.target.value) : new Date()
-    ).format('YYYY-MM-DD');
+    ).format('dd-MMM-YYYY');
     this.getShipments();
   }
 
@@ -79,7 +83,7 @@ export class HistoryPage implements OnInit {
       [ShipmentStatus.Suspended, ShipmentStatus.Completed]
     );
     const sData: any[] = [];
-    await shipmentData.docs.map(async (shipment: any) => {
+    shipmentData.docs.map(async (shipment: any) => {
       const shipdata = { ...shipment.data(), id: shipment.id };
       if (shipdata.status === ShipmentStatus.Completed) {
         const dta = await this.shipmentDetailServie.formatShipment(shipdata);
