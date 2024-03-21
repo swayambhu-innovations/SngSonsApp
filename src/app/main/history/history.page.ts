@@ -16,8 +16,8 @@ import { SharedService } from 'src/app/shared/shared.service';
   styleUrls: ['./history.page.scss'],
 })
 export class HistoryPage implements OnInit {
-  date1: string = moment(new Date()).startOf('month').format('dd-MM-YYYY');
-  date2: string = moment(new Date()).format('dd-MM-YYYY');
+  date1: string = moment(new Date()).startOf('month').format('YYYY-MM-DD');
+  date2: string = moment(new Date()).format('YYYY-MM-DD');
   formatDate = formatDate;
   loader: any;
   shipmentsData: any[] = [];
@@ -95,58 +95,59 @@ export class HistoryPage implements OnInit {
       [ShipmentStatus.Suspended, ShipmentStatus.Completed]
     );
     const sData: any[] = [];
-    shipmentData.docs.map(async (shipment: any) => {
-      const shipdata = { ...shipment.data(), id: shipment.id };
-      if (shipdata.status === ShipmentStatus.Completed) {
-        const dta = await this.shipmentDetailServie.formatShipment(shipdata);
-        this.statsData.kot += dta.vendorDetails.kot;
-        this.statsData.vendors += dta.vendorData.length;
-        this.statsData.shipments += 1;
-        this.statsData.total += dta.vendorDetails.totalInvoiceAmount;
-      }
-      if (!this.vendorData[shipment.data().vendor]) {
-        try {
-          (
-            await this.shipmentsService.getVendor(
-              shipment.data().vendorData.map((item: any) => {
-                return item.vendor;
-              })
-            )
-          ).docs.map((vendor: any) => {
-            this.vendorData[vendor.id] = { ...vendor.data() };
-          });
-        } catch (e) {}
-      }
-      const vendors = shipment.data().vendorData.map((item: any) => {
-        return this.vendorData[item.vendor];
+    if (shipmentData)
+      shipmentData.docs.map(async (shipment: any) => {
+        const shipdata = { ...shipment.data(), id: shipment.id };
+        if (shipdata.status === ShipmentStatus.Completed) {
+          const dta = await this.shipmentDetailServie.formatShipment(shipdata);
+          this.statsData.kot += dta.vendorDetails.kot;
+          this.statsData.vendors += dta.vendorData.length;
+          this.statsData.shipments += 1;
+          this.statsData.total += dta.vendorDetails.totalInvoiceAmount;
+        }
+        if (!this.vendorData[shipment.data().vendor]) {
+          try {
+            (
+              await this.shipmentsService.getVendor(
+                shipment.data().vendorData.map((item: any) => {
+                  return item.vendor;
+                })
+              )
+            ).docs.map((vendor: any) => {
+              this.vendorData[vendor.id] = { ...vendor.data() };
+            });
+          } catch (e) {}
+        }
+        const vendors = shipment.data().vendorData.map((item: any) => {
+          return this.vendorData[item.vendor];
+        });
+        const data: any = {
+          ...shipment.data(),
+          CustomerName: uniq(
+            vendors.map((item: any) => {
+              return item?.WSName;
+            })
+          ).join(','),
+          WSTown: uniq(
+            vendors.map((item: any) => {
+              return item?.WSTown;
+            })
+          ).join(','),
+          WSCode: uniq(
+            vendors.map((item: any) => {
+              return item?.WSCode;
+            })
+          ).join(','),
+          vendors,
+          id: shipment.id,
+        };
+        sData.push({
+          _1: data[this.tableData[0].key],
+          _2: data[this.tableData[1].key],
+          _3: data[this.tableData[2].key],
+          ...data,
+        });
       });
-      const data: any = {
-        ...shipment.data(),
-        CustomerName: uniq(
-          vendors.map((item: any) => {
-            return item?.WSName;
-          })
-        ).join(','),
-        WSTown: uniq(
-          vendors.map((item: any) => {
-            return item?.WSTown;
-          })
-        ).join(','),
-        WSCode: uniq(
-          vendors.map((item: any) => {
-            return item?.WSCode;
-          })
-        ).join(','),
-        vendors,
-        id: shipment.id,
-      };
-      sData.push({
-        _1: data[this.tableData[0].key],
-        _2: data[this.tableData[1].key],
-        _3: data[this.tableData[2].key],
-        ...data,
-      });
-    });
     this.shipmentsData = sData;
     this.loader.dismiss();
   }
