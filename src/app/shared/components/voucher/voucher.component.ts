@@ -13,7 +13,9 @@ import { ShipmentStatus } from 'src/app/utils/enum';
 import { VoucherService } from './voucher.service';
 import { uniq } from 'lodash';
 import { SharedService } from '../../shared.service';
+import { AutoUnsubscribe } from 'src/app/utils/autoUnsubscriber';
 
+@AutoUnsubscribe
 @Component({
   selector: 'app-voucher',
   templateUrl: './voucher.component.html',
@@ -54,7 +56,7 @@ export class VoucherComponent implements OnChanges, OnInit {
   vendorData: any = {};
 
   async ionViewDidEnter() {
-    if (this.data.length == 0 && this.fetchDefault) {
+    if (this.fetchDefault) {
       this.getShipments();
     } else {
       this.filteredShipments = this.data;
@@ -62,7 +64,7 @@ export class VoucherComponent implements OnChanges, OnInit {
   }
 
   async ngOnInit() {
-    if (this.data.length == 0 && this.fetchDefault) {
+    if (this.fetchDefault) {
       this.getShipments();
     } else {
       this.filteredShipments = this.data;
@@ -93,22 +95,23 @@ export class VoucherComponent implements OnChanges, OnInit {
     return dt;
   }
 
-  onChange(e: any) {
+  async onChange(e: any) {
     this.voucherService.selectedDate = new DatePipe('en-US').transform(
       e.target.value ? e.target.value : new Date(),
       'YYYY-MM-dd'
     );
+    this.loader = await this.loadingController.create({
+      message: Config.messages.refresh,
+    });
+    this.loader.present();
     this.getShipments();
+    this.loader.dismiss();
   }
 
   async getShipments() {
     if (!this.voucherService.selectedDate) {
       return;
     }
-    this.loader = await this.loadingController.create({
-      message: Config.messages.pleaseWait,
-    });
-    this.loader.present();
     const shipmentData = await this.shipmentsService.getShipmentsByDate(
       this.voucherService.selectedDate
     );
@@ -157,13 +160,16 @@ export class VoucherComponent implements OnChanges, OnInit {
       });
     });
     this.filteredShipments = this.shipmentsData;
-    this.loader.dismiss();
   }
 
   searchShipments(e: any) {
     const searchValue = e.detail.value;
     if (searchValue && searchValue.trim() !== '') {
-      this.filteredShipments = this.shipmentsData.filter(
+      this.filteredShipments = (
+        this.data.length == 0 && this.fetchDefault
+          ? this.shipmentsData
+          : this.data
+      ).filter(
         (shipment: any) =>
           shipment.CustomerName.toLowerCase().includes(
             searchValue.toLowerCase()
@@ -182,6 +188,10 @@ export class VoucherComponent implements OnChanges, OnInit {
           shipment.status.toLowerCase().includes(searchValue.toLowerCase()) ||
           shipment.vehicle.toLowerCase().includes(searchValue.toLowerCase())
       );
-    } else this.filteredShipments = this.shipmentsData;
+    } else
+      this.filteredShipments =
+        this.data.length == 0 && this.fetchDefault
+          ? this.shipmentsData
+          : this.data;
   }
 }

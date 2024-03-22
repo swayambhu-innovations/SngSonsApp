@@ -86,22 +86,21 @@
           <ion-button shape="round">
             <span>
               <label for="Date1">
-                {{ date1Text }}
+                {{ formatDate(date1Text, 'DD MMM') }}
                 <input
                   id="Date1"
                   type="date"
                   [value]="date1"
-                  onfocus="this.showPicker()"
                   (change)="startDate($event)"
                 />
               </label>
               -
-              <label for="Date2"
-                >{{ date2Text}}
+              <label for="Date2">
+                {{ formatDate(date2Text, 'DD MMM') }}
                 <input
                   id="Date2"
                   type="date"
-                  onfocus="this.showPicker()"
+                  [value]="date2"
                   (change)="endDate($event)"
                 />
               </label>
@@ -165,14 +164,16 @@
             <ion-row class="ion-justify-content-between ion-align-items-center">
               <ion-col>
                 <ion-select
-                class="report-sort-by"
+                  class="report-sort-by"
                   aria-label="sortBy"
                   toggleIcon="none"
                   interface="popover"
                   placeholder="Sort By"
                   (ionChange)="onSortByChange($event)"
                 >
-                  <ion-select-option [value]="column" *ngFor="let column of tableColumns"  
+                  <ion-select-option
+                    [value]="column"
+                    *ngFor="let column of tableColumns"
                     >{{column.text}}</ion-select-option
                   >
                 </ion-select>
@@ -183,8 +184,13 @@
         </ion-card>
       </ion-col>
       <ion-col size="auto">
-        
-        <img class="up-arrow-image" (click)="changeSorting()" [ngClass]="{'is-descending' : !isAsc}" src="assets/icon/up-arrow.svg" alt="back-btn" />
+        <img
+          class="up-arrow-image"
+          (click)="changeSorting()"
+          [ngClass]="{'is-descending' : !isAsc}"
+          src="assets/icon/up-arrow.svg"
+          alt="back-btn"
+        />
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -208,17 +214,24 @@
 
       <div class="col-list">
         <ion-grid>
-          <ion-row *ngFor="let item of tableColumns" class="ion-justify-content-between ion-align-items-center">
+          <ion-row
+            *ngFor="let item of tableColumns"
+            class="ion-justify-content-between ion-align-items-center"
+          >
             <ng-container *ngIf="!item.isUrl">
               <ion-col size="auto"> {{item.text}} </ion-col>
               <ion-col size="auto">
                 <label class="switch">
-                  <input type="checkbox" [attr.disabled]="(item.isActive && finalColumnCount <= minimumActiveCount) ? true : null" [checked]="item.isActive" (change)="onChangeColumn(item)"/>
+                  <input
+                    type="checkbox"
+                    [attr.disabled]="(item.isActive && finalColumnCount <= minimumActiveCount) ? true : null"
+                    [checked]="item.isActive"
+                    (change)="onChangeColumn(item)"
+                  />
                   <span class="slider round"></span>
                 </label>
               </ion-col>
             </ng-container>
-            
           </ion-row>
         </ion-grid>
       </div>

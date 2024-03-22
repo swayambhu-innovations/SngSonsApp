@@ -2,17 +2,12 @@ import { Injectable } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import Chart from 'chart.js/auto';
 import { ShipmentsService } from 'src/app/main/home/tabs/shipments/shipments.service';
-import { LoadingController } from '@ionic/angular';
-import { Config } from 'src/app/config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DaywiseSummaryService {
-  constructor(
-    private shipmentsService: ShipmentsService,
-    private loadingController: LoadingController
-  ) {}
+  constructor(private shipmentsService: ShipmentsService) {}
   selectedDate: any = new DatePipe('en-US').transform(new Date(), 'YYYY-MM-dd');
   chartData: any = {
     'pending-dispatch': {
@@ -30,13 +25,8 @@ export class DaywiseSummaryService {
   };
   public totalShipment = 0;
   public chart: any;
-  loader: any;
 
   async getShipments() {
-    this.loader = await this.loadingController.create({
-      message: Config.messages.pleaseWait,
-    });
-    this.loader.present();
     this.chartData['pending-dispatch'].count = 0;
     this.chartData['pending-post-delivery'].count = 0;
     this.chartData['completed'].count = 0;
@@ -86,6 +76,5 @@ export class DaywiseSummaryService {
         },
       },
     });
-    this.loader.dismiss();
   }
 }

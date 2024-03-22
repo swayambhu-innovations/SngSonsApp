@@ -9,7 +9,9 @@ import { uniq } from 'lodash';
 import { ShipmentStatus } from 'src/app/utils/enum';
 import { ShipmentDetailService } from '../shipment-detail/shipment-detail.service';
 import { SharedService } from 'src/app/shared/shared.service';
+import { AutoUnsubscribe } from 'src/app/utils/autoUnsubscriber';
 
+@AutoUnsubscribe
 @Component({
   selector: 'app-history',
   templateUrl: './history.page.html',
@@ -43,24 +45,15 @@ export class HistoryPage implements OnInit {
     private shipmentDetailServie: ShipmentDetailService,
     private sharedService: SharedService
   ) {
-    this.sharedService.refresh.subscribe((db) => {
-      if (db) {
-        this.statsData.kot = 0;
-        this.statsData.vendors = 0;
-        this.statsData.shipments = 0;
-        this.statsData.total = 0;
+    this.sharedService.refresh.subscribe((data) => {
+      if (data) {
         this.getShipments();
+        console.log('refershed');
       }
     });
   }
 
-  ngOnInit() {
-    this.statsData.kot = 0;
-    this.statsData.vendors = 0;
-    this.statsData.shipments = 0;
-    this.statsData.total = 0;
-    this.getShipments();
-  }
+  ngOnInit() {}
 
   startDate(e: any) {
     this.date1 = moment(
@@ -89,13 +82,17 @@ export class HistoryPage implements OnInit {
       message: Config.messages.pleaseWait,
     });
     this.loader.present();
+    this.statsData.kot = 0;
+    this.statsData.vendors = 0;
+    this.statsData.shipments = 0;
+    this.statsData.total = 0;
     const shipmentData = await this.shipmentsService.getShipmentsByDate(
       this.date1,
       this.date2,
       [ShipmentStatus.Suspended, ShipmentStatus.Completed]
     );
     const sData: any[] = [];
-    if (shipmentData)
+    if (shipmentData?.docs[0]?.data()) {
       shipmentData.docs.map(async (shipment: any) => {
         const shipdata = { ...shipment.data(), id: shipment.id };
         if (shipdata.status === ShipmentStatus.Completed) {
@@ -148,6 +145,7 @@ export class HistoryPage implements OnInit {
           ...data,
         });
       });
+    }
     this.shipmentsData = sData;
     this.loader.dismiss();
   }

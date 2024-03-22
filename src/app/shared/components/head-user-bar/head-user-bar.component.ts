@@ -79,9 +79,9 @@ export class HeadUserBarComponent implements OnInit {
   public initalFormValue: object = { ...this.modeFormSettings.value };
 
   async ngOnInit() {
-    this.loader = await this.loadingController.create({
-      message: 'please wait',
-    });
+    // this.loader = await this.loadingController.create({
+    //   message: 'please wait',
+    // });
     this.getUserName();
     this.homeService.dashBoardSettingFormData =
       (await this.headBarService.getDashBoardSetting(this.userId)).data() || {};

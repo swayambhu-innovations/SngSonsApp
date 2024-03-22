@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeService } from './home.service';
+import { AutoUnsubscribe } from 'src/app/utils/autoUnsubscriber';
 
+@AutoUnsubscribe
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -11,7 +12,7 @@ export class HomePage implements OnInit {
     shipments: true,
     vehicles: false,
     vendors: false,
-  }; 
+  };
 
   changeTab(id: string) {
     Object.keys(this.tabStatus).forEach((key) => {

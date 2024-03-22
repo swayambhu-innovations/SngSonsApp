@@ -6,6 +6,7 @@ import { ShipmentsService } from '../home/tabs/shipments/shipments.service';
 import * as moment from 'moment';
 import { AccountExpenseService } from '../settings/component/account-expense/account-expense.service';
 import { LabourMasterService } from '../settings/component/labour-master/labour-master.service';
+import { formatDate } from 'src/app/utils/date-util';
 
 @Component({
   selector: 'app-report-details',
@@ -24,6 +25,7 @@ export class ReportDetailsPage implements OnInit {
   tableColumns: any;
   activeColumnCount: number = 0;
   minimumActiveCount: number = 1;
+  formatDate = formatDate;
 
   shipments: any;
   selectedDate: any;
@@ -51,9 +53,9 @@ export class ReportDetailsPage implements OnInit {
   ionViewWillEnter() {
     this.id = this.route.snapshot.paramMap.get('id');
     this.date1 = moment(new Date()).subtract(45, 'days').format('YYYY-MM-DD');
-    this.date1Text = moment(new Date()).subtract(15, 'days').format('DD/MM/YY');
+    this.date1Text = moment(new Date()).subtract(45, 'days').format('DD MMM');
     this.date2 = moment(new Date()).format('YYYY-MM-DD');
-    this.date2Text = moment(new Date()).format('DD/MM/YY');
+    this.date2Text = moment(new Date()).format('DD MMM');
     this.getReport(this.id);
   }
 
@@ -90,184 +92,188 @@ export class ReportDetailsPage implements OnInit {
       this.shipmentService
         .getShipmentsByDateRange(this.date1, this.date2)
         .then((shipmentData) => {
-          this.shipments = shipmentData.docs.map((shipment) => {
-            return { ...shipment.data(), id: shipment.id };
-          });
-          this.shipments = shipmentData.docs.map((shipment) => {
-            shipment.data()['vendorData'].map((data: any) => {
-              if (!data.vendor || !this.vendors[data.vendor]) {
-                return;
-              }
-              if (!this.vendors[data.vendor]?.['shipments']) {
-                this.vendors[data.vendor]['shipments'] = [];
-                const vendorShipment = [];
-                data['voucherData'] = shipment.data()['voucherData'];
-                vendorShipment.push(data);
-                const shipmentObject = {
-                  fullShipment: shipment.data(),
-                  vendorShipment: vendorShipment,
-                };
-                this.vendors[data.vendor]['shipments'].push(shipmentObject);
-              } else {
-                const shipmentIndex =
-                  this.vendors[data.vendor]['shipments'].length;
-                if (this.vendors[data.vendor]['shipments'][shipmentIndex - 1]) {
-                  this.vendors[data.vendor]['shipments'][shipmentIndex - 1][
-                    'vendorShipment'
-                  ].push(data);
-                } else {
+          if (shipmentData?.docs[0]) {
+            this.shipments = shipmentData.docs.map((shipment) => {
+              return { ...shipment.data(), id: shipment.id };
+            });
+            this.shipments = shipmentData.docs.map((shipment) => {
+              shipment.data()['vendorData'].map((data: any) => {
+                if (!data.vendor || !this.vendors[data.vendor]) {
+                  return;
+                }
+                if (!this.vendors[data.vendor]?.['shipments']) {
+                  this.vendors[data.vendor]['shipments'] = [];
                   const vendorShipment = [];
+                  data['voucherData'] = shipment.data()['voucherData'];
                   vendorShipment.push(data);
                   const shipmentObject = {
                     fullShipment: shipment.data(),
                     vendorShipment: vendorShipment,
                   };
                   this.vendors[data.vendor]['shipments'].push(shipmentObject);
+                } else {
+                  const shipmentIndex =
+                    this.vendors[data.vendor]['shipments'].length;
+                  if (
+                    this.vendors[data.vendor]['shipments'][shipmentIndex - 1]
+                  ) {
+                    this.vendors[data.vendor]['shipments'][shipmentIndex - 1][
+                      'vendorShipment'
+                    ].push(data);
+                  } else {
+                    const vendorShipment = [];
+                    vendorShipment.push(data);
+                    const shipmentObject = {
+                      fullShipment: shipment.data(),
+                      vendorShipment: vendorShipment,
+                    };
+                    this.vendors[data.vendor]['shipments'].push(shipmentObject);
+                  }
                 }
-              }
+              });
+              return { ...shipment.data(), id: shipment.id };
             });
-            return { ...shipment.data(), id: shipment.id };
-          });
-          this.tableColumns = [
-            {
-              text: 'S No',
-              identifier: 'serialNo',
-              isActive: true,
-              type: 'numeric',
-            },
-            {
-              text: 'W/S code',
-              identifier: 'WSCode',
-              isActive: true,
-              type: 'text',
-            },
-            {
-              text: 'W/S name',
-              identifier: 'WSName',
-              isActive: true,
-              type: 'text',
-            },
-            {
-              text: 'Area',
-              identifier: 'WSTown',
-              isActive: true,
-              type: 'text',
-            },
-            {
-              text: 'Postal Code',
-              identifier: 'postalCode',
-              isActive: true,
-              type: 'numeric',
-            },
-            {
-              text: 'W/S GST',
-              identifier: 'GSTNo',
-              isActive: true,
-              type: 'text',
-            },
-            {
-              text: 'PAN No',
-              identifier: 'panNo',
-              isActive: true,
-              type: 'text',
-            },
-            {
-              text: 'W/S Contact no.',
-              identifier: 'phoneNO',
-              isActive: true,
-              type: 'text',
-            },
-            {
-              text: 'KOT Shipped',
-              identifier: 'totalKot',
-              isActive: true,
-              type: 'numeric',
-            },
-            {
-              text: 'Distance(Km)',
-              identifier: 'distance',
-              isActive: true,
-              type: 'numeric',
-            },
-            {
-              text: 'Diesel Expense',
-              identifier: 'totalDieselExpenseAmount',
-              isActive: true,
-              type: 'numeric',
-            },
-            {
-              text: 'Khuraki Expense',
-              identifier: 'totalKhurakiExpenseAmount',
-              isActive: true,
-              type: 'numeric',
-            },
-            {
-              text: 'Labour Expense',
-              identifier: 'totalLabourExpenseAmount',
-              isActive: true,
-              type: 'numeric',
-            },
-            {
-              text: 'Other Expense',
-              identifier: 'totalOtherExpenseAmount',
-              isActive: true,
-              type: 'numeric',
-            },
-            {
-              text: 'Shipment Count',
-              identifier: 'shipmentCount',
-              isActive: true,
-              type: 'numeric',
-            },
-            {
-              text: 'Total Expense',
-              identifier: 'totalExpense',
-              isActive: true,
-              type: 'numeric',
-            },
-            {
-              text: 'Total Shipment Cost',
-              identifier: 'totalShipmentCost',
-              isActive: true,
-              type: 'numeric',
-            },
-            {
-              text: 'Total Invoice Anount',
-              identifier: 'totalInvoiceAmount',
-              isActive: true,
-              type: 'numeric',
-            },
-            {
-              text: 'Pending Shipments',
-              identifier: 'pendingShipmentCount',
-              isActive: true,
-              type: 'numeric',
-            },
-            {
-              text: 'Completed Shipments',
-              identifier: 'completedShipmentCount',
-              isActive: true,
-              type: 'numeric',
-            },
-            {
-              text: 'Discarded Shipments',
-              identifier: 'discardedShipmentCount',
-              isActive: true,
-              type: 'numeric',
-            },
-          ];
-          this.activeColumnCount = this.tableColumns.length;
-          let vendorCount = 0;
-          Object.keys(this.vendors).map((vendor: any) => {
-            vendorCount++;
-            this.vendors[vendor]['serialNo'] = vendorCount;
-            this.vendors[vendor]['shipmentCount'] =
-              this.vendors[vendor].shipments?.length || 0;
-          });
-          this.vendors = this.calculateVoucherExpense(
-            Object.keys(this.vendors).map((key) => this.vendors[key])
-          );
-          this.reportData = this.vendors;
+            this.tableColumns = [
+              {
+                text: 'S No',
+                identifier: 'serialNo',
+                isActive: true,
+                type: 'numeric',
+              },
+              {
+                text: 'W/S code',
+                identifier: 'WSCode',
+                isActive: true,
+                type: 'text',
+              },
+              {
+                text: 'W/S name',
+                identifier: 'WSName',
+                isActive: true,
+                type: 'text',
+              },
+              {
+                text: 'Area',
+                identifier: 'WSTown',
+                isActive: true,
+                type: 'text',
+              },
+              {
+                text: 'Postal Code',
+                identifier: 'postalCode',
+                isActive: true,
+                type: 'numeric',
+              },
+              {
+                text: 'W/S GST',
+                identifier: 'GSTNo',
+                isActive: true,
+                type: 'text',
+              },
+              {
+                text: 'PAN No',
+                identifier: 'panNo',
+                isActive: true,
+                type: 'text',
+              },
+              {
+                text: 'W/S Contact no.',
+                identifier: 'phoneNO',
+                isActive: true,
+                type: 'text',
+              },
+              {
+                text: 'KOT Shipped',
+                identifier: 'totalKot',
+                isActive: true,
+                type: 'numeric',
+              },
+              {
+                text: 'Distance(Km)',
+                identifier: 'distance',
+                isActive: true,
+                type: 'numeric',
+              },
+              {
+                text: 'Diesel Expense',
+                identifier: 'totalDieselExpenseAmount',
+                isActive: true,
+                type: 'numeric',
+              },
+              {
+                text: 'Khuraki Expense',
+                identifier: 'totalKhurakiExpenseAmount',
+                isActive: true,
+                type: 'numeric',
+              },
+              {
+                text: 'Labour Expense',
+                identifier: 'totalLabourExpenseAmount',
+                isActive: true,
+                type: 'numeric',
+              },
+              {
+                text: 'Other Expense',
+                identifier: 'totalOtherExpenseAmount',
+                isActive: true,
+                type: 'numeric',
+              },
+              {
+                text: 'Shipment Count',
+                identifier: 'shipmentCount',
+                isActive: true,
+                type: 'numeric',
+              },
+              {
+                text: 'Total Expense',
+                identifier: 'totalExpense',
+                isActive: true,
+                type: 'numeric',
+              },
+              {
+                text: 'Total Shipment Cost',
+                identifier: 'totalShipmentCost',
+                isActive: true,
+                type: 'numeric',
+              },
+              {
+                text: 'Total Invoice Anount',
+                identifier: 'totalInvoiceAmount',
+                isActive: true,
+                type: 'numeric',
+              },
+              {
+                text: 'Pending Shipments',
+                identifier: 'pendingShipmentCount',
+                isActive: true,
+                type: 'numeric',
+              },
+              {
+                text: 'Completed Shipments',
+                identifier: 'completedShipmentCount',
+                isActive: true,
+                type: 'numeric',
+              },
+              {
+                text: 'Discarded Shipments',
+                identifier: 'discardedShipmentCount',
+                isActive: true,
+                type: 'numeric',
+              },
+            ];
+            this.activeColumnCount = this.tableColumns.length;
+            let vendorCount = 0;
+            Object.keys(this.vendors).map((vendor: any) => {
+              vendorCount++;
+              this.vendors[vendor]['serialNo'] = vendorCount;
+              this.vendors[vendor]['shipmentCount'] =
+                this.vendors[vendor].shipments?.length || 0;
+            });
+            this.vendors = this.calculateVoucherExpense(
+              Object.keys(this.vendors).map((key) => this.vendors[key])
+            );
+            this.reportData = this.vendors;
+          }
           this.onChangeColumn();
         });
     } else if (report.toLowerCase() == 'vehicle wise expenses report') {
@@ -999,15 +1005,16 @@ export class ReportDetailsPage implements OnInit {
     ).format('YYYY-MM-DD');
     this.date1Text = moment(
       e.target.value ? new Date(e.target.value) : new Date()
-    ).format('DD/MM/YY');
+    ).format('DD MMM');
     if (!moment(this.date1).isSameOrBefore(this.date2)) {
       this.date2 = moment(
         e.target.value ? new Date(e.target.value) : new Date()
       ).format('YYYY-MM-DD');
       this.date2Text = moment(
         e.target.value ? new Date(e.target.value) : new Date()
-      ).format('DD/MM/YY');
+      ).format('DD MMM');
     }
+    this.reportData = [];
     this.getReport(this.id);
   }
 
@@ -1017,15 +1024,16 @@ export class ReportDetailsPage implements OnInit {
     ).format('YYYY-MM-DD');
     this.date2Text = moment(
       e.target.value ? new Date(e.target.value) : new Date()
-    ).format('DD/MM/YY');
+    ).format('DD MMM');
     if (!moment(this.date2).isSameOrAfter(this.date1)) {
       this.date1 = moment(
         e.target.value ? new Date(e.target.value) : new Date()
       ).format('YYYY-MM-DD');
       this.date1Text = moment(
         e.target.value ? new Date(e.target.value) : new Date()
-      ).format('DD/MM/YY');
+      ).format('DD MMM');
     }
+    this.reportData = [];
     this.getReport(this.id);
   }
 
