@@ -2,49 +2,77 @@
   <app-header headerName="Accounts & Expense"></app-header>
   <section *ngIf="homeService.userAccessData?.edit_account_settings">
     <div class="add-button">
-      <div class="account design" (click)="openAccount=true">
+      <div class="account design" (click)="openAccount = true">
         <p class="text">Add Account</p>
-        <p><img src="assets/icon/home.svg" alt=""></p>
+        <p><img src="assets/icon/home.svg" alt="" /></p>
       </div>
-      <div class="role design" (click)="openExpense=true">
+      <div class="role design" (click)="openExpense = true">
         <p class="text">Add Expense</p>
-        <p><img src="assets/icon/plus-blue-color.svg" alt=""></p>
+        <p><img src="assets/icon/plus-blue-color.svg" alt="" /></p>
       </div>
     </div>
   </section>
   <div class="wrapper-container">
     <ion-grid>
-      <ion-accordion-group style="background-color: transparent" [multiple]="true">
+      <ion-accordion-group
+        style="background-color: transparent"
+        [multiple]="true"
+      >
         <ion-accordion value="first">
           <ion-item slot="header">
             <ion-label class="label">
-              <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-row
+                class="ion-justify-content-between ion-align-items-center"
+              >
                 <ion-col size="7" class="head">Accounts</ion-col>
               </ion-row>
             </ion-label>
           </ion-item>
           <div slot="content" class="content">
-            <ion-row class="disabled-row ion-justify-content-between ion-align-items-center">
+            <ion-row
+              class="disabled-row ion-justify-content-between ion-align-items-center"
+            >
               <ion-col size="5">Name</ion-col>
               <ion-col size="4">Dispensed</ion-col>
               <ion-col size="2" class="actions">Actions</ion-col>
             </ion-row>
           </div>
-          <div class="content-container" slot="content" *ngFor="let account of accountList">
+          <div
+            class="content-container"
+            slot="content"
+            *ngFor="let account of accountList"
+          >
             <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="5" class="text"
-                routerLink="/main/settings/account-expense/expense-details">{{account.accountName}}</ion-col>
+              <ion-col size="5" class="text">{{ account.accountName }}</ion-col>
               <ion-col size="3" class="type-select">₹ 100000</ion-col>
               <ion-col size="3" class="action">
-                <ion-col><label class="switch">
-                    <input type="checkbox" [checked]="account.active"
-                      (change)="updAccountStatus($event, account.id, !account.active)" />
-                    <span class="slider round"></span>
-                  </label></ion-col>
-                <ion-col *ngIf="homeService.userAccessData?.edit_account_settings" (click)="editAccount(account)" class="edit-button"><img
-                    src="assets/icon/enable-edit-button.svg" alt=""></ion-col>
-                <ion-col *ngIf="homeService.userAccessData?.edit_account_settings"><img (click)="toDelete={id: account.id, section: 'account'};showConfirm=true"
-                    src="assets/icon/enable-delete-button.svg" alt=""></ion-col>
+                <ion-col
+                  ><label class="switch">
+                    <input
+                      type="checkbox"
+                      [checked]="account.active"
+                      (change)="
+                        updAccountStatus($event, account.id, !account.active)
+                      "
+                    />
+                    <span class="slider round"></span> </label
+                ></ion-col>
+                <ion-col
+                  *ngIf="homeService.userAccessData?.edit_account_settings"
+                  (click)="editAccount(account)"
+                  class="edit-button"
+                  ><img src="assets/icon/enable-edit-button.svg" alt=""
+                /></ion-col>
+                <ion-col
+                  *ngIf="homeService.userAccessData?.edit_account_settings"
+                  ><img
+                    (click)="
+                      toDelete = { id: account.id, section: 'account' };
+                      showConfirm = true
+                    "
+                    src="assets/icon/enable-delete-button.svg"
+                    alt=""
+                /></ion-col>
               </ion-col>
             </ion-row>
           </div>
@@ -54,37 +82,67 @@
   </div>
   <div class="wrapper-container">
     <ion-grid>
-      <ion-accordion-group style="background-color: transparent" [multiple]="true">
+      <ion-accordion-group
+        style="background-color: transparent"
+        [multiple]="true"
+      >
         <ion-accordion value="first">
           <ion-item slot="header">
             <ion-label class="label">
-              <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-row
+                class="ion-justify-content-between ion-align-items-center"
+              >
                 <ion-col size="7" class="head">Expense Categories</ion-col>
               </ion-row>
             </ion-label>
           </ion-item>
           <div slot="content" class="content">
-            <ion-row class="disabled-row ion-justify-content-between ion-align-items-center">
+            <ion-row
+              class="disabled-row ion-justify-content-between ion-align-items-center"
+            >
               <ion-col size="5">Expense Type</ion-col>
               <ion-col size="4">Default Acc.</ion-col>
               <ion-col size="2" class="actions">Actions</ion-col>
             </ion-row>
           </div>
-          <div class="content-container" slot="content" *ngFor="let expense of expenseList">
+          <div
+            class="content-container"
+            slot="content"
+            *ngFor="let expense of expenseList"
+          >
             <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="5" class="text"
-                routerLink="/main/settings/account-expense/expense-details">{{expense.expenseName}}</ion-col>
-              <ion-col size="3" class="type-select">{{accountMapping[expense.account]}}</ion-col>
+              <ion-col size="5" class="text">{{ expense.expenseName }}</ion-col>
+              <ion-col size="3" class="type-select">{{
+                accountMapping[expense.account]
+              }}</ion-col>
               <ion-col size="3" class="action">
-                <ion-col><label class="switch">
-                    <input type="checkbox" [checked]="expense.active"
-                      (change)="updExpenseStatus($event, expense.id, !expense.active)" />
-                    <span class="slider round"></span>
-                  </label></ion-col>
-                <ion-col *ngIf="homeService.userAccessData?.edit_account_settings" (click)="editExpense(expense)" class="edit-button"><img
-                    src="assets/icon/enable-edit-button.svg" alt=""></ion-col>
-                <ion-col *ngIf="homeService.userAccessData?.edit_account_settings"><img (click)="toDelete={id: expense.id, section: 'expense'};showConfirm=true"
-                    src="assets/icon/enable-delete-button.svg" alt=""></ion-col>
+                <ion-col
+                  ><label class="switch">
+                    <input
+                      type="checkbox"
+                      [checked]="expense.active"
+                      (change)="
+                        updExpenseStatus($event, expense.id, !expense.active)
+                      "
+                    />
+                    <span class="slider round"></span> </label
+                ></ion-col>
+                <ion-col
+                  *ngIf="homeService.userAccessData?.edit_account_settings"
+                  (click)="editExpense(expense)"
+                  class="edit-button"
+                  ><img src="assets/icon/enable-edit-button.svg" alt=""
+                /></ion-col>
+                <ion-col
+                  *ngIf="homeService.userAccessData?.edit_account_settings"
+                  ><img
+                    (click)="
+                      toDelete = { id: expense.id, section: 'expense' };
+                      showConfirm = true
+                    "
+                    src="assets/icon/enable-delete-button.svg"
+                    alt=""
+                /></ion-col>
               </ion-col>
             </ion-row>
           </div>
@@ -93,7 +151,14 @@
     </ion-grid>
   </div>
   <div class="below-space"></div>
-  <ion-modal #modal [isOpen]="openExpense" [canDismiss]="dismissModal" class="model" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+  <ion-modal
+    #modal
+    [isOpen]="openExpense"
+    [canDismiss]="dismissModal"
+    class="model"
+    [initialBreakpoint]="1"
+    [breakpoints]="[0, 1]"
+  >
     <ng-template>
       <section class="expense-block">
         <header>
@@ -104,27 +169,58 @@
         <div class="container">
           <form [formGroup]="expenseForm" (ngSubmit)="addExpense()">
             <ion-item lines="none" class="Variable">
-              <ion-input lines="none" label="Name of Expense Type" class="custom" formControlName="expenseName"
-                labelPlacement="floating"></ion-input>
+              <ion-input
+                lines="none"
+                label="Name of Expense Type"
+                class="custom"
+                formControlName="expenseName"
+                labelPlacement="floating"
+              ></ion-input>
             </ion-item>
             <ion-item lines="none" class="Variable">
-              <ion-input lines="none" label="₹ Min Dispense limit per shipment" class="custom" type="number"
-                formControlName="minDispense" labelPlacement="floating"></ion-input>
+              <ion-input
+                lines="none"
+                label="₹ Min Dispense limit per shipment"
+                class="custom"
+                type="number"
+                formControlName="minDispense"
+                labelPlacement="floating"
+              ></ion-input>
             </ion-item>
             <ion-item lines="none" class="Variable">
-              <ion-input lines="none" label="₹ Max Dispense limit per shipment" class="custom"
-                formControlName="maxDispense" type="number" labelPlacement="floating"></ion-input>
+              <ion-input
+                lines="none"
+                label="₹ Max Dispense limit per shipment"
+                class="custom"
+                formControlName="maxDispense"
+                type="number"
+                labelPlacement="floating"
+              ></ion-input>
             </ion-item>
             <ion-item class="dropdown">
-              <ion-select placeholder="Default Dispense Account" formControlName="account">
-                <ion-select-option *ngFor="let account of accountList"
-                  value="{{account.id}}">{{account.accountName}}</ion-select-option>
+              <ion-select
+                placeholder="Default Dispense Account"
+                formControlName="account"
+              >
+                <ion-select-option
+                  *ngFor="let account of accountList"
+                  value="{{ account.id }}"
+                  >{{ account.accountName }}</ion-select-option
+                >
               </ion-select>
             </ion-item>
-            <div class="tab-bar" style="bottom: 5%;">
+            <div class="tab-bar" style="bottom: 5%">
               <div>
-                <ion-button shape="round" type="submit" class="active-btn">Submit</ion-button>
-                <ion-button shape="round" (click)="openExpense = false; expenseForm.reset(initialExpenseValues);">Cancel</ion-button>
+                <ion-button shape="round" type="submit" class="active-btn"
+                  >Submit</ion-button
+                >
+                <ion-button
+                  shape="round"
+                  (click)="
+                    openExpense = false; expenseForm.reset(initialExpenseValues)
+                  "
+                  >Cancel</ion-button
+                >
               </div>
             </div>
           </form>
@@ -132,7 +228,14 @@
       </section>
     </ng-template>
   </ion-modal>
-  <ion-modal #modal1 [isOpen]="openAccount" [canDismiss]="dismissModal" class="model" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+  <ion-modal
+    #modal1
+    [isOpen]="openAccount"
+    [canDismiss]="dismissModal"
+    class="model"
+    [initialBreakpoint]="1"
+    [breakpoints]="[0, 1]"
+  >
     <ng-template>
       <section class="account-block">
         <header>
@@ -143,22 +246,48 @@
         <div class="container">
           <form [formGroup]="accountForm" (ngSubmit)="addAccount()">
             <ion-item lines="none" class="Variable">
-              <ion-input lines="none" label="Name of Account" class="custom" type="text" formControlName="accountName"
-                labelPlacement="floating"></ion-input>
+              <ion-input
+                lines="none"
+                label="Name of Account"
+                class="custom"
+                type="text"
+                formControlName="accountName"
+                labelPlacement="floating"
+              ></ion-input>
             </ion-item>
             <ion-item lines="none" class="Variable">
-              <ion-input lines="none" label="₹ max limit of Dispense per Shipment" class="custom" type="number"
-                formControlName="shipmentLimit" labelPlacement="floating"></ion-input>
+              <ion-input
+                lines="none"
+                label="₹ max limit of Dispense per Shipment"
+                class="custom"
+                type="number"
+                formControlName="shipmentLimit"
+                labelPlacement="floating"
+              ></ion-input>
             </ion-item>
             <ion-item lines="none" class="Variable">
-              <ion-input lines="none" label="₹ max limit of Dispense per month" class="custom" type="number"
-                formControlName="dispenseLimit" labelPlacement="floating"></ion-input>
+              <ion-input
+                lines="none"
+                label="₹ max limit of Dispense per month"
+                class="custom"
+                type="number"
+                formControlName="dispenseLimit"
+                labelPlacement="floating"
+              ></ion-input>
             </ion-item>
 
-            <div class="tab-bar" style="bottom: 5%;">
+            <div class="tab-bar" style="bottom: 5%">
               <div>
-                <ion-button shape="round" type="Submit" class="active-btn">Submit</ion-button>
-                <ion-button shape="round" (click)="openAccount = false; accountForm.reset(initialAccountValues);">Cancel</ion-button>
+                <ion-button shape="round" type="Submit" class="active-btn"
+                  >Submit</ion-button
+                >
+                <ion-button
+                  shape="round"
+                  (click)="
+                    openAccount = false; accountForm.reset(initialAccountValues)
+                  "
+                  >Cancel</ion-button
+                >
               </div>
             </div>
           </form>
@@ -167,5 +296,8 @@
     </ng-template>
   </ion-modal>
 
-  <app-confirmation (event)="delete($event)" [show]="showConfirm"></app-confirmation>
+  <app-confirmation
+    (event)="delete($event)"
+    [show]="showConfirm"
+  ></app-confirmation>
 </ion-content>

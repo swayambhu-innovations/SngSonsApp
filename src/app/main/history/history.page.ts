@@ -48,7 +48,6 @@ export class HistoryPage implements OnInit {
     this.sharedService.refresh.subscribe((data) => {
       if (data) {
         this.getShipments();
-        console.log('refershed');
       }
     });
   }
