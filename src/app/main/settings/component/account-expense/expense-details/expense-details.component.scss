@@ -12,6 +12,10 @@ ion-content {
     display: flex;
     padding: 0px 15px 15px 15px;
 
+    img {
+      padding-top: 7px;
+    }
+
     .head {
       color: var(--Primary, #1540bd);
       font-size: 20px;
@@ -55,6 +59,58 @@ ion-content {
       }
     }
   }
+
+  // .header1 {
+  //   display: flex;
+  //   margin-top: 0px;
+  //   padding: 0px 10px 10px 7px;
+
+  //   img {
+  //     padding-top: 7px;
+  //   }
+
+  //   .head {
+  //     padding-top: 4px;
+  //     color: var(--Primary, #1540bd);
+  //     font-size: 20px;
+  //     font-weight: 400;
+  //     padding-left: 8px;
+  //   }
+
+  //   .row-data-wrapper-container {
+  //     margin-top: 0px;
+  //     padding: 0px;
+  //     background: transparent;
+  //     filter: none;
+  //     border-radius: 0px;
+  //     border: none;
+
+  //     .switch {
+  //       width: 20px;
+  //       height: 12px;
+
+  //       input {
+  //         width: 0px;
+  //         height: 15px;
+  //       }
+
+  //       .slider:before {
+  //         height: 6px;
+  //         width: 6px;
+  //         left: 3px;
+  //         top: 3px;
+  //         bottom: 4px;
+  //         border-radius: 50%;
+  //       }
+
+  //       input:checked + .slider:before {
+  //         -webkit-transform: translateX(9px);
+  //         -ms-transform: translateX(9px);
+  //         transform: translateX(9px);
+  //       }
+  //     }
+  //   }
+  // }
 
   .vehicle-info-container {
     ion-card {

@@ -41,8 +41,7 @@ export class AddVendorPage implements OnInit {
     id: new FormControl(''),
   });
 
-  postalCode: string[] = [...Config.hardData.postalCode];
-  shippingType: string[] = [...Config.hardData.shippingType];
+  hardData: any;
 
   vendorPicSrc: any = Config.url.defaultProfile;
 
@@ -55,6 +54,7 @@ export class AddVendorPage implements OnInit {
       this.vendorData && this.vendorForm.setValue(this.vendorData);
       this.vendorPicSrc = this.vendorForm.controls['vendorProfileImg'].value;
     }
+    this.getHardData();
   }
 
   get f() {
@@ -68,6 +68,17 @@ export class AddVendorPage implements OnInit {
     reader.onload = () => {
       this.vendorPicSrc = reader.result;
     };
+  }
+
+  async getHardData() {
+    (await this.vendorMasterService.getHardData()).docs.map(
+      async (item: any) => {
+        const data = {
+          ...item.data(),
+        };
+        this.hardData = data;
+      }
+    );
   }
 
   removePic(): void {

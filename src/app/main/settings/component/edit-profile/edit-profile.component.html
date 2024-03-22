@@ -168,13 +168,12 @@
         <input
           id="datePicker"
           type="date"
-          onfocus="this.showPicker()"
           (change)="dispDate($event)"
         />
       </label>
 
       <!-- gender -->
-      <ion-item class="dropdown">
+      <ion-item lines="none" class="dropdown">
         <ion-select formControlName="gender" label="Gender">
           <ion-select-option value="male">Male</ion-select-option>
           <ion-select-option value="female">Female</ion-select-option>

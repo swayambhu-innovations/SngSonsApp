@@ -57,9 +57,6 @@ export class VehicleCategoryComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.loader = await this.loadingController.create({
-      message: Config.messages.pleaseWait,
-    });
     this.init();
     this.presentingElement = document.querySelector('.ion-category-page');
   }
@@ -69,7 +66,10 @@ export class VehicleCategoryComponent implements OnInit {
   }
 
   async init() {
-    this.loader?.present();
+    this.loader = await this.loadingController.create({
+      message: Config.messages.pleaseWait,
+    });
+    this.loader.present();
     await this.getVehicleCategoryData();
     await this.getPendingVehicles();
     this.loader.dismiss();

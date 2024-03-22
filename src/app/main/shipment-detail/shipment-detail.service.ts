@@ -78,13 +78,8 @@ export class ShipmentDetailService {
         },
         0
       );
-    shipmentData.vendorDetails.kot = shipmentData.vendorDetails.kot.reduce(
-      (acc: number, item: string) => {
-        acc += parseInt(item);
-        return acc;
-      },
-      0
-    );
+    shipmentData.vendorDetails.kot = shipmentData.vendorDetails.kot.join(', ');
+
     shipmentData.vendorDetails.invoiceNumber = shipmentData.vendorData
       .map((item: any) => {
         return item.CustomInvoiceNo;

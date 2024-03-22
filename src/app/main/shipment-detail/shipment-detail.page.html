@@ -100,7 +100,7 @@
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
-        <ion-col class="col-head" size="auto">GST Number</ion-col>
+        <ion-col class="col-head" size="auto">W/S GST Number</ion-col>
         <ion-col size="auto"
           >{{shipmentDetails.vendorDetails?.gstInvoiceNumber}}</ion-col
         >
@@ -139,8 +139,14 @@
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Fuel Tank Status</ion-col>
-        <ion-col size="auto"
+        <ion-col *ngIf="shipmentDetails.vehicle?.fuelTankCapacity" size="auto"
           >{{shipmentDetails.vehicle?.fuelTankCapacity}} Ltrs</ion-col
+        >
+        <ion-col
+          *ngIf="!shipmentDetails.vehicle?.fuelTankCapacity"
+          class="to-be-filled"
+          size="auto"
+          >*To be Filled</ion-col
         >
       </ion-row>
 
@@ -148,14 +154,26 @@
         <ion-col class="col-head" size="auto"
           >Tachometer Opening Reading</ion-col
         >
-        <ion-col size="auto"
-          >{{shipmentDetails.vehicle?.OpeningReading}} km</ion-col
+        <ion-col *ngIf="shipmentDetails.vehicle?.OpeningReading" size="auto">
+          {{shipmentDetails.vehicle?.OpeningReading}} km
+        </ion-col>
+        <ion-col
+          *ngIf="!shipmentDetails.vehicle?.OpeningReading"
+          class="to-be-filled"
+          size="auto"
+          >*To be Filled</ion-col
         >
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
-        <ion-col class="col-head" size="auto">Vehicle Dispatch Type</ion-col>
+        <ion-col class="col-head" size="auto">Vehicle Dispatch Time</ion-col>
         <ion-col size="auto">{{shipmentDetails.vehicle?.DispatchType}}</ion-col>
+        <ion-col
+          *ngIf="!shipmentDetails.vehicle?.DispatchType"
+          class="to-be-filled"
+          size="auto"
+          >*Not Yet Dispatched</ion-col
+        >
       </ion-row>
     </ion-grid>
 

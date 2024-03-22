@@ -15,6 +15,9 @@ export class ExpenseDetailsComponent implements OnInit {
   public showConfirm: boolean = false;
   public expenseData: any; // store details of expense
 
+  public accountMapping: any = {};
+  public accountList: any[] = [];
+
   constructor(
     private navCtrl: NavController,
     private accountExpenseService: AccountExpenseService,
@@ -25,11 +28,11 @@ export class ExpenseDetailsComponent implements OnInit {
   async ngOnInit() {
     if (history.state.expense)
       this.expenseData = JSON.parse(history.state.expense);
+    this.getAccounts();
 
     this.loader = await this.loadingController.create({
       message: Config.messages.pleaseWait,
     });
-    console.log(this.expenseData);
   }
 
   async updExpenseStatus($event: any, status: boolean) {
@@ -41,6 +44,14 @@ export class ExpenseDetailsComponent implements OnInit {
     //   status
     // );
     this.loader.dismiss();
+  }
+
+  async getAccounts() {
+    const data = await this.accountExpenseService.getAccounts();
+    this.accountList = data.docs.map((account) => {
+      this.accountMapping[account.id] = account.data()['accountName'];
+      return { ...account.data(), id: account.id };
+    });
   }
 
   async editDetails(event: any) {

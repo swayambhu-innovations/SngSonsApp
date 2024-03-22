@@ -29,6 +29,7 @@ export class VehicleMasterComponent implements OnInit {
     this.sharedService.refresh.subscribe((data) => {
       if (data) {
         this.init();
+        this.notificationService.showSuccess('Data Fetched Successfully');
       }
     });
   }

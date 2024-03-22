@@ -29,8 +29,9 @@ export class DaywiseSummaryService {
   async getShipments() {
     this.chartData['pending-dispatch'].count = 0;
     this.chartData['pending-post-delivery'].count = 0;
-    this.chartData['completed'].count = 0;
-    this.chartData['suspended'].count = 0;
+    this.chartData.completed.count = 0;
+    this.chartData.suspended.count = 0;
+    this.totalShipment = 0;
     (
       await this.shipmentsService.getShipmentsByDate(this.selectedDate)
     ).docs.map((shipment: any) => {

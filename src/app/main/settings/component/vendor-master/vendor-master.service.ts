@@ -7,6 +7,7 @@ import {
   getDocs,
   updateDoc,
   deleteDoc,
+  query,
 } from '@angular/fire/firestore';
 import {
   Storage,
@@ -15,6 +16,7 @@ import {
   ref,
   uploadBytesResumable,
 } from '@angular/fire/storage';
+import { documentId, where } from 'firebase/firestore';
 import { Config } from 'src/app/config';
 
 @Injectable({
@@ -25,6 +27,15 @@ export class VendorMasterService {
 
   getVendors() {
     return getDocs(collection(this.firestore, Config.collection.vendorMaster));
+  }
+
+  getHardData() {
+    return getDocs(
+      query(
+        collection(this.firestore, Config.collection.vehiclesCategory),
+        where(documentId(), '==', 'hardData')
+      )
+    );
   }
 
   async uploadFile(file: any, path?: string) {

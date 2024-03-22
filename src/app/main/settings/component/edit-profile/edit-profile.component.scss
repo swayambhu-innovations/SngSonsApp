@@ -94,10 +94,6 @@
     }
   }
 
-  ion-item.dropdown {
-    --border-color: rgba(130, 133, 151, 0.62);
-  }
-
   label {
     position: relative;
 
@@ -123,7 +119,7 @@
 
   .dropdown {
     margin-bottom: 15px;
-    height: 48px;
+    height: max-content;
     color: var(--Primary, #1540bd);
   }
 

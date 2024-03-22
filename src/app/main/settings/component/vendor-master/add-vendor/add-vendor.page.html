@@ -33,7 +33,9 @@
         </ion-item>
         <ion-item class="dropdown">
           <ion-select formControlName="postalCode" label="Postal Code">
-            <ion-select-option *ngFor="let code of postalCode" [value]="code"
+            <ion-select-option
+              *ngFor="let code of hardData?.postalCodes"
+              [value]="code"
               >{{ code }}</ion-select-option
             >
           </ion-select>
@@ -80,7 +82,7 @@
         </ion-item>
         <ion-item class="dropdown">
           <ion-select formControlName="shippingType" label="Shipping Type">
-            <ion-select-option *ngFor="let type of shippingType" [value]="type"
+            <ion-select-option *ngFor="let type of hardData?.shippingType" [value]="type"
               >{{ type }}</ion-select-option
             >
           </ion-select>

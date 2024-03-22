@@ -5,10 +5,13 @@ import {
   collection,
   deleteDoc,
   doc,
+  documentId,
   getDocs,
   increment,
+  query,
   setDoc,
   updateDoc,
+  where,
 } from '@angular/fire/firestore';
 import {
   Storage,

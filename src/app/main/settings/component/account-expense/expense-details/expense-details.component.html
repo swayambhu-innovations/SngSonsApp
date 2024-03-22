@@ -5,7 +5,7 @@
       <div class="img" (click)="goBack()">
         <img src="assets/icon/back-button.svg" alt="" />
       </div>
-      <div class="head">Khuraki Expense</div>
+      <div class="head">{{ expenseData.expenseName }} Expense</div>
       <div class="row-data-wrapper-container">
         <div class="inner-container">
           <div class="action-button">
@@ -42,17 +42,24 @@
       <ion-grid>
         <ion-row class="ion-justify-content-between ion-align-items-center">
           <ion-col class="col-head" size="auto">Name</ion-col>
-          <ion-col size="auto">{{ expenseData.name }}</ion-col>
+          <ion-col size="auto">{{ expenseData.expenseName }}</ion-col>
         </ion-row>
 
         <ion-row class="ion-justify-content-between ion-align-items-center">
-          <ion-col class="col-head" size="auto">Chassis Number</ion-col>
-          <ion-col size="auto">{{ expenseData.chassisNo }}</ion-col>
+          <ion-col class="col-head" size="auto">Min Limit per Shipment</ion-col>
+          <ion-col size="auto">₹ {{ expenseData.maxDispense }}</ion-col>
         </ion-row>
 
         <ion-row class="ion-justify-content-between ion-align-items-center">
-          <ion-col class="col-head" size="auto">Engine Number</ion-col>
-          <ion-col size="auto">{{ expenseData.engineNo }}</ion-col>
+          <ion-col class="col-head" size="auto">Max Limit per Shipment</ion-col>
+          <ion-col size="auto">₹ {{ expenseData.minDispense }}</ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col class="col-head" size="auto"
+            >Shipment Default Account</ion-col
+          >
+          <ion-col size="auto">{{ accountMapping[expenseData.account] }}</ion-col>
         </ion-row>
       </ion-grid>
     </ion-card>

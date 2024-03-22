@@ -52,10 +52,6 @@ export const Config = {
     vehicleDocuments: 'vehicle-Documnets',
     shipment: 'shipment',
   },
-  hardData: {
-    postalCode: ['226029', '211001', '110241', '224531'],
-    shippingType: ['Truck', 'Mini-Truck'],
-  },
   permissions: {
     upload_new_zsd_file: 'upload_new_zsd_file',
     fill_shipment_voucher: 'fill_shipment_voucher',
