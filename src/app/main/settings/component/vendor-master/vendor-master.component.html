@@ -43,7 +43,14 @@
                 class="ion-justify-content-between ion-align-items-center"
               >
                 <ion-col size="auto" class="profile-img">
-                  <img [src]="vendor?.vendorProfileImg" alt="avatar" />
+                  <img
+                    [src]="
+                      vendor?.vendorProfileImg
+                        ? vendor?.vendorProfileImg
+                        : config.url.defaultProfile
+                    "
+                    alt="avatar"
+                  />
                 </ion-col>
                 <ion-col size="7" class="text">{{ vendor?.WSName }}</ion-col>
                 <ion-col size="3" class="action">
