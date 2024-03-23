@@ -72,7 +72,6 @@ export class AccountExpenseComponent implements OnInit {
     this.loader = await this.loadingController.create({
       message: Config.messages.pleaseWait,
     });
-    this.init();
   }
 
   async ionViewWillEnter() {
@@ -83,7 +82,7 @@ export class AccountExpenseComponent implements OnInit {
     this.getAccounts().then(() =>
       this.getExpense().then(() => {
         this.expenseList.map((expense: any) => {
-          this.accountList.map((account: any) => {
+          this.accountList?.map((account: any) => {
             if (account.id == expense.account)
               expense['accountName'] = account['accountName'];
           });
@@ -131,7 +130,7 @@ export class AccountExpenseComponent implements OnInit {
     const formData = this.accountForm.value;
     await this.accountExpenseService.addAccounts(formData);
     this.accountForm.reset(this.initialAccountValues);
-    this.getAccounts();
+    this.init();
     this.notification.showSuccess(
       !formData.id
         ? this.config.messages.addedSuccessfully
@@ -142,13 +141,13 @@ export class AccountExpenseComponent implements OnInit {
   }
 
   async getAccounts() {
-    this.loader.present();
+    this.loader?.present();
     const data = await this.accountExpenseService.getAccounts();
-    // this.accountList = data.docs.map((account) => {
-    //   this.accountMapping[account.id] = account.data()['accountName'];
-    //   return { ...account.data(), id: account.id };
-    // });
-    const accountsData: any = {};
+    let accountsData: any = {};
+    Object.keys(accountsData).map((key) => {
+      accountsData[key];
+    });
+    console.log(accountsData);
     data.docs.map((account) => {
       accountsData[account.id] = { ...account.data(), id: account.id };
     });
@@ -162,7 +161,7 @@ export class AccountExpenseComponent implements OnInit {
         accountsData[key]['totalDieselExpenseAmount'] = 0;
         accountsData[key]['totalFreightExpenseAmount'] = 0;
         accountsData[key]['totalKhurakiExpenseAmount'] = 0;
-        accountsData[key]['totalLabourExpenseAmount'] = 0;
+        // accountsData[key]['totalLabourExpenseAmount'] = 0;
         accountsData[key]['totalOtherExpenseAmount'] = 0;
         accountsData[key]['totalRepairExpenseAmount'] = 0;
         accountsData[key]['totalTollExpenseAmount'] = 0;
@@ -178,9 +177,9 @@ export class AccountExpenseComponent implements OnInit {
           accountsData[shipment.voucherData.khurakiExpenseBank][
             'totalKhurakiExpenseAmount'
           ] += +shipment.voucherData.khurakiExpenseAmount || 0;
-          accountsData[shipment.voucherData.labourExpenseBank][
-            'totalLabourExpenseAmount'
-          ] += +shipment.voucherData.labourExpenseAmount || 0;
+          // accountsData[shipment.voucherData.labourExpenseBank][
+          //   'totalLabourExpenseAmount'
+          // ] += +shipment.voucherData.labourExpenseAmount || 0;
           accountsData[shipment.voucherData.otherExpenseBank][
             'totalOtherExpenseAmount'
           ] += +shipment.voucherData.otherExpenseAmount || 0;
@@ -197,7 +196,7 @@ export class AccountExpenseComponent implements OnInit {
           accountsData[key]['totalDieselExpenseAmount'] +
           accountsData[key]['totalFreightExpenseAmount'] +
           accountsData[key]['totalKhurakiExpenseAmount'] +
-          accountsData[key]['totalLabourExpenseAmount'] +
+          // accountsData[key]['totalLabourExpenseAmount'] +
           accountsData[key]['totalOtherExpenseAmount'] +
           accountsData[key]['totalRepairExpenseAmount'] +
           accountsData[key]['totalTollExpenseAmount'];
@@ -205,6 +204,7 @@ export class AccountExpenseComponent implements OnInit {
       this.accountList = Object.keys(accountsData).map(
         (key) => accountsData[key]
       );
+      accountsData = {};
     });
     this.loader.dismiss();
   }
@@ -213,7 +213,7 @@ export class AccountExpenseComponent implements OnInit {
     $event.stopPropagation();
     this.loader.present();
     await this.accountExpenseService.updAccountStatus(accountId, status);
-    await this.getAccounts();
+    this.init();
     this.loader.dismiss();
   }
 
@@ -225,13 +225,10 @@ export class AccountExpenseComponent implements OnInit {
   async delete(confirmation: any) {
     if (confirmation) {
       this.loader.present();
-      if (this.toDelete.section === 'account') {
+      if (this.toDelete.section === 'account')
         await this.accountExpenseService.deleteAccount(this.toDelete.id);
-        await this.getAccounts();
-      } else {
-        await this.accountExpenseService.deleteExpenseType(this.toDelete.id);
-        await this.getExpense();
-      }
+      else await this.accountExpenseService.deleteExpenseType(this.toDelete.id);
+      this.init();
 
       this.loader.dismiss();
       this.notification.showSuccess(this.config.messages.deletedSuccessfully);
@@ -271,7 +268,7 @@ export class AccountExpenseComponent implements OnInit {
     $event.stopPropagation();
     this.loader.present();
     await this.accountExpenseService.updExpenseType(expenseId, status);
-    await this.getExpense();
+    this.init();
     this.loader.dismiss();
   }
 

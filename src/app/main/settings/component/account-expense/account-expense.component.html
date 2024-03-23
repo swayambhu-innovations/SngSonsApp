@@ -42,12 +42,17 @@
             slot="content"
             *ngFor="let account of accountList"
           >
-            <ion-row
-              (click)="openAccountDetail(account)"
-              class="ion-justify-content-between ion-align-items-center"
-            >
-              <ion-col size="5" class="text">{{ account.accountName }}</ion-col>
-              <ion-col size="3" class="type-select"
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col
+                (click)="openAccountDetail(account)"
+                size="5"
+                class="text"
+                >{{ account.accountName }}</ion-col
+              >
+              <ion-col
+                (click)="openAccountDetail(account)"
+                size="3"
+                class="type-select"
                 >₹ {{ account.totalExpense }}</ion-col
               >
               <ion-col size="3" class="action">
@@ -115,14 +120,19 @@
             slot="content"
             *ngFor="let expense of expenseList"
           >
-            <ion-row
-              (click)="openExpenseDetail(expense)"
-              class="ion-justify-content-between ion-align-items-center"
-            >
-              <ion-col size="5" class="text">{{ expense.expenseName }}</ion-col>
-              <ion-col size="3" class="type-select">{{
-                expense.accountName
-              }}</ion-col>
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col
+                (click)="openExpenseDetail(expense)"
+                size="5"
+                class="text"
+                >{{ expense.expenseName }}</ion-col
+              >
+              <ion-col
+                (click)="openExpenseDetail(expense)"
+                size="3"
+                class="type-select"
+                >{{ expense.accountName }}</ion-col
+              >
               <ion-col size="3" class="action">
                 <ion-col>
                   <label class="switch">
