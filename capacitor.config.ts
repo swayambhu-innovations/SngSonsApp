@@ -2,7 +2,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.shreeva.sngdispatch',
-  appName: 'sngSonsDispatch',
+  appName: 'SNG Dispatch',
   webDir: 'www',
   server: {
     androidScheme: 'https',
