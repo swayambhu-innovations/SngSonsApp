@@ -1,0 +1,145 @@
+ion-content {
+    --ion-background-color: linear-gradient(
+      180deg,
+      #d5e6ff -8.94%,
+      #fff 27.36%,
+      #fff 61.93%,
+      #c9deff 101.69%
+    );
+    z-index: 100;
+  
+    .header {
+      display: flex;
+      padding: 0px 15px 15px 15px;
+  
+      img {
+        padding-top: 7px;
+      }
+  
+      .head {
+        color: var(--Primary, #1540bd);
+        font-size: 20px;
+        font-weight: 400;
+        padding-top: 3px;
+        padding-left: 10px;
+        width: 71%;
+      }
+  
+      .row-data-wrapper-container {
+        margin-top: 0px;
+        padding: 0px;
+        background: transparent;
+        filter: none;
+        border-radius: 0px;
+        border: none;
+  
+        .switch {
+          width: 20px;
+          height: 12px;
+  
+          input {
+            width: 0px;
+            height: 15px;
+          }
+  
+          .slider:before {
+            height: 6px;
+            width: 6px;
+            left: 3px;
+            top: 3px;
+            bottom: 4px;
+            border-radius: 50%;
+          }
+  
+          input:checked + .slider:before {
+            -webkit-transform: translateX(9px);
+            -ms-transform: translateX(9px);
+            transform: translateX(9px);
+          }
+        }
+      }
+    }
+  
+    // .header1 {
+    //   display: flex;
+    //   margin-top: 0px;
+    //   padding: 0px 10px 10px 7px;
+  
+    //   img {
+    //     padding-top: 7px;
+    //   }
+  
+    //   .head {
+    //     padding-top: 4px;
+    //     color: var(--Primary, #1540bd);
+    //     font-size: 20px;
+    //     font-weight: 400;
+    //     padding-left: 8px;
+    //   }
+  
+    //   .row-data-wrapper-container {
+    //     margin-top: 0px;
+    //     padding: 0px;
+    //     background: transparent;
+    //     filter: none;
+    //     border-radius: 0px;
+    //     border: none;
+  
+    //     .switch {
+    //       width: 20px;
+    //       height: 12px;
+  
+    //       input {
+    //         width: 0px;
+    //         height: 15px;
+    //       }
+  
+    //       .slider:before {
+    //         height: 6px;
+    //         width: 6px;
+    //         left: 3px;
+    //         top: 3px;
+    //         bottom: 4px;
+    //         border-radius: 50%;
+    //       }
+  
+    //       input:checked + .slider:before {
+    //         -webkit-transform: translateX(9px);
+    //         -ms-transform: translateX(9px);
+    //         transform: translateX(9px);
+    //       }
+    //     }
+    //   }
+    // }
+  
+    .vehicle-info-container {
+      ion-card {
+        background: rgba(255, 255, 255, 0.62);
+        border-radius: 16px;
+        padding: 20px 10px 10px 10px;
+  
+        .sub-heading {
+          color: var(--Primary, #1540bd);
+          font-size: 16px;
+          font-weight: 400;
+          margin: 20px 0;
+        }
+  
+        ion-grid {
+          margin: 20px, 0;
+  
+          ion-col {
+            color: #1540bd;
+            text-align: right;
+            font-size: 14px;
+            font-weight: 400;
+          }
+  
+          .col-head {
+            color: #505e86 !important;
+          }
+        }
+      }
+    }
+  }
+  

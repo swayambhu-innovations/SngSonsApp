@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccountExpenseComponent } from './account-expense.component';
 import { AccountExpenseRoutingModule } from './account-expense-routing.module';
 import { ExpenseDetailsComponent } from './expense-details/expense-details.component';
+import { AccountDetailsComponent } from './account-details/account-details.component';
 
 @NgModule({
   imports: [
@@ -14,11 +15,12 @@ import { ExpenseDetailsComponent } from './expense-details/expense-details.compo
     SharedModule,
     FormsModule,
     AccountExpenseRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   declarations: [
     AccountExpenseComponent,
-    ExpenseDetailsComponent
+    ExpenseDetailsComponent,
+    AccountDetailsComponent,
   ],
 })
-export class AccountExpenseModule { }
+export class AccountExpenseModule {}

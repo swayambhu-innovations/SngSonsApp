@@ -3,6 +3,7 @@ import { LoadingController, NavController } from '@ionic/angular';
 import { NotificationService } from 'src/app/utils/notification';
 import { AccountExpenseService } from '../account-expense.service';
 import { Config } from 'src/app/config';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-expense-details',
@@ -15,11 +16,30 @@ export class ExpenseDetailsComponent implements OnInit {
   public showConfirm: boolean = false;
   public expenseData: any; // store details of expense
 
+  expenseForm: FormGroup = new FormGroup({
+    expenseName: new FormControl('', [Validators.required]),
+    accountName: new FormControl(''),
+    minDispense: new FormControl('', [Validators.required]),
+    maxDispense: new FormControl('', [Validators.required]),
+    account: new FormControl('', [Validators.required]),
+    active: new FormControl(true, []),
+    createdAt: new FormControl(new Date(), []),
+    id: new FormControl(''),
+  });
+  public initialExpenseValues = this.expenseForm.value;
+  public openExpense = false;
+
   public accountMapping: any = {};
   public accountList: any[] = [];
+  tableData = [
+    { name: 'Shipment ID', key: 'ShipmentNumber', size: '4' },
+    { name: 'Party Name', key: 'CustomerName', size: '3' },
+    { name: 'Area', key: 'WSTown', size: '3' },
+  ];
 
   constructor(
     private navCtrl: NavController,
+    private notification: NotificationService,
     private accountExpenseService: AccountExpenseService,
     private loadingController: LoadingController,
     private notificationService: NotificationService
@@ -35,16 +55,18 @@ export class ExpenseDetailsComponent implements OnInit {
     });
   }
 
-  async updExpenseStatus($event: any, status: boolean) {
+  async updExpenseStatus($event: any, expenseId: string, status: boolean) {
     $event.stopPropagation();
     this.loader.present();
-    // await this.accountExpenseService.updExpenseType(
-    //   this.expenseType,
-    //   this.vehicleData.id,
-    //   status
-    // );
+    await this.accountExpenseService.updExpenseType(expenseId, status);
     this.loader.dismiss();
   }
+
+  dismissModal = async () => {
+    this.openExpense = false;
+    this.expenseForm.reset(this.initialExpenseValues);
+    return true;
+  };
 
   async getAccounts() {
     const data = await this.accountExpenseService.getAccounts();
@@ -54,15 +76,27 @@ export class ExpenseDetailsComponent implements OnInit {
     });
   }
 
-  async editDetails(event: any) {
-    event.stopPropagation();
-    // this.navCtrl.navigateForward('/main/settings/vehicle-master/add-vehicle', {
-    //   state: {
-    //     vehicle: JSON.stringify(this.vehicleData),
-    //     vehicleCategry: JSON.stringify(this.vehicleCat),
-    //     vehicleCategories: JSON.stringify(this.categories),
-    //   },
-    // });
+  async addExpense() {
+    if (!this.expenseForm.valid) {
+      this.expenseForm.markAllAsTouched();
+      return;
+    }
+    this.loader.present();
+    const formData = this.expenseForm.value;
+    await this.accountExpenseService.addExpenseType(formData);
+    this.expenseForm.reset(this.initialExpenseValues);
+    this.notification.showSuccess(
+      !formData.id
+        ? Config.messages.addedSuccessfully
+        : Config.messages.updatedSuccessfully
+    );
+    this.openExpense = false;
+    this.loader.dismiss();
+  }
+
+  editExpense(expense: any) {
+    this.expenseForm.setValue(expense);
+    this.openExpense = true;
   }
 
   async deleteExpense(confirmation: any) {

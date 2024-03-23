@@ -11,6 +11,7 @@ import { AccountExpenseService } from './account-expense.service';
 import { isEmpty } from 'lodash';
 import { SharedService } from 'src/app/shared/shared.service';
 import { HomeService } from 'src/app/main/home/home.service';
+import { ShipmentsService } from 'src/app/main/home/tabs/shipments/shipments.service';
 
 @Component({
   selector: 'app-account-expense',
@@ -18,11 +19,13 @@ import { HomeService } from 'src/app/main/home/home.service';
   styleUrls: ['./account-expense.component.scss'],
 })
 export class AccountExpenseComponent implements OnInit {
+  shipments: any;
   constructor(
     private notification: NotificationService,
     private loadingController: LoadingController,
     private accountExpenseService: AccountExpenseService,
     private sharedService: SharedService,
+    private shipmentService: ShipmentsService,
     public homeService: HomeService,
     private navCtrl: NavController
   ) {
@@ -35,9 +38,9 @@ export class AccountExpenseComponent implements OnInit {
 
   private loader: any;
   private config = Config;
-  public accountList: any[] = [];
+  public accountList: any;
   public accountMapping: any = {};
-  public expenseList: any[] = [];
+  public expenseList: any;
   public openAccount = false;
   public openExpense = false;
   public showConfirm = false;
@@ -55,6 +58,7 @@ export class AccountExpenseComponent implements OnInit {
 
   expenseForm: FormGroup = new FormGroup({
     expenseName: new FormControl('', [Validators.required]),
+    accountName: new FormControl(''),
     minDispense: new FormControl('', [Validators.required]),
     maxDispense: new FormControl('', [Validators.required]),
     account: new FormControl('', [Validators.required]),
@@ -71,9 +75,21 @@ export class AccountExpenseComponent implements OnInit {
     this.init();
   }
 
+  async ionViewWillEnter() {
+    this.init();
+  }
+
   init() {
-    this.getAccounts();
-    this.getExpense();
+    this.getAccounts().then(() =>
+      this.getExpense().then(() => {
+        this.expenseList.map((expense: any) => {
+          this.accountList.map((account: any) => {
+            if (account.id == expense.account)
+              expense['accountName'] = account['accountName'];
+          });
+        });
+      })
+    );
   }
 
   dismissModal = async () => {
@@ -90,6 +106,17 @@ export class AccountExpenseComponent implements OnInit {
       {
         state: {
           expense: JSON.stringify(expense),
+        },
+      }
+    );
+  }
+
+  openAccountDetail(account: any) {
+    this.navCtrl.navigateForward(
+      '/main/settings/account-expense/account-details',
+      {
+        state: {
+          account: JSON.stringify(account),
         },
       }
     );
@@ -117,9 +144,67 @@ export class AccountExpenseComponent implements OnInit {
   async getAccounts() {
     this.loader.present();
     const data = await this.accountExpenseService.getAccounts();
-    this.accountList = data.docs.map((account) => {
-      this.accountMapping[account.id] = account.data()['accountName'];
-      return { ...account.data(), id: account.id };
+    // this.accountList = data.docs.map((account) => {
+    //   this.accountMapping[account.id] = account.data()['accountName'];
+    //   return { ...account.data(), id: account.id };
+    // });
+    const accountsData: any = {};
+    data.docs.map((account) => {
+      accountsData[account.id] = { ...account.data(), id: account.id };
+    });
+
+    this.shipmentService.getAllShipments().then((shipmentData) => {
+      this.shipments = shipmentData.docs.map((shipment) => {
+        return { ...shipment.data(), id: shipment.id };
+      });
+      Object.keys(accountsData).map((key, index) => {
+        accountsData[key]['serialNo'] = index + 1;
+        accountsData[key]['totalDieselExpenseAmount'] = 0;
+        accountsData[key]['totalFreightExpenseAmount'] = 0;
+        accountsData[key]['totalKhurakiExpenseAmount'] = 0;
+        accountsData[key]['totalLabourExpenseAmount'] = 0;
+        accountsData[key]['totalOtherExpenseAmount'] = 0;
+        accountsData[key]['totalRepairExpenseAmount'] = 0;
+        accountsData[key]['totalTollExpenseAmount'] = 0;
+      });
+      this.shipments.map((shipment: any) => {
+        if (shipment.voucherData) {
+          accountsData[shipment.voucherData.dieselExpenseBank][
+            'totalDieselExpenseAmount'
+          ] += +shipment.voucherData.dieselExpenseAmount || 0;
+          accountsData[shipment.voucherData.freightExpenseBank][
+            'totalFreightExpenseAmount'
+          ] += +shipment.voucherData.freightExpenseAmount || 0;
+          accountsData[shipment.voucherData.khurakiExpenseBank][
+            'totalKhurakiExpenseAmount'
+          ] += +shipment.voucherData.khurakiExpenseAmount || 0;
+          accountsData[shipment.voucherData.labourExpenseBank][
+            'totalLabourExpenseAmount'
+          ] += +shipment.voucherData.labourExpenseAmount || 0;
+          accountsData[shipment.voucherData.otherExpenseBank][
+            'totalOtherExpenseAmount'
+          ] += +shipment.voucherData.otherExpenseAmount || 0;
+          accountsData[shipment.voucherData.repairExpenseBank][
+            'totalRepairExpenseAmount'
+          ] += +shipment.voucherData.repairExpenseAmount || 0;
+          accountsData[shipment.voucherData.tollExpenseBank][
+            'totalTollExpenseAmount'
+          ] += +shipment.voucherData.tollExpenseAmount || 0;
+        }
+      });
+      Object.keys(accountsData).map((key) => {
+        accountsData[key].totalExpense =
+          accountsData[key]['totalDieselExpenseAmount'] +
+          accountsData[key]['totalFreightExpenseAmount'] +
+          accountsData[key]['totalKhurakiExpenseAmount'] +
+          accountsData[key]['totalLabourExpenseAmount'] +
+          accountsData[key]['totalOtherExpenseAmount'] +
+          accountsData[key]['totalRepairExpenseAmount'] +
+          accountsData[key]['totalTollExpenseAmount'];
+      });
+      this.accountList = Object.keys(accountsData).map(
+        (key) => accountsData[key]
+      );
     });
     this.loader.dismiss();
   }

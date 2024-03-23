@@ -42,9 +42,14 @@
             slot="content"
             *ngFor="let account of accountList"
           >
-            <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-row
+              (click)="openAccountDetail(account)"
+              class="ion-justify-content-between ion-align-items-center"
+            >
               <ion-col size="5" class="text">{{ account.accountName }}</ion-col>
-              <ion-col size="3" class="type-select">₹ 100000</ion-col>
+              <ion-col size="3" class="type-select"
+                >₹ {{ account.totalExpense }}</ion-col
+              >
               <ion-col size="3" class="action">
                 <ion-col
                   ><label class="switch">
@@ -116,11 +121,11 @@
             >
               <ion-col size="5" class="text">{{ expense.expenseName }}</ion-col>
               <ion-col size="3" class="type-select">{{
-                accountMapping[expense.account]
+                expense.accountName
               }}</ion-col>
               <ion-col size="3" class="action">
-                <ion-col
-                  ><label class="switch">
+                <ion-col>
+                  <label class="switch">
                     <input
                       type="checkbox"
                       [checked]="expense.active"
@@ -128,8 +133,9 @@
                         updExpenseStatus($event, expense.id, !expense.active)
                       "
                     />
-                    <span class="slider round"></span> </label
-                ></ion-col>
+                    <span class="slider round"></span>
+                  </label>
+                </ion-col>
                 <ion-col
                   *ngIf="homeService.userAccessData?.edit_account_settings"
                   (click)="editExpense(expense)"

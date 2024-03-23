@@ -5,7 +5,7 @@
       <div class="img" (click)="goBack()">
         <img src="assets/icon/back-button.svg" alt="" />
       </div>
-      <div class="head">{{ expenseData.expenseName }} Expense</div>
+      <div class="head">{{ accountData.accountName }}</div>
       <div class="row-data-wrapper-container">
         <div class="inner-container">
           <div class="action-button">
@@ -13,23 +13,23 @@
               <label class="switch">
                 <input
                   type="checkbox"
-                  [checked]="expenseData.active"
+                  [checked]="accountData.active"
                   (change)="
-                    updExpenseStatus(
+                    updAccountStatus(
                       $event,
-                      expenseData.id,
-                      !expenseData.active
+                      accountData.id,
+                      !accountData.active
                     )
                   "
                 />
                 <span class="slider round"></span>
               </label>
             </div>
-            <div (click)="editExpense($event)" class="edit-button">
+            <div (click)="editAccount(accountData)" class="edit-button">
               <img src="assets/icon/enable-edit-button.svg" alt="" />
             </div>
             <div
-              (click)="toDelete = { id: expenseData.id }; showConfirm = true"
+              (click)="toDelete = { id: accountData.id }; showConfirm = true"
               class="delete"
             >
               <img src="assets/icon/enable-delete-button.svg" alt="" />
@@ -43,38 +43,38 @@
   <!-- vehicle-details -->
   <section class="vehicle-info-container">
     <ion-card class="ion-padding">
-      <ion-text class="sub-heading">Expense Info</ion-text>
+      <ion-text class="sub-heading">Account Info</ion-text>
 
       <ion-grid>
         <ion-row class="ion-justify-content-between ion-align-items-center">
           <ion-col class="col-head" size="auto">Name</ion-col>
-          <ion-col size="auto">{{ expenseData.expenseName }}</ion-col>
-        </ion-row>
-
-        <ion-row class="ion-justify-content-between ion-align-items-center">
-          <ion-col class="col-head" size="auto">Min Limit per Shipment</ion-col>
-          <ion-col size="auto">₹ {{ expenseData.maxDispense }}</ion-col>
+          <ion-col size="auto">{{ accountData.accountName }}</ion-col>
         </ion-row>
 
         <ion-row class="ion-justify-content-between ion-align-items-center">
           <ion-col class="col-head" size="auto">Max Limit per Shipment</ion-col>
-          <ion-col size="auto">₹ {{ expenseData.minDispense }}</ion-col>
+          <ion-col size="auto">₹ {{ accountData.shipmentLimit }}</ion-col>
         </ion-row>
 
         <ion-row class="ion-justify-content-between ion-align-items-center">
-          <ion-col class="col-head" size="auto"
-            >Shipment Default Account</ion-col
-          >
-          <ion-col size="auto">{{ expenseData.accountName }}</ion-col>
+          <ion-col class="col-head" size="auto">Max Limit per Month</ion-col>
+          <ion-col size="auto">₹ {{ accountData.dispenseLimit }}</ion-col>
         </ion-row>
       </ion-grid>
     </ion-card>
   </section>
 
-  <app-day-wise-summary></app-day-wise-summary>
+  <ng-container>
+    <app-bar-graph-table
+      [heading]="'Expense Wise Dispense'"
+    ></app-bar-graph-table>
+  </ng-container>
+  <ng-container>
+    <app-bar-graph-table [heading]="'Month Wise'"></app-bar-graph-table>
+  </ng-container>
 
   <app-voucher
-    [heading]="'Shipment History'"
+    [heading]="'Shipments Dispense'"
     [search]="'Shipment'"
     [tableData]="tableData"
   ></app-voucher>
@@ -82,12 +82,12 @@
   <div class="below-space"></div>
 
   <app-confirmation
-    (event)="deleteExpense($event)"
+    (event)="deleteAccount($event)"
     [show]="showConfirm"
   ></app-confirmation>
 </ion-content>
 
-<ion-modal
+<!-- <ion-modal
   #modal
   [isOpen]="openExpense"
   [canDismiss]="dismissModal"
@@ -135,13 +135,13 @@
           </ion-item>
           <ion-item class="dropdown">
             <ion-select
-              placeholder="Default Dispense Account"
-              formControlName="account"
+              placeholder="Default Dispense accountData"
+              formControlName="accountData"
             >
               <ion-select-option
-                *ngFor="let account of accountList"
-                value="{{ account.id }}"
-                >{{ account.accountName }}</ion-select-option
+                *ngFor="let accountData of accountList"
+                value="{{ accountData.id }}"
+                >{{ accountData.accountName }}</ion-select-option
               >
             </ion-select>
           </ion-item>
@@ -163,4 +163,4 @@
       </div>
     </section>
   </ng-template>
-</ion-modal>
+</ion-modal> -->
