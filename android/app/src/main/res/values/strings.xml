@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">newAppName</string>
-    <string name="title_activity_main">newAppName</string>
-    <string name="package_name">com.shreeva.newAppName</string>
-    <string name="custom_url_scheme">com.shreeva.newAppName</string>
+    <string name="app_name">SNG Disptach</string>
+    <string name="title_activity_main">SNG Disptach</string>
+    <string name="package_name">com.shreeva.sngdispatch</string>
+    <string name="custom_url_scheme">com.shreeva.sngdispatch</string>
 </resources>

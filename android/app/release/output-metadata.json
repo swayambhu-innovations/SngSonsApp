@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.shreeva.newAppName",
+  "applicationId": "com.shreeva.sngdispatch",
   "variantName": "release",
   "elements": [
     {

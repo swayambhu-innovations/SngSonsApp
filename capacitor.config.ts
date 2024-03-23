@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.shreeva.sngSonsDispatch',
+  appId: 'com.shreeva.sngdispatch',
   appName: 'sngSonsDispatch',
   webDir: 'www',
   server: {

@@ -1,4 +1,4 @@
-package com.shreeva.sngSonsDispatch;
+package com.shreeva.sngdispatch;
 
 import com.getcapacitor.BridgeActivity;
 
