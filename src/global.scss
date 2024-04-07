@@ -145,6 +145,28 @@ input[type="date"]:in-range::-webkit-datetime-edit-text {
   }
 }
 
+ion-content {
+  --ion-background-color: linear-gradient(
+    164deg,
+    #d5e6ff -0.3%,
+    #fff 31.71%,
+    #fff 62.19%,
+    #c9deff 97.25%
+  );
+  font-family: "Sen", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+
+  ion-card,
+  ion-list,
+  ion-item,
+  ion-select,
+  ion-searchbar,
+  ion-grid {
+    --background: transparent !important;
+  }
+}
+
 .row-data-wrapper-container {
   padding: 15px 10px 10px 10px;
   background-color: rgba(255, 255, 255, 0.62);
@@ -279,37 +301,37 @@ ion-modal ion-content {
         margin: 0 auto;
       }
     }
+  }
+}
 
-    .tab-bar {
-      width: 226px;
-      height: 56px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-direction: row;
-      padding: 8px;
-      border-radius: 60px;
-      background: rgba(168, 205, 255, 0.29);
-      backdrop-filter: blur(15px);
-      margin-top: 5px;
+.tab-bar {
+  width: 226px;
+  height: 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding: 8px;
+  border-radius: 60px;
+  background: rgba(168, 205, 255, 0.29);
+  backdrop-filter: blur(15px);
+  margin-top: 5px;
 
-      button {
-        height: 40px;
-        width: 100px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 50px;
-        font-size: 14px;
-        background: #fff;
-        color: #1540bd;
-      }
+  button {
+    height: 40px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    font-size: 14px;
+    background: #fff;
+    color: #1540bd;
+  }
 
-      .active-btn {
-        background: #1540bd !important;
-        color: #fff !important;
-      }
-    }
+  .active-btn {
+    background: #1540bd !important;
+    color: #fff !important;
   }
 }
 

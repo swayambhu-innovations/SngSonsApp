@@ -1,0 +1,98 @@
+<ion-content align="center" [fullscreen]="true">
+  <ion-grid>
+    <ion-row class="ion-justify-content-between ion-align-items-center">
+      <ion-col size="auto">
+        <ion-row class="ion-justify-content-center ion-align-items-center">
+          <ion-col id="nav" size="auto">
+            <svg
+              xmlns="https://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              viewBox="0 0 26 26"
+              fill="none"
+              (click)="goBack()"
+            >
+              <path
+                d="M11.7301 13.0008L17.0924 18.3629L15.5603 19.895L8.66602 13.0008L15.5603 6.10645L17.0924 7.63851L11.7301 13.0008Z"
+                fill="#1540BD"
+              />
+            </svg>
+          </ion-col>
+          <ion-col size="auto">
+            <div>
+              <ion-text id="heading"> Import ZSD </ion-text>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card class="ion-padding">
+    <!-- Last Shipment Details -->
+    <p class="heading">Last Uploaded Dispatch Details</p>
+
+    <ion-grid id="shipment-details" class="ion-margin-bottom">
+      <ion-row class="ion-justify-content-between ion-align-items-center">
+        <ion-col class="col-head" size="auto">Shipment ID :</ion-col>
+        <ion-col size="auto">1000010</ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-between ion-align-items-center">
+        <ion-col class="col-head" size="auto">Date :</ion-col>
+        <ion-col size="auto">7th April</ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-between ion-align-items-center">
+        <ion-col class="col-head" size="auto"
+          >Time of Uploaded of ZSD File :</ion-col
+        >
+        <ion-col size="auto">10:30 AM</ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-between ion-align-items-center">
+        <ion-col class="col-head" size="auto">Uploaded By :</ion-col>
+        <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ion-col size="auto">
+            <img [src]="config.url.defaultProfile" alt="Atul Singh" />
+          </ion-col>
+          <ion-col size="auto">Atul Singh</ion-col>
+        </ion-row>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+  <!-- Recent Added Dispatch -->
+  <ng-container>
+    <app-voucher
+      [heading]="'Recent Added Dispatches'"
+      [search]="'Shipments...'"
+      [showCal]="false"
+    ></app-voucher>
+  </ng-container>
+
+  <!-- Recent Added Dispatch -->
+  <ng-container>
+    <app-voucher
+      [heading]="'Recent Uploaded Files'"
+      [search]="'Files...'"
+      [showCal]="false"
+    ></app-voucher>
+  </ng-container>
+
+  <div class="tab-bar">
+    <button shape="round" class="active-btn">
+      <label for="uploadZSD">Select ZSD </label>
+    </button>
+    <input
+      type="file"
+      id="uploadZSD"
+      accept=".xlsx, .xls, .csv"
+      (change)="uploadExcel($event)"
+      style="display: none"
+    />
+    <button (click)="goBack()" shape="round">Cancel</button>
+  </div>
+
+  <div class="below-space"></div>
+</ion-content>

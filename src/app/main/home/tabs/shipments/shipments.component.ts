@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 import { Config } from 'src/app/config';
 import { ImportExportService } from 'src/app/main/settings/component/import-export/import-export.service';
 import { ExcelUploadService } from 'src/app/utils/excel-upload';
@@ -31,6 +31,7 @@ export class ShipmentsComponent implements OnInit {
     private notification: NotificationService,
     private loadingController: LoadingController,
     public homeService: HomeService,
+    private navCtrl: NavController,
     private shipmentService: ShipmentsService
   ) {}
 
@@ -61,23 +62,7 @@ export class ShipmentsComponent implements OnInit {
     this.loader.dismiss();
   }
 
-  async uploadExcel(e: any) {
-    this.loader2 = await this.loadingController.create({
-      message: Config.messages.uploadWait,
-    });
-    this.loader2.present;
-    this.excelUploadService.parseExcel(e, this.addZSD, this);
-    this.loader.dismiss();
-  }
-
-  addZSD(event: any, data: any, formatDate: any, scope: any) {
-    data = scope.importExportService.formatShipment(data, formatDate);
-    scope.importExportService.addShipments(
-      data,
-      scope,
-      scope.loader,
-      scope.notification
-    );
-    event.target.value = '';
+  uploadZSD() {
+    this.navCtrl.navigateForward('main/import-zsd');
   }
 }
