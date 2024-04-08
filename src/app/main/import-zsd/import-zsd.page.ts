@@ -5,6 +5,7 @@ import { ExcelUploadService } from 'src/app/utils/excel-upload';
 import { HomeService } from '../home/home.service';
 import { ImportExportService } from '../settings/component/import-export/import-export.service';
 import { ShipmentStatus } from 'src/app/utils/enum';
+import { NotificationService } from 'src/app/utils/notification';
 
 @Component({
   selector: 'app-import-zsd',
@@ -17,6 +18,7 @@ export class ImportZSDPage implements OnInit {
     private importExportService: ImportExportService,
     public excelUploadService: ExcelUploadService,
     private loadingController: LoadingController,
+    private notification: NotificationService,
     public homeService: HomeService
   ) {}
 
@@ -82,9 +84,11 @@ export class ImportZSDPage implements OnInit {
   async addZSD(event: any, data: any, formatDate: any, scope: any) {
     data = await scope.importExportService.formatShipment(data, formatDate);
     event.target.value = '';
-    scope.navCtrl.navigateForward(['/main/import-zsd/file-details'], {
-      state: { ZSDdetail: JSON.stringify(data) },
-    });
+    if (data.length > 0)
+      scope.navCtrl.navigateForward(['/main/import-zsd/file-details'], {
+        state: { ZSDdetail: JSON.stringify(data) },
+      });
+    else scope.notification.showError(Config.messages.noImport);
   }
 
   goBack() {

@@ -149,6 +149,11 @@ export class ImportExportService {
           this.oldShipments = data.slice(0, index + 1);
           data = data.slice(index + 1);
         }
+
+        // if (shipment['Shipment Cost Date'] <= this.lastShipmentData) {
+        //   this.oldShipments = data.slice(0, index + 1);
+        //   data = data.slice(index + 1);
+        // }
       });
 
       // finding duplicate shipment no (club mode)
@@ -191,7 +196,7 @@ export class ImportExportService {
               vendorData = [
                 ...item?.vendorData,
                 {
-                  BillingDate: formatDate(vendor['Billing Date']),
+                  BillingDate: formatDate(vendor['Billing Date']).getTime(),
                   SoldToParty: vendor['Sold-To Party'],
                   CustomerName: vendor['Customer Name'],
                   BillingDocument: vendor['Billing Document'],
@@ -203,7 +208,9 @@ export class ImportExportService {
                     vendor['Sales Value Minus Shipment Cost'],
                   Taxamount: vendor['Tax amount'],
                   ShipmentCost: vendor['Shipment Cost'],
-                  ShipmentCostDate: formatDate(vendor['Shipment Cost Date']),
+                  ShipmentCostDate: formatDate(
+                    vendor['Shipment Cost Date']
+                  ).getTime(),
                 },
               ];
             } else {
@@ -220,7 +227,7 @@ export class ImportExportService {
               };
               vendorData = [
                 {
-                  BillingDate: Date.parse(formatDate(vendor['Billing Date'])),
+                  BillingDate: formatDate(vendor['Billing Date']).getTime(),
                   SoldToParty: vendor['Sold-To Party'],
                   CustomerName: vendor['Customer Name'],
                   BillingDocument: vendor['Billing Document'],
@@ -232,9 +239,9 @@ export class ImportExportService {
                     vendor['Sales Value Minus Shipment Cost'],
                   Taxamount: vendor['Tax amount'],
                   ShipmentCost: vendor['Shipment Cost'],
-                  ShipmentCostDate: Date.parse(
-                    formatDate(vendor['Shipment Cost Date'])
-                  ),
+                  ShipmentCostDate: formatDate(
+                    vendor['Shipment Cost Date']
+                  ).getTime(),
                 },
               ];
             }
@@ -253,7 +260,7 @@ export class ImportExportService {
           };
           vendorData = [
             {
-              BillingDate: Date.parse(formatDate(vendor['Billing Date'])),
+              BillingDate: formatDate(vendor['Billing Date']).getTime(),
               SoldToParty: vendor['Sold-To Party'],
               CustomerName: vendor['Customer Name'],
               BillingDocument: vendor['Billing Document'],
@@ -265,9 +272,9 @@ export class ImportExportService {
                 vendor['Sales Value Minus Shipment Cost'],
               Taxamount: vendor['Tax amount'],
               ShipmentCost: vendor['Shipment Cost'],
-              ShipmentCostDate: Date.parse(
-                formatDate(vendor['Shipment Cost Date'])
-              ),
+              ShipmentCostDate: formatDate(
+                vendor['Shipment Cost Date']
+              ).getTime(),
             },
           ];
         }

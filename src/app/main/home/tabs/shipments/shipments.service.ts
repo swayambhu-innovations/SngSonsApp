@@ -41,16 +41,8 @@ export class ShipmentsService {
       return getDocs(
         query(
           collectionGroup(this.firestore, Config.collection.shipments),
-          where(
-            'ShipmentCostDate',
-            '>=',
-            Math.floor(new Date(startDate).getTime() / 1000)
-          ),
-          where(
-            'ShipmentCostDate',
-            '<=',
-            Math.floor(new Date(endDate).getTime() / 1000)
-          ),
+          where('ShipmentCostDate', '>=', new Date(startDate).getTime()),
+          where('ShipmentCostDate', '<=', new Date(endDate).getTime()),
           where('status', 'in', ['completed', 'suspended'])
         )
       );
@@ -58,16 +50,8 @@ export class ShipmentsService {
       return getDocs(
         query(
           collectionGroup(this.firestore, Config.collection.shipments),
-          where(
-            'ShipmentCostDate',
-            '>=',
-            Math.floor(new Date(startDate).getTime() / 1000)
-          ),
-          where(
-            'ShipmentCostDate',
-            '<=',
-            Math.floor(new Date(endDate).getTime() / 1000)
-          )
+          where('ShipmentCostDate', '>=', new Date(startDate).getTime()),
+          where('ShipmentCostDate', '<=', new Date(endDate).getTime())
         )
       );
     }
@@ -81,16 +65,8 @@ export class ShipmentsService {
     return getDocs(
       query(
         collectionGroup(this.firestore, Config.collection.shipments),
-        where(
-          'ShipmentCostDate',
-          '>=',
-          Math.floor(new Date(startDate).getTime() / 1000)
-        ),
-        where(
-          'ShipmentCostDate',
-          '<=',
-          Math.floor(new Date(endDate).getTime() / 1000)
-        )
+        where('ShipmentCostDate', '>=', new Date(startDate).getTime()),
+        where('ShipmentCostDate', '<=', new Date(endDate).getTime())
       )
     );
   }
