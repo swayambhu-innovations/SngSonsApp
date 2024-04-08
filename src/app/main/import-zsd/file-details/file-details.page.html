@@ -1,0 +1,82 @@
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row class="ion-justify-content-between ion-align-items-center">
+      <ion-col size="auto">
+        <ion-row class="ion-justify-content-center ion-align-items-center">
+          <ion-col id="nav" size="auto">
+            <svg
+              xmlns="https://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              viewBox="0 0 26 26"
+              fill="none"
+              (click)="goBack()"
+            >
+              <path
+                d="M11.7301 13.0008L17.0924 18.3629L15.5603 19.895L8.66602 13.0008L15.5603 6.10645L17.0924 7.63851L11.7301 13.0008Z"
+                fill="#1540BD"
+              />
+            </svg>
+          </ion-col>
+          <ion-col size="auto">
+            <div>
+              <ion-text id="heading"> File Details </ion-text>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card class="ion-padding">
+    <!-- Last Shipment Details -->
+    <p *ngIf="correctShipments?.length>0" class="heading">
+      {{correctShipments?.length}} New Dispatches Found
+    </p>
+
+    <ion-grid>
+      <ion-accordion-group
+        style="background-color: transparent"
+        [multiple]="true"
+      >
+        <ion-accordion value="first">
+          <ion-item slot="header">
+            <ion-label class="label">
+              <!-- <ion-row class="ion-align-items-center">
+                <ion-col size="1"
+                  ><img src="assets/icon/red-exclamation.svg" alt=""
+                /></ion-col>
+                <ion-col size="7" class="head">Pending For Data Entry</ion-col>
+                <ion-col size="4" style="text-align: end; color: #1540bd">
+                  {{ pendingVehicles?.length }}
+                </ion-col>
+              </ion-row> -->
+              Dispatch
+            </ion-label>
+          </ion-item>
+          <div
+            class="content-container"
+            slot="content"
+            *ngFor="let shipment of correctShipments"
+          >
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="7" class="text"
+                >{{ shipment.ShipmentNumber }}</ion-col
+              >
+              <ion-col size="3" class="action"> {{ shipment.status }} </ion-col>
+            </ion-row>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+    </ion-grid>
+  </ion-card>
+
+  <div class="tab-bar">
+    <button (click)="addZSDinDB()" shape="round" class="active-btn">
+      Import {{correctShipments?.length}} Dispatches
+    </button>
+    <button (click)="goBack()" shape="round">Cancel</button>
+  </div>
+
+  <div class="below-space"></div>
+</ion-content>

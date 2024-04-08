@@ -1,114 +1,185 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
-    Firestore,
-    Timestamp,
-    addDoc,
-    collection,
-    collectionGroup,
-    deleteDoc,
-    doc,
-    documentId,
-    getDoc,
-    getDocs,
-    increment,
-    query,
-    setDoc,
-    updateDoc,
-    where,
+  Firestore,
+  Timestamp,
+  addDoc,
+  collection,
+  collectionGroup,
+  deleteDoc,
+  doc,
+  documentId,
+  getDoc,
+  getDocs,
+  increment,
+  query,
+  setDoc,
+  updateDoc,
+  where,
 } from '@angular/fire/firestore';
-import { Config } from "src/app/config";
+import { Config } from 'src/app/config';
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
-
 export class ShipmentsService {
-    constructor(
-        public firestore: Firestore
-    ) { }
+  constructor(public firestore: Firestore) {}
 
-    vendors: any = {};
-    vendorsById:any = {};
-    vehicles: any = {};
+  vendors: any = {};
+  vendorsById: any = {};
+  vehicles: any = {};
 
-    getShipmentsByDate(date: string, edate?: string, status?: string[]) {
-        const startDate = new Date(date);
-        startDate.setHours(0, 0, 0);
-        let endDate = new Date(date);
-        if (edate) {
-            endDate = new Date(edate);
-        }
-        endDate.setHours(23, 59, 59);
-        
-        if (status) {
-            return getDocs(
-                query(
-                    collectionGroup(this.firestore, Config.collection.shipments),
-                    where('BillingDate', '>=', Timestamp.fromDate(startDate)),
-                    where('BillingDate', '<=', Timestamp.fromDate(endDate)),
-                    where('status', 'in', ['completed', 'suspended'])
-                )
-            );
-        } else {
-            return getDocs(
-                query(
-                    collectionGroup(this.firestore, Config.collection.shipments),
-                    where('BillingDate', '>=', Timestamp.fromDate(startDate)),
-                    where('BillingDate', '<=', Timestamp.fromDate(endDate))
-                )
-            );
-        }
+  getShipmentsByDate(date: string, edate?: string, status?: string[]) {
+    const startDate = new Date(date);
+    startDate.setHours(0, 0, 0);
+    let endDate = new Date(date);
+    if (edate) {
+      endDate = new Date(edate);
     }
+    endDate.setHours(23, 59, 59);
 
-    getShipmentsByDateRange(date1: string, date2: string) {
-        const startDate = new Date(date1);
-        startDate.setHours(0, 0, 0);
-        const endDate = new Date(date2);
-        endDate.setHours(23, 59, 59);
-        return getDocs(query(collectionGroup(this.firestore, Config.collection.shipments), where('BillingDate', '>=', Timestamp.fromDate(startDate)), where('BillingDate', '<=', Timestamp.fromDate(endDate))));
+    if (status) {
+      return getDocs(
+        query(
+          collectionGroup(this.firestore, Config.collection.shipments),
+          where(
+            'ShipmentCostDate',
+            '>=',
+            Math.floor(new Date(startDate).getTime() / 1000)
+          ),
+          where(
+            'ShipmentCostDate',
+            '<=',
+            Math.floor(new Date(endDate).getTime() / 1000)
+          ),
+          where('status', 'in', ['completed', 'suspended'])
+        )
+      );
+    } else {
+      return getDocs(
+        query(
+          collectionGroup(this.firestore, Config.collection.shipments),
+          where(
+            'ShipmentCostDate',
+            '>=',
+            Math.floor(new Date(startDate).getTime() / 1000)
+          ),
+          where(
+            'ShipmentCostDate',
+            '<=',
+            Math.floor(new Date(endDate).getTime() / 1000)
+          )
+        )
+      );
     }
+  }
 
-    getAllShipments() {
-        return getDocs(query(collectionGroup(this.firestore, Config.collection.shipments)));
-    }
+  getShipmentsByDateRange(date1: string, date2: string) {
+    const startDate = new Date(date1);
+    startDate.setHours(0, 0, 0);
+    const endDate = new Date(date2);
+    endDate.setHours(23, 59, 59);
+    return getDocs(
+      query(
+        collectionGroup(this.firestore, Config.collection.shipments),
+        where(
+          'ShipmentCostDate',
+          '>=',
+          Math.floor(new Date(startDate).getTime() / 1000)
+        ),
+        where(
+          'ShipmentCostDate',
+          '<=',
+          Math.floor(new Date(endDate).getTime() / 1000)
+        )
+      )
+    );
+  }
 
-    getShipmentsById(shipmentId: string) {
-        return getDocs(query(collection(this.firestore, Config.collection.shipments), where(documentId(), '==', shipmentId)));
-    }
+  getAllShipments() {
+    return getDocs(
+      query(collectionGroup(this.firestore, Config.collection.shipments))
+    );
+  }
 
-    getVendor(vendorId: string[]) {
-        return getDocs(query(collection(this.firestore, Config.collection.vendorMaster), where(documentId(), 'in', vendorId)));
-    }
+  getShipmentsById(shipmentId: string) {
+    return getDocs(
+      query(
+        collection(this.firestore, Config.collection.shipments),
+        where(documentId(), '==', shipmentId)
+      )
+    );
+  }
 
-    getVehicle(vehicleId: string) {
-        return getDocs(query(collectionGroup(this.firestore, Config.collection.vehicles), where("registrationNo", '==', vehicleId)));
-    }
+  getVendor(vendorId: string[]) {
+    return getDocs(
+      query(
+        collection(this.firestore, Config.collection.vendorMaster),
+        where(documentId(), 'in', vendorId)
+      )
+    );
+  }
 
-    updShipmentStatus(shipmentId: string, status: string) {
-        updateDoc(doc(this.firestore, Config.collection.shipments, shipmentId), { status });
-    }
+  getVehicle(vehicleId: string) {
+    return getDocs(
+      query(
+        collectionGroup(this.firestore, Config.collection.vehicles),
+        where('registrationNo', '==', vehicleId)
+      )
+    );
+  }
 
-    async updVoucherNumber() {
-        await updateDoc(doc(this.firestore, Config.collection.zsd,'voucher'), { id: increment(1) });
-        const data: any = await this.getVoucherNumber()
-        return data.id;
-    }
+  updShipmentStatus(shipmentId: string, status: string) {
+    updateDoc(doc(this.firestore, Config.collection.shipments, shipmentId), {
+      status,
+    });
+  }
 
-    async getVoucherNumber() {
-        const data = await getDoc(doc(this.firestore, Config.collection.zsd,'voucher'));
-        return data.data();
-    }
+  async updVoucherNumber() {
+    await updateDoc(doc(this.firestore, Config.collection.zsd, 'voucher'), {
+      id: increment(1),
+    });
+    const data: any = await this.getVoucherNumber();
+    return data.id;
+  }
 
-    async updVoucherNumberInShipment(shipmentId: string, voucher: string) {
-        await updateDoc(doc(this.firestore, Config.collection.shipments, shipmentId), { voucher });
-    }
+  async getVoucherNumber() {
+    const data = await getDoc(
+      doc(this.firestore, Config.collection.zsd, 'voucher')
+    );
+    return data.data();
+  }
 
-    async updShipmentVoucher(shipmentId: string, data: any) {
-        await updateDoc(doc(this.firestore, Config.collection.shipments, shipmentId), { ...data });
-    }
+  async updVoucherNumberInShipment(shipmentId: string, voucher: string) {
+    await updateDoc(
+      doc(this.firestore, Config.collection.shipments, shipmentId),
+      { voucher }
+    );
+  }
 
-    async addAccountExpense(accountId: string, expenseId: string, data: any, collectionId: string) {
-        await setDoc(doc(this.firestore, Config.collection.account, accountId, 'expense', 'expense', collectionId, expenseId), data);
-    }
+  async updShipmentVoucher(shipmentId: string, data: any) {
+    await updateDoc(
+      doc(this.firestore, Config.collection.shipments, shipmentId),
+      { ...data }
+    );
+  }
 
+  async addAccountExpense(
+    accountId: string,
+    expenseId: string,
+    data: any,
+    collectionId: string
+  ) {
+    await setDoc(
+      doc(
+        this.firestore,
+        Config.collection.account,
+        accountId,
+        'expense',
+        'expense',
+        collectionId,
+        expenseId
+      ),
+      data
+    );
+  }
 }

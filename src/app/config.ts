@@ -13,6 +13,7 @@ export const Config = {
     pleaseWait: 'Please wait...',
     refresh: 'Fetching Details from DB',
     logginIn: 'Logging you In...',
+    noImport: 'Shipments Already Added...',
     logginOut: 'Logging you Out...',
     sentOTP: 'OTP sent on this Number. Please enter OTP',
     sendingOTP: 'Sending OTP...',
