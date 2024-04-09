@@ -8,6 +8,8 @@ import {
   doc,
   documentId,
   getDocs,
+  limit,
+  orderBy,
   query,
   setDoc,
   updateDoc,
@@ -15,6 +17,8 @@ import {
 } from '@angular/fire/firestore';
 import { isEmpty, groupBy } from 'lodash';
 import { Config } from 'src/app/config';
+import { ShipmentsService } from 'src/app/main/home/tabs/shipments/shipments.service';
+import { ShipmentDetailPage } from 'src/app/main/shipment-detail/shipment-detail.page';
 import { ShipmentStatus } from 'src/app/utils/enum';
 import { NotificationService } from 'src/app/utils/notification';
 
@@ -24,8 +28,12 @@ import { NotificationService } from 'src/app/utils/notification';
 export class ImportExportService {
   constructor(
     public firestore: Firestore,
-    private notification: NotificationService
+    private notification: NotificationService,
+    private shipmentService: ShipmentsService
   ) {}
+  lastInvInDB: string = '';
+  lastShipmentData: any;
+  oldShipments: any;
 
   getShipments() {
     return getDocs(collection(this.firestore, Config.collection.shipments));
@@ -72,9 +80,9 @@ export class ImportExportService {
     return getDocs(collectionGroup(this.firestore, Config.collection.vehicles));
   }
 
-  addVendor(vendorData: any) {
-    return addDoc(
-      collection(this.firestore, Config.collection.vendorMaster),
+  addVendor(wsCode: any, vendorData: any) {
+    return setDoc(
+      doc(this.firestore, Config.collection.vendorMaster, wsCode.toString()),
       vendorData
     );
   }
@@ -92,54 +100,154 @@ export class ImportExportService {
     );
   }
 
-  async getLastShipmentId() {
-    return getDocs(
-      query(
-        collection(this.firestore, Config.collection.zsd),
-        where(documentId(), '==', 'lastShipmentId')
-      )
-    );
-  }
-
-  async setLastShipmentId(shipmentId: string) {
-    return updateDoc(
-      doc(this.firestore, Config.collection.zsd, 'lastShipmentId'),
-      { id: shipmentId }
-    );
-  }
-
-  formatShipment = (data: any, formatDate: any) => {
-    const customInvoiceNumbers: number[] = [];
+  formatShipment = async (data: any, formatDate: any) => {
+    const shipmentsFromDB: any[] = []; // fetch shipments from DB
+    let sameShipments: number[] = []; // store duplicate shipments from ZSD
+    let allShipmentsData: any[] = []; // store all shipments
     try {
-      data = data
-        .map((vendor: any) => {
+      // get last custom invoice from DB
+      {
+        await this.getShipments().then((dataDB) => {
+          if (dataDB)
+            dataDB.docs.map((item: any) => shipmentsFromDB.push(item.data()));
+        });
+        if (shipmentsFromDB.length > 0)
+          shipmentsFromDB.sort((a: any, b: any) =>
+            a?.vendorData[0]['CustomInvoiceNo'] >
+            b?.vendorData[0]['CustomInvoiceNo']
+              ? 1
+              : b?.vendorData[0]['CustomInvoiceNo'] >
+                a?.vendorData[0]['CustomInvoiceNo']
+              ? -1
+              : 0
+          );
+        this.lastInvInDB =
+          shipmentsFromDB[shipmentsFromDB.length - 1]?.vendorData[0][
+            'CustomInvoiceNo'
+          ];
+        this.lastShipmentData =
+          shipmentsFromDB[shipmentsFromDB.length - 1]?.vendorData[0][
+            'ShipmentCostDate'
+          ];
+      }
+
+      {
+        // sort all shipments got from user
+        data = data.filter((item: any) => item['Custom Invoice No'] !== '');
+        data.sort((a: any, b: any) =>
+          a['Custom Invoice No'] > b['Custom Invoice No']
+            ? 1
+            : b['Custom Invoice No'] > a['Custom Invoice No']
+            ? -1
+            : 0
+        );
+      }
+
+      // remove previous uploaded shipments
+      await data.map((shipment: any, index: any) => {
+        if (shipment['Custom Invoice No'] == this.lastInvInDB) {
+          this.oldShipments = data.slice(0, index + 1);
+          data = data.slice(index + 1);
+        }
+
+        // if (shipment['Shipment Cost Date'] <= this.lastShipmentData) {
+        //   this.oldShipments = data.slice(0, index + 1);
+        //   data = data.slice(index + 1);
+        // }
+      });
+
+      // finding duplicate shipment no (club mode)
+      {
+        data.forEach((item: any) =>
+          sameShipments.push(item['Shipment Number'])
+        );
+        let duplicate_elements = [];
+        for (let element of sameShipments) {
           if (
-            vendor['Shipment Number'] != '' &&
-            !isNaN(Number(vendor['Shipment Number']))
-          ) {
-            const invNo = vendor['Custom Invoice No'];
-            customInvoiceNumbers.push(
-              this.getLast5Digit(invNo.substr(invNo.length - 5))
-            );
-          }
-          return {
-            vendorData: [
-              {
-                BillingDate: formatDate(vendor['Billing Date']),
-                SoldToParty: vendor['Sold-To Party'],
-                CustomerName: vendor['Customer Name'],
-                BillingDocument: vendor['Billing Document'],
-                CustomInvoiceNo: vendor['Custom Invoice No'],
-                GSTInvoiceNumber: vendor['GST Invoice Number'],
-                KOT: vendor['KOT'],
-                TotalInvoiceAmount: vendor['Total Invoice Amount'],
-                SalesValueMinusShipmentCost:
-                  vendor['Sales Value Minus Shipment Cost'],
-                Taxamount: vendor['Tax amount'],
-                ShipmentCost: vendor['Shipment Cost'],
-                ShipmentCostDate: formatDate(vendor['Shipment Cost Date']),
-              },
-            ],
+            sameShipments.indexOf(element) !==
+            sameShipments.lastIndexOf(element)
+          )
+            duplicate_elements.push(element);
+        }
+        sameShipments = duplicate_elements;
+      }
+
+      // storing actual data
+      data.map((vendor: any) => {
+        let vendorData: any[] = [];
+        let shipmentDetails: any;
+        if (allShipmentsData.length > 0)
+          allShipmentsData.map((item: any) => {
+            if (
+              item['Shipment Number'] == vendor['Shipment Number'] &&
+              item['Lorry No'] == vendor['Lorry No']
+            ) {
+              shipmentDetails = {
+                ShipmentNumber: vendor['Shipment Number'],
+                LorryNo: vendor['Lorry No'],
+                LRNo: vendor['LR No'],
+                TransporterName: vendor['Transporter Name'],
+                Serviceagent: vendor['Service agent'],
+                Ownership: vendor['Ownership'],
+                active: true,
+                createdAt: new Date(),
+                status: ShipmentStatus.PendingDispatch,
+              };
+              vendorData = [
+                ...item?.vendorData,
+                {
+                  BillingDate: formatDate(vendor['Billing Date']).getTime(),
+                  SoldToParty: vendor['Sold-To Party'],
+                  CustomerName: vendor['Customer Name'],
+                  BillingDocument: vendor['Billing Document'],
+                  CustomInvoiceNo: vendor['Custom Invoice No'],
+                  GSTInvoiceNumber: vendor['GST Invoice Number'],
+                  KOT: vendor['KOT'],
+                  TotalInvoiceAmount: vendor['Total Invoice Amount'],
+                  SalesValueMinusShipmentCost:
+                    vendor['Sales Value Minus Shipment Cost'],
+                  Taxamount: vendor['Tax amount'],
+                  ShipmentCost: vendor['Shipment Cost'],
+                  ShipmentCostDate: formatDate(
+                    vendor['Shipment Cost Date']
+                  ).getTime(),
+                },
+              ];
+            } else {
+              shipmentDetails = {
+                ShipmentNumber: vendor['Shipment Number'],
+                LorryNo: vendor['Lorry No'],
+                LRNo: vendor['LR No'],
+                TransporterName: vendor['Transporter Name'],
+                Serviceagent: vendor['Service agent'],
+                Ownership: vendor['Ownership'],
+                active: true,
+                createdAt: new Date(),
+                status: ShipmentStatus.PendingDispatch,
+              };
+              vendorData = [
+                {
+                  BillingDate: formatDate(vendor['Billing Date']).getTime(),
+                  SoldToParty: vendor['Sold-To Party'],
+                  CustomerName: vendor['Customer Name'],
+                  BillingDocument: vendor['Billing Document'],
+                  CustomInvoiceNo: vendor['Custom Invoice No'],
+                  GSTInvoiceNumber: vendor['GST Invoice Number'],
+                  KOT: vendor['KOT'],
+                  TotalInvoiceAmount: vendor['Total Invoice Amount'],
+                  SalesValueMinusShipmentCost:
+                    vendor['Sales Value Minus Shipment Cost'],
+                  Taxamount: vendor['Tax amount'],
+                  ShipmentCost: vendor['Shipment Cost'],
+                  ShipmentCostDate: formatDate(
+                    vendor['Shipment Cost Date']
+                  ).getTime(),
+                },
+              ];
+            }
+          });
+        else {
+          shipmentDetails = {
             ShipmentNumber: vendor['Shipment Number'],
             LorryNo: vendor['Lorry No'],
             LRNo: vendor['LR No'],
@@ -150,30 +258,51 @@ export class ImportExportService {
             createdAt: new Date(),
             status: ShipmentStatus.PendingDispatch,
           };
-        })
-        .filter(
-          (item: any) =>
-            item.ShipmentNumber != '' && !isNaN(Number(item.ShipmentNumber))
-        );
+          vendorData = [
+            {
+              BillingDate: formatDate(vendor['Billing Date']).getTime(),
+              SoldToParty: vendor['Sold-To Party'],
+              CustomerName: vendor['Customer Name'],
+              BillingDocument: vendor['Billing Document'],
+              CustomInvoiceNo: vendor['Custom Invoice No'],
+              GSTInvoiceNumber: vendor['GST Invoice Number'],
+              KOT: vendor['KOT'],
+              TotalInvoiceAmount: vendor['Total Invoice Amount'],
+              SalesValueMinusShipmentCost:
+                vendor['Sales Value Minus Shipment Cost'],
+              Taxamount: vendor['Tax amount'],
+              ShipmentCost: vendor['Shipment Cost'],
+              ShipmentCostDate: formatDate(
+                vendor['Shipment Cost Date']
+              ).getTime(),
+            },
+          ];
+        }
+        allShipmentsData.push({
+          ...shipmentDetails,
+          vendorData: [...vendorData],
+        });
+      });
     } catch (e) {
+      console.log(e);
       this.notification.showError(Config.messages.zsdInvalid);
       return null;
     }
-    return { data, shipments: customInvoiceNumbers };
+    return allShipmentsData;
   };
 
-  async getVendor(customerName: string, scope: any) {
+  async getVendor(customerName: string, SoldToParty: string, scope: any) {
     if (isEmpty(customerName)) {
       customerName = '';
     }
     let vendor =
-      scope.shipmentService.vendors[
+      scope.shipmentService?.vendors[
         customerName.split(' ').join('-').toLowerCase()
       ];
     if (!vendor) {
       const vendorData = {
         WSName: customerName,
-        WSCode: '',
+        WSCode: SoldToParty,
         postalCode: '',
         WSTown: '',
         panNo: '',
@@ -189,9 +318,9 @@ export class ImportExportService {
         id: '',
       };
       await scope.importExportService
-        .addVendor(vendorData)
+        .addVendor(SoldToParty, vendorData)
         .then((docRef: any) => {
-          vendor = { id: docRef.id };
+          vendor = { id: SoldToParty.toString() };
           scope.shipmentService.vendors[
             customerName.split(' ').join('-').toLowerCase()
           ] = { ...vendorData, ...vendor };
@@ -206,7 +335,7 @@ export class ImportExportService {
       lorryNo = '';
     }
     lorryNo = lorryNo.split(' ').join('');
-    let vehicle = scope.shipmentService.vehicles[lorryNo];
+    let vehicle = scope.shipmentService?.vehicles[lorryNo];
     if (!vehicle) {
       const vehicleData = {
         ownershipType: data.Ownership ? data.Ownership.toLowerCase() : '',
@@ -219,26 +348,11 @@ export class ImportExportService {
     return lorryNo;
   }
 
-  getLast5Digit(id: string) {
-    return Number(id.toString().substr(id.length - 5));
-  }
-
   async addShipments(data: any, scope: any, loader: any, notification: any) {
     loader.present();
-    let lastShipmentId = (await this.getLastShipmentId()).docs.map(
-      (item: any) => {
-        return item.data();
-      }
-    )[0].id;
-    lastShipmentId = this.getLast5Digit(lastShipmentId);
-    const shipments = data.shipments.sort((a: number, b: number) => a - b);
-    if (!shipments.length || shipments[0] <= lastShipmentId) {
-      this.notification.showError(Config.messages.zsdInvalidInvoiceNo);
-      return;
-    }
-    const tdata = groupBy(data.data, 'ShipmentNumber');
+
+    const tdata = groupBy(data, 'ShipmentNumber');
     data.data = [];
-    data.shipments = shipments;
     Object.keys(tdata).forEach((key) => {
       data.data.push(
         tdata[key].reduce(
@@ -246,7 +360,7 @@ export class ImportExportService {
             acc = {
               ...item,
               vendorData: [...acc.vendorData, ...item.vendorData],
-              BillingDate: item.vendorData[0].BillingDate,
+              ShipmentCostDate: item.vendorData[0].ShipmentCostDate,
             };
             return acc;
           },
@@ -261,38 +375,40 @@ export class ImportExportService {
         await item.vendorData.map(async (vdata: any, index: number) => {
           const vendor = await scope.importExportService.getVendor(
             vdata.CustomerName,
+            vdata.SoldToParty,
             scope
           );
           item.vendorData[index].vendor = vendor;
         });
-        await scope.importExportService
-          .checkShipment(item.ShipmentNumber)
-          .then(async (resdata: any) => {
-            if (resdata.docs && resdata.docs.length > 0) {
-              const resData = resdata.docs[0].data();
-              resData.vendorData = resData.vendorData.concat(item.vendorData);
-              await scope.importExportService.addShipment({
-                ...resData,
-                id: resdata.docs[0].id,
-              });
-            } else {
-              await scope.importExportService.addShipment({ ...item, vehicle });
-            }
-          });
-        await scope.importExportService.setLastShipmentId(
-          data.shipments[data.shipments.length - 1]
-        );
+        if (this.lastInvInDB != '')
+          await scope.importExportService
+            .checkShipment(item.ShipmentNumber)
+            .then(async (resdata: any) => {
+              if (resdata.docs && resdata.docs.length > 0) {
+                const resData = resdata.docs[0].data();
+                resData.vendorData = resData.vendorData.concat(item.vendorData);
+                await scope.importExportService.addShipment({
+                  ...resData,
+                  id: resdata.docs[0].id,
+                });
+              } else {
+                await scope.importExportService.addShipment({
+                  ...item,
+                  vehicle,
+                });
+              }
+            });
         return { ...item, vehicle };
       })
     )
+      .then(() => {
+        loader.dismiss();
+        notification.showSuccess(Config.messages.zsdSuccess);
+      })
       .catch((error) => {
         console.log(error);
         notification.showError(Config.messages.errorOccurred);
         loader.dismiss();
-      })
-      .finally(() => {
-        loader.dismiss();
-        notification.showSuccess(Config.messages.zsdSuccess);
       });
   }
 }

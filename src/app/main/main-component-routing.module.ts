@@ -69,6 +69,13 @@ const routes: Routes = [
             (m) => m.ReportDetailsPageModule
           ),
       },
+      {
+        path: 'import-zsd',
+        loadChildren: () =>
+          import('./import-zsd/import-zsd.module').then(
+            (m) => m.ImportZSDPageModule
+          ),
+      },
     ],
   },
 ];
