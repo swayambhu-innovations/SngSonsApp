@@ -121,7 +121,7 @@ export class VoucherComponent implements OnChanges, OnInit {
         (
           await this.shipmentsService.getVendor(
             shipment.data().vendorData.map((item: any) => {
-              return item.vendor;
+              return item.SoldToParty;
             })
           )
         ).docs.map((vendor: any) => {
@@ -129,7 +129,7 @@ export class VoucherComponent implements OnChanges, OnInit {
         });
       }
       const vendors = shipment.data().vendorData.map((item: any) => {
-        return this.vendorData[item.vendor];
+        return this.vendorData[item.SoldToParty];
       });
       const data = {
         ...shipment.data(),

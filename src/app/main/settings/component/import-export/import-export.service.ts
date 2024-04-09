@@ -80,9 +80,9 @@ export class ImportExportService {
     return getDocs(collectionGroup(this.firestore, Config.collection.vehicles));
   }
 
-  addVendor(vendorData: any) {
-    return addDoc(
-      collection(this.firestore, Config.collection.vendorMaster),
+  addVendor(wsCode: any, vendorData: any) {
+    return setDoc(
+      doc(this.firestore, Config.collection.vendorMaster, wsCode.toString()),
       vendorData
     );
   }
@@ -291,7 +291,7 @@ export class ImportExportService {
     return allShipmentsData;
   };
 
-  async getVendor(customerName: string, scope: any) {
+  async getVendor(customerName: string, SoldToParty: string, scope: any) {
     if (isEmpty(customerName)) {
       customerName = '';
     }
@@ -302,7 +302,7 @@ export class ImportExportService {
     if (!vendor) {
       const vendorData = {
         WSName: customerName,
-        WSCode: '',
+        WSCode: SoldToParty,
         postalCode: '',
         WSTown: '',
         panNo: '',
@@ -318,9 +318,9 @@ export class ImportExportService {
         id: '',
       };
       await scope.importExportService
-        .addVendor(vendorData)
+        .addVendor(SoldToParty, vendorData)
         .then((docRef: any) => {
-          vendor = { id: docRef.id };
+          vendor = { id: SoldToParty.toString() };
           scope.shipmentService.vendors[
             customerName.split(' ').join('-').toLowerCase()
           ] = { ...vendorData, ...vendor };
@@ -375,6 +375,7 @@ export class ImportExportService {
         await item.vendorData.map(async (vdata: any, index: number) => {
           const vendor = await scope.importExportService.getVendor(
             vdata.CustomerName,
+            vdata.SoldToParty,
             scope
           );
           item.vendorData[index].vendor = vendor;
