@@ -9,9 +9,9 @@ import { AutoUnsubscribe } from 'src/app/utils/autoUnsubscriber';
 })
 export class HomePage implements OnInit {
   tabStatus: any = {
-    shipments: true,
-    vehicles: false,
-    vendors: false,
+    recieving: true,
+    operations: false,
+    dispatch: false,
   };
 
   changeTab(id: string) {

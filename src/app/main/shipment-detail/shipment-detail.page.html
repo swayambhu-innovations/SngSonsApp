@@ -93,14 +93,14 @@
       <p class="heading">Shipment ID : {{id}}</p>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
-        <ion-col class="col-head" size="auto">Invoice Number</ion-col>
+        <ion-col class="col-head" size="auto">Custom Invoice Number</ion-col>
         <ion-col size="auto"
           >{{this.shipmentDetails.vendorDetails?.invoiceNumber}}</ion-col
         >
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
-        <ion-col class="col-head" size="auto">W/S GST Number</ion-col>
+        <ion-col class="col-head" size="auto">W/S GST Invoice Number</ion-col>
         <ion-col size="auto"
           >{{shipmentDetails.vendorDetails?.gstInvoiceNumber}}</ion-col
         >
@@ -121,7 +121,7 @@
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Vehicle Fuel Capacity</ion-col>
         <ion-col size="auto"
-          >{{shipmentDetails.vehicle?.fuelTankCapacity}}</ion-col
+          >{{shipmentDetails.vehicle?.fuelTankCapacity}} Ltrs</ion-col
         >
       </ion-row>
 

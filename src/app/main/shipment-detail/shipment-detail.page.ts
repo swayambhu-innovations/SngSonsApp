@@ -88,7 +88,6 @@ export class ShipmentDetailPage implements OnInit {
   }
 
   async getShipmentDetails() {
-    console.log(this.id);
     this.loader.present();
     (await this.shipmentService.getShipmentsById(this.id)).docs.map(
       async (shipment: any) => {
@@ -100,7 +99,6 @@ export class ShipmentDetailPage implements OnInit {
         this.shipmentDetails = await this.shipmentDetailService.formatShipment(
           shipmentData
         );
-        console.log(this.shipmentDetails);
       }
     );
     this.loader.dismiss();

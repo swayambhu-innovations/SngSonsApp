@@ -11,6 +11,28 @@
     #c9deff 101.69%
   );
 
+  mat-date-range-input {
+    input,
+    input::placeholder {
+      color: #fff !important;
+    }
+  }
+  mat-datepicker-toggle {
+    color: #fff !important;
+  }
+
+  .custom-date {
+    display: flex;
+    width: 166px;
+    height: 42px;
+    padding: 16px;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 50px;
+    background: var(--Primary, #1540bd);
+  }
+
   .head {
     border-radius: 0px 0px 8px 8px;
     background: rgba(234, 243, 255, 0.75);
