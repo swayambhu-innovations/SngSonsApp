@@ -28,7 +28,7 @@ export class ShipmentDetailService {
     (
       await this.shipmentService.getVendor(
         shipmentData.vendorData.map((i: any, idx: number) => {
-          return i.vendor;
+          return i.SoldToParty;
         })
       )
     ).docs.map((vendor: any) => {

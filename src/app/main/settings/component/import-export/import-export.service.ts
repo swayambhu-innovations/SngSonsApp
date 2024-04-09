@@ -291,6 +291,45 @@ export class ImportExportService {
     return allShipmentsData;
   };
 
+  formatRecieving = async (data: any, formatDate: any) => {
+    const shipmentsFromDB: any[] = []; // fetch shipments from DB
+    let sameShipments: number[] = []; // store duplicate shipments from ZSD
+    let allRecievingsData: any[] = []; // store all shipments
+
+    try {
+      // get last custom invoice from DB
+      {
+        await this.getShipments().then((dataDB) => {
+          if (dataDB)
+            dataDB.docs.map((item: any) => shipmentsFromDB.push(item.data()));
+        });
+        if (shipmentsFromDB.length > 0)
+          shipmentsFromDB.sort((a: any, b: any) =>
+            a?.vendorData[0]['CustomInvoiceNo'] >
+            b?.vendorData[0]['CustomInvoiceNo']
+              ? 1
+              : b?.vendorData[0]['CustomInvoiceNo'] >
+                a?.vendorData[0]['CustomInvoiceNo']
+              ? -1
+              : 0
+          );
+        this.lastInvInDB =
+          shipmentsFromDB[shipmentsFromDB.length - 1]?.vendorData[0][
+            'CustomInvoiceNo'
+          ];
+        this.lastShipmentData =
+          shipmentsFromDB[shipmentsFromDB.length - 1]?.vendorData[0][
+            'ShipmentCostDate'
+          ];
+      }
+    } catch (err) {
+      console.log(err);
+      this.notification.showError(Config.messages.zsdInvalid);
+      return null;
+    }
+    return allRecievingsData;
+  };
+
   async getVendor(customerName: string, SoldToParty: string, scope: any) {
     if (isEmpty(customerName)) {
       customerName = '';

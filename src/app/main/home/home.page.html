@@ -3,35 +3,35 @@
     <app-head-user-bar [isHome]="true"></app-head-user-bar>
     <div class="tab-array ion-padding-vertical">
       <ion-button
-        (click)="changeTab('shipments')"
-        [ngClass]="{ active: tabStatus.shipments }"
+        (click)="changeTab('recieving')"
+        [ngClass]="{ active: tabStatus.recieving }"
         shape="round"
       >
-        Shipments
+        Recieving
       </ion-button>
 
       <ion-button
-        (click)="changeTab('vehicles')"
-        [ngClass]="{ active: tabStatus.vehicles }"
+        (click)="changeTab('operations')"
+        [ngClass]="{ active: tabStatus.operations }"
         shape="round"
       >
-        Vehicles
+        Operations
       </ion-button>
 
       <ion-button
-        (click)="changeTab('vendors')"
-        [ngClass]="{ active: tabStatus.vendors }"
+        (click)="changeTab('dispatch')"
+        [ngClass]="{ active: tabStatus.dispatch }"
         shape="round"
       >
-        Vendors
+        Dispatch
       </ion-button>
     </div>
   </div>
 
   <div align="center" class="ion-padding-vertical">
-    <app-shipments *ngIf="tabStatus.shipments"></app-shipments>
-    <app-vehicles *ngIf="tabStatus.vehicles"></app-vehicles>
-    <app-vendors *ngIf="tabStatus.vendors"></app-vendors>
+    <app-vendors *ngIf="tabStatus.recieving"></app-vendors>
+    <app-vehicles *ngIf="tabStatus.operations"></app-vehicles>
+    <app-shipments *ngIf="tabStatus.dispatch"></app-shipments>
   </div>
   <div class="below-space"></div>
 </ion-content>

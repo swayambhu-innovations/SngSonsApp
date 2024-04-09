@@ -57,16 +57,19 @@ export class ShipmentsService {
     }
   }
 
-  getShipmentsByDateRange(date1: string, date2: string) {
+  getShipmentsByDateRange(date1: string, date2: string, status?: string[]) {
     const startDate = new Date(date1);
     startDate.setHours(0, 0, 0);
     const endDate = new Date(date2);
     endDate.setHours(23, 59, 59);
+
+    console.log(date1)
     return getDocs(
       query(
         collectionGroup(this.firestore, Config.collection.shipments),
         where('ShipmentCostDate', '>=', new Date(startDate).getTime()),
-        where('ShipmentCostDate', '<=', new Date(endDate).getTime())
+        where('ShipmentCostDate', '<=', new Date(endDate).getTime()),
+        where('status', 'in', ['completed', 'suspended'])
       )
     );
   }

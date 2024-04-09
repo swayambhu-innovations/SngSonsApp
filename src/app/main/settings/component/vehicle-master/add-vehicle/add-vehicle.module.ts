@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AddVehicleRoutingModule } from './add-vehicle-routing.module';
 import { AddVehicleComponent } from './add-vehicle.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { AddVehicleComponent } from './add-vehicle.component';
     IonicModule,
     AddVehicleRoutingModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   declarations: [AddVehicleComponent],
 })

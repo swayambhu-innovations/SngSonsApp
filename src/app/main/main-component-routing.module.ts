@@ -77,7 +77,11 @@ const routes: Routes = [
           ),
       },
     ],
+  },  {
+    path: 'import-zmm',
+    loadChildren: () => import('./import-zmm/import-zmm.module').then( m => m.ImportZmmPageModule)
   },
+
 ];
 
 @NgModule({

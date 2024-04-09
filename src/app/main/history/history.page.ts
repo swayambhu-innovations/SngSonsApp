@@ -10,6 +10,7 @@ import { ShipmentStatus } from 'src/app/utils/enum';
 import { ShipmentDetailService } from '../shipment-detail/shipment-detail.service';
 import { SharedService } from 'src/app/shared/shared.service';
 import { AutoUnsubscribe } from 'src/app/utils/autoUnsubscriber';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @AutoUnsubscribe
 @Component({
@@ -18,8 +19,21 @@ import { AutoUnsubscribe } from 'src/app/utils/autoUnsubscriber';
   styleUrls: ['./history.page.scss'],
 })
 export class HistoryPage implements OnInit {
-  date1: string = moment(new Date()).startOf('month').format('YYYY-MM-DD');
-  date2: string = moment(new Date()).format('YYYY-MM-DD');
+  constructor(
+    private loadingController: LoadingController,
+    private shipmentsService: ShipmentsService,
+    private shipmentDetailServie: ShipmentDetailService,
+    private sharedService: SharedService
+  ) {
+    this.sharedService.refresh.subscribe((data) => {
+      if (data) {
+        this.getShipments();
+      }
+    });
+  }
+
+  date1: string = moment(new Date()).startOf('month').format('DD MMM');
+  date2: string = moment(new Date()).format('DD MMM');
   formatDate = formatDate;
   loader: any;
   shipmentsData: any[] = [];
@@ -39,40 +53,26 @@ export class HistoryPage implements OnInit {
     total: 0,
   };
 
-  constructor(
-    private loadingController: LoadingController,
-    private shipmentsService: ShipmentsService,
-    private shipmentDetailServie: ShipmentDetailService,
-    private sharedService: SharedService
-  ) {
-    this.sharedService.refresh.subscribe((data) => {
-      if (data) {
-        this.getShipments();
-      }
-    });
-  }
-
   ngOnInit() {}
 
-  startDate(e: any) {
-    this.date1 = moment(
-      e.target.value ? new Date(e.target.value) : new Date()
-    ).format('dd-MMM-YYYY');
-    this.statsData.kot = 0;
-    this.statsData.vendors = 0;
-    this.statsData.shipments = 0;
-    this.statsData.total = 0;
-    this.getShipments();
+  dateRangeChange(
+    dateRangeStart: HTMLInputElement,
+    dateRangeEnd: HTMLInputElement
+  ) {
+    this.startDate(dateRangeStart.value);
+    this.endDate(dateRangeEnd.value);
   }
 
-  endDate(e: any) {
-    this.date2 = moment(
-      e.target.value ? new Date(e.target.value) : new Date()
-    ).format('dd-MMM-YYYY');
-    this.statsData.kot = 0;
-    this.statsData.vendors = 0;
-    this.statsData.shipments = 0;
-    this.statsData.total = 0;
+  startDate(date: any) {
+    this.date1 = moment(date ? new Date(date) : new Date()).format(
+      'YYYY-MM-DD'
+    );
+  }
+
+  endDate(date: any) {
+    this.date2 = moment(date ? new Date(date) : new Date()).format(
+      'YYYY-MM-DD'
+    );
     this.getShipments();
   }
 
@@ -85,7 +85,7 @@ export class HistoryPage implements OnInit {
     this.statsData.vendors = 0;
     this.statsData.shipments = 0;
     this.statsData.total = 0;
-    const shipmentData = await this.shipmentsService.getShipmentsByDate(
+    const shipmentData = await this.shipmentsService.getShipmentsByDateRange(
       this.date1,
       this.date2,
       [ShipmentStatus.Suspended, ShipmentStatus.Completed]

@@ -5,6 +5,9 @@ import { LoadingController, NavController } from '@ionic/angular';
 import { DatePipe } from '@angular/common';
 import { Config } from 'src/app/config';
 import { NotificationService } from 'src/app/utils/notification';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-vehicle',
@@ -47,6 +50,7 @@ export class AddVehicleComponent implements OnInit {
   constructor(
     private vehicleMasterService: VehicleMasterService,
     private navCtrl: NavController,
+    private http: HttpClient,
     private loadingController: LoadingController,
     private notificationService: NotificationService
   ) {}
@@ -68,6 +72,9 @@ export class AddVehicleComponent implements OnInit {
     permitPhoto: null,
     pollutionPhoto: null,
   }; // to store documents files uploaded as proof
+
+  url = 'http://www.omdbapi.com/';
+  apiKey = ''; // <-- Enter your own key here!
 
   async ngOnInit() {
     this.loader = await this.loadingController.create({
@@ -98,6 +105,8 @@ export class AddVehicleComponent implements OnInit {
         vehicleCat: this.vehicleCategory.id,
       });
   }
+
+  getVehicleDetails() {}
 
   dispDate(e: any, label: string) {
     const date: any = new DatePipe('en-US').transform(
