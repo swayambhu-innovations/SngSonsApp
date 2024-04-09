@@ -102,7 +102,6 @@ export class ImportExportService {
 
   formatShipment = async (data: any, formatDate: any) => {
     const shipmentsFromDB: any[] = []; // fetch shipments from DB
-    let sameShipments: number[] = []; // store duplicate shipments from ZSD
     let allShipmentsData: any[] = []; // store all shipments
     try {
       // get last custom invoice from DB
@@ -155,22 +154,6 @@ export class ImportExportService {
         //   data = data.slice(index + 1);
         // }
       });
-
-      // finding duplicate shipment no (club mode)
-      {
-        data.forEach((item: any) =>
-          sameShipments.push(item['Shipment Number'])
-        );
-        let duplicate_elements = [];
-        for (let element of sameShipments) {
-          if (
-            sameShipments.indexOf(element) !==
-            sameShipments.lastIndexOf(element)
-          )
-            duplicate_elements.push(element);
-        }
-        sameShipments = duplicate_elements;
-      }
 
       // storing actual data
       data.map((vendor: any) => {
@@ -293,35 +276,110 @@ export class ImportExportService {
 
   formatRecieving = async (data: any, formatDate: any) => {
     const shipmentsFromDB: any[] = []; // fetch shipments from DB
-    let sameShipments: number[] = []; // store duplicate shipments from ZSD
+    let vehicleGroup: any[] = []; // store all vehicles by group got from ZMM
     let allRecievingsData: any[] = []; // store all shipments
 
     try {
-      // get last custom invoice from DB
-      {
-        await this.getShipments().then((dataDB) => {
-          if (dataDB)
-            dataDB.docs.map((item: any) => shipmentsFromDB.push(item.data()));
+      // remove empty gate entry records
+      data = data.filter(function (recieving: any) {
+        return !(recieving['Gate Entry Number'] === '');
+      });
+
+      //group by vehicle no
+      data.map((recieving: any) => {
+        let productsData: any[] = [];
+        let details: any;
+        if (allRecievingsData.length > 0)
+          allRecievingsData.map((item: any) => {
+            if (item['VEHICLE.NO'] == recieving['VEHICLE.NO']) {
+              details = {
+                recPlantDesc: recieving['REC.PLANT DESC'],
+                dispatchDate: formatDate(recieving['DISPATCH DATE']).getTime(),
+                expDeliverDate: formatDate(
+                  recieving['EXPT.DELIVERY']
+                ).getTime(),
+                vehicleNo: recieving['VEHICLE.NO'],
+                gateEntryDate: formatDate(
+                  recieving['Gate Entry Date']
+                ).getTime(),
+                gateEntryNo: recieving['Gate Entry Number'],
+                transporterName: recieving['TRANS.NAME'],
+                mfgLocation: recieving['MFG LOCATION'],
+                storageLocation: recieving['Storage Location'],
+                active: true,
+                createdAt: new Date(),
+              };
+              productsData = [
+                ...item?.productsData,
+                {
+                  supplierName: recieving['SUPP.PLANT DESC'],
+                  supplierID: recieving['SUPP.PLAN'],
+                  deliveryNo: recieving['DELIVERY'],
+                  productCode: recieving['PRODUCT CODE'],
+                  productName: recieving['PRODUCT NAME'],
+                  quantiity: recieving['QTY'],
+                },
+              ];
+            } else {
+              details = {
+                recPlantDesc: recieving['REC.PLANT DESC'],
+                dispatchDate: formatDate(recieving['DISPATCH DATE']).getTime(),
+                expDeliverDate: formatDate(
+                  recieving['EXPT.DELIVERY']
+                ).getTime(),
+                vehicleNo: recieving['VEHICLE.NO'],
+                gateEntryDate: formatDate(
+                  recieving['Gate Entry Date']
+                ).getTime(),
+                gateEntryNo: recieving['Gate Entry Number'],
+                transporterName: recieving['TRANS.NAME'],
+                mfgLocation: recieving['MFG LOCATION'],
+                storageLocation: recieving['Storage Location'],
+                active: true,
+                createdAt: new Date(),
+              };
+              productsData = [
+                {
+                  supplierName: recieving['SUPP.PLANT DESC'],
+                  supplierID: recieving['SUPP.PLAN'],
+                  deliveryNo: recieving['DELIVERY'],
+                  productCode: recieving['PRODUCT CODE'],
+                  productName: recieving['PRODUCT NAME'],
+                  quantiity: recieving['QTY'],
+                },
+              ];
+            }
+          });
+        else {
+          details = {
+            recPlantDesc: recieving['REC.PLANT DESC'],
+            dispatchDate: formatDate(recieving['DISPATCH DATE']).getTime(),
+            expDeliverDate: formatDate(recieving['EXPT.DELIVERY']).getTime(),
+            vehicleNo: recieving['VEHICLE.NO'],
+            gateEntryDate: formatDate(recieving['Gate Entry Date']).getTime(),
+            gateEntryNo: recieving['Gate Entry Number'],
+            transporterName: recieving['TRANS.NAME'],
+            mfgLocation: recieving['MFG LOCATION'],
+            storageLocation: recieving['Storage Location'],
+            active: true,
+            createdAt: new Date(),
+          };
+          productsData = [
+            {
+              supplierName: recieving['SUPP.PLANT DESC'],
+              supplierID: recieving['SUPP.PLAN'],
+              deliveryNo: recieving['DELIVERY'],
+              productCode: recieving['PRODUCT CODE'],
+              productName: recieving['PRODUCT NAME'],
+              quantiity: recieving['QTY'],
+            },
+          ];
+        }
+        allRecievingsData.push({
+          ...details,
+          productsData: [...productsData],
         });
-        if (shipmentsFromDB.length > 0)
-          shipmentsFromDB.sort((a: any, b: any) =>
-            a?.vendorData[0]['CustomInvoiceNo'] >
-            b?.vendorData[0]['CustomInvoiceNo']
-              ? 1
-              : b?.vendorData[0]['CustomInvoiceNo'] >
-                a?.vendorData[0]['CustomInvoiceNo']
-              ? -1
-              : 0
-          );
-        this.lastInvInDB =
-          shipmentsFromDB[shipmentsFromDB.length - 1]?.vendorData[0][
-            'CustomInvoiceNo'
-          ];
-        this.lastShipmentData =
-          shipmentsFromDB[shipmentsFromDB.length - 1]?.vendorData[0][
-            'ShipmentCostDate'
-          ];
-      }
+      });
     } catch (err) {
       console.log(err);
       this.notification.showError(Config.messages.zsdInvalid);

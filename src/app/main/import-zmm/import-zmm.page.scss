@@ -1,233 +1,257 @@
 * {
-    font-family: "NATS";
+  font-family: "NATS";
+}
+
+ion-content {
+  --background: linear-gradient(
+    180deg,
+    #d5e6ff -8.94%,
+    #fff 27.36%,
+    #fff 61.93%,
+    #c9deff 101.69%
+  );
+
+  ion-grid {
+    ion-col {
+      display: flex;
+      align-items: center;
+
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      svg {
+        margin-inline: 5px;
+        cursor: pointer;
+
+        &:focus {
+          border: none;
+          outline: none;
+        }
+      }
+
+      #heading {
+        color: var(--Primary, #1540bd);
+        font-size: 20px;
+        font-weight: 400;
+      }
+
+      ion-text {
+        color: var(--Buttons, #1659be);
+        text-align: right;
+        font-size: 12px;
+        font-weight: 400;
+      }
+    }
+
+    #nav {
+      svg {
+        margin-inline: 0 !important;
+        margin-inline-end: 1.5px !important;
+      }
+    }
   }
-  
-  ion-content {
-    --background: linear-gradient(
-      180deg,
-      #d5e6ff -8.94%,
-      #fff 27.36%,
-      #fff 61.93%,
-      #c9deff 101.69%
-    );
-  
-    ion-grid {
+
+  ion-card {
+    border-radius: 16px;
+    box-shadow: 2px 2px 5px 2px rgba(53, 122, 248, 0.1);
+    background-color: rgb(254, 254, 254);
+    filter: drop-shadow(0px 4px 10px rgba(53, 122, 248, 0.1));
+
+    .heading {
+      color: #1540bd;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    ion-searchbar.custom {
+      --placeholder-color: #1540bd;
+      --icon-color: #1540bd;
+      --clear-button-color: #1540bd;
+      --background: transparent;
+      --filter: drop-shadow(0px 4px 10px rgba(53, 122, 248, 0.1));
+      --box-shadow: 0px 0px 0px 1px #1540bd;
+      --border-radius: 12px;
+      --color: #1540bd;
+      font-size: 12px;
+      font-weight: 400;
+    }
+
+    #shipment-details {
+      ion-col {
+        color: var(--Primary, #1540bd);
+        text-align: right;
+        font-size: 14px;
+        font-weight: 400;
+
+        img {
+          height: 25px;
+          width: 25px;
+          border-radius: 50%;
+        }
+      }
+
+      .col-head {
+        color: var(--Text1, #505e86) !important;
+      }
+
+      .to-be-filled {
+        color: var(--Waiting-Post-Delivery-Vehicles, #d97a07);
+      }
+    }
+
+    #recent-shipments {
+      .disabled-row {
+        color: var(--Text3, #9fa7b2);
+        font-size: 14px;
+        font-weight: 400;
+      }
+
+      #view-more:hover {
+        background-color: transparent !important;
+        cursor: auto !important;
+      }
+
+      ion-row {
+        color: var(--Text1, #505e86);
+        font-size: 14px;
+        font-weight: 400;
+        cursor: pointer;
+
+        &.no-records {
+          padding: 30px 0;
+        }
+
+        // &:hover {
+        //   background-color: #e2e8ee;
+        // }
+
+        .see-more {
+          color: #1540bd;
+        }
+
+        ion-col {
+          text-overflow: ellipsis;
+          text-wrap: nowrap;
+          overflow: hidden;
+        }
+      }
+    }
+
+    div {
+      img {
+        height: 151px;
+        width: 100%;
+        border-radius: 12px;
+        border: 1px solid rgba(206, 211, 241, 0.62);
+        object-fit: cover;
+      }
+    }
+  }
+
+  .recent-shipments {
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.62);
+
+    ion-icon {
+      color: #1540bd;
+      cursor: pointer;
+    }
+
+    .head {
       ion-col {
         display: flex;
         align-items: center;
-  
-        div {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-        }
-  
-        svg {
-          margin-inline: 5px;
-          cursor: pointer;
-  
-          &:focus {
-            border: none;
-            outline: none;
-          }
-        }
-  
-        #heading {
-          color: var(--Primary, #1540bd);
-          font-size: 20px;
-          font-weight: 400;
-        }
-  
-        ion-text {
-          color: var(--Buttons, #1659be);
-          text-align: right;
-          font-size: 12px;
-          font-weight: 400;
-        }
-      }
-  
-      #nav {
-        svg {
-          margin-inline: 0 !important;
-          margin-inline-end: 1.5px !important;
-        }
-      }
-    }
-  
-    ion-card {
-      border-radius: 16px;
-      box-shadow: 2px 2px 5px 2px rgba(53, 122, 248, 0.1);
-      background-color: rgb(254, 254, 254);
-      filter: drop-shadow(0px 4px 10px rgba(53, 122, 248, 0.1));
-  
-      .heading {
         color: #1540bd;
         font-size: 16px;
         font-weight: 500;
-      }
-  
-      ion-searchbar.custom {
-        --placeholder-color: #1540bd;
-        --icon-color: #1540bd;
-        --clear-button-color: #1540bd;
-        --background: transparent;
-        --filter: drop-shadow(0px 4px 10px rgba(53, 122, 248, 0.1));
-        --box-shadow: 0px 0px 0px 1px #1540bd;
-        --border-radius: 12px;
-        --color: #1540bd;
-        font-size: 12px;
-        font-weight: 400;
-      }
-  
-      #shipment-details {
-        ion-col {
-          color: var(--Primary, #1540bd);
-          text-align: right;
-          font-size: 14px;
-          font-weight: 400;
-  
-          img {
-            height: 25px;
-            width: 25px;
-            border-radius: 50%;
-          }
-        }
-  
-        .col-head {
-          color: var(--Text1, #505e86) !important;
-        }
-  
-        .to-be-filled {
-          color: var(--Waiting-Post-Delivery-Vehicles, #d97a07);
-        }
-      }
-  
-      #recent-shipments {
-        .disabled-row {
-          color: var(--Text3, #9fa7b2);
-          font-size: 14px;
-          font-weight: 400;
-        }
-  
-        #view-more:hover {
-          background-color: transparent !important;
-          cursor: auto !important;
-        }
-  
-        ion-row {
-          color: var(--Text1, #505e86);
-          font-size: 14px;
-          font-weight: 400;
+        svg {
+          margin: 0 10px;
           cursor: pointer;
-  
-          &.no-records {
-            padding: 30px 0;
-          }
-  
-          // &:hover {
-          //   background-color: #e2e8ee;
-          // }
-  
-          .see-more {
-            color: #1540bd;
-          }
-  
-          ion-col {
-            text-overflow: ellipsis;
-            text-wrap: nowrap;
-            overflow: hidden;
-          }
-        }
-      }
-  
-      div {
-        img {
-          height: 151px;
-          width: 100%;
-          border-radius: 12px;
-          border: 1px solid rgba(206, 211, 241, 0.62);
-          object-fit: cover;
         }
       }
     }
-  
-    .recent-shipments {
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.62);
-    
-      ion-icon {
-        color: #1540bd;
+
+    ion-searchbar.custom {
+      --placeholder-color: #1540bd;
+      --icon-color: #1540bd;
+      --clear-button-color: #1540bd;
+      --background: transparent;
+      --filter: drop-shadow(0px 4px 10px rgba(53, 122, 248, 0.1));
+      --box-shadow: 0px 0px 0px 1px #1540bd;
+      --border-radius: 12px;
+      --color: #1540bd;
+      font-size: 12px;
+      font-weight: 400;
+    }
+
+    ion-grid {
+      .disabled-row {
+        color: var(--Text3, #9fa7b2);
+        font-size: 14px;
+        font-weight: 400;
+      }
+
+      #view-more:hover {
+        background-color: transparent !important;
+        cursor: auto !important;
+      }
+
+      ion-row {
+        color: var(--Text1, #505e86);
+        font-size: 14px;
+        font-weight: 400;
         cursor: pointer;
-      }
-    
-      .head {
-        ion-col {
-          display: flex;
-          align-items: center;
+
+        &.no-records {
+          padding: 30px 0;
+        }
+
+        // &:hover {
+        //   background-color: #e2e8ee;
+        // }
+
+        .see-more {
           color: #1540bd;
-          font-size: 16px;
-          font-weight: 500;
-          svg {
-            margin: 0 10px;
-            cursor: pointer;
-          }
         }
-      }
-    
-      ion-searchbar.custom {
-        --placeholder-color: #1540bd;
-        --icon-color: #1540bd;
-        --clear-button-color: #1540bd;
-        --background: transparent;
-        --filter: drop-shadow(0px 4px 10px rgba(53, 122, 248, 0.1));
-        --box-shadow: 0px 0px 0px 1px #1540bd;
-        --border-radius: 12px;
-        --color: #1540bd;
-        font-size: 12px;
-        font-weight: 400;
-      }
-    
-      ion-grid {
-        .disabled-row {
-          color: var(--Text3, #9fa7b2);
-          font-size: 14px;
-          font-weight: 400;
-        }
-    
-        #view-more:hover {
-          background-color: transparent !important;
-          cursor: auto !important;
-        }
-    
-        ion-row {
-          color: var(--Text1, #505e86);
-          font-size: 14px;
-          font-weight: 400;
-          cursor: pointer;
-    
-          &.no-records {
-            padding: 30px 0;
-          }
-    
-          // &:hover {
-          //   background-color: #e2e8ee;
-          // }
-    
-          .see-more {
-            color: #1540bd;
-          }
-    
-          ion-col {
-            text-overflow: ellipsis;
-            text-wrap: nowrap;
-            overflow: hidden;
-          }
+
+        ion-col {
+          text-overflow: ellipsis;
+          text-wrap: nowrap;
+          overflow: hidden;
         }
       }
     }
   }
-  
-  .tab-bar {
-    margin: 20px auto !important;
+}
+
+.tab-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: fit-content;
+  height: 56px;
+  padding: 8px;
+  margin-inline: auto;
+  border-radius: 60px;
+  margin-top: 20px;
+
+  ion-button {
+    display: flex;
+    width: fit-content;
+    font-size: 14px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    --border-radius: 50px;
+    --background: #fff;
+    --color: #1540bd;
   }
-  
+
+  .active-btn {
+    --background: #1540bd !important;
+    --color: #fff !important;
+  }
+}
