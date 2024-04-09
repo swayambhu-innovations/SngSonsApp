@@ -77,18 +77,20 @@ export class ImportZmmPage implements OnInit {
       message: Config.messages.uploadWait,
     });
     this.loader.present();
-    this.excelUploadService.parseExcel(e, this.addZSD, this);
+    this.excelUploadService.parseExcel(e, this.addZMM, this);
     this.loader.dismiss();
   }
 
-  async addZSD(event: any, data: any, formatDate: any, scope: any) {
-    data = await scope.importExportService.formatShipment(data, formatDate);
-    event.target.value = '';
-    if (data.length > 0)
-      scope.navCtrl.navigateForward(['/main/import-zsd/file-details'], {
-        state: { ZSDdetail: JSON.stringify(data) },
-      });
-    else scope.notification.showError(Config.messages.noImport);
+  async addZMM(event: any, data: any, formatDate: any, scope: any) {
+    // event.target.value = '';
+    // if (data.length > 0)
+    //   scope.navCtrl.navigateForward(['/main/import-zmm/file-details'], {
+    //     state: { ZSDdetail: JSON.stringify(data) },
+    //   });
+    // else scope.notification.showError(Config.messages.noImport);
+    console.log(data);
+    data = await scope.importExportService.formatRecieving(data, formatDate);
+    console.log(data);
   }
 
   goBack() {

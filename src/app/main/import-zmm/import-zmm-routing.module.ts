@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: ImportZmmPage
+  },
+  {
+    path: 'file-details',
+    loadChildren: () => import('./file-details/file-details.module').then( m => m.FileDetailsPageModule)
   }
 ];
 
