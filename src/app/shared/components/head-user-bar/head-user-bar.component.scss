@@ -13,29 +13,36 @@
       height: 40px;
       cursor: pointer;
     }
+    
 
     div {
       p {
-        color: var(--Primary, #1540bd);
-        font-size: 20px;
-        font-weight: 400;
-        margin: 0;
-      }
+      color: var(--Primary, #1540bd);
+      font-size: 17px;
+      font-weight: 400;
+      margin: 0px;
+    }
 
-      .sub {
-        color: var(--Buttons, #1659be);
-        text-align: left;
-        font-size: 12px;
-        font-weight: 400;
-      }
+    .sub {
+      color: var(--Buttons, #edf0f3);
+      text-align: left;
+      font-size: 12px;
+      font-weight: 400;
+      background-color: #D97A07;
+      border-radius: 10px;
+      text-align: center;
+    }
+    
     }
   }
-
-  .actions {
+  
+   .actions {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-
+  .left-margin{
+  margin-left: 13px;
+   }
     svg {
       cursor: pointer;
     }
@@ -229,3 +236,13 @@ ion-modal #select-mode {
     transform: translateX(9px);
   }
 }
+
+
+
+.image-size{
+  height: 10px ;
+  width: 10px;
+}
+
+
+
