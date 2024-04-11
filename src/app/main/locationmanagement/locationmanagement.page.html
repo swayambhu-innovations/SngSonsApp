@@ -1,0 +1,216 @@
+<ion-content align="center">
+  <!-- <app-header-with-back [title]="'Location Management'"></app-header-with-back> -->
+
+  <div class="ion-padding-horizontal">
+    <div class="date_range">
+      <span>
+        <p>Total Locations : {{allAreas.length}}</p>
+      </span>
+      <div class="range_date_picker" id="open-loc-modal">
+        Add Location
+        <img src="assets\LocationManagement\add-location.svg" alt="" />
+      </div>
+    </div>
+  </div>
+
+  <div class="checkbox_container ion-padding-horizontal">
+    <ion-grid>
+      <ion-accordion-group [multiple]="true">
+        <ion-accordion *ngFor="let area of allAreas">
+          <ion-item slot="header">
+            <ion-label>
+              <ion-row class="ion-align-items-center">
+                <ion-col size="8">{{area.locName}}</ion-col>
+                <ion-col size="1.3">
+                  <ion-toggle
+                    [checked]="area.active"
+                    aria-label="status"
+                    (click)="updAreaStatus($event, area.id, !area.active)"
+                  ></ion-toggle>
+                </ion-col>
+                <ion-col size="1.3" (click)="editDetails($event, area)"
+                  ><img src="assets/create-department/edit.svg" alt="" />
+                </ion-col>
+                <ion-col
+                  size="1.3"
+                  (click)="toDelete = { id: area.id }; showConfirm = true"
+                  ><img src="assets/create-department/delete.svg" alt="" />
+                </ion-col>
+              </ion-row>
+            </ion-label>
+          </ion-item>
+
+          <div class="" slot="content">
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="3" class="grey_heading">Emp ID</ion-col>
+              <ion-col size="6" class="grey_heading">Name</ion-col>
+              <ion-col size="3" align="end" class="grey_heading"
+                >Action
+              </ion-col>
+            </ion-row>
+
+            <ion-row
+              *ngFor="let emp of allEmpsData"
+              class="ion-justify-content-between ion-align-items-center"
+            >
+              <ion-col size="3" *ngIf="emp.areaID == area.id"
+                >{{emp.customID}}</ion-col
+              >
+              <ion-col size="6" *ngIf="emp.areaID == area.id"
+                >{{emp.userName}}</ion-col
+              >
+              <ion-col size="3" *ngIf="emp.areaID == area.id">
+                <!-- <form [formGroup]="updateAreaForm"> -->
+                <div class="round">
+                  <ion-select
+                    class="custom-select"
+                    [value]="emp.areaID"
+                    placeholder="Change Location"
+                  >
+                    <ion-select-option
+                      class="ion-justify-content-center ion-align-items-center"
+                      *ngFor="let area of allAreas"
+                      [value]="area.id"
+                      (click)="updateEmpArea(area.id,emp)"
+                      >{{area.locName}}</ion-select-option
+                    >
+                  </ion-select>
+                </div>
+                <!-- </form> -->
+              </ion-col>
+            </ion-row>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+    </ion-grid>
+  </div>
+
+  <app-confirmation
+    (event)="delArea($event)"
+    [show]="showConfirm"
+  ></app-confirmation>
+</ion-content>
+
+<ion-modal
+  #modal
+  [isOpen]="isMapForm"
+  [canDismiss]="canDismiss"
+  trigger="open-loc-modal"
+  [initialBreakpoint]="0.9"
+  [breakpoints]="[0.9]"
+  class="model"
+>
+  <ng-template>
+    <div>
+      <p class="head">Add Location</p>
+      <form [formGroup]="locationForm" (ngSubmit)="onSubmit()">
+        <div class="container ion-padding">
+          <ion-item lines="none" class="Variable">
+            <ion-input
+              lines="none"
+              label="Name of the Location"
+              class="custom"
+              required
+              formControlName="locName"
+              labelPlacement="floating"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item lines="none" class="Variable">
+            <ion-input
+              lines="none"
+              label="Search By Name on Google Maps"
+              class="custom"
+              (ionInput)="getCordinates({ address: $event.target.value?.toString()})"
+              required="true"
+              formControlName="googleLoc"
+              labelPlacement="floating"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item lines="none" class="Variable">
+            <ion-input
+              lines="none"
+              type="number"
+              label="Radius (in mts)"
+              class="custom"
+              (ionInput)="setCircle($event.target.value)"
+              required="true"
+              formControlName="radius"
+              labelPlacement="floating"
+            ></ion-input>
+          </ion-item>
+
+          <p (click)="getCurrLocation()" class="current-location">
+            <img src="assets/LocationManagement/location.svg" />
+            <span>Use Current location</span>
+          </p>
+
+          <div class="google-map-container">
+            <!-- <google-map
+              height="100%"
+              width="100%"
+              [center]="currentPosition"
+              [zoom]="zoom"
+              (mapClick)="moveMap($event)"
+              (mapMousemove)="move($event)"
+            >
+              <map-marker
+                #markerElem
+                [options]="marker.options"
+                [title]="marker.title"
+                [position]="marker.position"
+                (mapDragend)="newPosition($event)"
+              ></map-marker>
+              <map-polygon [paths]="vertices" />
+              <map-circle
+                [center]="currentPosition"
+                [radius]="circleRadius"
+                [options]="mapOptionsCircle"
+                (circleClick)="moveMap($event)"
+                fillColor="red"
+              />
+            </google-map> -->
+          </div>
+
+          <!-- <div class="google-map-container">
+            <google-map
+              height="400px"
+              width="100%"
+              [center]="center"
+              [zoom]="zoom"
+              (mapClick)="moveMap($event)"
+              (mapMousemove)="move($event)"
+            >
+              <map-marker
+                *ngIf="currentPosition"
+                [options]="markerOptions"
+                [position]="currentPosition"
+                (mapDragend)="newPosition($event)"
+              ></map-marker>
+              <map-circle
+                *ngIf="isGoogleMapReady"
+                [center]="center"
+                [radius]="circleRadius*1000"
+                [options]="mapOptionsCircle"
+                (circleClick)="moveMap($event)"
+                fillColor="green"
+              />
+            </google-map>
+          </div> -->
+        </div>
+
+        <div class="tab-bar">
+          <div>
+            <ion-button shape="round" type="submit" class="active-btn"
+              >Submit</ion-button
+            >
+            <ion-button shape="round" (click)="closeModal(); modal.dismiss()"
+              >Cancel</ion-button
+            >
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+</ion-modal>

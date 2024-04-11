@@ -1,0 +1,103 @@
+<ion-content [fullscreen]="true">
+  <app-header-with-back [title]="'Today Attendance'"></app-header-with-back>
+  <ion-grid class="card-1">
+    <ion-row
+      size="10"
+      class="ion-justify-content-between ion-align-items-center"
+    >
+      <ion-col size="auto">
+        <div class="upload-text">
+          <span>{{ userData?.userName }}</span>
+          <span>{{ userData?.customID }} • {{ userData?.roleName }}</span>
+        </div>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-button *ngIf="!isMarked(this.userData?.phone)" shape="round" (click)="markPresent()">
+          <span>
+            Mark Your<br />
+            Attendance
+          </span>
+          <img
+            style="padding-left: 10px"
+            src="assets\HistoryEmployeeList\history-w.svg"
+          />
+        </ion-button>
+        <ion-button id="markedPresent" *ngIf="isMarked(this.userData?.phone)" shape="round">
+          <span> Marked Present </span>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row class="ion-justify-content-around">
+      <ion-col size="5.5" align="center" class="total_detail">
+        <img src="assets/today-attendance/Tick.svg" alt="" />
+        <p class="total_detail_value present">{{presentCount}}</p>
+        <p class="total_detail_text">Total Present</p>
+      </ion-col>
+      <ion-col size="5.5" align="center" class="total_detail">
+        <img src="assets/today-attendance/Close.svg" alt="" />
+        <p class="total_detail_value absent">{{absentCount}}</p>
+        <p class="total_detail_text">Total Absent</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div class="scroll-wrapper">
+    <ion-grid class="custom_grid">
+      <ion-row class="custom_grid_heading">
+        <ion-col>Emp ID</ion-col>
+        <ion-col>Emp Name</ion-col>
+        <ion-col>Off Premise Time</ion-col>
+        <ion-col>On Premise Time</ion-col>
+        <ion-col>Entry Time</ion-col>
+        <ion-col>Exit Time</ion-col>
+        <ion-col>Status</ion-col>
+      </ion-row>
+      <ion-row
+        *ngFor="let entry of userList; let i = index"
+        class="custom-row custom_row_details"
+      >
+        <ion-col>{{ entry['customID'] }}</ion-col>
+        <ion-col>{{ entry['userName'] }}</ion-col>
+        <ion-col>09:00 AM</ion-col>
+        <ion-col>05:00 PM</ion-col>
+        <ion-col>08:45 AM</ion-col>
+        <ion-col>05:15 PM</ion-col>
+        <ion-col>
+          <p
+            *ngIf="isMarked(entry.phone)"
+            class="attendance_status"
+            [style.color]="getStatusColor(entry.phone)"
+            [style.border]="'1px solid ' + getStatusColor(entry.phone)"
+          >
+            {{ isPresent(entry.phone) }}
+          </p>
+          <div
+          *ngIf="!isMarked(entry.phone)"
+          class="mark_attendance_btn"
+          
+          >
+            <ion-select
+              class="custom-select"
+              aria-label="mark attendance"
+              placeholder="Mark Attendance"
+              (ionChange)="markEmployeeAttendance($event, entry.phone)"
+            >
+              <ion-select-option value="true"
+                >Marked Present</ion-select-option
+              >
+              <ion-select-option value="false"
+                >Marked Absent</ion-select-option
+              >
+            </ion-select>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row
+        ><ion-col size="12" class="total_day">Total Employees : {{userList?.length}}</ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
