@@ -26,8 +26,8 @@ export class ImportZmmPage implements OnInit {
   loader: any;
   loader2: any;
   tableData: any[] = [];
-  filteredShipments: any[] = [];
-  shipmentsData: any[] = [];
+  filteredRecievings: any[] = [];
+  recievingsData: any[] = [];
   shipmentStatus = ShipmentStatus;
 
   async ngOnInit() {
@@ -35,41 +35,63 @@ export class ImportZmmPage implements OnInit {
       message: Config.messages.pleaseWait,
     });
     this.loader.present();
-    this.getShipments();
+    this.getAllRecievings();
     this.loader.dismiss();
   }
 
-  async getShipments() {
-    await this.importExportService.getShipments().then((dataDB) => {
+  async getAllRecievings() {
+    await this.importExportService.getRecievings().then((dataDB) => {
       if (dataDB)
-        dataDB.docs.map((item: any) => this.shipmentsData.push(item.data()));
+        dataDB.docs.map((item: any) => this.recievingsData.push(item.data()));
     });
-    if (this.shipmentsData.length > 0)
-      this.shipmentsData.sort((a: any, b: any) =>
-        a?.vendorData[0]['CustomInvoiceNo'] <
-        b?.vendorData[0]['CustomInvoiceNo']
+    if (this.recievingsData.length > 0) {
+      this.recievingsData.sort((a: any, b: any) =>
+        a['expDeliverDate'] < b['expDeliverDate']
           ? 1
-          : b?.vendorData[0]['CustomInvoiceNo'] <
-            a?.vendorData[0]['CustomInvoiceNo']
+          : b['expDeliverDate'] < a['expDeliverDate']
           ? -1
           : 0
       );
-    this.filteredShipments = this.shipmentsData;
+
+      this.recievingsData.map((recieving: any) => {
+        recieving.supplierData.map((supplier: any) => {
+          this.filteredRecievings = [
+            ...this.filteredRecievings,
+            {
+              vehicleNo: recieving.vehicleNo,
+              gateEntryNo: recieving.gateEntryNo,
+              supplierName: supplier.supplierName,
+            },
+          ];
+        });
+      });
+    }
+
+    this.recievingsData = this.filteredRecievings;
   }
 
-  searchShipments(e: any) {
+  searchRecievings(e: any) {
     const searchValue = e.detail.value;
     if (searchValue && searchValue.trim() !== '') {
-      this.filteredShipments = this.shipmentsData.filter(
-        (shipment: any) =>
-          shipment.vendorData[0]['CustomInvoiceNo']
+      this.filteredRecievings = this.recievingsData.filter(
+        (recievings: any) =>
+          recievings['gateEntryNo']
             .toLowerCase()
             .includes(searchValue.toLowerCase()) ||
-          shipment.vendorData[0]['CustomerName']
+          recievings['transporterName']
+            .toLowerCase()
+            .includes(searchValue.toLowerCase()) ||
+          recievings['recPlantDesc']
+            .toLowerCase()
+            .includes(searchValue.toLowerCase()) ||
+          recievings['vehicleNo']
+            .toLowerCase()
+            .includes(searchValue.toLowerCase()) ||
+          recievings.supplierData[0]['supplierName']
             .toLowerCase()
             .includes(searchValue.toLowerCase())
       );
-    } else this.filteredShipments = this.shipmentsData;
+    } else this.filteredRecievings = this.recievingsData;
   }
 
   async uploadExcel(e: any) {
@@ -82,15 +104,14 @@ export class ImportZmmPage implements OnInit {
   }
 
   async addZMM(event: any, data: any, formatDate: any, scope: any) {
-    // event.target.value = '';
-    // if (data.length > 0)
-    //   scope.navCtrl.navigateForward(['/main/import-zmm/file-details'], {
-    //     state: { ZSDdetail: JSON.stringify(data) },
-    //   });
-    // else scope.notification.showError(Config.messages.noImport);
-    console.log(data);
     data = await scope.importExportService.formatRecieving(data, formatDate);
+    event.target.value = '';
     console.log(data);
+    if (data)
+      scope.navCtrl.navigateForward(['/main/import-zmm/file-details'], {
+        state: { ZMMdetail: JSON.stringify(data) },
+      });
+    else scope.notification.showError(Config.messages.noImportZMM);
   }
 
   goBack() {

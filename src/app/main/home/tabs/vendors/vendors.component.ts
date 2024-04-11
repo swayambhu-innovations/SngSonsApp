@@ -6,6 +6,7 @@ import { NotificationService } from 'src/app/utils/notification';
 import { LoadingController, NavController } from '@ionic/angular';
 import { ShipmentsService } from '../shipments/shipments.service';
 import { Config } from 'src/app/config';
+import { ReceivingsService } from './receivings.service';
 
 @Component({
   selector: 'app-vendors',
@@ -19,9 +20,9 @@ export class VendorsComponent implements OnInit {
   loader2: any;
 
   tableData = [
-    { name: 'Shipment ID', key: 'ShipmentNumber', size: '4' },
-    { name: 'Party Name', key: 'CustomerName', size: '3' },
-    { name: 'Area', key: 'WSTown', size: '3' },
+    { name: 'Receiving ID', key: 'id', size: '3' },
+    { name: 'Vehicle', key: 'WSTown', size: '3' },
+    { name: 'Supplier', key: 'CustomerName', size: '4' },
   ];
 
   constructor(
@@ -31,7 +32,7 @@ export class VendorsComponent implements OnInit {
     private loadingController: LoadingController,
     public homeService: HomeService,
     private navCtrl: NavController,
-    private shipmentService: ShipmentsService
+    private receivingService: ReceivingsService
   ) {}
 
   async ngOnInit() {
@@ -45,7 +46,7 @@ export class VendorsComponent implements OnInit {
     this.loader.present();
     (await this.importExportService.getAllVehicles()).docs.map(
       (vehicle: any) => {
-        this.shipmentService.vehicles[vehicle.id] = {
+        this.receivingService.vehicles[vehicle.id] = {
           ...vehicle.data(),
           id: vehicle.id,
         };
@@ -53,7 +54,7 @@ export class VendorsComponent implements OnInit {
       }
     );
     (await this.importExportService.getAllVendors()).docs.map((vendor: any) => {
-      this.shipmentService.vendors[
+      this.receivingService.vendors[
         vendor.data().WSName.split(' ').join('-').toLowerCase()
       ] = { ...vendor.data(), id: vendor.id };
       return { ...vendor.data(), id: vendor.id };

@@ -15,6 +15,7 @@ import { CustomComponent } from './components/head-user-bar/tabs/custom/custom.c
 import { ExpertComponent } from './components/head-user-bar/tabs/expert/expert.component';
 import { SimpleComponent } from './components/head-user-bar/tabs/simple/simple.component';
 import { HeadUserBarComponent } from './components/head-user-bar/head-user-bar.component';
+import { RecievingVoucherComponent } from './components/recieving-voucher/recieving-voucher.component';
 
 @NgModule({
   declarations: [
@@ -28,10 +29,17 @@ import { HeadUserBarComponent } from './components/head-user-bar/head-user-bar.c
     AccordionTypeExpensesComponent,
     HeadUserBarComponent,
     SimpleComponent,
+    RecievingVoucherComponent,
     ExpertComponent,
     CustomComponent,
   ],
-  imports: [CommonModule, FormsModule, IonicModule, RouterModule,ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    RouterModule,
+    ReactiveFormsModule,
+  ],
   exports: [
     FooterComponent,
     HeaderComponent,
@@ -41,6 +49,7 @@ import { HeadUserBarComponent } from './components/head-user-bar/head-user-bar.c
     DayWiseSummaryComponent,
     BarGraphTableComponent,
     AccordionTypeExpensesComponent,
+    RecievingVoucherComponent,
     HeadUserBarComponent,
     SimpleComponent,
     ExpertComponent,
