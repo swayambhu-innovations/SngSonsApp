@@ -2,26 +2,26 @@
   <div align="center" class="head ion-padding">
     <app-head-user-bar [isHome]="true"></app-head-user-bar>
     <div class="tab-array ion-padding-vertical">
-      <ion-button
+      <ion-button 
         (click)="changeTab('recieving')"
         [ngClass]="{ active: tabStatus.recieving }"
-        shape="round"
+        shape="none"
       >
         Recieving
       </ion-button>
 
-      <ion-button
+      <ion-button 
         (click)="changeTab('operations')"
         [ngClass]="{ active: tabStatus.operations }"
-        shape="round"
+        shape="none"
       >
         Operations
       </ion-button>
 
-      <ion-button
+      <ion-button 
         (click)="changeTab('dispatch')"
         [ngClass]="{ active: tabStatus.dispatch }"
-        shape="round"
+        shape="none"
       >
         Dispatch
       </ion-button>
