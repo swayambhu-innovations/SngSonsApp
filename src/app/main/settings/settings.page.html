@@ -218,14 +218,11 @@
           <img src="assets/icon/log-out-key.svg" alt="" />
           <p class="text">You Will Be Logged Out</p>
         </div>
-        <div class="tab-bar">
-          <div>
-            <ion-button shape="round" (click)="logout()" class="active-btn"
-              >Logout</ion-button
-            >
-            <ion-button shape="round" (click)="showLogout = false"
-              >Cancel</ion-button
-            >
+
+        <div align="center">
+          <div class="btn">
+            <button (click)="logout()" >Logout</button>
+            <button class="cancel_button" (click)="showLogout = false">Cancel</button>
           </div>
         </div>
       </section>

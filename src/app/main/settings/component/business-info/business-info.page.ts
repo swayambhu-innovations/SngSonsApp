@@ -81,4 +81,7 @@ export class BusinessInfoPage implements OnInit {
       this.navCtrl.back();
     }
   }
+  cancel(){
+    this.navCtrl.back();
+  }
 }
