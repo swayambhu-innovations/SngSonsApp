@@ -20,20 +20,17 @@
     </ion-row>
   </ion-grid>
 
-  <ion-searchbar
-    class="ion-text-start custom"
-    animated="true"
-    placeholder="Search Vehicle No."
-  ></ion-searchbar>
 
-  <ion-grid>
+
+  <!-- <ion-grid>
     <div>
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col size="auto">Total Expense</ion-col>
         <ion-col size="auto">₹ 19000</ion-col>
       </ion-row>
       <span style="left: 35%">₹ 23500</span>
-      <ion-progress-bar value=".35"></ion-progress-bar>
+      <ion-progress-bar [value]="getTotalReceivedAmount() / totalAmount"
+      [style.background]="getProgressBarColor()"></ion-progress-bar>
     </div>
 
     <div>
@@ -42,7 +39,8 @@
         <ion-col size="auto">₹ 19000</ion-col>
       </ion-row>
       <span style="left: 55%">₹ 23500</span>
-      <ion-progress-bar value=".55"></ion-progress-bar>
+      <ion-progress-bar [value]="getTotalReceivedAmount() / totalAmount"
+      [style.background]="getProgressBarColor()">></ion-progress-bar>
     </div>
 
     <div>
@@ -51,7 +49,8 @@
         <ion-col size="auto">₹ 19000</ion-col>
       </ion-row>
       <span style="left: 25%">₹ 23500</span>
-      <ion-progress-bar value=".25"></ion-progress-bar>
+      <ion-progress-bar [value]="getTotalReceivedAmount() / totalAmount"
+      [style.background]="getProgressBarColor()">></ion-progress-bar>
     </div>
 
     <div>
@@ -60,7 +59,8 @@
         <ion-col size="auto">₹ 19000</ion-col>
       </ion-row>
       <span style="left: 60%">₹ 23500</span>
-      <ion-progress-bar value=".6"></ion-progress-bar>
+      <ion-progress-bar [value]="getTotalReceivedAmount() / totalAmount"
+      [style.background]="getProgressBarColor()">></ion-progress-bar>
     </div>
 
     <div>
@@ -69,7 +69,8 @@
         <ion-col size="auto">₹ 19000</ion-col>
       </ion-row>
       <span style="left: 40%">₹ 23500</span>
-      <ion-progress-bar value=".4"></ion-progress-bar>
+      <ion-progress-bar [value]="getTotalReceivedAmount() / totalAmount"
+      [style.background]="getProgressBarColor()">></ion-progress-bar>
     </div>
 
     <div>
@@ -78,7 +79,23 @@
         <ion-col size="auto">₹ 19000</ion-col>
       </ion-row>
       <span style="left: 20%">₹ 23500</span>
-      <ion-progress-bar value=".2"></ion-progress-bar>
+      <ion-progress-bar [value]="getTotalReceivedAmount() / totalAmount"
+      [style.background]="getProgressBarColor()">></ion-progress-bar>
     </div>
   </ion-grid>
+</ion-card> -->
+
+<ion-card>
+  <ion-grid *ngFor="let data of datas; let i = index">
+
+    <div>
+      <ion-row class="ion-justify-content-between ion-align-items-center">
+        <ion-col size="auto">{{data.category}}</ion-col>
+        <ion-col size="auto">₹{{data.totalAmount}} </ion-col>
+      </ion-row>
+      <span style="left: 35%">₹ {{data.receivedAmount}}</span>
+      <ion-progress-bar [value]=" data.receivedAmount/data.totalAmount"
+      ></ion-progress-bar>
+    </div>
+  </ion-grid>  
 </ion-card>
