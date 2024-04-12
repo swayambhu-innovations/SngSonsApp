@@ -1,0 +1,25 @@
+.header-wrapper {
+    height: 7vh;
+    background-color: transparent;
+    display: flex;
+  }
+
+  .back-arrow {
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    padding-right: 8px;
+  }
+
+  .header-p {
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
+    color: #1540bd;
+    font-family: NATS;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: -0.22px;
+  }

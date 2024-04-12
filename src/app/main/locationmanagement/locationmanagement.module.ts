@@ -15,7 +15,7 @@ import { GoogleMapsModule } from "@angular/google-maps";
     CommonModule,
     FormsModule,
     IonicModule,
-    SharedModule,
+    // SharedModule,
     GoogleMapsModule,
     ReactiveFormsModule,
     LocationmanagementPageRoutingModule,

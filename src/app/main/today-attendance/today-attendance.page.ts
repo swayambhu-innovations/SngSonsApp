@@ -11,11 +11,11 @@ import { Position } from "@capacitor/geolocation";
 import { Geolocation } from "@capacitor/geolocation";
 
 @Component({
-  selector: 'app-today-attendance',
-  templateUrl: './today-attendance.component.html',
-  styleUrls: ['./today-attendance.component.scss'],
+  selector: "app-today-attendance",
+  templateUrl: "./today-attendance.page.html",
+  styleUrls: ["./today-attendance.page.scss"],
 })
-export class TodayAttendanceComponent  implements OnInit {
+export class TodayAttendancePage implements OnInit {
   constructor(
     private locationService: LocationService,
     private notificationService: NotificationService,

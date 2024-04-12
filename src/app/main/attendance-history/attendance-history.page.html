@@ -1,0 +1,109 @@
+<ion-content [fullscreen]="true">
+  <div class="header">
+    <div class="header_detail">
+      <img
+        src="assets/attendance-history/back_arrow.svg"
+        alt=""
+        (click)="goback()"
+      />
+      <span>
+        <h5>Attendance History</h5>
+        <p>
+          {{ empData ? empData.userName : userData?.userName }} • {{ empData ?
+          empData.roleName : userData?.roleName }}
+        </p>
+      </span>
+    </div>
+    <div class="header_buttons">
+      <button>
+        <img src="assets/attendance-history/pdf_icon.svg" alt="" />
+      </button>
+      <button>
+        <img src="assets/attendance-history/excel_icon.svg" alt="" />
+      </button>
+      <button>
+        <img src="assets/attendance-history/refresh_icon.svg" alt="" />
+      </button>
+    </div>
+  </div>
+  <div>
+    <div class="date_range">
+      <pre>
+        Select A
+        Date Range</pre
+      >
+
+      <div class="range_date_picker">
+        <label for="startDate">
+          <p>{{ formatDate(startDate, 'DD MMM') }}</p>
+          <label class="calendar_label">
+            <input
+              class="size"
+              id="startDate"
+              type="date"
+              onfocus="this.showPicker()"
+              (change)="updateStartDate($event)"
+              [value]="startDate"
+            />
+          </label>
+        </label>
+        <p>-</p>
+        <label for="lastDate">
+          <p>{{ formatDate(lastDate, 'DD MMM') }}</p>
+          <label class="calendar_label">
+            <input
+              class="size"
+              id="lastDate"
+              type="date"
+              onfocus="this.showPicker()"
+              (change)="updateLastDate($event)"
+              [value]="lastDate"
+            />
+          </label>
+        </label>
+        <img src="assets/attendance-history/range_picker.svg" alt="" />
+      </div>
+    </div>
+  </div>
+  <ion-grid>
+    <ion-row class="ion-justify-content-around">
+      <ion-col size="5.5" align="center" class="total_detail">
+        <img src="assets/attendance-history/tick.svg" alt="" />
+        <p class="total_detail_value present">6</p>
+        <p class="total_detail_text">Present</p>
+      </ion-col>
+      <ion-col size="5.5" align="center" class="total_detail">
+        <img src="assets/attendance-history/close.svg" alt="" />
+        <p class="total_detail_value absent">5</p>
+        <p class="total_detail_text">Absent</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid class="custom_grid">
+    <ion-row class="custom_grid_heading">
+      <ion-col size="2">Sl. No.</ion-col>
+      <ion-col size="5">Date</ion-col>
+      <ion-col size="5" class="ion-text-center">Status</ion-col>
+    </ion-row>
+    <ion-row
+      *ngFor="let entry of entries"
+      class="custom-row custom_row_details"
+    >
+      <ion-col size="2">{{ entry['Sl. No.'] }}</ion-col>
+      <ion-col size="5">{{ entry.Date }}</ion-col>
+      <ion-col size="5" class="ion-text-center">
+        <p
+          class="attendance_status"
+          [style.color]="getStatusColor(entry.Status)"
+          [style.border]="'1px solid ' + getStatusColor(entry.Status)"
+        >
+          {{ entry.Status ? 'Present' : 'Absent' }}
+        </p>
+      </ion-col>
+    </ion-row>
+    <ion-row
+      ><ion-col size="12" class="total_day">Total : 8 </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -18,6 +18,8 @@ import { HeadUserBarComponent } from './components/head-user-bar/head-user-bar.c
 import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
 import { LocationmanagementPage } from '../main/locationmanagement/locationmanagement.page';
 import { RecievingVoucherComponent } from './components/recieving-voucher/recieving-voucher.component';
+import { HeaderWithBackComponent } from './components/header-with-back/header-with-back.component';
+
 
 @NgModule({
   declarations: [
@@ -35,9 +37,8 @@ import { RecievingVoucherComponent } from './components/recieving-voucher/reciev
     RecievingVoucherComponent,
     ExpertComponent,
     CustomComponent,
-    LocationmanagementPage
-
- 
+    LocationmanagementPage,
+    HeaderWithBackComponent,
   ],
   imports: [
     CommonModule,
@@ -45,6 +46,7 @@ import { RecievingVoucherComponent } from './components/recieving-voucher/reciev
     IonicModule,
     RouterModule,
     ReactiveFormsModule,
+    
   ],
   exports: [
     FooterComponent,
@@ -62,8 +64,7 @@ import { RecievingVoucherComponent } from './components/recieving-voucher/reciev
     ExpertComponent,
     CustomComponent,
     LocationmanagementPage,
-
-    
+    HeaderWithBackComponent,
   ],
 })
 export class SharedModule {}
