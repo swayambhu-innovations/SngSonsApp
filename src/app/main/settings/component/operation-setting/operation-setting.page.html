@@ -1,0 +1,31 @@
+<ion-content [fullscreen]="true">
+  <app-header-with-back [title]="'Operation Setting'"></app-header-with-back>
+<ion-card >
+ <ion-text class="card-text">Attendance Punch In Time</ion-text><br>
+ <ion-grid>
+  <ion-row>
+    <ion-col> <ion-text class="card-text-details">Start Time </ion-text></ion-col>
+    <ion-col> <ion-img class="history-icon" src="assets/history.svg" alt="history-icon"></ion-img></ion-col>
+  </ion-row>
+</ion-grid>
+<ion-grid>
+  <ion-row>
+    <ion-col> <ion-text class="card-text-details">End Time </ion-text></ion-col>
+    <ion-col> <ion-img class="history-icon" src="assets/history.svg" alt="history-icon"></ion-img></ion-col>
+  </ion-row>
+</ion-grid>
+</ion-card>
+<ion-text class="Employee-header">Employee Locations</ion-text>
+
+<div class="ion-padding-horizontal">
+  <div class="date_range">
+    <span>
+      <p>Total Locations : </p>
+    </span>
+    <div class="range_date_picker" id="open-loc-modal">
+      Add Location
+      <img src="assets\LocationManagement\add-location.svg" alt="" />
+    </div>
+  </div>
+</div>
+</ion-content>
