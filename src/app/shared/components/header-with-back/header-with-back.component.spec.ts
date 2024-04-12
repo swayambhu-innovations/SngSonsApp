@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { TodayAttendanceComponent } from './today-attendance.component';
+import { HeaderWithBackComponent } from './header-with-back.component';
 
-describe('TodayAttendanceComponent', () => {
-  let component: TodayAttendanceComponent;
-  let fixture: ComponentFixture<TodayAttendanceComponent>;
+describe('HeaderWithBackComponent', () => {
+  let component: HeaderWithBackComponent;
+  let fixture: ComponentFixture<HeaderWithBackComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TodayAttendanceComponent ],
+      declarations: [ HeaderWithBackComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TodayAttendanceComponent);
+    fixture = TestBed.createComponent(HeaderWithBackComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

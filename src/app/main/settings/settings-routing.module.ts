@@ -70,7 +70,13 @@ const routes: Routes = [
       import('./component/edit-profile/edit-profile.module').then(
         (m) => m.EditProfileModule
       ),
+  },  {
+    path: 'operation-setting',
+    loadChildren: () => import('./component/operation-setting/operation-setting.module').then( m => m.OperationSettingPageModule)
   },
+
+
+
 ];
 
 @NgModule({

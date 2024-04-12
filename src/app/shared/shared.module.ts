@@ -17,6 +17,8 @@ import { SimpleComponent } from './components/head-user-bar/tabs/simple/simple.c
 import { HeadUserBarComponent } from './components/head-user-bar/head-user-bar.component';
 import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
 import { LocationmanagementPage } from '../main/locationmanagement/locationmanagement.page';
+import { HeaderWithBackComponent } from './components/header-with-back/header-with-back.component';
+
 
 @NgModule({
   declarations: [
@@ -33,9 +35,8 @@ import { LocationmanagementPage } from '../main/locationmanagement/locationmanag
     SimpleComponent,
     ExpertComponent,
     CustomComponent,
-    LocationmanagementPage
-
- 
+    LocationmanagementPage,
+    HeaderWithBackComponent,
   ],
   imports: [
     CommonModule,
@@ -43,6 +44,7 @@ import { LocationmanagementPage } from '../main/locationmanagement/locationmanag
     IonicModule,
     RouterModule,
     ReactiveFormsModule,
+    
   ],
   exports: [
     FooterComponent,
@@ -59,8 +61,7 @@ import { LocationmanagementPage } from '../main/locationmanagement/locationmanag
     ExpertComponent,
     CustomComponent,
     LocationmanagementPage,
-
-    
+    HeaderWithBackComponent,
   ],
 })
 export class SharedModule {}

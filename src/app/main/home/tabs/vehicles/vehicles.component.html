@@ -4,7 +4,7 @@
   <div class="user-info">
     <div class="btn-container">
       <div class="below-btn">
-        <ion-button size="small" shape="round" color="white" class="btns-3">
+        <ion-button size="small" shape="round" color="white" class="btns-3" (click)="navigateToHistoryEmployee()">
           <ion-icon
             style="padding-left: 15px"
             slot="end"
@@ -12,7 +12,7 @@
           ></ion-icon>
           History
         </ion-button>
-        <ion-button shape="round" size="small" class="btns-4">
+        <ion-button shape="round" size="small" class="btns-4"  (click)="navigateToMarkAttendance()">
           Mark Attendance
         </ion-button>
       </div>
