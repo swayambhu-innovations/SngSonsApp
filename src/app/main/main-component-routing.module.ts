@@ -77,10 +77,21 @@ const routes: Routes = [
           ),
       },
     ],
-  },  {
+  },
+  {
     path: 'import-zmm',
     loadChildren: () => import('./import-zmm/import-zmm.module').then( m => m.ImportZmmPageModule)
+  },  {
+    path: 'historyemployee',
+    loadChildren: () => import('./historyemployee/historyemployee.module').then( m => m.HistoryemployeePageModule)
   },
+  {
+    path: 'locationmanagement',
+    loadChildren: () => import('./locationmanagement/locationmanagement.module').then( m => m.LocationmanagementPageModule)
+  },
+
+
+
 
 ];
 
