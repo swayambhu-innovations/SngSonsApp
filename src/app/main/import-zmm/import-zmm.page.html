@@ -45,7 +45,7 @@
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto"
-          >Time of Uploaded of ZSD File :</ion-col
+          >Time of Uploaded of ZMM File :</ion-col
         >
         <ion-col size="auto">10:30 AM</ion-col>
       </ion-row>
@@ -62,7 +62,7 @@
     </ion-grid>
   </ion-card>
 
-  <!-- Recent Added Dispatch -->
+  <!-- Recent Added Recievings -->
   <ion-card class="recent-shipments">
     <ion-grid>
       <ion-row class="head ion-justify-content-between ion-align-items-center">
@@ -82,9 +82,9 @@
       <ion-row
         class="disabled-row ion-justify-content-between ion-align-items-center"
       >
-        <ion-col size="4">Vehicle No</ion-col>
+        <ion-col size="3.5">Vehicle No</ion-col>
         <ion-col size="3">Gate Entry No</ion-col>
-        <ion-col size="5">Supplier Name</ion-col>
+        <ion-col size="5.5">Supplier Name</ion-col>
       </ion-row>
 
       <ion-row
@@ -92,9 +92,9 @@
         *ngFor="let receiving of filteredRecievings; index as i"
         [ngClass]="{ 'd-none': i > 4 }"
       >
-        <ion-col size="4">{{ receiving.vehicleNo }}</ion-col>
+        <ion-col size="3.5">{{ receiving.vehicleNo }}</ion-col>
         <ion-col size="3">{{ receiving.gateEntryNo }}</ion-col>
-        <ion-col size="5">{{ receiving.supplierName }}</ion-col>
+        <ion-col size="5.5">{{ receiving.supplierName }}</ion-col>
       </ion-row>
 
       <!-- <ion-row class="ion-justify-content-end ion-align-items-center">
@@ -132,9 +132,9 @@
       <ion-row
         class="disabled-row ion-justify-content-between ion-align-items-center"
       >
-        <ion-col size="4">Vehicle No</ion-col>
+        <ion-col size="3.5">Vehicle No</ion-col>
         <ion-col size="3">Gate Entry No</ion-col>
-        <ion-col size="5">Supplier Name</ion-col>
+        <ion-col size="5.5">Supplier Name</ion-col>
       </ion-row>
 
       <ion-row
@@ -142,9 +142,9 @@
         *ngFor="let receiving of filteredRecievings; index as i"
         [ngClass]="{ 'd-none': i > 4 }"
       >
-        <ion-col size="4">{{ receiving.vehicleNo }}</ion-col>
+        <ion-col size="3.5">{{ receiving.vehicleNo }}</ion-col>
         <ion-col size="3">{{ receiving.gateEntryNo }}</ion-col>
-        <ion-col size="5">{{ receiving.supplierName }}</ion-col>
+        <ion-col size="5.5">{{ receiving.supplierName }}</ion-col>
       </ion-row>
 
       <!-- <ion-row class="ion-justify-content-end ion-align-items-center">

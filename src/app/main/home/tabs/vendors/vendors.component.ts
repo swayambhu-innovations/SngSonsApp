@@ -4,7 +4,6 @@ import { ExcelUploadService } from 'src/app/utils/excel-upload';
 import { ImportExportService } from 'src/app/main/settings/component/import-export/import-export.service';
 import { NotificationService } from 'src/app/utils/notification';
 import { LoadingController, NavController } from '@ionic/angular';
-import { ShipmentsService } from '../shipments/shipments.service';
 import { Config } from 'src/app/config';
 import { ReceivingsService } from './receivings.service';
 
@@ -21,8 +20,8 @@ export class VendorsComponent implements OnInit {
 
   tableData = [
     { name: 'Receiving ID', key: 'id', size: '3' },
-    { name: 'Vehicle', key: 'WSTown', size: '3' },
-    { name: 'Supplier', key: 'CustomerName', size: '4' },
+    { name: 'Vehicle', key: 'vehicleNo', size: '3' },
+    { name: 'Supplier', key: 'supplierName', size: '4' },
   ];
 
   constructor(

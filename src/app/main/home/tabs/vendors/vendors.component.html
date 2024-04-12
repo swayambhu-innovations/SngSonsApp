@@ -387,11 +387,11 @@
 </ion-modal>
 
 <ng-container *ngIf="homeService.dashBoardSettingFormData?.shipment_Shipment">
-  <app-voucher
+  <app-recieving-voucher
     [heading]="'Recieving Wise Voucher'"
     [search]="'Recievings'"
     [tableData]="tableData"
-  ></app-voucher>
+  ></app-recieving-voucher>
 </ng-container>
 <ng-container *ngIf="homeService.dashBoardSettingFormData?.shipment_Expense">
   <app-bar-graph-table

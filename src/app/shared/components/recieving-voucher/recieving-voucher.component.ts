@@ -14,6 +14,7 @@ import { uniq } from 'lodash';
 import { SharedService } from '../../shared.service';
 import { AutoUnsubscribe } from 'src/app/utils/autoUnsubscriber';
 import { ReceivingVoucherService } from './reciving-voucher.service';
+import { ReceivingsService } from 'src/app/main/home/tabs/vendors/receivings.service';
 
 @AutoUnsubscribe
 @Component({
@@ -25,9 +26,9 @@ export class RecievingVoucherComponent implements OnChanges, OnInit {
   constructor(
     private navCtrl: NavController,
     private loadingController: LoadingController,
-    private shipmentsService: ShipmentsService,
     private receivingVoucherService: ReceivingVoucherService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private receivingService: ReceivingsService
   ) {
     this.sharedService.refresh.subscribe((db) => {
       if (db) {
@@ -53,7 +54,7 @@ export class RecievingVoucherComponent implements OnChanges, OnInit {
   recivingsData: any[] = [];
   filteredReceivings: any[] = [];
   shipmentStatus = ShipmentStatus;
-  vendorData: any = {};
+  supplierData: any = {};
 
   async ionViewDidEnter() {
     if (this.fetchDefault) {
@@ -77,9 +78,9 @@ export class RecievingVoucherComponent implements OnChanges, OnInit {
     }
   }
 
-  openShipmentDetail(shipment: any) {
-    this.navCtrl.navigateForward(`main/shipment/${shipment.id}`, {
-      state: { ...shipment },
+  openRecievingDetail(receiving: any) {
+    this.navCtrl.navigateForward(`main/recieving/${receiving.id}`, {
+      state: { ...receiving },
     });
   }
 
@@ -112,44 +113,26 @@ export class RecievingVoucherComponent implements OnChanges, OnInit {
     if (!this.receivingVoucherService.selectedDate) {
       return;
     }
-    const shipmentData = await this.shipmentsService.getShipmentsByDate(
+    const recievingData = await this.receivingService.getReceivingsByDate(
       this.receivingVoucherService.selectedDate
     );
     this.recivingsData = [];
-    shipmentData.docs.map(async (shipment: any) => {
-      if (!this.vendorData[shipment.data().vendor]) {
-        (
-          await this.shipmentsService.getVendor(
-            shipment.data().vendorData.map((item: any) => {
-              return item.SoldToParty;
-            })
-          )
-        ).docs.map((vendor: any) => {
-          this.vendorData[vendor.id] = { ...vendor.data() };
-        });
-      }
-      const vendors = shipment.data().vendorData.map((item: any) => {
-        return this.vendorData[item.SoldToParty];
+
+    recievingData.docs.map(async (receiving: any) => {
+      const suppliers = receiving.data().supplierData.map((item: any) => {
+        return item;
       });
+
       const data = {
-        ...shipment.data(),
-        CustomerName: uniq(
-          vendors.map((item: any) => {
-            return item?.WSName;
+        ...receiving.data(),
+        id: receiving.id,
+        vehicleNo: uniq(receiving.data()['vehicleNo']),
+        supplierName: uniq(
+          suppliers.map((item: any) => {
+            return item?.supplierName;
           })
         ).join(','),
-        WSTown: uniq(
-          vendors.map((item: any) => {
-            return item?.WSTown;
-          })
-        ).join(','),
-        WSCode: uniq(
-          vendors.map((item: any) => {
-            return item?.WSCode;
-          })
-        ).join(','),
-        vendors,
-        id: shipment.id,
+        suppliers,
       };
       this.recivingsData.push({
         _1: data[this.tableData[0].key],
@@ -169,23 +152,23 @@ export class RecievingVoucherComponent implements OnChanges, OnInit {
           ? this.recivingsData
           : this.data
       ).filter(
-        (shipment: any) =>
-          shipment.CustomerName.toLowerCase().includes(
+        (receiving: any) =>
+          receiving.SupplierName.toLowerCase().includes(
             searchValue.toLowerCase()
           ) ||
-          shipment.ShipmentNumber.toLowerCase().includes(
+          receiving.ShipmentNumber.toLowerCase().includes(
             searchValue.toLowerCase()
           ) ||
-          shipment.TransporterName.toLowerCase().includes(
+          receiving.TransporterName.toLowerCase().includes(
             searchValue.toLowerCase()
           ) ||
-          shipment.Ownership.toLowerCase().includes(
+          receiving.Ownership.toLowerCase().includes(
             searchValue.toLowerCase()
           ) ||
-          shipment.WSCode.toLowerCase().includes(searchValue.toLowerCase()) ||
-          shipment.WSTown.toLowerCase().includes(searchValue.toLowerCase()) ||
-          shipment.status.toLowerCase().includes(searchValue.toLowerCase()) ||
-          shipment.vehicle.toLowerCase().includes(searchValue.toLowerCase())
+          receiving.WSCode.toLowerCase().includes(searchValue.toLowerCase()) ||
+          receiving.WSTown.toLowerCase().includes(searchValue.toLowerCase()) ||
+          receiving.status.toLowerCase().includes(searchValue.toLowerCase()) ||
+          receiving.vehicle.toLowerCase().includes(searchValue.toLowerCase())
       );
     } else
       this.filteredReceivings =

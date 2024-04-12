@@ -106,8 +106,7 @@ export class ImportZmmPage implements OnInit {
   async addZMM(event: any, data: any, formatDate: any, scope: any) {
     data = await scope.importExportService.formatRecieving(data, formatDate);
     event.target.value = '';
-    console.log(data);
-    if (data)
+    if (data.length > 0)
       scope.navCtrl.navigateForward(['/main/import-zmm/file-details'], {
         state: { ZMMdetail: JSON.stringify(data) },
       });

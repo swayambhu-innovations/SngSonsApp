@@ -44,6 +44,8 @@ export const Config = {
     vendorMaster: 'vendor-master',
     role: 'role',
     users: 'users',
+    supplierMaster: 'supplier-master',
+    transporterMaster: 'transporter-master',
     vehiclesCategory: 'vehicles-Category',
     vehicles: 'vehicles',
     shipments: 'shipments',

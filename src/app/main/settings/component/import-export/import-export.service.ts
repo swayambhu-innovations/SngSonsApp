@@ -7,6 +7,7 @@ import {
   deleteDoc,
   doc,
   documentId,
+  getDoc,
   getDocs,
   limit,
   orderBy,
@@ -106,6 +107,76 @@ export class ImportExportService {
 
   getAllVehicles() {
     return getDocs(collectionGroup(this.firestore, Config.collection.vehicles));
+  }
+
+  getTransporter(transporterName: string) {
+    return getDocs(
+      query(
+        collection(this.firestore, Config.collection.transporterMaster),
+        where('transporterName', '==', transporterName)
+      )
+    );
+  }
+
+  async addTransporter(transporterData: any) {
+    const trasnporter = await this.getTransporter(
+      transporterData.transporterName
+    );
+    if (!trasnporter?.docs[0]?.exists()) {
+      const data = {
+        transporterName: transporterData.transporterName,
+        vehicles: [transporterData.vehicleNo],
+      };
+      await addDoc(
+        collection(this.firestore, Config.collection.transporterMaster),
+        { ...data, id: '' }
+      );
+    } else {
+      const data = {
+        transporterName: trasnporter?.docs[0]?.data()['transporterName'],
+        vehicles: [
+          ...trasnporter.docs[0].data()['vehicles'],
+          transporterData.vehicleNo,
+        ],
+      };
+      await updateDoc(
+        doc(
+          this.firestore,
+          Config.collection.transporterMaster,
+          trasnporter.docs[0].id
+        ),
+        { ...data, id: trasnporter.docs[0].id }
+      );
+    }
+  }
+
+  getSuppplier(supplierID: string) {
+    return getDoc(
+      doc(this.firestore, Config.collection.supplierMaster, supplierID)
+    );
+  }
+
+  async addSuppliers(supplierData: any) {
+    const supplier = await this.getSuppplier(supplierData.supplierID);
+    if (!supplier.exists()) {
+      await setDoc(
+        doc(
+          this.firestore,
+          Config.collection.supplierMaster,
+          supplierData.supplierID
+        ),
+        supplierData
+      );
+    } else {
+      await updateDoc(
+        doc(
+          this.firestore,
+          Config.collection.supplierMaster,
+          supplierData.supplierID
+        ),
+        supplierData
+      );
+    }
   }
 
   addVendor(wsCode: any, vendorData: any) {
@@ -336,13 +407,13 @@ export class ImportExportService {
             recievingFromDB[recievingFromDB.length - 1]['expDeliverDate'];
 
           //remove rows with existing delivery id in DB
-          recievingFromDB.map((item) => {
-            item?.products?.map((product: any) => {
-              data = data.filter((recieving: any) => {
-                return !(product.deliveryNo != recieving['DELIVERY']);
-              });
-            });
-          });
+          // recievingFromDB.map((item) => {
+          //   item?.products?.map((product: any) => {
+          //     data = data.filter((recieving: any) => {
+          //       return !(product.deliveryNo != recieving['DELIVERY']);
+          //     });
+          //   });
+          // });
         }
       }
 
@@ -374,6 +445,7 @@ export class ImportExportService {
         let supplierData: any[] = [];
         let productsData: any[] = [];
         let details: any;
+        let totalQty: number = 0;
 
         // grouping according to vehicle no
         allVehicles.map((item: any) => {
@@ -395,6 +467,9 @@ export class ImportExportService {
                 active: true,
                 createdAt: new Date(),
               };
+
+              totalQty += recieving['QTY'];
+
               productsData = [
                 ...productsData,
                 {
@@ -408,15 +483,18 @@ export class ImportExportService {
                 },
               ];
             }
-            vehicleGroup = { ...details, products: [...productsData] };
+            vehicleGroup = {
+              ...details,
+              totalQty: totalQty,
+              products: [...productsData],
+            };
           });
           allRecievingsData = [...allRecievingsData, vehicleGroup];
-          productsData = [];
+          (productsData = []), (totalQty = 0);
         });
 
         // grouping according to supplier ID
         let lastRecieving: any[] = [];
-        let supppliers: any[] = [];
         allVehicles.map((vehicle: any) => {
           allSuppliers.map((supplierNo: any) => {
             allRecievingsData.map((recieving) => {
@@ -466,6 +544,7 @@ export class ImportExportService {
           });
           allRecievingsData[index] = recieving;
         });
+        console.log(allRecievingsData);
       }
     } catch (e) {
       console.log(e);
@@ -601,6 +680,18 @@ export class ImportExportService {
 
     await Promise.all(
       data.map(async (item: any) => {
+        // adding data to transport master
+        await scope.importExportService.addTransporter({
+          transporterName: item.transporterName,
+          vehicleNo: item.vehicleNo,
+        });
+
+        // adding data to supplier master
+        await item.supplierData.map((supplier: any) => {
+          scope.importExportService.addSuppliers(supplier);
+        });
+
+        // adding data to recievings
         await scope.importExportService.addRecievings({
           ...item,
         });
@@ -608,13 +699,11 @@ export class ImportExportService {
       })
     )
       .then(() => {
-        loader.dismiss();
         notification.showSuccess(Config.messages.zmmSuccess);
       })
       .catch((error) => {
         console.log(error);
         notification.showError(Config.messages.errorOccurred);
-        loader.dismiss();
       });
 
     loader.dismiss();
