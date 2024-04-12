@@ -17,7 +17,8 @@ export const Config = {
     pleaseWait: 'Please wait...',
     refresh: 'Fetching Details from DB',
     logginIn: 'Logging you In...',
-    noImport: 'Shipments Already Added...',
+    noImportZSD: 'Shipments Already Added...',
+    noImportZMM: 'Recievings Already Added...',
     logginOut: 'Logging you Out...',
     sentOTP: 'OTP sent on this Number. Please enter OTP',
     sendingOTP: 'Sending OTP...',
@@ -28,7 +29,9 @@ export const Config = {
     smsError: 'OTP could not be sent. Please try Again Later!',
     invalidOTP: 'Invalid OTP',
     zsdSuccess: 'ZSD Uploaded Successfully',
-    zsdInvalid: 'Invalid ZSD',
+    zmmSuccess: 'ZMM Uploaded Successfully',
+    zsdInvalid: 'Invalid ZSD File',
+    zmmInvalid: 'Invalid ZMM File',
     zsdNoData: 'No records to upload',
     zsdInvalidInvoiceNo: 'Invoice already added',
     add2Value: 'Please Add At Least 2 Value',
@@ -48,9 +51,12 @@ export const Config = {
     vendorMaster: 'vendor-master',
     role: 'role',
     users: 'users',
+    supplierMaster: 'supplier-master',
+    transporterMaster: 'transporter-master',
     vehiclesCategory: 'vehicles-Category',
     vehicles: 'vehicles',
     shipments: 'shipments',
+    recievings: 'recievings',
     zsd: 'zsd',
   },
   storage: {
@@ -74,6 +80,7 @@ export const Config = {
   },
   url: {
     dicebear: 'https://api.dicebear.com/7.x/initials/svg?seed=',
-    defaultProfile: 'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697',
+    defaultProfile:
+      'https://ik.imagekit.io/xji6otwwkb/Profile.png?updatedAt=1680849745697',
   },
 };

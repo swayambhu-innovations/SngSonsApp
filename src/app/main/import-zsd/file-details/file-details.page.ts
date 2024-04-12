@@ -34,7 +34,7 @@ export class FileDetailsPage implements OnInit {
       this.correctShipments = JSON.parse(history.state.ZSDdetail);
     }
     if (this.correctShipments.length == 0)
-      this.notification.showError(Config.messages.noImport);
+      this.notification.showError(Config.messages.noImportZSD);
   }
 
   async addZSDinDB() {

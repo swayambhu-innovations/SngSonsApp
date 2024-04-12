@@ -279,9 +279,9 @@
   </ion-card>
 
   <div class="tab-bar">
-    <button shape="round" class="active-btn">
-      <label for="uploadZSD">Select ZSD </label>
-    </button>
+    <ion-button shape="round" class="active-btn">
+      <label for="uploadZSD">Select ZSD File</label>
+    </ion-button>
     <input
       type="file"
       id="uploadZSD"
@@ -289,7 +289,7 @@
       (change)="uploadExcel($event)"
       style="display: none"
     />
-    <button (click)="goBack()" shape="round">Cancel</button>
+    <ion-button (click)="goBack()" shape="round">Suspend</ion-button>
   </div>
 
   <div class="below-space"></div>
