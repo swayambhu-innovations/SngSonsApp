@@ -70,7 +70,13 @@ const routes: Routes = [
       import('./component/edit-profile/edit-profile.module').then(
         (m) => m.EditProfileModule
       ),
-  },  {
+  },
+  {
+    path: 'business-info',
+    loadChildren: () => import('./component/business-info/business-info.module').then( m => m.BusinessInfoPageModule)
+  },
+
+  {
     path: 'operation-setting',
     loadChildren: () => import('./component/operation-setting/operation-setting.module').then( m => m.OperationSettingPageModule)
   },

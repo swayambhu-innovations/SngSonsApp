@@ -8,12 +8,12 @@
     </div>
   </header>
 
-  <section>
+  <section >
     <div class="user-profile">
       <div class="user-avatar">
         <img [src]="displayImage" alt="avatar" />
       </div>
-      <span>
+      <span class="upload_profile ">
         <label for="uploadImg">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -182,14 +182,23 @@
       </ion-item>
 
       <!-- action -->
-      <div class="tab-bar">
+      
+      <!-- <div class="tab-bar">
         <div>
+          
           <ion-button shape="round" type="submit" class="active-btn"
             >Save</ion-button
           >
           <ion-button shape="round" routerLink="/main/settings"
             >Cancel</ion-button
           >
+        </div>
+      </div> -->
+
+      <div align="center">
+        <div class="btn">
+          <button type="submit"  >Save</button>
+          <button class="cancel_button" >Cancel</button>
         </div>
       </div>
     </form>
