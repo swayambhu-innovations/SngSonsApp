@@ -17,6 +17,7 @@ import { SimpleComponent } from './components/head-user-bar/tabs/simple/simple.c
 import { HeadUserBarComponent } from './components/head-user-bar/head-user-bar.component';
 import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
 import { LocationmanagementPage } from '../main/locationmanagement/locationmanagement.page';
+import { RecievingVoucherComponent } from './components/recieving-voucher/recieving-voucher.component';
 
 @NgModule({
   declarations: [
