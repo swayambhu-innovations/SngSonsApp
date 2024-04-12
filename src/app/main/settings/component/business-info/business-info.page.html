@@ -1,0 +1,130 @@
+<ion-content align="center">
+  <header>
+    <div class="header">
+      <div routerLink="/main/settings" class="img">
+        <img src="assets/icon/back-button.svg" alt="" />
+      </div>
+      <div class="head">Business Info</div>
+    </div>
+  </header>
+
+  <form [formGroup]="businessInfoForm">
+    <div class="profile_section">
+      <div class="profile">
+        <img [src]="businessInfoForm.value.img" alt="" />
+      </div>
+
+      <div class="upload_profile">
+        <label for="uploadImg">
+          <svg
+            xmlns="https://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M9.82843 5L7.82843 7H4V19H20V7H16.1716L14.1716 5H9.82843ZM9 3H15L17 5H21C21.5523 5 22 5.44772 22 6V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V6C2 5.44772 2.44772 5 3 5H7L9 3ZM12 18C8.96243 18 6.5 15.5376 6.5 12.5C6.5 9.46243 8.96243 7 12 7C15.0376 7 17.5 9.46243 17.5 12.5C17.5 15.5376 15.0376 18 12 18ZM12 16C13.933 16 15.5 14.433 15.5 12.5C15.5 10.567 13.933 9 12 9C10.067 9 8.5 10.567 8.5 12.5C8.5 14.433 10.067 16 12 16Z"
+              fill="#1540BD"
+            />
+          </svg>
+        </label>
+        <input
+          type="file"
+          (change)="onFileSelected($event)"
+          id="uploadImg"
+          style="display: none"
+        />
+      </div>
+      <p>Admin</p>
+    </div>
+
+    <div class="input_field_section">
+      <label for="businessName" class="label">Business Name*</label><br />
+      <div
+        class="input_field_box"
+        [ngClass]="{'invalid-field': businessInfoForm.controls['businessName'].invalid && businessInfoForm.controls['businessName'].touched}"
+      >
+        <img src="assets/edit-info/user_icon.svg" alt="" />
+        <input
+          class="text_box_width"
+          type="text"
+          placeholder="Business Name"
+          formControlName="businessName"
+          maxlength="50"
+        />
+      </div>
+    </div>
+
+    <div class="input_field_section">
+      <label for="gst" class="label">GST*</label><br />
+      <div
+        class="input_field_box"
+        [ngClass]="{'invalid-field': businessInfoForm.controls['gst'].invalid && businessInfoForm.controls['gst'].touched}"
+      >
+        <img src="assets/edit-info/user_icon.svg" alt="" />
+        <input
+          class="text_box_width"
+          type="text"
+          placeholder=""
+          formControlName="gst"
+          oninput="this.value = this.value.toUpperCase()"
+          onKeyPress="if(this.value.length==15) return false;"
+        />
+      </div>
+    </div>
+
+    <div class="input_field_section">
+      <label for="location" class="label">Storage Depo Address*</label><br />
+      <div class="flex">
+        <div
+          class="input_field_box_sm"
+          [ngClass]="{'invalid-field': businessInfoForm.controls['location'].invalid && businessInfoForm.controls['location'].touched}"
+        >
+          <input
+            class="text_box_width"
+            type="text"
+            placeholder="Search By Name on Google Maps "
+            formControlName="location"
+          />
+        </div>
+        <ion-button>Pick My Location</ion-button>
+      </div>
+    </div>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="5" class="ion-text-start"
+          >Location Radius (meter) :</ion-col
+        >
+        <ion-col></ion-col>
+        <ion-col size="2"
+          ><ion-button (click)="decreaseRadius()">-</ion-button></ion-col
+        >
+        <ion-col size="2.5">
+          <ion-input
+            type="number"
+            placeholder="000"
+            value="{{businessInfoForm.value.radius}}"
+            formControlName="radius"
+          ></ion-input>
+        </ion-col>
+        <ion-col size="2"
+          ><ion-button (click)="increaseRadius()">+</ion-button></ion-col
+        >
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12" class="map"></ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+  <div align="center">
+    <div class="btn">
+      <button (click)="onSubmit()">Submit</button>
+      <button class="cancel_button">Cancel</button>
+    </div>
+  </div>
+  <div class="below-space"></div>
+</ion-content>

@@ -50,6 +50,7 @@ export const Config = {
     labourParty: 'labourParty-Library',
     vendors: 'vendors-Library',
     userPhoto: 'user-photo',
+    businessProfile:'business-profile',
     vehicleDocuments: 'vehicle-Documnets',
     shipment: 'shipment',
   },
