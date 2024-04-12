@@ -44,6 +44,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'recieving/:id',
+        loadChildren: () =>
+          import('./recieving-detail/recieving-detail.module').then(
+            (m) => m.RecievingDetailPageModule
+          ),
+      },
+      {
         path: 'voucher/:id',
         loadChildren: () =>
           import('./generate-voucher/generate-voucher.module').then(
@@ -76,12 +83,16 @@ const routes: Routes = [
             (m) => m.ImportZSDPageModule
           ),
       },
+      {
+        path: 'import-zmm',
+        loadChildren: () =>
+          import('./import-zmm/import-zmm.module').then(
+            (m) => m.ImportZmmPageModule
+          ),
+      },
     ],
   },
   {
-    path: 'import-zmm',
-    loadChildren: () => import('./import-zmm/import-zmm.module').then( m => m.ImportZmmPageModule)
-  },  {
     path: 'historyemployee',
     loadChildren: () => import('./historyemployee/historyemployee.module').then( m => m.HistoryemployeePageModule)
   },

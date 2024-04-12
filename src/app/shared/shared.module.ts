@@ -17,6 +17,7 @@ import { SimpleComponent } from './components/head-user-bar/tabs/simple/simple.c
 import { HeadUserBarComponent } from './components/head-user-bar/head-user-bar.component';
 import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
 import { LocationmanagementPage } from '../main/locationmanagement/locationmanagement.page';
+import { RecievingVoucherComponent } from './components/recieving-voucher/recieving-voucher.component';
 import { HeaderWithBackComponent } from './components/header-with-back/header-with-back.component';
 
 
@@ -33,6 +34,7 @@ import { HeaderWithBackComponent } from './components/header-with-back/header-wi
     HeadUserBarComponent,
     DonutChartComponent,
     SimpleComponent,
+    RecievingVoucherComponent,
     ExpertComponent,
     CustomComponent,
     LocationmanagementPage,
@@ -55,6 +57,7 @@ import { HeaderWithBackComponent } from './components/header-with-back/header-wi
     DayWiseSummaryComponent,
     BarGraphTableComponent,
     AccordionTypeExpensesComponent,
+    RecievingVoucherComponent,
     HeadUserBarComponent,
     DonutChartComponent,
     SimpleComponent,
