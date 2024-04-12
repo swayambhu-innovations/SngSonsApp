@@ -92,6 +92,18 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'historyemployee',
+    loadChildren: () => import('./historyemployee/historyemployee.module').then( m => m.HistoryemployeePageModule)
+  },
+  {
+    path: 'locationmanagement',
+    loadChildren: () => import('./locationmanagement/locationmanagement.module').then( m => m.LocationmanagementPageModule)
+  },
+
+
+
+
 ];
 
 @NgModule({

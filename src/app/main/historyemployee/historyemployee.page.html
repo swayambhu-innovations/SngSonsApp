@@ -1,0 +1,59 @@
+<ion-content>
+    <!-- Header section -->
+    <!-- <app-header-with-back [title]="'Employee History'"></app-header-with-back> -->
+  
+    <div class="user-info-wrapper">
+      <ion-card class="card-1">
+        <ion-grid>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="auto">
+              <div class="upload-text">
+                <span>{{ userData?.userName }}</span>
+                <span>{{ userData?.customID }} • {{ userData?.roleName }}</span>
+              </div>
+            </ion-col>
+            <ion-col size="auto">
+              <ion-button shape="round" routerLink="/main/attendance-history">
+                <span style="color: white; font-size: 10px"> Your History </span>
+  
+                <img
+                  style="padding-left: 10px"
+                  src="assets\images\history-w.svg"
+                />
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+    </div>
+  
+    <!-- Main information section -->
+  
+    <ion-card class="information-section">
+      <ion-grid>
+        <ion-row class="ion-align-items-start">
+          <ion-col size="2"> S.No. </ion-col>
+          <ion-col size="3"> Emp ID </ion-col>
+          <ion-col size="5"> Emp Name </ion-col>
+          <ion-col size="2"> Action </ion-col>
+        </ion-row>
+  
+        <ion-row
+          *ngFor="let employee of allEmpsData; index as i"
+          (click)="navigatetohistory(employee)"
+          class="ion-align-items-start"
+        >
+          <ion-col size="2"> {{i+1}} </ion-col>
+          <ion-col size="3"> {{employee.customID}} </ion-col>
+          <ion-col size="5"> {{employee.userName}} </ion-col>
+          <ion-col size="2">
+            <img src="assets\images\history.svg" />
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  
+      <p style="color: #1540bd; padding-top: 12px; padding-bottom: 15px">
+        Total Employees: {{allEmpsData.length}}
+      </p>
+    </ion-card>
+  </ion-content>

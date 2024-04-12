@@ -1,58 +1,292 @@
-ion-col {
-  color: var(--Text1, #505e86);
+// ion-col {
+//   color: var(--Text1, #505e86);
 
-  ion-card {
-    width: 155px;
-    height: fit-content;
-    box-shadow: 2px 2px 5px 2px rgba(53, 122, 248, 0.1);
+//   ion-card {
+//     width: 155px;
+//     height: fit-content;
+//     box-shadow: 2px 2px 5px 2px rgba(53, 122, 248, 0.1);
 
-    background-color: rgba(255, 255, 255, 0.62);
-    border: 1px solid rgba(206, 211, 241, 0.5);
-    filter: drop-shadow(0px 4px 10px rgba(53, 122, 248, 0.1));
-    border-radius: 16px;
-    padding-top: 10px;
+//     background-color: rgba(255, 255, 255, 0.62);
+//     border: 1px solid rgba(206, 211, 241, 0.5);
+//     filter: drop-shadow(0px 4px 10px rgba(53, 122, 248, 0.1));
+//     border-radius: 16px;
+//     padding-top: 10px;
 
-    #Voucher,
-    #Attached {
-      color: #f2825c;
-      font-size: 20px;
+//     #Voucher,
+//     #Attached {
+//       color: #f2825c;
+//       font-size: 20px;
+//       font-weight: 400;
+//     }
+
+//     #Amount,
+//     #Owned {
+//       color: #29d25f;
+//       font-size: 20px;
+//       font-weight: 400;
+//     }
+
+//     p {
+//       text-align: center;
+//       font-size: 14px;
+//       font-weight: 400;
+//     }
+
+//     ion-row {
+//       ion-col {
+//         font-size: 14px;
+//         font-weight: 400;
+//       }
+
+//       #Attached,
+//       #Owned {
+//         font-size: 14px;
+//         font-weight: 400;
+//       }
+//     }
+//   }
+// }
+
+// @media only screen and (max-width: 400px) {
+//   ion-col {
+//     ion-card {
+//       width: fit-content;
+//       margin: 0;
+//       padding: 10px 7.7px;
+//     }
+//   }
+// }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.below-btn {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.btn-container {
+ 
+  background-color: transparent;
+  padding-bottom: 10px;
+}
+
+.btns-3 {
+  width: 150px;
+  height: 50px;
+  color: #1540bd;
+  border: 1px solid #ced3f1;
+  font-size: 12px;
+  border-radius: 100px;
+  margin-right: 25px;
+  padding: auto;
+  align-items: center;
+}
+.btns-4 {
+  width: 150px;
+  height: 50px;
+  font-size: 10px;
+  --background: #1540bd;
+  --padding-start: 40px;
+  --padding-end: 40px;
+  padding: auto;
+  align-items: center;
+}
+
+.employee-card {
+  display: flex;
+  padding-top: 12px;
+}
+
+p {
+  color: var(--Primary, #1540bd);
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.p-color {
+  color: #9fa7b2;
+  font-size: 14px;
+}
+
+ion-searchbar {
+  --border-radius: 100px;
+  --icon-color: #1540bd;
+  --color: #1540bd;
+  --background: transparent;
+  border: 100px;
+  border-radius: 100px;
+  border: 1px solid #1540bd;
+  padding-left: 0.3%;
+}
+
+.employee-attendance-wrapper {
+  background-color: transparent;
+  border-radius: 13px;
+  margin: 16px;
+
+  .see-more {
+    color: #9fa7b2;
+    font-size: 14px;
+    float: right;
+  }
+}
+.employee-name-wrapper-1 {
+  display: flex;
+  background-color: transparent;
+  justify-content: space-between;
+  padding: 10px 20px 10px 4.5%;
+  border-bottom: 2px solid #e0e8f8;
+}
+
+.pending {
+  --background: white;
+  --color: #9fa7b2;
+  border-color: #9fa7b2;
+  border-radius: 100px;
+  border: 1px solid #9fa7b2;
+  --padding: auto;
+  width: 90px;
+}
+.absent {
+  --background: white;
+  --color: #ea712e;
+  border-radius: 100px;
+  border: 1px solid #ea712e;
+  border-color: #ea712e;
+  --padding: auto;
+  width: 90px;
+}
+.present {
+  --background: #fff;
+  border: 1px solid;
+  border-radius: 100px;
+  width: 90px;
+  -padding: auto;
+}
+
+.searchbar-wrapper {
+  padding-left: 10px;
+  padding-right: 4.5%;
+}
+
+.employee-card-1 {
+  padding-left: 4.5%;
+}
+.employee-card-2 {
+  padding-left: 42.5%;
+}
+
+.model {
+  --background: white;
+  section {
+    padding: 15px;
+  }
+
+  .img {
+    text-align: center;
+    margin-top: 25px;
+
+    .text {
+      color: var(--Primary, #1540bd);
       font-weight: 400;
+      font-size: 20px;
+      margin-top: 10px;
+    }
+  }
+
+  .tab-bar {
+    div {
+      display: flex;
+      justify-content: center;
+      background: rgba(168, 205, 255, 0.29);
+      align-items: center;
+      width: fit-content;
+      height: 56px;
+      padding: 8px;
+      margin-inline: auto;
+      margin-top: 20px;
+      border-radius: 60px;
     }
 
-    #Amount,
-    #Owned {
-      color: #29d25f;
-      font-size: 20px;
-      font-weight: 400;
-    }
-
-    p {
-      text-align: center;
+    ion-button {
+      display: flex;
+      width: fit-content;
       font-size: 14px;
-      font-weight: 400;
+      height: 40px;
+      justify-content: center;
+      align-items: center;
+      --border-radius: 50px;
+      --background: #fff;
+      --color: #1540bd;
+      text-transform: none;
     }
 
-    ion-row {
-      ion-col {
-        font-size: 14px;
-        font-weight: 400;
-      }
-
-      #Attached,
-      #Owned {
-        font-size: 14px;
-        font-weight: 400;
-      }
+    .active-btn {
+      --background: #1540bd !important;
+      --color: #fff !important;
+      margin-right: 10px;
     }
   }
 }
 
-@media only screen and (max-width: 400px) {
-  ion-col {
-    ion-card {
-      width: fit-content;
-      margin: 0;
-      padding: 10px 7.7px;
+ion-modal {
+  --border-radius: 24px 24px 0px 0px;
+
+  .logout-block {
+    width: 100%;
+    height: 320px;
+  }
+}
+
+.organizationSetting {
+  width: 96vw;
+  margin: 5px auto;
+  text-align: center;
+  .text {
+    color: var(--Primary, #1540bd);
+    font-family: NATS;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: -0.22px;
+  }
+  .fontFormat {
+    color: var(--Text1, #505e86);
+    text-align: right;
+    font-family: "Merge One";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  .margin-right {
+    margin-right: 20px;
+  }
+  ion-grid {
+    margin-top: 40px;
+    ion-row {
+      border-bottom: 1px solid #e0e8f8;
+      padding: 7px 0px 10px 0px;
+    }
+    ion-col {
+      display: flex;
+      align-items: center;
+    }
+    ion-button {
+      padding: 4px;
+      --border-radius: 50px;
+      --background: var(--Primary, #1540bd);
+      color: var(--Text2, #fff);
+      font-family: "Merge One";
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
     }
   }
 }

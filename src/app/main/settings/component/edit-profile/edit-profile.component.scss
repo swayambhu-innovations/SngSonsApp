@@ -48,7 +48,17 @@
   .user-profile {
     display: flex;
     justify-content: center;
-    align-items: baseline;
+    align-items: baseline; 
+    width: max-content;
+    position: relative;
+    margin: auto;
+
+    .upload_profile {
+      position: absolute;
+      left: 155px;
+      top: 155px;
+
+    }
 
     .user-avatar {
       width: 180px;
@@ -156,5 +166,28 @@
       --color: #fff !important;
       margin-right: 10px;
     }
+  }
+}
+
+.btn {
+  width: 226px;
+  padding: 8px;
+  border-radius: 60px;
+  background: rgba(168, 205, 255, 0.29);
+  backdrop-filter: blur(15px);
+  margin: 5% 0% 5% 0%;
+  display: flex;
+  gap: 7px;
+
+  button {
+    width: 100px;
+    height: 40px;
+    border-radius: 50px;
+    background: var(--Primary, #1540bd);
+    color: white;
+  }
+  .cancel_button {
+    background: white;
+    color: #1540bd;
   }
 }

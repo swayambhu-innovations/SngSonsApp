@@ -7,7 +7,7 @@
         <div class="user-avatar">
           <img [src]="displayImage" alt="avatar" />
         </div>
-        <span>
+        <span class="upload_profile">
           <label for="uploadImg">
             <svg
               xmlns="https://www.w3.org/2000/svg"
@@ -41,6 +41,21 @@
       </ion-button>
 
       <ion-card class="ion-padding ion-margin-top">
+        <p routerLink="">
+          <svg
+            xmlns="https://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 22 22"
+            fill="none"
+          >
+            <path
+              d="M1.83398 16.5H8.25065V18.3333H1.83398V16.5ZM1.83398 10.0833H10.084V11.9167H1.83398V10.0833ZM1.83398 3.66667H20.1673V5.50001H1.83398V3.66667ZM18.9518 11.9397L20.0116 11.5812L20.9282 13.1688L20.0885 13.9068C20.1402 14.1521 20.1673 14.4062 20.1673 14.6667C20.1673 14.9272 20.1402 15.1813 20.0885 15.4265L20.9282 16.1645L20.0116 17.7522L18.9518 17.3937C18.5755 17.7321 18.1289 17.9937 17.6365 18.154L17.4173 19.25H15.584L15.3648 18.154C14.8724 17.9937 14.4258 17.7321 14.0495 17.3937L12.9897 17.7522L12.0731 16.1645L12.9128 15.4265C12.8611 15.1813 12.834 14.9272 12.834 14.6667C12.834 14.4062 12.8611 14.1521 12.9128 13.9068L12.0731 13.1688L12.9897 11.5812L14.0495 11.9397C14.4258 11.6012 14.8724 11.3396 15.3648 11.1793L15.584 10.0833H17.4173L17.6365 11.1793C18.1289 11.3396 18.5755 11.6012 18.9518 11.9397ZM16.5007 16.5C17.5132 16.5 18.334 15.6792 18.334 14.6667C18.334 13.6541 17.5132 12.8333 16.5007 12.8333C15.4881 12.8333 14.6673 13.6541 14.6673 14.6667C14.6673 15.6792 15.4881 16.5 16.5007 16.5Z"
+              fill="#1540BD"
+            />
+          </svg>
+          Operation Settings
+        </p>
         <p routerLink="/main/settings/form-settings">
           <svg
             xmlns="https://www.w3.org/2000/svg"
@@ -57,7 +72,23 @@
           Form Settings
         </p>
 
-        <p routerLink="/main/settings/vendor-master">
+        <p routerLink="/main/settings/business-info">
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 22 22"
+            fill="none"
+            xmlns="https://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1.83398 18.3333H20.1673V20.1667H1.83398V18.3333ZM3.66732 11H5.50065V17.4167H3.66732V11ZM8.25065 11H10.084V17.4167H8.25065V11ZM11.9173 11H13.7507V17.4167H11.9173V11ZM16.5007 11H18.334V17.4167H16.5007V11ZM1.83398 6.41668L11.0007 1.83334L20.1673 6.41668V10.0833H1.83398V6.41668ZM3.66732 7.54974V8.25001H18.334V7.54974L11.0007 3.88307L3.66732 7.54974ZM11.0007 7.33334C10.4944 7.33334 10.084 6.92293 10.084 6.41668C10.084 5.91042 10.4944 5.50001 11.0007 5.50001C11.5069 5.50001 11.9173 5.91042 11.9173 6.41668C11.9173 6.92293 11.5069 7.33334 11.0007 7.33334Z"
+              fill="#1540BD"
+            />
+          </svg>
+          Business info
+        </p>
+
+        <!-- <p routerLink="/main/settings/vendor-master">
           <svg
             xmlns="https://www.w3.org/2000/svg"
             width="22"
@@ -103,7 +134,7 @@
             />
           </svg>
           Labour Master
-        </p>
+        </p> -->
 
         <p routerLink="/main/settings/import-export">
           <svg
@@ -121,7 +152,7 @@
           Import & Export
         </p>
 
-        <p routerLink="/main/settings/user-permission">
+        <!-- <p routerLink="/main/settings/user-permission">
           <svg
             width="22"
             height="22"
@@ -151,7 +182,7 @@
             />
           </svg>
           Account Expense
-        </p>
+        </p> -->
 
         <p (click)="showLogout = true">
           <svg
@@ -187,14 +218,11 @@
           <img src="assets/icon/log-out-key.svg" alt="" />
           <p class="text">You Will Be Logged Out</p>
         </div>
-        <div class="tab-bar">
-          <div>
-            <ion-button shape="round" (click)="logout()" class="active-btn"
-              >Logout</ion-button
-            >
-            <ion-button shape="round" (click)="showLogout = false"
-              >Cancel</ion-button
-            >
+
+        <div align="center">
+          <div class="btn">
+            <button (click)="logout()" >Logout</button>
+            <button class="cancel_button" (click)="showLogout = false">Cancel</button>
           </div>
         </div>
       </section>

@@ -1,0 +1,59 @@
+ion-card {
+    margin-left: 15px;
+    margin-right:15px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.62);
+  
+    ion-col {
+      color: var(--Primary, #1540bd);
+      font-size: 16px;
+      font-weight: 500;
+    }
+  
+    #data {
+      ion-col {
+        color: var(--Text1, #505e86);
+        font-size: 14px;
+        font-weight: 400;
+        display: flex;
+        align-items: center;
+  
+        .circle {
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          margin-right: 5px;
+        }
+        .dispatch {
+          background: #dbe5f7;
+        }
+        .post-delivery {
+          background: #aacbff;
+        }
+        .completed {
+          background: #1540bd;
+        }
+        .suspended {
+          background: #243873;
+        }
+      }
+    }
+  }
+  
+  .donut-chart {
+    padding: 0 70px 10px;
+    margin-top: 0.75rem;
+  
+    .stats {
+      position: fixed;
+      top: 83%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+  
+      .total {
+        font-size: 20px;
+        color: #1540bd;
+      }
+    }
+  }
+  

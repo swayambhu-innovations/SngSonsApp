@@ -2,6 +2,10 @@ export const Config = {
   formSettingVariable: {
     PostDlvPendingForm: 'post-dlv-pending-form',
     VoucherPendingForm: 'voucher-pending-form',
+    attendance:"attendance",
+    organization: "organization",
+    users: "users",
+    areas: "areas",
   },
   messages: {
     addedSuccessfully: 'Added Successfully',
@@ -34,6 +38,9 @@ export const Config = {
     fillAllExpenses: 'Please fill all the expenses',
     fillAllFields: 'Please fill all the fields',
     invalidAmount: 'Amount is not between defined limit ',
+    markingAttendance: "Marking your Attendance...",
+    markAttendance: "Attendance marked as Present",
+    locationNotFound: "You are off Premises... Please go to your Workplace",
   },
   collection: {
     account: 'account',
@@ -56,6 +63,7 @@ export const Config = {
     labourParty: 'labourParty-Library',
     vendors: 'vendors-Library',
     userPhoto: 'user-photo',
+    businessProfile:'business-profile',
     vehicleDocuments: 'vehicle-Documnets',
     shipment: 'shipment',
   },

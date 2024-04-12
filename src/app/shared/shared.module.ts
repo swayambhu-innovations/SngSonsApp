@@ -15,7 +15,8 @@ import { CustomComponent } from './components/head-user-bar/tabs/custom/custom.c
 import { ExpertComponent } from './components/head-user-bar/tabs/expert/expert.component';
 import { SimpleComponent } from './components/head-user-bar/tabs/simple/simple.component';
 import { HeadUserBarComponent } from './components/head-user-bar/head-user-bar.component';
-import { RecievingVoucherComponent } from './components/recieving-voucher/recieving-voucher.component';
+import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
+import { LocationmanagementPage } from '../main/locationmanagement/locationmanagement.page';
 
 @NgModule({
   declarations: [
@@ -28,10 +29,14 @@ import { RecievingVoucherComponent } from './components/recieving-voucher/reciev
     BarGraphTableComponent,
     AccordionTypeExpensesComponent,
     HeadUserBarComponent,
+    DonutChartComponent,
     SimpleComponent,
     RecievingVoucherComponent,
     ExpertComponent,
     CustomComponent,
+    LocationmanagementPage
+
+ 
   ],
   imports: [
     CommonModule,
@@ -51,9 +56,13 @@ import { RecievingVoucherComponent } from './components/recieving-voucher/reciev
     AccordionTypeExpensesComponent,
     RecievingVoucherComponent,
     HeadUserBarComponent,
+    DonutChartComponent,
     SimpleComponent,
     ExpertComponent,
     CustomComponent,
+    LocationmanagementPage,
+
+    
   ],
 })
 export class SharedModule {}

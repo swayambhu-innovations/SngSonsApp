@@ -1,63 +1,78 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
+}
+.vendor-container {
+  --background: linear-gradient(
+    180deg,
+    #d5e6ff -8.94%,
+    #fff 27.36%,
+    #fff 61.93%,
+    #c9deff 101.69%
+  );
+  --padding-top: 15px;
+  --padding-bottom: 15px;
+  --padding-start: 15px;
+  --padding-end: 15px;
+}
+
+.container {
+  background-color: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(206, 211, 241, 0.5);
+  filter: drop-shadow(0px 4px 10px rgba(53, 122, 248, 0.1));
+  padding: 11px;
+  border-radius: 15px;
+  margin-top: 15px;
+
+  .text {
+    color: var(--Primary, #1540bd);
+    font-size: 16px;
+    font-weight: 400;
   }
-.vendor-container{
-    --background: linear-gradient(180deg, #D5E6FF -8.94%, #FFF 27.36%, #FFF 61.93%, #C9DEFF 101.69%);
-    --padding-top: 15px;
-    --padding-bottom: 15px;
-    --padding-start: 15px;
-    --padding-end: 15px;
-}
 
-.container{
-    background-color: rgba(255, 255, 255, 0.62);
-    border:1px solid rgba(206, 211, 241, 0.50);
-    filter: drop-shadow(0px 4px 10px rgba(53, 122, 248, 0.10));
-    padding: 15px;
-    border-radius: 15px;
-    margin-top: 15px;
+  .import-container {
+    display: flex;
+    justify-content: space-between;
 
-    .text{
-        color: var(--Primary, #1540BD);
-        font-size: 16px;
-        font-weight: 400;
+    .import {
+      width: 48%;
     }
 
-    .import-container{
-        display: flex;
-        justify-content: space-between;
-
-        .import{
-            width: 48%;
-        }
-
-        .export{
-            width: 48%;
-        }
-
+    .export {
+      width: 48%;
     }
+  }
 }
 
-.margin-top-0{
-    margin-top: 0px;
+.margin-top-0 {
+  margin-top: 0px;
 }
 
 ion-button {
-    width: 100%;
-    height: fit-content;
-    color: #1540BD;
-    --background:white;
-    --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
-    --ripple-color: #c9deff;
+  width: 100%;
+  height: fit-content;
+  color: #1540bd;
 
-    --padding-top: 16px;
-    --padding-bottom: 16px;
+  --background: white;
+  --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+  --ripple-color: #c9deff;
 
-    label {
-      cursor: pointer;
+  --padding-top: 3px;
+  --padding-bottom: 3px;
+  color: var(--Primary, #1540bd);
+  text-transform: none;
 
-      svg {
-        margin-left: 6px;
-      }
+
+  font-family: "Merge One";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  label {
+    cursor: pointer;
+
+    svg {
+      margin-left: 6px;
     }
   }
+}
