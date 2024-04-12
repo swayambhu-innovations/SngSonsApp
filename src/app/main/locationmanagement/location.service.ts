@@ -24,7 +24,7 @@ import { Config } from "src/app/config";
 })
 export class LocationService {
   currentLocation: Subject<Position> = new Subject<Position>();
-  // currentPosition: google.maps.LatLngLiteral;
+  currentPosition: google.maps.LatLngLiteral | undefined;
   isValidMarker: boolean = false;
   constructor(public firestore: Firestore, private platform: Platform) {}
 

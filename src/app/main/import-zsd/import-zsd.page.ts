@@ -88,7 +88,7 @@ export class ImportZSDPage implements OnInit {
       scope.navCtrl.navigateForward(['/main/import-zsd/file-details'], {
         state: { ZSDdetail: JSON.stringify(data) },
       });
-    else scope.notification.showError(Config.messages.noImport);
+    else scope.notification.showError(Config.messages.noImportZSD);
   }
 
   goBack() {

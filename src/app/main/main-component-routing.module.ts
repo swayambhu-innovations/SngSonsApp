@@ -44,6 +44,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'recieving/:id',
+        loadChildren: () =>
+          import('./recieving-detail/recieving-detail.module').then(
+            (m) => m.RecievingDetailPageModule
+          ),
+      },
+      {
         path: 'voucher/:id',
         loadChildren: () =>
           import('./generate-voucher/generate-voucher.module').then(
@@ -76,18 +83,30 @@ const routes: Routes = [
             (m) => m.ImportZSDPageModule
           ),
       },
+      {
+        path: 'import-zmm',
+        loadChildren: () =>
+          import('./import-zmm/import-zmm.module').then(
+            (m) => m.ImportZmmPageModule
+          ),
+      },
     ],
   },
   {
-    path: 'import-zmm',
-    loadChildren: () => import('./import-zmm/import-zmm.module').then( m => m.ImportZmmPageModule)
-  },  {
     path: 'historyemployee',
     loadChildren: () => import('./historyemployee/historyemployee.module').then( m => m.HistoryemployeePageModule)
   },
   {
     path: 'locationmanagement',
     loadChildren: () => import('./locationmanagement/locationmanagement.module').then( m => m.LocationmanagementPageModule)
+  },
+  {
+    path: 'attendance-history',
+    loadChildren: () => import('./attendance-history/attendance-history.module').then( m => m.AttendanceHistoryPageModule)
+  },
+  {
+    path: 'today-attendance',
+    loadChildren: () => import('./today-attendance/today-attendance.module').then( m => m.TodayAttendancePageModule)
   },
 
 

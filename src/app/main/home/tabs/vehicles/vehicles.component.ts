@@ -133,11 +133,11 @@ async getAllEmps() {
 }
 
 navigateToHistoryEmployee() {
-  this.navCtrl.navigateForward("/main/history");
+  this.navCtrl.navigateForward("/main/historyemployee");
 }
 
 navigateToMarkAttendance() {
-  this.navCtrl.navigateForward("/main/mark-attendance");
+  this.navCtrl.navigateForward("/main/today-attendance");
 }
 
 searchEmps(e: any) {

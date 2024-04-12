@@ -63,7 +63,6 @@ export class ShipmentsService {
     const endDate = new Date(date2);
     endDate.setHours(23, 59, 59);
 
-    console.log(date1)
     return getDocs(
       query(
         collectionGroup(this.firestore, Config.collection.shipments),
