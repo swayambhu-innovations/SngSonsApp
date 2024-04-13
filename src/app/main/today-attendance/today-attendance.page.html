@@ -66,31 +66,18 @@
         <ion-col>08:45 AM</ion-col>
         <ion-col>05:15 PM</ion-col>
         <ion-col>
-          <p
-            *ngIf="isMarked(entry.phone)"
-            class="attendance_status"
-            [style.color]="getStatusColor(entry.phone)"
-            [style.border]="'1px solid ' + getStatusColor(entry.phone)"
-          >
-            {{ isPresent(entry.phone) }}
-          </p>
-          <div
-          *ngIf="!isMarked(entry.phone)"
-          class="mark_attendance_btn"
-          
-          >
+         
+          <div class="mark_attendance_btn"  [style.border]="'1px solid ' + getStatusColor(entry.phone)" >
             <ion-select
               class="custom-select"
               aria-label="mark attendance"
               placeholder="Mark Attendance"
               (ionChange)="markEmployeeAttendance($event, entry.phone)"
+              [style.color]="getStatusColor(entry.phone)"
+              value="{{isPresent(entry.phone)}}"
             >
-              <ion-select-option value="true"
-                >Marked Present</ion-select-option
-              >
-              <ion-select-option value="false"
-                >Marked Absent</ion-select-option
-              >
+              <ion-select-option value="true">Marked Present</ion-select-option>
+              <ion-select-option value="false">Marked Absent</ion-select-option>
             </ion-select>
           </div>
         </ion-col>
