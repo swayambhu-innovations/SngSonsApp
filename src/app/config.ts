@@ -40,7 +40,7 @@ export const Config = {
     invalidAmount: 'Amount is not between defined limit ',
     markingAttendance: "Marking your Attendance...",
     markAttendance: "Attendance marked as Present",
-    markAbsent:"Attendance marked as Present",
+    markAbsent:"Attendance marked as Absent",
     locationNotFound: "You are off Premises... Please go to your Workplace",
   },
   collection: {
