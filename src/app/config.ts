@@ -59,6 +59,7 @@ export const Config = {
     shipments: 'shipments',
     recievings: 'recievings',
     zsd: 'zsd',
+    zmm: 'zmm',
   },
   storage: {
     labourParty: 'labourParty-Library',

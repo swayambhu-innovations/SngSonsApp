@@ -3,11 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { LoadingController, NavController } from '@ionic/angular';
 import { Config } from 'src/app/config';
 import { formatDate } from 'src/app/utils/date-util';
-import { ShipmentStatus } from 'src/app/utils/enum';
-import { ShipmentsService } from '../home/tabs/shipments/shipments.service';
+import { RecievingStatus } from 'src/app/utils/enum';
 import { NotificationService } from 'src/app/utils/notification';
-import { ShipmentDetailService } from '../shipment-detail/shipment-detail.service';
 import { HomeService } from '../home/home.service';
+import { ReceivingsService } from '../home/tabs/vendors/receivings.service';
+import { RecievingDetailService } from './recieving-detail.service';
 
 @Component({
   selector: 'app-recieving-detail',
@@ -19,19 +19,23 @@ export class RecievingDetailPage implements OnInit {
   isPDF: boolean = false;
   isExcel: boolean = false;
   loader: any;
-  shipmentDetails: any = {};
+  recievingDetails: any = {};
   formatDate = formatDate;
   config = Config;
   showConfirm = false;
-  shipmentStatus = ShipmentStatus;
+  recievingStatus = RecievingStatus;
   isSuspended = false;
+  dispatchDate: any;
+  expDeliveryDate: any;
+  gateEntryDate: any;
+
   constructor(
     private navCtrl: NavController,
     private route: ActivatedRoute,
-    private shipmentService: ShipmentsService,
+    private recievingsService: ReceivingsService,
     private loadingController: LoadingController,
     private notification: NotificationService,
-    private shipmentDetailService: ShipmentDetailService,
+    private recievingDetailService: RecievingDetailService,
     public homeService: HomeService
   ) {}
 
@@ -40,21 +44,24 @@ export class RecievingDetailPage implements OnInit {
       message: Config.messages.pleaseWait,
     });
     this.id = this.route.snapshot.paramMap.get('id');
-    this.getShipmentDetails();
+    this.getRecievingDetails();
   }
 
   async ngOnInit() {}
 
   async openFillVoucherPage() {
-    if (!this.shipmentDetails.voucher) {
+    if (!this.recievingDetails.voucher) {
       this.loader.present();
-      const voucherNo = await this.shipmentService.updVoucherNumber();
-      await this.shipmentService.updVoucherNumberInShipment(this.id, voucherNo);
+      const voucherNo = await this.recievingsService.updVoucherNumber();
+      await this.recievingsService.updVoucherNumberInRecieving(
+        this.id,
+        voucherNo
+      );
       this.loader.dismiss();
     }
-    this.navCtrl.navigateForward(`main/voucher/${this.id}`, {
-      state: { id: this.id },
-    });
+    // this.navCtrl.navigateForward(`main/zmm-voucher/${this.id}`, {
+    //   state: { id: this.id },
+    // });
   }
 
   openFillDeliveryPage() {
@@ -72,7 +79,7 @@ export class RecievingDetailPage implements OnInit {
   }
 
   get totalExpense() {
-    const data = this.shipmentDetails?.voucherData;
+    const data = this.recievingDetails?.voucherData;
     if (!data) {
       return 0;
     }
@@ -87,28 +94,43 @@ export class RecievingDetailPage implements OnInit {
     );
   }
 
-  async getShipmentDetails() {
+  async getRecievingDetails() {
     this.loader.present();
-    (await this.shipmentService.getShipmentsById(this.id)).docs.map(
-      async (shipment: any) => {
-        const shipmentData = {
-          ...shipment.data(),
-          id: shipment.id,
-          vendor: [],
+    (await this.recievingsService.getRecievingsById(this.id)).docs.map(
+      async (recieving: any) => {
+        const recievingData = {
+          ...recieving.data(),
+          id: recieving.id,
+          supplier: [],
         };
-        this.shipmentDetails = await this.shipmentDetailService.formatShipment(
-          shipmentData
-        );
+        this.recievingDetails =
+          await this.recievingDetailService.formatReceiving(recievingData);
+
+        this.dispatchDate = new Date(
+          parseInt(this.recievingDetails?.dispatchDate)
+        ).toDateString();
+
+        this.expDeliveryDate = new Date(
+          parseInt(this.recievingDetails?.expDeliverDate)
+        ).toDateString();
+
+        this.gateEntryDate = new Date(
+          parseInt(this.recievingDetails?.gateEntryDate)
+        ).toDateString();
       }
     );
+
     this.loader.dismiss();
   }
 
   async suspend(confirmation: any) {
     if (confirmation) {
       this.loader.present();
-      this.shipmentService.updShipmentStatus(this.id, ShipmentStatus.Suspended);
-      this.shipmentDetails.status = ShipmentStatus.Suspended;
+      this.recievingsService.updRecievingStatus(
+        this.id,
+        RecievingStatus.Suspended
+      );
+      this.recievingDetails.status = RecievingStatus.Suspended;
       this.loader.dismiss();
       this.notification.showSuccess(this.config.messages.updatedSuccessfully);
     }

@@ -20,7 +20,7 @@ import { isEmpty, groupBy } from 'lodash';
 import { Config } from 'src/app/config';
 import { ShipmentsService } from 'src/app/main/home/tabs/shipments/shipments.service';
 import { ShipmentDetailPage } from 'src/app/main/shipment-detail/shipment-detail.page';
-import { ShipmentStatus } from 'src/app/utils/enum';
+import { RecievingStatus, ShipmentStatus } from 'src/app/utils/enum';
 import { NotificationService } from 'src/app/utils/notification';
 
 @Injectable({
@@ -41,8 +41,26 @@ export class ImportExportService {
     return getDocs(collection(this.firestore, Config.collection.shipments));
   }
 
+  getZSD() {
+    return getDocs(
+      query(
+        collection(this.firestore, Config.collection.zsd),
+        where(documentId(), '!=', 'voucher')
+      )
+    );
+  }
+
   getRecievings() {
     return getDocs(collection(this.firestore, Config.collection.recievings));
+  }
+
+  getZMM() {
+    return getDocs(
+      query(
+        collection(this.firestore, Config.collection.zmm),
+        where(documentId(), '!=', 'voucher')
+      )
+    );
   }
 
   async addShipment(shipmentData: any) {
@@ -199,7 +217,20 @@ export class ImportExportService {
     );
   }
 
-  formatShipment = async (data: any, formatDate: any) => {
+  async addFiles(fileDetails: any, isZSD: boolean) {
+    if (isZSD)
+      await setDoc(
+        doc(this.firestore, Config.collection.zsd, fileDetails.fileName),
+        fileDetails
+      );
+    else
+      await setDoc(
+        doc(this.firestore, Config.collection.zmm, fileDetails.fileName),
+        fileDetails
+      );
+  }
+
+  formatShipment = async (data: any, fileData: any, formatDate: any) => {
     const shipmentsFromDB: any[] = []; // fetch shipments from DB
     let allShipmentsData: any[] = []; // store all shipments
     try {
@@ -365,6 +396,9 @@ export class ImportExportService {
           vendorData: [...vendorData],
         });
       });
+
+      // storing File metadata
+      this.addFiles(fileData, true);
     } catch (e) {
       console.log(e);
       this.notification.showError(Config.messages.zsdInvalid);
@@ -373,7 +407,7 @@ export class ImportExportService {
     return allShipmentsData;
   };
 
-  formatRecieving = async (data: any, formatDate: any) => {
+  formatRecieving = async (data: any, fileData: any, formatDate: any) => {
     let vehicleGroup: any; // store all vehicles by group got from ZMM
     let supplierGroup: any; // store all suppliers by group got from ZMM
     const recievingFromDB: any[] = []; // fetch recievings from DB
@@ -466,6 +500,7 @@ export class ImportExportService {
                 storageLocation: recieving['Storage Location'],
                 active: true,
                 createdAt: new Date(),
+                status: RecievingStatus.Pending,
               };
 
               totalQty += recieving['QTY'];
@@ -544,8 +579,10 @@ export class ImportExportService {
           });
           allRecievingsData[index] = recieving;
         });
-        console.log(allRecievingsData);
       }
+
+      // storing File metadata
+      this.addFiles(fileData, false);
     } catch (e) {
       console.log(e);
       this.notification.showError(Config.messages.zmmInvalid);

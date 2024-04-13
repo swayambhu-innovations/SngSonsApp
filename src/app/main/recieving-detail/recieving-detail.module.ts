@@ -6,8 +6,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { RecievingDetailPageRoutingModule } from './recieving-detail-routing.module';
 
-import { RecievingDetailPage } from './recieving-detail.page';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { RecievingDetailPage } from './recieving-detail.page';
 
 @NgModule({
   imports: [

@@ -57,7 +57,7 @@ export class ReceivingsService {
     }
   }
 
-  getShipmentsByDateRange(date1: string, date2: string, status?: string[]) {
+  getRecievingsByDateRange(date1: string, date2: string, status?: string[]) {
     const startDate = new Date(date1);
     startDate.setHours(0, 0, 0);
     const endDate = new Date(date2);
@@ -73,15 +73,59 @@ export class ReceivingsService {
     );
   }
 
-  getAllShipments() {
+  getAllRecievings() {
     return getDocs(
       query(collectionGroup(this.firestore, Config.collection.recievings))
     );
   }
 
-  getSuppliers(supplierID: string) {
+  getRecievingsById(recievingID: string) {
     return getDocs(
-      collection(this.firestore, Config.collection.supplierMaster, supplierID)
+      query(
+        collection(this.firestore, Config.collection.recievings),
+        where(documentId(), '==', recievingID)
+      )
+    );
+  }
+
+  getSuppliers(supplierID: string) {
+    return getDoc(
+      doc(this.firestore, Config.collection.supplierMaster, supplierID)
+    );
+  }
+
+  updRecievingStatus(recievingID: string, status: string) {
+    updateDoc(doc(this.firestore, Config.collection.recievings, recievingID), {
+      status,
+    });
+  }
+
+  async updVoucherNumber() {
+    await updateDoc(doc(this.firestore, Config.collection.zmm, 'voucher'), {
+      id: increment(1),
+    });
+    const data: any = await this.getVoucherNumber();
+    return data.id;
+  }
+
+  async getVoucherNumber() {
+    const data = await getDoc(
+      doc(this.firestore, Config.collection.zmm, 'voucher')
+    );
+    return data.data();
+  }
+
+  async updVoucherNumberInRecieving(recievingID: string, voucher: string) {
+    await updateDoc(
+      doc(this.firestore, Config.collection.recievings, recievingID),
+      { voucher }
+    );
+  }
+
+  async updRecievingVoucher(recievingID: string, data: any) {
+    await updateDoc(
+      doc(this.firestore, Config.collection.recievings, recievingID),
+      { ...data }
     );
   }
 }

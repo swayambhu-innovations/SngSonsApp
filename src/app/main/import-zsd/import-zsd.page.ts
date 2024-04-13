@@ -26,20 +26,58 @@ export class ImportZSDPage implements OnInit {
   loader: any;
   loader2: any;
   tableData: any[] = [];
+  fileDetails: any[] = [];
   filteredShipments: any[] = [];
   shipmentsData: any[] = [];
   shipmentStatus = ShipmentStatus;
+  fileCreationDate: any;
 
   async ngOnInit() {
     this.loader = await this.loadingController.create({
       message: Config.messages.pleaseWait,
     });
     this.loader.present();
+    this.getAllFiles();
     this.getShipments();
     this.loader.dismiss();
   }
 
+  async getAllFiles() {
+    this.filteredShipments = [];
+    await this.importExportService.getZSD().then((dataDB) => {
+      if (dataDB)
+        dataDB.docs.map((item: any) => this.fileDetails.push(item.data()));
+    });
+    if (this.fileDetails.length > 0) {
+      this.fileDetails.sort((a: any, b: any) =>
+        a['createdAt'] < b['createdAt']
+          ? 1
+          : b['createdAt'] < a['createdAt']
+          ? -1
+          : 0
+      );
+
+      this.fileDetails.map((file: any) => {
+        this.fileCreationDate = new Date(
+          parseInt(file?.createdAt)
+        ).toDateString();
+
+        this.filteredShipments = [
+          ...this.filteredShipments,
+          {
+            createdAt: this.fileCreationDate,
+            fileName: file?.fileName,
+            user: file?.user,
+            userImage: file?.userImage,
+          },
+        ];
+      });
+    }
+    this.fileDetails = this.filteredShipments;
+  }
+
   async getShipments() {
+    this.filteredShipments = [];
     await this.importExportService.getShipments().then((dataDB) => {
       if (dataDB)
         dataDB.docs.map((item: any) => this.shipmentsData.push(item.data()));
@@ -81,8 +119,18 @@ export class ImportZSDPage implements OnInit {
     this.loader.dismiss();
   }
 
-  async addZSD(event: any, data: any, formatDate: any, scope: any) {
-    data = await scope.importExportService.formatShipment(data, formatDate);
+  async addZSD(
+    event: any,
+    data: any,
+    fileData: any,
+    formatDate: any,
+    scope: any
+  ) {
+    data = await scope.importExportService.formatShipment(
+      data,
+      fileData,
+      formatDate
+    );
     event.target.value = '';
     if (data.length > 0)
       scope.navCtrl.navigateForward(['/main/import-zsd/file-details'], {
