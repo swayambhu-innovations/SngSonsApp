@@ -19,9 +19,9 @@ export class VendorsComponent implements OnInit {
   loader2: any;
 
   tableData = [
-    { name: 'Receiving ID', key: 'id', size: '3' },
+    { name: 'Receiving ID', key: 'id', size: '4' },
     { name: 'Vehicle', key: 'vehicleNo', size: '3' },
-    { name: 'Supplier', key: 'supplierName', size: '4' },
+    { name: 'Supplier', key: 'supplierName', size: '3' },
   ];
 
   constructor(

@@ -90,28 +90,43 @@ const routes: Routes = [
             (m) => m.ImportZmmPageModule
           ),
       },
+      {
+        path: 'historyemployee',
+        loadChildren: () =>
+          import('./historyemployee/historyemployee.module').then(
+            (m) => m.HistoryemployeePageModule
+          ),
+      },
+      {
+        path: 'locationmanagement',
+        loadChildren: () =>
+          import('./locationmanagement/locationmanagement.module').then(
+            (m) => m.LocationmanagementPageModule
+          ),
+      },
+      {
+        path: 'attendance-history',
+        loadChildren: () =>
+          import('./attendance-history/attendance-history.module').then(
+            (m) => m.AttendanceHistoryPageModule
+          ),
+      },
+      {
+        path: 'today-attendance',
+        loadChildren: () =>
+          import('./today-attendance/today-attendance.module').then(
+            (m) => m.TodayAttendancePageModule
+          ),
+      },
+      {
+        path: 'zmm-voucher/:id',
+        loadChildren: () =>
+          import('./generate-zmm-voucher/generate-zmm-voucher.module').then(
+            (m) => m.GenerateZmmVoucherPageModule
+          ),
+      },
     ],
   },
-  {
-    path: 'historyemployee',
-    loadChildren: () => import('./historyemployee/historyemployee.module').then( m => m.HistoryemployeePageModule)
-  },
-  {
-    path: 'locationmanagement',
-    loadChildren: () => import('./locationmanagement/locationmanagement.module').then( m => m.LocationmanagementPageModule)
-  },
-  {
-    path: 'attendance-history',
-    loadChildren: () => import('./attendance-history/attendance-history.module').then( m => m.AttendanceHistoryPageModule)
-  },
-  {
-    path: 'today-attendance',
-    loadChildren: () => import('./today-attendance/today-attendance.module').then( m => m.TodayAttendancePageModule)
-  },
-
-
-
-
 ];
 
 @NgModule({

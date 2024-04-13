@@ -123,17 +123,19 @@ export class RecievingVoucherComponent implements OnChanges, OnInit {
         return item;
       });
 
+
       const data = {
         ...receiving.data(),
         id: receiving.id,
-        vehicleNo: uniq(receiving.data()['vehicleNo']),
         supplierName: uniq(
           suppliers.map((item: any) => {
             return item?.supplierName;
           })
-        ).join(','),
+        ).join(', '),
         suppliers,
       };
+
+
       this.recivingsData.push({
         _1: data[this.tableData[0].key],
         _2: data[this.tableData[1].key],

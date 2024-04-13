@@ -26,8 +26,10 @@ export class ImportZmmPage implements OnInit {
   loader: any;
   loader2: any;
   tableData: any[] = [];
+  fileDetails: any[] = [];
   filteredRecievings: any[] = [];
   recievingsData: any[] = [];
+  fileCreationDate: any;
   shipmentStatus = ShipmentStatus;
 
   async ngOnInit() {
@@ -35,11 +37,48 @@ export class ImportZmmPage implements OnInit {
       message: Config.messages.pleaseWait,
     });
     this.loader.present();
+    this.getAllFiles();
     this.getAllRecievings();
     this.loader.dismiss();
   }
 
+  async getAllFiles() {
+    this.filteredRecievings = [];
+    await this.importExportService.getZMM().then((dataDB) => {
+      if (dataDB)
+        dataDB.docs.map((item: any) => this.fileDetails.push(item.data()));
+    });
+    if (this.fileDetails.length > 0) {
+      this.fileDetails.sort((a: any, b: any) =>
+        a['createdAt'] < b['createdAt']
+          ? 1
+          : b['createdAt'] < a['createdAt']
+          ? -1
+          : 0
+      );
+
+      this.fileDetails.map((file: any) => {
+        this.fileCreationDate = new Date(
+          parseInt(file?.createdAt)
+        ).toDateString();
+
+        this.filteredRecievings = [
+          ...this.filteredRecievings,
+          {
+            createdAt: this.fileCreationDate,
+            fileName: file?.fileName,
+            user: file?.user,
+            userImage: file?.userImage,
+          },
+        ];
+      });
+    }
+
+    this.fileDetails = this.filteredRecievings;
+  }
+
   async getAllRecievings() {
+    this.filteredRecievings = [];
     await this.importExportService.getRecievings().then((dataDB) => {
       if (dataDB)
         dataDB.docs.map((item: any) => this.recievingsData.push(item.data()));
@@ -103,8 +142,18 @@ export class ImportZmmPage implements OnInit {
     this.loader.dismiss();
   }
 
-  async addZMM(event: any, data: any, formatDate: any, scope: any) {
-    data = await scope.importExportService.formatRecieving(data, formatDate);
+  async addZMM(
+    event: any,
+    data: any,
+    fileData: any,
+    formatDate: any,
+    scope: any
+  ) {
+    data = await scope.importExportService.formatRecieving(
+      data,
+      fileData,
+      formatDate
+    );
     event.target.value = '';
     if (data.length > 0)
       scope.navCtrl.navigateForward(['/main/import-zmm/file-details'], {
