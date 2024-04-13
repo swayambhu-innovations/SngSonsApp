@@ -1,19 +1,19 @@
-import { Component, OnInit } from "@angular/core";
-import { LoadingController, NavController, Platform } from "@ionic/angular";
-import * as moment from "moment";
-import { Config } from "src/app/config";
-import { UtilService } from "src/app/utils/util";
-import { TodayAttendanceService } from "./today-attendance.service";
-import { NotificationService } from "src/app/utils/notification";
-import { LocationService } from "../locationmanagement/location.service";
-import { firstValueFrom, Subject } from "rxjs";
-import { Position } from "@capacitor/geolocation";
-import { Geolocation } from "@capacitor/geolocation";
+import { Component, OnInit } from '@angular/core';
+import { LoadingController, NavController, Platform } from '@ionic/angular';
+import * as moment from 'moment';
+import { Config } from 'src/app/config';
+import { UtilService } from 'src/app/utils/util';
+import { TodayAttendanceService } from './today-attendance.service';
+import { NotificationService } from 'src/app/utils/notification';
+import { LocationService } from '../locationmanagement/location.service';
+import { firstValueFrom, Subject } from 'rxjs';
+import { Position } from '@capacitor/geolocation';
+import { Geolocation } from '@capacitor/geolocation';
 
 @Component({
-  selector: "app-today-attendance",
-  templateUrl: "./today-attendance.page.html",
-  styleUrls: ["./today-attendance.page.scss"],
+  selector: 'app-today-attendance',
+  templateUrl: './today-attendance.page.html',
+  styleUrls: ['./today-attendance.page.scss'],
 })
 export class TodayAttendancePage implements OnInit {
   constructor(
@@ -35,13 +35,14 @@ export class TodayAttendancePage implements OnInit {
   attendanceMap: { [key: string]: { id: string; present: boolean } } = {};
   presentCount = 0;
   absentCount = 0;
-  startDate: Date = moment(new Date()).startOf("month").toDate();
-  lastDate: Date = moment(new Date()).startOf("month").toDate();
+  startDate: Date = moment(new Date()).startOf('month').toDate();
+  lastDate: Date = moment(new Date()).startOf('month').toDate();
 
   async ngOnInit() {
     this.loader = await this.loadingController.create({
       message: Config.messages.markingAttendance,
     });
+    this.loader.present();
     const data: any = this.utilService.getUserdata();
     this.userData = data?.access;
     this.getArea();
@@ -69,6 +70,7 @@ export class TodayAttendancePage implements OnInit {
 
     this.getUserList();
     this.getAttendance();
+    this.loader.dismiss();
   }
 
   async getUserList() {
@@ -79,6 +81,8 @@ export class TodayAttendancePage implements OnInit {
     });
   }
   async getAttendance() {
+    this.presentCount = 0;
+    this.absentCount = 0;
     const currentDate = new Date();
     const todayDate = currentDate.getDate().toString();
 
@@ -104,13 +108,19 @@ export class TodayAttendancePage implements OnInit {
     return this.attendanceMap.hasOwnProperty(userId);
   }
   isPresent(userId: any) {
-    return this.attendanceMap[userId].present
-      ? "Marked Present"
-      : "Marked Absent";
+    if (!this.attendanceMap.hasOwnProperty(userId)) {
+      return '';
+    } else {
+      return this.attendanceMap[userId].present ? 'true' : 'false';
+    }
   }
 
-  getStatusColor(userId: any): string {
-    return this.attendanceMap[userId].present ? "#29D25F" : "#EA712E";
+  getStatusColor(userId: any): String {
+    if (!this.attendanceMap.hasOwnProperty(userId)) {
+      return '#1540BD';
+    } else {
+      return this.attendanceMap[userId].present ? '#29D25F' : '#EA712E';
+    }
   }
 
   updateStartDate(e: any) {
@@ -125,23 +135,22 @@ export class TodayAttendancePage implements OnInit {
   }
 
   async markEmployeeAttendance(event: CustomEvent, userId: number) {
-    if (event.detail.value == "true") {
-      await this.TodayAttendanceService.markEmployeeAttendance(userId, {
-        id: userId.toString(),
-        present: true,
-      });
-      this.attendanceMap[userId] = { id: userId.toString(), present: true };
-      this.presentCount++;
-      this.notificationService.showSuccess(Config.messages.markAttendance);
-    } else {
-      await this.TodayAttendanceService.markEmployeeAttendance(userId, {
-        id: userId.toString(),
-        present: false,
-      });
-      this.attendanceMap[userId] = { id: userId.toString(), present: false };
-      this.absentCount++;
-    }
-    this.loader.dismiss();
+    await this.TodayAttendanceService.markEmployeeAttendance(userId, {
+      offPremises: 10,
+      present: event.detail.value == 'true' ? true : false,
+    });
+    this.attendanceMap[userId] = {
+      id: userId.toString(),
+      present: event.detail.value == 'true' ? true : false,
+    };
+
+    this.notificationService.showSuccess(
+      event.detail.value == 'true'
+        ? Config.messages.markAttendance
+        : Config.messages.markAbsent
+    );
+
+    this.getAttendance();
   }
 
   async getArea() {
@@ -153,7 +162,7 @@ export class TodayAttendancePage implements OnInit {
   // geo-fencing
   async getLocation() {
     let loader = await this.loadingController.create({
-      message: "Getting location...",
+      message: 'Getting location...',
     });
     loader.present();
     const isValid = this.locationService.setPointerOutside(
