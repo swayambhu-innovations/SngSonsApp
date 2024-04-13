@@ -5,8 +5,8 @@
             <p class="text">
                 ZSD Excel File
             </p>
-            <div class="import-container">
-                <div class="import">
+            <div class="import-container" >
+                <div class="import" routerLink="/main/import-zsd">
                     <ion-button shape="round">
                         <label for="uploadZSD">
                           Import
@@ -15,7 +15,7 @@
                             </svg>
                         </label>
                       </ion-button>
-                      <input type="file" id="uploadZSD" style="display: none" (change)="excelUploadService.parseExcel($event, addZSD, this)" accept=".xlsx, .xls, .csv"/>
+                      <!-- <input type="file" id="uploadZSD" style="display: none" (change)="excelUploadService.parseExcel($event, addZSD, this)" accept=".xlsx, .xls, .csv"/> -->
                 </div>
                 <div class="export">
                     <ion-button shape="round">
@@ -37,8 +37,8 @@
             <p class="text">
                 ZMM Excel File
             </p>
-            <div class="import-container">
-                <div class="import">
+            <div class="import-container" >
+                <div class="import" routerLink="/main/import-zmm">
                     <ion-button shape="round">
                         <label for="uploadZMM">
                           Import
@@ -47,7 +47,7 @@
                             </svg>
                         </label>
                       </ion-button>
-                      <input type="file" id="uploadZZM" style="display: none"  />
+                      <!-- <input type="file" id="uploadZZM" style="display: none"  /> -->
                 </div>
                 <div class="export">
                     <ion-button shape="round">
