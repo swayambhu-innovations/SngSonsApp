@@ -59,9 +59,9 @@ export class RecievingDetailPage implements OnInit {
       );
       this.loader.dismiss();
     }
-    this.navCtrl.navigateForward(`main/zmm-voucher/${this.id}`, {
-      state: { id: this.id },
-    });
+    // this.navCtrl.navigateForward(`main/zmm-voucher/${this.id}`, {
+    //   state: { id: this.id },
+    // });
   }
 
   openFillDeliveryPage() {
