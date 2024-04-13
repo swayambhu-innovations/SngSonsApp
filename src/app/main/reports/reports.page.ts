@@ -14,6 +14,9 @@ export class ReportsPage implements OnInit {
     { accounts: 'Account Wise Payment Report' },
     { shipments: 'Shipments Wise Expenses Report' },
     { labor: 'Labour Party Wise Expenses Report' },
+    { supplier: 'Supplier Wise Report' },
+    { receiving: 'Attendance Wise Reports' },
+    
   ];
   id: string = '';
 
