@@ -154,5 +154,36 @@ ion-content {
 }
 
 .tab-bar {
-  margin: 20px auto !important;
+  width: calc(100% - 20px);
+
+  div {
+    display: flex;
+    justify-content: center;
+    background: rgba(168, 205, 255, 0.29);
+    align-items: center;
+    width: fit-content;
+    height: 56px;
+    padding: 8px;
+    margin-inline: auto;
+    margin-top: 20px;
+    border-radius: 60px;
+  }
+
+  ion-button {
+    display: flex;
+    width: fit-content;
+    font-size: 14px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    --border-radius: 50px;
+    --background: #fff;
+    --color: #1540bd;
+  }
+
+  .active-btn {
+    --background: #1540bd !important;
+    --color: #fff !important;
+    margin-right: 10px;
+  }
 }

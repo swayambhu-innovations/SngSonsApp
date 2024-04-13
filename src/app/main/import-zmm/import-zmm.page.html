@@ -132,19 +132,19 @@
       <ion-row
         class="disabled-row ion-justify-content-between ion-align-items-center"
       >
-        <ion-col size="3.5">Vehicle No</ion-col>
-        <ion-col size="3">Gate Entry No</ion-col>
-        <ion-col size="5.5">Supplier Name</ion-col>
+        <ion-col size="5">File Name</ion-col>
+        <ion-col size="4">Date of Upload</ion-col>
+        <ion-col size="2.5">User</ion-col>
       </ion-row>
 
       <ion-row
         class="ion-justify-content-between ion-align-items-center"
-        *ngFor="let receiving of filteredRecievings; index as i"
+        *ngFor="let file of fileDetails; index as i"
         [ngClass]="{ 'd-none': i > 4 }"
       >
-        <ion-col size="3.5">{{ receiving.vehicleNo }}</ion-col>
-        <ion-col size="3">{{ receiving.gateEntryNo }}</ion-col>
-        <ion-col size="5.5">{{ receiving.supplierName }}</ion-col>
+        <ion-col size="5">{{ file.fileName }}</ion-col>
+        <ion-col size="4">{{ file.createdAt }}</ion-col>
+        <ion-col size="2.5">{{ file.user }}</ion-col>
       </ion-row>
 
       <!-- <ion-row class="ion-justify-content-end ion-align-items-center">
