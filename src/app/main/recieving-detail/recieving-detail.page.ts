@@ -29,11 +29,12 @@ export class RecievingDetailPage implements OnInit {
     public homeService: HomeService
   ) {}
 
-  labourForm: FormGroup = new FormGroup({
-    labourPartyName: new FormControl('', [Validators.required]),
-    paymentDispenseLimits: new FormControl('', [Validators.required]),
-    paymentAcc: new FormControl(null, [Validators.required]),
-    labourProfileImg: new FormControl(),
+  vehicleForm: FormGroup = new FormGroup({
+    driverName: new FormControl('', [Validators.required]),
+    driveMblNo: new FormControl('', [Validators.required]),
+    driverProfileImg: new FormControl(''),
+    vehicleFrontImg: new FormControl(''),
+    vehiclePlateImg: new FormControl(''),
     active: new FormControl(true, []),
     createdAt: new FormControl(new Date(), []),
     id: new FormControl(''),
@@ -43,6 +44,7 @@ export class RecievingDetailPage implements OnInit {
   isPDF: boolean = false;
   isExcel: boolean = false;
   loader: any;
+  isFormValid: boolean = false;
   recievingDetails: any = {};
   formatDate = formatDate;
   config = Config;
@@ -75,7 +77,7 @@ export class RecievingDetailPage implements OnInit {
   async ngOnInit() {}
 
   closeModal() {
-    this.labourForm.reset();
+    this.vehicleForm.reset();
     this.isGateEntry = false;
   }
 
@@ -113,12 +115,17 @@ export class RecievingDetailPage implements OnInit {
         `vehicles/${this.recievingDetails?.vehicleNo}/${imgType}`,
         'Vehicle Detail Images'
       );
-
       this.previewImages[imgType] = url;
     }
 
-    this.loader.dismiss();
+    if (
+      this.previewImages['driverFace'] != '' &&
+      this.previewImages['vehicleFront'] != '' &&
+      this.previewImages['vehicleNumberPlate'] != ''
+    )
+      this.isFormValid = true;
 
+    this.loader.dismiss();
     this.isGateEntry = true;
   };
 
@@ -126,24 +133,9 @@ export class RecievingDetailPage implements OnInit {
     this.previewImages[imgType] = '';
   };
 
-  async openFillVoucherPage() {
-    // if (!this.recievingDetails.voucher) {
-    //   this.loader.present();
-    //   const voucherNo = await this.recievingsService.updVoucherNumber();
-    //   await this.recievingsService.updVoucherNumberInRecieving(
-    //     this.id,
-    //     voucherNo
-    //   );
-    //   this.loader.dismiss();
-    // }
-    // this.navCtrl.navigateForward(`main/zmm-voucher/${this.id}`, {
-    //   state: { id: this.id },
-    // });
-    this.isGateEntry = true;
-  }
-
-  openFillDeliveryPage() {
-    this.navCtrl.navigateForward(`main/voucher/post-delivery/${this.id}`, {
+  openFillVoucherPage() {
+    console.log(this.recievingDetails);
+    this.navCtrl.navigateForward(`main/zmm-voucher/${this.id}`, {
       state: { id: this.id },
     });
   }
@@ -202,10 +194,47 @@ export class RecievingDetailPage implements OnInit {
   }
 
   async onSubmit() {
-    if (this.labourForm.invalid) {
-      this.labourForm.markAllAsTouched();
+    if (this.vehicleForm.invalid) {
+      this.vehicleForm.markAllAsTouched();
+      this.notification.showError(Config.messages.fillAllFields);
       return;
     }
+
+    if (this.vehicleForm.controls['driveMblNo'].value.length < 10) {
+      this.vehicleForm.controls['driveMblNo'].markAsTouched();
+      this.notification.showError(Config.messages.fillAllFields);
+      return;
+    }
+
+    if (
+      this.previewImages['driverFace'] == '' ||
+      this.previewImages['vehicleFront'] == '' ||
+      this.previewImages['vehicleNumberPlate'] == ''
+    ) {
+      this.notification.showError(Config.messages.fillAllImages);
+      return;
+    }
+
+    this.vehicleForm.patchValue({
+      driverProfileImg: this.previewImages['driverFace'],
+      vehicleFrontImg: this.previewImages['vehicleFront'],
+      vehiclePlateImg: this.previewImages['vehicleNumberPlate'],
+    });
+
+    this.recievingDetails = {
+      ...this.recievingDetails,
+      status: RecievingStatus.VehicleArrived,
+      vehicleDetails: { ...this.vehicleForm.value },
+    };
+
+    await this.recievingDetailService.updRecieving(
+      this.id,
+      this.recievingDetails
+    );
+
+    this.isGateEntry = false;
+    this.notification.showSuccess(this.config.messages.savedSuccessfully);
+    this.getRecievingDetails();
   }
 
   async suspend(confirmation: any) {
