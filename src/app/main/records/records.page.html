@@ -1,0 +1,46 @@
+<ion-content class="wrapper-home" [fullscreen]="true">
+  <div align="center" class="head ion-padding">
+    <app-head-user-bar [isHome]="true"></app-head-user-bar>
+    <div class="tab-array ion-padding-vertical">
+      <ion-button
+        (click)="changeTab('parties')"
+        [ngClass]="{ active: tabStatus.parties }"
+        shape="none"
+      >
+        parties
+      </ion-button>
+
+      <ion-button
+        (click)="changeTab('hr')"
+        [ngClass]="{ active: tabStatus.hr }"
+        shape="none"
+      >
+        hr
+      </ion-button>
+
+      <ion-button
+        (click)="changeTab('assets')"
+        [ngClass]="{ active: tabStatus.assets }"
+        shape="none"
+      >
+        assets
+      </ion-button>
+
+      <ion-button
+        (click)="changeTab('accounts')"
+        [ngClass]="{ active: tabStatus.accounts }"
+        shape="none"
+      >
+        accounts
+      </ion-button>
+    </div>
+  </div>
+
+  <div align="center" class="ion-padding-vertical">
+    <app-parties *ngIf="tabStatus.parties"></app-parties>
+    <app-hr *ngIf="tabStatus.hr"></app-hr>
+    <app-assets *ngIf="tabStatus.assets"></app-assets>
+    <app-accounts *ngIf="tabStatus.accounts"></app-accounts>
+  </div>
+  <div class="below-space"></div>
+</ion-content>

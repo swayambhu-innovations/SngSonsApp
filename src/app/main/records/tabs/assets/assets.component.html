@@ -1,0 +1,25 @@
+<div align="center" class="head">
+  <div class="tab-array">
+    <ion-button
+      (click)="changeTab('vehicles')"
+      [ngClass]="{ active: tabStatus.vehicles }"
+      shape="round"
+    >
+      vehicles
+    </ion-button>
+
+    <ion-button
+      (click)="changeTab('site')"
+      [ngClass]="{ active: tabStatus.site }"
+      shape="round"
+    >
+      site
+    </ion-button>
+  </div>
+</div>
+
+<div align="center" class="ion-padding-vertical">
+  <!-- <app-vendors *ngIf="tabStatus.vendors"></app-vendors>
+  <app-suppliers *ngIf="tabStatus.suppliers"></app-suppliers> -->
+</div>
+<div class="below-space"></div>

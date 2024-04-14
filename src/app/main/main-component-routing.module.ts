@@ -125,6 +125,11 @@ const routes: Routes = [
             (m) => m.GenerateZmmVoucherPageModule
           ),
       },
+      {
+        path: 'records',
+        loadChildren: () =>
+          import('./records/records.module').then((m) => m.RecordsPageModule),
+      },
     ],
   },
 ];

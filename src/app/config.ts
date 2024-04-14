@@ -67,6 +67,7 @@ export const Config = {
   storage: {
     labourParty: 'labourParty-Library',
     vendors: 'vendors-Library',
+    suppliers: 'suppliers-Library',
     userPhoto: 'user-photo',
     businessProfile: 'business-profile',
     vehicleDocuments: 'vehicle-Documnets',

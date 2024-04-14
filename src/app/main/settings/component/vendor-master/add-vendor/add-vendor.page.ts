@@ -86,9 +86,9 @@ export class AddVendorPage implements OnInit {
   }
 
   goBack() {
-    this.navCtrl.navigateForward(['main/settings/vendor-master']);
     this.vendorForm.reset();
     this.removePic();
+    this.navCtrl.back();
   }
 
   async onSubmit() {

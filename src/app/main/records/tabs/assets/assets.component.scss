@@ -1,0 +1,25 @@
+.head {
+  .tab-array {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    ion-button {
+      width: 99px;
+      height: 38.25px;
+      --color: #1659be;
+      --background: rgba(234f, 243, 255, 0.75);
+      font-size: 12px;
+      font-weight: 400;
+      --border-color: #1659be;
+      --border-style: solid;
+      --border-width: 0.75px;
+
+      &.active {
+        --color: #fff;
+        --background: linear-gradient(266deg, #1540bd 0%, #1786ed 100%);
+        --border-width: 0;
+      }
+    }
+  }
+}

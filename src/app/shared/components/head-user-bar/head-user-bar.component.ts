@@ -52,6 +52,7 @@ export class HeadUserBarComponent implements OnInit {
   @Input() isHome: boolean = false;
   openMode: boolean = false;
   userName: string = '';
+  userAvatar: string = '';
   tabStatus: any = 'simple';
   private loader: any;
   userId = this.util.getUserId();
@@ -135,6 +136,7 @@ export class HeadUserBarComponent implements OnInit {
   getUserName() {
     const data: any = this.utilService.getUserdata();
     this.userName = data?.access?.userName || '';
+    this.userAvatar = data?.access?.photoURL || '';
   }
 
   getDashboardSettingData() {}

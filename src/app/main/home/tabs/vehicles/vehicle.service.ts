@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   Firestore,
   addDoc,
@@ -12,20 +12,20 @@ import {
   setDoc,
   updateDoc,
   where,
-} from "@angular/fire/firestore";
-import { Router } from "@angular/router";
-import { Config } from "src/app/config";
-
+} from '@angular/fire/firestore';
+import { Router } from '@angular/router';
+import { Config } from 'src/app/config';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class VehicleService {
-
-  constructor(public firestore: Firestore, private router: Router) { }
+  constructor(public firestore: Firestore, private router: Router) {}
 
   getUsers() {
-    return getDocs(collection(this.firestore, Config.formSettingVariable.users));
+    return getDocs(
+      collection(this.firestore, Config.formSettingVariable.users)
+    );
   }
 
   currentDate = new Date();
@@ -38,18 +38,18 @@ export class VehicleService {
 
   getAttendance() {
     const monthsArray: any = [
-      "january",
-      "february",
-      "march",
-      "april",
-      "may",
-      "june",
-      "july",
-      "august",
-      "september",
-      "october",
-      "november",
-      "december",
+      'january',
+      'february',
+      'march',
+      'april',
+      'may',
+      'june',
+      'july',
+      'august',
+      'september',
+      'october',
+      'november',
+      'december',
     ];
     return getDocs(
       collection(
@@ -61,13 +61,16 @@ export class VehicleService {
     );
   }
   async getOrganizationDetail(orgID: any) {
-    const docSnap = await getDoc(
-      doc(this.firestore, Config.formSettingVariable.organization, orgID)
-    );
+    let docSnap: any;
+    if (orgID) {
+      docSnap = await getDoc(
+        doc(this.firestore, Config.formSettingVariable.organization, orgID)
+      );
 
-    if (docSnap.exists()) {
-      const docData = docSnap.data();
-      return docData?.["profile"];
+      if (docSnap.exists()) {
+        const docData = docSnap.data();
+        return docData?.['profile'];
+      }
     }
   }
 }

@@ -1,9 +1,9 @@
 <div class="user-bar">
   <div class="user">
-    <img (click)="goHome()" src="../assets/images/logo.png" alt="Logo" />
+    <img (click)="goHome()" [src]="userAvatar" alt="Avatar" />
     <div>
-      <p>Hi, {{ userName }}</p>
-      <p class="sub">2 Min Ago</p>
+      <p>{{ userName }}</p>
+      <p class="sub">Attendance Pending</p>
     </div>
   </div>
   <div class="actions">
