@@ -219,7 +219,7 @@
     <div class="tab-bar">
       <ion-button
         *ngIf="homeService.userAccessData?.fill_shipment_voucher && (recievingDetails.status == recievingStatus.Pending || recievingDetails.status == recievingStatus.Suspended)"
-        (click)="openFillVoucherPage()"
+        (click)="isGateEntry=true"
         shape="round"
         class="active-btn"
         >Make Gate Entry</ion-button
@@ -246,6 +246,162 @@
   ></app-confirmation>
   <div class="below-space"></div>
 </ion-content>
+
+<!-- gate entry modal -->
+
+<ion-modal
+  [canDismiss]="dismissModal"
+  [isOpen]="isGateEntry"
+  [initialBreakpoint]="1"
+  [breakpoints]="[0, 1]"
+  class="model"
+>
+  <ng-template>
+    <section class="fixed-template">
+      <header>
+        <div class="header">
+          <div class="head">Checkin Vehicle</div>
+        </div>
+      </header>
+      <form [formGroup]="labourForm" (ngSubmit)="onSubmit()">
+        <div class="container">
+          <ion-grid>
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col class="col-head" size="auto">Vehicle</ion-col>
+              <ion-col size="auto">{{recievingDetails.vehicleNo}}</ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <ion-item lines="none" class="Variable">
+            <ion-input
+              lines="none"
+              label="Driver's Name"
+              class="custom"
+              required
+              formControlName="labourPartyName"
+              labelPlacement="floating"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item lines="none" class="Variable">
+            <ion-input
+              lines="none"
+              label="Driver's Mobile Number"
+              class="custom"
+              required="true"
+              formControlName="paymentDispenseLimits"
+              labelPlacement="floating"
+            ></ion-input>
+          </ion-item>
+
+          <div class="imgSection">
+            <!-- taking vehicle front photo -->
+            <p class="head1">Vehicle Front Photo</p>
+            <ion-button
+              class="camera"
+              shape="round"
+              *ngIf="previewImages.vehicleFront==''"
+              (click)="takePicture('vehicleFront')"
+            >
+              <span>Open Camera</span>
+              <img src="assets/icon/camera-icon.svg" alt="" />
+            </ion-button>
+            <div *ngIf="previewImages.vehicleFront != ''" class="container1">
+              <img [src]="previewImages.vehicleFront" alt="vehicleFront" />
+              <div class="inner">
+                <img
+                  (click)="takePicture('vehicleFront')"
+                  class="camera-icon"
+                  src="assets/icon/camera-icon.svg"
+                  alt=""
+                />
+                <img
+                  (click)="removePicture('vehicleFront')"
+                  src="assets/icon/enable-delete-button.svg"
+                  class="remove-icon"
+                  alt=""
+                />
+              </div>
+            </div>
+
+            <!-- taking vehicle number plate photo -->
+            <p class="head1">Vehicle Number Plate Photo</p>
+            <ion-button
+              class="camera"
+              shape="round"
+              *ngIf="previewImages.vehicleNumberPlate==''"
+              (click)="takePicture('vehicleNumberPlate')"
+            >
+              <span>Open Camera</span>
+              <img src="assets/icon/camera-icon.svg" alt="" />
+            </ion-button>
+            <div
+              *ngIf="previewImages.vehicleNumberPlate != ''"
+              class="container1"
+            >
+              <img
+                [src]="previewImages.vehicleNumberPlate"
+                alt="vehicleNumberPlate"
+              />
+              <div class="inner">
+                <img
+                  (click)="takePicture('vehicleNumberPlate')"
+                  class="camera-icon"
+                  src="assets/icon/camera-icon.svg"
+                  alt=""
+                />
+                <img
+                  (click)="removePicture('vehicleNumberPlate')"
+                  src="assets/icon/enable-delete-button.svg"
+                  class="remove-icon"
+                  alt=""
+                />
+              </div>
+            </div>
+
+            <!-- taking driver face photo -->
+            <p class="head1">Driver's Face Photo</p>
+            <ion-button
+              class="camera"
+              shape="round"
+              *ngIf="previewImages.driverFace==''"
+              (click)="takePicture('driverFace')"
+            >
+              <span>Open Camera</span>
+              <img src="assets/icon/camera-icon.svg" alt="" />
+            </ion-button>
+            <div *ngIf="previewImages.driverFace != ''" class="container1">
+              <img [src]="previewImages.driverFace" alt="labour-pic-png" />
+              <div class="inner">
+                <img
+                  (click)="takePicture('driverFace')"
+                  class="camera-icon"
+                  src="assets/icon/camera-icon.svg"
+                  alt=""
+                />
+                <img
+                  (click)="removePicture('driverFace')"
+                  src="assets/icon/enable-delete-button.svg"
+                  class="remove-icon"
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-submit-bar">
+          <div>
+            <ion-button shape="round" type="submit" class="active-btn"
+              >Submit</ion-button
+            >
+            <ion-button shape="round" (click)="closeModal()">Cancel</ion-button>
+          </div>
+        </div>
+      </form>
+    </section>
+  </ng-template>
+</ion-modal>
 
 <!-- pdf-export-modal -->
 <ion-modal
@@ -512,7 +668,6 @@
 
 <!-- excel-export-modal -->
 <ion-modal
-  #modal
   [isOpen]="isExcel"
   [canDismiss]="dismissModal"
   [initialBreakpoint]=".65"

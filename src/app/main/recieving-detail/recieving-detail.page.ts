@@ -8,6 +8,9 @@ import { NotificationService } from 'src/app/utils/notification';
 import { HomeService } from '../home/home.service';
 import { ReceivingsService } from '../home/tabs/vendors/receivings.service';
 import { RecievingDetailService } from './recieving-detail.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Camera, CameraSource, CameraResultType } from '@capacitor/camera';
+import { FileService } from 'src/app/shared/file.service';
 
 @Component({
   selector: 'app-recieving-detail',
@@ -15,6 +18,27 @@ import { RecievingDetailService } from './recieving-detail.service';
   styleUrls: ['./recieving-detail.page.scss'],
 })
 export class RecievingDetailPage implements OnInit {
+  constructor(
+    private navCtrl: NavController,
+    private route: ActivatedRoute,
+    private fileService: FileService,
+    private recievingsService: ReceivingsService,
+    private loadingController: LoadingController,
+    private notification: NotificationService,
+    private recievingDetailService: RecievingDetailService,
+    public homeService: HomeService
+  ) {}
+
+  labourForm: FormGroup = new FormGroup({
+    labourPartyName: new FormControl('', [Validators.required]),
+    paymentDispenseLimits: new FormControl('', [Validators.required]),
+    paymentAcc: new FormControl(null, [Validators.required]),
+    labourProfileImg: new FormControl(),
+    active: new FormControl(true, []),
+    createdAt: new FormControl(new Date(), []),
+    id: new FormControl(''),
+  });
+
   id: any;
   isPDF: boolean = false;
   isExcel: boolean = false;
@@ -25,19 +49,20 @@ export class RecievingDetailPage implements OnInit {
   showConfirm = false;
   recievingStatus = RecievingStatus;
   isSuspended = false;
+  isGateEntry = false;
   dispatchDate: any;
   expDeliveryDate: any;
   gateEntryDate: any;
-
-  constructor(
-    private navCtrl: NavController,
-    private route: ActivatedRoute,
-    private recievingsService: ReceivingsService,
-    private loadingController: LoadingController,
-    private notification: NotificationService,
-    private recievingDetailService: RecievingDetailService,
-    public homeService: HomeService
-  ) {}
+  images: any = {
+    vehicleFront: {},
+    vehicleNumberPlate: {},
+    driverFace: {},
+  };
+  previewImages: any = {
+    vehicleFront: '',
+    vehicleNumberPlate: '',
+    driverFace: '',
+  };
 
   async ionViewWillEnter() {
     this.loader = await this.loadingController.create({
@@ -49,19 +74,72 @@ export class RecievingDetailPage implements OnInit {
 
   async ngOnInit() {}
 
-  async openFillVoucherPage() {
-    if (!this.recievingDetails.voucher) {
-      this.loader.present();
-      const voucherNo = await this.recievingsService.updVoucherNumber();
-      await this.recievingsService.updVoucherNumberInRecieving(
-        this.id,
-        voucherNo
+  closeModal() {
+    this.labourForm.reset();
+    this.isGateEntry = false;
+  }
+
+  canDismiss = async () => {
+    this.closeModal();
+    return true;
+  };
+
+  takePicture = async (imgType: any) => {
+    this.isGateEntry = false;
+    this.images[imgType] = {};
+
+    const image = await Camera.getPhoto({
+      quality: 30,
+      allowEditing: false,
+      resultType: CameraResultType.DataUrl,
+      source: CameraSource.Camera,
+      saveToGallery: false,
+    });
+
+    this.loader = await this.loadingController.create({
+      message: Config.messages.proccessImg,
+    });
+    this.loader.present();
+
+    // convert data url to blob
+    if (image.dataUrl) {
+      this.images[imgType] = await this.fileService.convertDataUrlToFile(
+        image.dataUrl,
+        `vehicle_${this.recievingDetails?.vehicleNo}_${imgType}`
       );
-      this.loader.dismiss();
+
+      const url: string = await this.fileService.uploadFile(
+        this.images[imgType],
+        `vehicles/${this.recievingDetails?.vehicleNo}/${imgType}`,
+        'Vehicle Detail Images'
+      );
+
+      this.previewImages[imgType] = url;
     }
+
+    this.loader.dismiss();
+
+    this.isGateEntry = true;
+  };
+
+  removePicture = async (imgType: any) => {
+    this.previewImages[imgType] = '';
+  };
+
+  async openFillVoucherPage() {
+    // if (!this.recievingDetails.voucher) {
+    //   this.loader.present();
+    //   const voucherNo = await this.recievingsService.updVoucherNumber();
+    //   await this.recievingsService.updVoucherNumberInRecieving(
+    //     this.id,
+    //     voucherNo
+    //   );
+    //   this.loader.dismiss();
+    // }
     // this.navCtrl.navigateForward(`main/zmm-voucher/${this.id}`, {
     //   state: { id: this.id },
     // });
+    this.isGateEntry = true;
   }
 
   openFillDeliveryPage() {
@@ -123,6 +201,13 @@ export class RecievingDetailPage implements OnInit {
     this.loader.dismiss();
   }
 
+  async onSubmit() {
+    if (this.labourForm.invalid) {
+      this.labourForm.markAllAsTouched();
+      return;
+    }
+  }
+
   async suspend(confirmation: any) {
     if (confirmation) {
       this.loader.present();
@@ -139,6 +224,7 @@ export class RecievingDetailPage implements OnInit {
 
   dismissModal = async () => {
     this.isSuspended = false;
+    this.isGateEntry = false;
     return true;
   };
 }
