@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
 import { ReceivingsService } from '../home/tabs/vendors/receivings.service';
+import { doc, Firestore, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Config } from 'src/app/config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RecievingDetailService {
-  constructor(private recievingsService: ReceivingsService) {}
+  constructor(
+    private recievingsService: ReceivingsService,
+    public firestore: Firestore
+  ) {}
 
   supplier: SupplierDetails = {
     deliveryNo: [],
@@ -41,6 +46,13 @@ export class RecievingDetailService {
     });
 
     return recievingData;
+  }
+
+  async updRecieving(id: any, data: any) {
+    await updateDoc(
+      doc(this.firestore, Config.collection.recievings, id),
+      data
+    );
   }
 }
 

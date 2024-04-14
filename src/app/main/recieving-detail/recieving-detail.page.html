@@ -92,7 +92,7 @@
     <ion-grid class="ion-margin-bottom">
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col size="auto">
-          <p class="heading overflow">Recieving ID : {{id}}</p>
+          <p class="heading overflow">ID : {{id}}</p>
         </ion-col>
         <ion-col size="auto"
           ><span class="status">{{recievingDetails.status}}</span></ion-col
@@ -226,13 +226,13 @@
       >
       <ion-button
         *ngIf="homeService.userAccessData?.discard_vouchers && recievingDetails.status == recievingStatus.VehicleArrived"
-        (click)="openFillDeliveryPage()"
+        (click)="openFillVoucherPage()"
         shape="round"
         class="active-btn"
-        >Fill Post Dlv.</ion-button
+        >Fill Voucher</ion-button
       >
       <ion-button
-        *ngIf="recievingDetails.status === recievingStatus.Pending"
+        *ngIf="recievingDetails.status === recievingStatus.Pending || recievingDetails.status == recievingStatus.VehicleArrived"
         shape="round"
         (click)="isSuspended=true"
         >Suspend</ion-button
@@ -263,7 +263,7 @@
           <div class="head">Checkin Vehicle</div>
         </div>
       </header>
-      <form [formGroup]="labourForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
         <div class="container">
           <ion-grid>
             <ion-row class="ion-justify-content-between ion-align-items-center">
@@ -278,7 +278,7 @@
               label="Driver's Name"
               class="custom"
               required
-              formControlName="labourPartyName"
+              formControlName="driverName"
               labelPlacement="floating"
             ></ion-input>
           </ion-item>
@@ -288,8 +288,10 @@
               lines="none"
               label="Driver's Mobile Number"
               class="custom"
+              type="number"
+              oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10)"
               required="true"
-              formControlName="paymentDispenseLimits"
+              formControlName="driveMblNo"
               labelPlacement="floating"
             ></ion-input>
           </ion-item>
@@ -392,8 +394,15 @@
 
         <div class="tab-submit-bar">
           <div>
-            <ion-button shape="round" type="submit" class="active-btn"
+            <ion-button
+              *ngIf="isFormValid"
+              shape="round"
+              type="submit"
+              class="active-btn"
               >Submit</ion-button
+            >
+            <ion-button *ngIf="!isFormValid" shape="round" class="deactive-btn"
+              >Enter Details</ion-button
             >
             <ion-button shape="round" (click)="closeModal()">Cancel</ion-button>
           </div>

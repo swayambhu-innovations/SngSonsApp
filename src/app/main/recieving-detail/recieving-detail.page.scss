@@ -246,6 +246,12 @@ ion-content {
       --color: #1540bd;
     }
 
+    .deactive-btn {
+      --color: #fff !important;
+      --background: var(--Secondary, #b1c3cb) !important;
+      margin-right: 10px;
+    }
+
     .active-btn {
       --background: #1540bd !important;
       --color: #fff !important;
@@ -391,7 +397,7 @@ ion-content {
 
 .status {
   display: flex;
-  width: 60px;
+  width: fit-content;
   height: 17px;
   padding: 16px;
   justify-content: center;
@@ -406,7 +412,7 @@ ion-content {
 .overflow,
 .prdouctName {
   text-overflow: ellipsis;
-  width: 13rem !important;
+  width: 9rem !important;
   text-wrap: nowrap;
   overflow: hidden;
 }
