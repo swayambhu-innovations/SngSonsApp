@@ -11,10 +11,9 @@ import { SiteModule } from './tabs/site/site.module';
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
-    SharedModule,
     VehiclesModule,
-    SiteModule,
+    SiteModule, IonicModule,
+    SharedModule,
   ],
   declarations: [AssetsComponent],
   exports: [AssetsComponent],
