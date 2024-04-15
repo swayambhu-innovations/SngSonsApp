@@ -50,7 +50,9 @@
                   alt="avatar"
                 />
               </ion-col>
-              <ion-col size="7" class="text">{{ supplier?.WSName }}</ion-col>
+              <ion-col size="7" class="text">{{
+                supplier?.supplierName
+              }}</ion-col>
               <ion-col size="3" class="action">
                 <ion-col
                   (click)="editDetails($event, supplier)"
@@ -69,6 +71,7 @@
     </ion-grid>
   </div>
 </section>
+
 <section>
   <div class="search-bar">
     <ion-searchbar
@@ -79,6 +82,7 @@
     ></ion-searchbar>
   </div>
 </section>
+
 <section>
   <div
     class="row-data-wrapper-container"
@@ -86,15 +90,13 @@
   >
     <div class="inner-container">
       <div (click)="openDetails($event, Supplier)" class="img">
-        <img [src]="Supplier?.vendorProfileImg" alt="avatar" />
+        <img [src]="Supplier?.supplierProfileImg" alt="avatar" />
       </div>
       <div (click)="openDetails($event, Supplier)" class="data-text">
         <p class="text-name">{{ Supplier?.supplierName }}</p>
         <p class="address">
-          <span class="address-name">{{ Supplier?.WSTown }}</span> |
           <span><img src="assets/icon/notes.svg" alt="icon" /></span
-          ><span class="no">{{ Supplier?.WSCode }}</span> |
-          <span class="price">₹ {{ Supplier?.maxCreditLimit }}</span>
+          ><span class="no">{{ Supplier?.supplierID }}</span>
         </p>
       </div>
       <div class="action-button">

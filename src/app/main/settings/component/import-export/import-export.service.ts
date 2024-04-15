@@ -18,8 +18,6 @@ import {
 } from '@angular/fire/firestore';
 import { isEmpty, groupBy } from 'lodash';
 import { Config } from 'src/app/config';
-import { ShipmentsService } from 'src/app/main/home/tabs/shipments/shipments.service';
-import { ShipmentDetailPage } from 'src/app/main/shipment-detail/shipment-detail.page';
 import { RecievingStatus, ShipmentStatus } from 'src/app/utils/enum';
 import { NotificationService } from 'src/app/utils/notification';
 
@@ -29,8 +27,7 @@ import { NotificationService } from 'src/app/utils/notification';
 export class ImportExportService {
   constructor(
     public firestore: Firestore,
-    private notification: NotificationService,
-    private shipmentService: ShipmentsService
+    private notification: NotificationService
   ) {}
   lastInvInDB: string = '';
   lastExpDelDataInDB: any;
@@ -183,7 +180,7 @@ export class ImportExportService {
           Config.collection.supplierMaster,
           supplierData.supplierID
         ),
-        supplierData
+        { ...supplierData, active: true, createdAt: new Date(), pending: true }
       );
     } else {
       await updateDoc(
@@ -192,7 +189,7 @@ export class ImportExportService {
           Config.collection.supplierMaster,
           supplierData.supplierID
         ),
-        supplierData
+        { ...supplierData, active: true, createdAt: new Date(), pending: true }
       );
     }
   }
@@ -718,10 +715,10 @@ export class ImportExportService {
     await Promise.all(
       data.map(async (item: any) => {
         // adding data to transport master
-        await scope.importExportService.addTransporter({
-          transporterName: item.transporterName,
-          vehicleNo: item.vehicleNo,
-        });
+        // await scope.importExportService.addTransporter({
+        //   transporterName: item.transporterName,
+        //   vehicleNo: item.vehicleNo,
+        // });
 
         // adding data to supplier master
         await item.supplierData.map((supplier: any) => {
