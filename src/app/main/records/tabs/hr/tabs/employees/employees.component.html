@@ -5,8 +5,8 @@
         <p class="text">Add Role</p>
         <p><img src="assets/icon/role-icon.svg" alt="" /></p>
       </div>
-      <div class="role design" (click)="openUser = true">
-        <p class="text">Add User</p>
+      <div class="role design" (click)="navAddEmp()">
+        <p class="text">Add Emp</p>
         <p><img src="assets/icon/user-icon.svg" alt="" /></p>
       </div>
     </div>
@@ -23,7 +23,7 @@
               <ion-row
                 class="ion-justify-content-between ion-align-items-center"
               >
-                <ion-col size="7" class="head">Users</ion-col>
+                <ion-col size="7" class="head">Employees</ion-col>
               </ion-row>
             </ion-label>
           </ion-item>
@@ -44,7 +44,7 @@
             <ion-row class="ion-justify-content-between ion-align-items-center">
               <ion-col size="5" class="text">{{ user.userName }}</ion-col>
               <ion-col size="3" class="type-select drop-down-color">{{
-                roleMapping[user.role].roleName
+                roleMapping[user.role]?.roleName
               }}</ion-col>
               <ion-col size="3" class="action">
                 <ion-col
@@ -148,7 +148,9 @@
 </div>
 <div class="below-space"></div>
 
-<ion-modal
+
+
+<!-- <ion-modal
   #modal
   [canDismiss]="dismissModal"
   [isOpen]="openUser"
@@ -357,7 +359,7 @@
       </div>
     </section>
   </ng-template>
-</ion-modal>
+</ion-modal> -->
 
 <ion-modal
   #modal
@@ -397,7 +399,7 @@
               </div>
               <div class="data-container">
                 <div class="data-name">
-                  <p class="name">Upload New ZSD file</p>
+                  <p class="name">Upload New ZSD File</p>
                 </div>
                 <div class="toggle">
                   <label class="switch">
@@ -429,7 +431,7 @@
               <hr />
               <div class="data-container">
                 <div class="data-name">
-                  <p class="name">Fill post Delivery Form</p>
+                  <p class="name">Fill Post Delivery Form</p>
                 </div>
                 <div class="toggle">
                   <label class="switch">
@@ -445,7 +447,7 @@
               <hr />
               <div class="data-container">
                 <div class="data-name">
-                  <p class="name">Discard Vouchers</p>
+                  <p class="name">Discard ZSD Vouchers</p>
                 </div>
                 <div class="toggle">
                   <label class="switch">
@@ -453,6 +455,71 @@
                       formControlName="discard_vouchers"
                       type="checkbox"
                       [checked]="roleForm.value.discard_vouchers"
+                    />
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+              <hr />
+              <div class="data-container">
+                <div class="data-name">
+                  <p class="name">Upload New ZMM file</p>
+                </div>
+                <div class="toggle">
+                  <label class="switch">
+                    <input
+                      formControlName="upload_new_zmm_file"
+                      type="checkbox"
+                      [checked]="roleForm.value.upload_new_zmm_file"
+                    />
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+              <hr />
+              <div class="data-container">
+                <div class="data-name">
+                  <p class="name">Fill Receiving Voucher</p>
+                </div>
+                <div class="toggle">
+                  <label class="switch">
+                    <input
+                      formControlName="fill_receiving_voucher"
+                      type="checkbox"
+                      [checked]="roleForm.value.fill_receiving_voucher"
+                    />
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+              <hr />
+              <div class="data-container">
+                <div class="data-name">
+                  <p class="name">Fill Vehicle Entry Details
+                  </p>
+                </div>
+                <div class="toggle">
+                  <label class="switch">
+                    <input
+                      formControlName="fill_vehicle_entry_details"
+                      type="checkbox"
+                      [checked]="roleForm.value.fill_vehicle_entry_details"
+                    />
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+              <hr />
+              <div class="data-container">
+                <div class="data-name">
+                  <p class="name">Discard ZMM Vouchers</p>
+                </div>
+                <div class="toggle">
+                  <label class="switch">
+                    <input
+                      formControlName="discard_zmm_vouchers"
+                      type="checkbox"
+                      [checked]="roleForm.value.discard_zmm_vouchers"
                     />
                     <span class="slider round"></span>
                   </label>

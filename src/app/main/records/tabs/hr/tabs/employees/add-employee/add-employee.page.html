@@ -1,0 +1,388 @@
+<ion-content align="center">
+  <app-header-with-back [title]="'Add Employee'"></app-header-with-back>
+
+  <form [formGroup]="employeeForm">
+    <div class="input_field_section">
+      <label for="name" class="label">Name*</label><br />
+      <div
+        class="input_field_box"
+        [ngClass]="{'invalid-field': employeeForm.controls['userName'].invalid && employeeForm.controls['userName'].touched}"
+      >
+        <img src="assets/edit-info/user_icon.svg" alt="" />
+        <input
+          formControlName="userName"
+          class="text_box_width"
+          type="text"
+          placeholder="Ravish Kumar"
+          oninput="this.reportValidity();"
+          pattern="[A-Za-z ]+"
+        />
+      </div>
+    </div>
+
+    <div id="open-modal" expand="block" class="input_field_section">
+      <label for="name" class="label">Role*</label><br />
+      <ion-select
+        formControlName="roleName"
+        class="select_option_field"
+        label="Role"
+        [ngClass]="{'invalid-field': employeeForm.controls['roleName'].invalid && employeeForm.controls['roleName'].touched}"
+      >
+        <ion-select-option *ngFor="let role of rolesList" value="{{ role.id }}"
+          >{{ role.roleName }}</ion-select-option
+        >
+      </ion-select>
+    </div>
+
+    <div class="input_field_section">
+      <label for="name" class="label">Employee ID*</label><br />
+      <div
+        class="input_field_box"
+        [ngClass]="{'invalid-field': employeeForm.controls['customID'].invalid && employeeForm.controls['customID'].touched ||  ifIDValid}"
+      >
+        <img src="assets/edit-info/card.svg" alt="" />
+        <input
+          type="number"
+          oninput="if(this.value.length > 6) this.value = this.value.slice(0, 6)"
+          formControlName="customID"
+          class="text_box_width"
+          placeholder="110016"
+          maxlength="6"
+          minlength="6"
+          (change)="customIdValidation()"
+        />
+      </div>
+      <div *ngIf="ifIDValid" class="invalid_msg">
+        Employee ID is already registered
+      </div>
+    </div>
+
+    <div class="input_field_section">
+      <label for="email" class="label">Email</label><br />
+      <div
+        class="input_field_box"
+        [ngClass]="{'invalid-field': employeeForm.controls['email'].invalid && employeeForm.controls['email'].touched}"
+      >
+        <img src="assets/edit-info/mail.svg" alt="" />
+        <input
+          type="email"
+          formControlName="email"
+          class="text_box_width"
+          placeholder="ravi@gmail.com"
+        />
+      </div>
+    </div>
+
+    <div class="input_field_section">
+      <label for="name" class="label">Phone*</label><br />
+      <div
+        class="input_field_box"
+        [ngClass]="{'invalid-field': employeeForm.controls['phone'].invalid && employeeForm.controls['phone'].touched || ifPhoneValid}"
+      >
+        <img src="assets/edit-info/call.svg" alt="" />
+        <input
+          type="number"
+          oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10)"
+          formControlName="phone"
+          class="text_box_width"
+          placeholder="123XXXX321"
+          (change)="phoneValidation()"
+        />
+      </div>
+      <div *ngIf="ifPhoneValid" class="invalid_msg">
+        Phone number is already registered
+      </div>
+    </div>
+
+    <div class="input_field_section">
+      <label for="name" class="label">DOB</label><br />
+      <div>
+        <label
+          class="flex_justify_content"
+          for="dob"
+          [ngClass]="{'invalid-field': employeeForm.controls['dob'].invalid && employeeForm.controls['dob'].touched}"
+        >
+          <div class="input_field_box calendar_input_box_margin_right">
+            <img src="assets/edit-info/dob.svg" alt="" />
+            <p class="calendar_box_width">
+              {{ formatDate(dob, 'DD MMM YYYY') }}
+            </p>
+          </div>
+          <label class="calendar_label">
+            <img
+              class="calendar_icon"
+              src="assets/edit-info/calendar.svg"
+              alt=""
+            />
+            <input
+              formControlName="dob"
+              class="size"
+              id="dob"
+              type="date"
+              onfocus="this.showPicker()"
+              (change)="updateDob($event)"
+              [value]="dob"
+            />
+          </label>
+        </label>
+      </div>
+    </div>
+
+    <div id="open-modal" expand="block" class="input_field_section">
+      <label for="name" class="label">Gender</label><br />
+      <ion-select
+        formControlName="gender"
+        class="select_option_field"
+        label="Gender"
+        [ngClass]="{'invalid-field': employeeForm.controls['gender'].invalid && employeeForm.controls['gender'].touched}"
+      >
+        <ion-select-option value="Male">Male</ion-select-option>
+        <ion-select-option value="Female">Female</ion-select-option>
+        <ion-select-option value="Other">Other</ion-select-option>
+      </ion-select>
+    </div>
+
+    <div id="open-modal" expand="block" class="input_field_section">
+      <label for="name" class="label">Outlet Location*</label><br />
+      <ion-select
+        formControlName="areaID"
+        class="select_option_field"
+        label="Location"
+        [ngClass]="{'invalid-field': employeeForm.controls['areaID'].invalid && employeeForm.controls['areaID'].touched}"
+      >
+        <ion-select-option *ngFor="let area of allAreas" [value]="area.id"
+          >{{area.locName}}</ion-select-option
+        >
+      </ion-select>
+    </div>
+
+    <div class="input_field_section">
+      <label for="name" class="label">Address*</label><br />
+      <div
+        class="input_field_box"
+        [ngClass]="{'invalid-field': employeeForm.controls['address'].invalid && employeeForm.controls['address'].touched}"
+      >
+        <img src="assets/edit-info/map_marker.svg" alt="" />
+        <input
+          type="text"
+          formControlName="address"
+          class="text_box_width"
+          placeholder="3/203 Ramgarh, Prayagraj, 211001"
+        />
+      </div>
+    </div>
+
+    <div class="input_field_section">
+      <label for="name" class="label">Aadhar*</label><br />
+      <div
+        class="input_field_box"
+        [ngClass]="{'invalid-field': employeeForm.controls['aadhar'].invalid && employeeForm.controls['aadhar'].touched}"
+      >
+        <img src="assets/edit-info/aadhar.svg" alt="" />
+        <input
+          type="number"
+          oninput="if(this.value.length > 12) this.value = this.value.slice(0, 12)"
+          formControlName="aadhar"
+          class="text_box_width"
+          placeholder="360671217878"
+        />
+      </div>
+    </div>
+
+    <div class="input_field_section">
+      <label for="name" class="label">PAN*</label><br />
+      <div
+        class="input_field_box"
+        [ngClass]="{'invalid-field': employeeForm.controls['pan'].invalid && employeeForm.controls['pan'].touched}"
+      >
+        <img src="assets/edit-info/card.svg" alt="" />
+        <input
+          type="text"
+          oninput="this.value = this.value.toUpperCase(); this.reportValidity();"
+          pattern="[A-Z]{5}\d{4}[A-Z]"
+          formControlName="pan"
+          class="text_box_width"
+          placeholder="ABCTY1234D"
+          maxlength="10"
+          minlength="10"
+        />
+      </div>
+    </div>
+
+    <div class="input_field_section">
+      <label for="name" class="label">Date Of Joining*</label><br />
+      <div>
+        <label
+          class="flex_justify_content"
+          for="doj"
+          [ngClass]="{'invalid-field': employeeForm.controls['userName'].invalid && employeeForm.controls['doj'].touched}"
+        >
+          <div class="input_field_box calendar_input_box_margin_right">
+            <img src="assets/edit-info/calender_check_box.svg" alt="" />
+            <p class="calendar_box_width">
+              {{ formatDate(doj, 'DD MMM YYYY') }}
+            </p>
+          </div>
+          <label class="calendar_label">
+            <img
+              class="calendar_icon"
+              src="assets/edit-info/calendar.svg"
+              alt=""
+            />
+            <input
+              formControlName="doj"
+              class="size"
+              id="doj"
+              type="date"
+              onfocus="this.showPicker()"
+              (change)="updatedDoj($event)"
+              [value]="doj"
+            />
+          </label>
+        </label>
+      </div>
+    </div>
+
+    <div id="open-modal" expand="block" class="input_field_section">
+      <label for="name" class="label">Blood Group*</label><br />
+      <ion-select
+        formControlName="bloodGroup"
+        class="select_option_field"
+        label="Blood Group"
+        [ngClass]="{'invalid-field': employeeForm.controls['bloodGroup'].invalid && employeeForm.controls['bloodGroup'].touched}"
+      >
+        <ion-select-option value="A+">A(+ve)</ion-select-option>
+        <ion-select-option value="A-">A(-ve)</ion-select-option>
+
+        <ion-select-option value="B+">B(+ve)</ion-select-option>
+        <ion-select-option value="B-">B(-ve)</ion-select-option>
+        <ion-select-option value="O+">O(+ve)</ion-select-option>
+        <ion-select-option value="O-">O(-ve)</ion-select-option>
+
+        <ion-select-option value="AB+">AB(+ve)</ion-select-option>
+        <ion-select-option value="AB-">AB(-ve)</ion-select-option>
+      </ion-select>
+    </div>
+
+    <div class="input_field_section">
+      <label for="name" class="label">Weight (kg)*</label><br />
+      <div
+        class="input_field_box"
+        [ngClass]="{'invalid-field': employeeForm.controls['weight'].invalid && employeeForm.controls['weight'].touched}"
+      >
+        <img src="assets/edit-info/card.svg" alt="" />
+        <input
+          type="number"
+          onKeyPress="if(this.value.length==6) return false;"
+          formControlName="weight"
+          class="text_box_width"
+          placeholder=""
+          maxlength="150"
+          minlength="40"
+        />
+      </div>
+    </div>
+    <div class="input_field_section">
+      <label for="name" class="label">Height (ft)*</label><br />
+      <div
+        class="input_field_box"
+        [ngClass]="{'invalid-field': employeeForm.controls['height'].invalid && employeeForm.controls['height'].touched}"
+      >
+        <img src="assets/edit-info/card.svg" alt="" />
+        <input
+          type="number"
+          onKeyPress="if(this.value.length==6) return false;"
+          formControlName="height"
+          class="text_box_width"
+          placeholder=""
+        />
+      </div>
+    </div>
+
+    <div class="input_field_section">
+      <label for="name" class="label">Any Past Disease</label><br />
+      <div
+        class="input_field_box"
+        [ngClass]="{'invalid-field': employeeForm.controls['pastDisease'].invalid && employeeForm.controls['pastDisease'].touched}"
+      >
+        <img src="assets/edit-info/card.svg" alt="" />
+        <input
+          formControlName="pastDisease"
+          class="text_box_width"
+          type="text"
+          placeholder=""
+        />
+      </div>
+    </div>
+
+    <div class="input_field_section">
+      <label for="name" class="label">Any Allergy</label><br />
+      <div
+        class="input_field_box"
+        [ngClass]="{'invalid-field': employeeForm.controls['allergy'].invalid && employeeForm.controls['allergy'].touched}"
+      >
+        <img src="assets/edit-info/card.svg" alt="" />
+        <input
+          formControlName="allergy"
+          class="text_box_width"
+          type="text"
+          placeholder=""
+        />
+      </div>
+    </div>
+
+    <div class="input_field_section">
+      <label for="name" class="label">Salary Per Month</label><br />
+      <div class="input_field_box">
+        <img src="assets/edit-info/ruppee.svg" alt="" />
+        <input
+          type="number"
+          onKeyPress="if(this.value.length==6) return false;"
+          formControlName="salary"
+          class="text_box_width"
+          placeholder="25000"
+        />
+      </div>
+    </div>
+
+    <div>
+      <div class="profile_upload">
+        <input
+          type="file"
+          #fileInput
+          style="display: none"
+          (change)="changePhoto($event)"
+          accept="image/*"
+        />
+        <button (click)="fileInput.click()">
+          Upload Photo
+          <img
+            src="assets/add-employee/upload.svg"
+            class="upload_picture_icon"
+            alt=""
+          />
+        </button>
+        <button (click)="removePhoto()">
+          Remove
+          <img
+            src="assets/add-employee/remove.svg"
+            class="remove_picture_icon"
+            alt=""
+          />
+        </button>
+      </div>
+      <img
+        class="profile_section"
+        [src]="employeeForm.value.imageUrl"
+        alt="Profile Photo"
+      />
+    </div>
+    <div align="center">
+      <div class="btn">
+        <button (click)="onSubmit()">Submit</button>
+        <button class="cancel_button" (click)="goback()">Cancel</button>
+      </div>
+    </div>
+  </form>
+  <div class="below-space"></div>
+</ion-content>

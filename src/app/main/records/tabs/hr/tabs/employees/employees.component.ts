@@ -6,6 +6,7 @@ import { SharedService } from 'src/app/shared/shared.service';
 import { Config } from "src/app/config";
 import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
 import { createUserWithEmailAndPassword, getAuth } from "@angular/fire/auth";
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-employees',
@@ -18,7 +19,9 @@ export class EmployeesComponent  implements OnInit {
     private notification: NotificationService,
     private loadingController: LoadingController,
     private userPermissionService: UserPermissionService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private navCtrl: NavController,
+
 ) {
     this.sharedService.refresh.subscribe((data) => {
         if (data) {
@@ -59,6 +62,10 @@ roleForm: FormGroup = new FormGroup({
         fill_shipment_voucher: new FormControl(true, []),
         fill_post_delivery_form: new FormControl(true, []),
         discard_vouchers: new FormControl(true, []),
+        upload_new_zmm_file: new FormControl(true, []),
+        fill_receiving_voucher:new FormControl(true, []),
+        fill_vehicle_entry_details:new FormControl(true, []),
+        discard_zmm_vouchers:new FormControl(true, []),
         edit_account_settings: new FormControl(true, []),
         view_reports: new FormControl(true, []),
     }),
@@ -129,7 +136,10 @@ async updRoleStatus($event: any, roleId: string, status: boolean) {
     await this.getRoles();
     this.loader.dismiss();
 }
+navAddEmp(){
+    this.navCtrl.navigateForward("/main/records/add-employee");
 
+}
 editRole(account: any) {
     this.roleForm.setValue(account);
     this.openRole = true;
@@ -161,7 +171,7 @@ async addUser() {
     const formData = this.userForm.value;
     if (formData.roleType === 'role') {
         formData.access = this.roleMapping[formData.role].access;
-        formData.roleName = this.roleMapping[formData.role].roleName;
+        formData.roleName = this.roleMapping[formData.role]?.roleName;
     }
     if (!formData.id) {
         await this.userPermissionService.checkContactNumber(formData.phone).then(async (data) => {
