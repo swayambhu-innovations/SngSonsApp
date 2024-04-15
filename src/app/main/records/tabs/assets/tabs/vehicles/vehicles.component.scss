@@ -1,5 +1,29 @@
+* {
+  box-sizing: border-box;
+}
+.vendor-container {
+  --background: linear-gradient(
+    180deg,
+    #d5e6ff -8.94%,
+    #fff 27.36%,
+    #fff 61.93%,
+    #c9deff 101.69%
+  );
+  --padding-top: 15px;
+  --padding-bottom: 15px;
+  --padding-start: 15px;
+  --padding-end: 15px;
+}
+
 ion-col {
   padding: 0;
+}
+
+.wrapper-container {
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px 2px rgba(53, 122, 248, 0.1);
+  background-color: rgb(254, 254, 254);
+  filter: drop-shadow(0px 4px 10px rgba(53, 122, 248, 0.1));
 }
 
 ion-grid {
@@ -13,40 +37,40 @@ ion-grid {
     --inner-padding-start: 0px;
   }
 
-  // .label {
-  //   .head {
-  //     color: var(--Primary, #1540bd);
-  //     font-size: 14px;
-  //     font-weight: 400;
-  //     padding-bottom: 3px;
-  //     padding-left: 5px;
-  //   }
+  .label {
+    .head {
+      color: var(--Primary, #1540bd);
+      font-size: 14px;
+      font-weight: 400;
+      padding-bottom: 3px;
+      padding-left: 5px;
+    }
 
-  //   .add-variable {
-  //     display: flex;
-  //     border-radius: 25.938px;
-  //     background: var(--Primary, #1540bd);
-  //     display: flex;
-  //     width: 105px;
-  //     height: 27px;
-  //     padding: 8.3px;
-  //     justify-content: center;
-  //     align-items: center;
+    .add-variable {
+      display: flex;
+      border-radius: 25.938px;
+      background: var(--Primary, #1540bd);
+      display: flex;
+      width: 105px;
+      height: 27px;
+      padding: 8.3px;
+      justify-content: center;
+      align-items: center;
 
-  //     .text {
-  //       color: var(--Text2, #fff);
-  //       font-size: 11px;
-  //       font-weight: 400;
-  //       margin: 0px;
-  //     }
+      .text {
+        color: var(--Text2, #fff);
+        font-size: 11px;
+        font-weight: 400;
+        margin: 0px;
+      }
 
-  //     .img {
-  //       margin-bottom: 0px;
-  //       margin-left: 10px;
-  //       margin-top: 2px;
-  //     }
-  //   }
-  // }
+      .img {
+        margin-bottom: 0px;
+        margin-left: 10px;
+        margin-top: 2px;
+      }
+    }
+  }
 
   .content {
     .actions {
@@ -69,12 +93,11 @@ ion-grid {
       }
     }
 
-    .text-name {
+    .text {
       color: var(--Text1, #505e86);
       font-size: 16px;
       font-weight: 400;
       text-wrap: wrap;
-      text-align: left;
     }
 
     .type-select {
@@ -165,21 +188,37 @@ ion-grid {
   }
 }
 
+.forward-icon {
+  padding-left: 5px;
+
+  ion-icon {
+    color: #1540bd;
+  }
+}
+
 .model {
-  --background: white;
+  --ion-background-color: linear-gradient(
+    180deg,
+    #d5e6ff -8.94%,
+    #fff 27.36%,
+    #fff 61.93%,
+    #c9deff 101.69%
+  );
+
   section {
     padding: 15px;
+    height: 100vh;
   }
 
   .header {
-    padding: 5px 10px 20px 10px;
-    text-align: center;
+    display: flex;
+    padding: 0px 10px 10px 10px;
 
     .head {
       color: var(--Primary, #1540bd);
       font-size: 20px;
       font-weight: 400;
-      padding-top: 8px;
+      padding-bottom: 3px;
       padding-left: 10px;
     }
   }
@@ -205,12 +244,13 @@ ion-grid {
     .dropdown {
       margin-bottom: 15px;
       height: 48px;
-      color: var(--Text3, #9fa7b2);
     }
 
     .limit {
       display: flex;
       justify-content: space-between;
+      margin-top: 10px;
+      margin-bottom: 15px;
 
       .lower {
         width: 48%;
@@ -226,7 +266,7 @@ ion-grid {
 
   .tab-bar {
     width: fit-content;
-    margin: 0 auto;
+    margin: 30px auto;
 
     div {
       display: flex;
@@ -261,55 +301,12 @@ ion-grid {
   }
 }
 
-.container {
-  .text {
-    color: var(--Primary, #1540bd);
-    font-size: 16px;
-    font-weight: 400;
-  }
-
-  .import-container {
-    display: flex;
-    justify-content: space-between;
-
-    .import {
-      width: 61%;
-    }
-
-    .export {
-      width: 35%;
-    }
-  }
-
-  ion-button {
-    width: 100%;
-    height: fit-content;
-    color: #1540bd;
-    --background: white;
-    --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
-    --ripple-color: #c9deff;
-
-    --padding-top: 16px;
-    --padding-bottom: 16px;
-
-    label {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      text-transform: none;
-
-      svg {
-        margin-left: 6px;
-      }
-    }
-  }
-}
-
-.margin-top-0 {
-  margin-top: 0px;
-}
-
-.invalid-feedback {
-  color: red;
-  font-size: 12px;
+ion-modal {
+  --background: linear-gradient(
+    180deg,
+    #d5e6ff -8.94%,
+    #fff 27.36%,
+    #fff 61.93%,
+    #c9deff 101.69%
+  );
 }

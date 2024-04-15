@@ -218,11 +218,7 @@
                 fill="#1540BD"
               />
             </svg>
-            <input
-              id="RC"
-              type="date"
-              (change)="dispDate($event, 'RC')"
-            />
+            <input id="RC" type="date" (change)="dispDate($event, 'RC')" />
           </label>
         </ion-item>
 
@@ -522,12 +518,10 @@
       </div>
 
       <div class="tab-bar">
-        <div>
-          <ion-button type="submit" shape="round" class="active-btn"
-            >Submit</ion-button
-          >
-          <ion-button (click)="goBack()" shape="round">Cancel</ion-button>
-        </div>
+        <ion-button type="submit" shape="round" class="active-btn"
+          >Submit</ion-button
+        >
+        <ion-button (click)="goBack()" shape="round">Cancel</ion-button>
       </div>
     </form>
 

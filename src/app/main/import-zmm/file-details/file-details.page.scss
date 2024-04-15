@@ -54,6 +54,18 @@ ion-content {
     }
   }
 
+  .overflow,
+  .prdouctName {
+    text-overflow: ellipsis;
+    width: 9rem !important;
+    text-wrap: nowrap;
+    overflow: hidden;
+  }
+
+  .prdouctName {
+    width: 1rem !important;
+  }
+
   ion-card {
     border-radius: 16px;
     box-shadow: 2px 2px 5px 2px rgba(53, 122, 248, 0.1);

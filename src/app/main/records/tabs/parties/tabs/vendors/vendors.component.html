@@ -1,126 +1,132 @@
-<section>
-  <div class="add-vehicle-wrapper-container">
-    <div class="inner-container">
-      <div class="label">
-        Create New <br />
-        Vendor
-      </div>
-      <div (click)="openAddVendorForm()" class="button">
-        <p class="button-name">Add Vendor</p>
-        <p class="symbol"><img src="assets/icon/plus-button.svg" alt="" /></p>
+<div class="ion-padding">
+  <section>
+    <div class="add-vehicle-wrapper-container">
+      <div class="inner-container">
+        <div class="label">
+          Create New <br />
+          Vendor
+        </div>
+        <div (click)="openAddVendorForm()" class="button">
+          <p class="button-name">Add Vendor</p>
+          <p class="symbol"><img src="assets/icon/plus-button.svg" alt="" /></p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section *ngIf="pendingVendorData?.length">
-  <div class="wrapper-container">
-    <ion-grid>
-      <ion-accordion-group
-        style="background-color: transparent"
-        [multiple]="true"
-      >
-        <ion-accordion value="first">
-          <ion-item slot="header">
-            <ion-label class="label">
-              <ion-row class="ion-align-items-center">
-                <ion-col size="1"
-                  ><img src="assets/icon/red-exclamation.svg" alt=""
-                /></ion-col>
-                <ion-col size="7" class="head">Pending For Data Entry</ion-col>
-                <ion-col size="4" style="text-align: end; color: #1540bd">
-                  {{ pendingVendorData?.length }}
+  <section *ngIf="pendingVendorData?.length">
+    <div class="wrapper-container">
+      <ion-grid>
+        <ion-accordion-group
+          style="background-color: transparent"
+          [multiple]="true"
+        >
+          <ion-accordion value="first">
+            <ion-item slot="header">
+              <ion-label class="label">
+                <ion-row class="ion-align-items-center">
+                  <ion-col size="1"
+                    ><img src="assets/icon/red-exclamation.svg" alt=""
+                  /></ion-col>
+                  <ion-col size="7" class="head"
+                    >Pending For Data Entry</ion-col
+                  >
+                  <ion-col size="4" style="text-align: end; color: #1540bd">
+                    {{ pendingVendorData?.length }}
+                  </ion-col>
+                </ion-row>
+              </ion-label>
+            </ion-item>
+            <div
+              class="content-container"
+              slot="content"
+              *ngFor="let vendor of pendingVendorData"
+            >
+              <ion-row
+                class="ion-justify-content-between ion-align-items-center"
+              >
+                <ion-col size="auto" class="profile-img">
+                  <img
+                    [src]="
+                      vendor?.vendorProfileImg
+                        ? vendor?.vendorProfileImg
+                        : config.url.defaultProfile
+                    "
+                    alt="avatar"
+                  />
+                </ion-col>
+                <ion-col size="7" class="text">{{ vendor?.WSName }}</ion-col>
+                <ion-col size="3" class="action">
+                  <ion-col
+                    (click)="editDetails($event, vendor)"
+                    class="edit-button"
+                    ><img src="assets/icon/enable-edit-button.svg" alt=""
+                  /></ion-col>
+                  <ion-col
+                    (click)="toDelete = { id: vendor.id }; showConfirm = true"
+                    ><img src="assets/icon/enable-delete-button.svg" alt=""
+                  /></ion-col>
                 </ion-col>
               </ion-row>
-            </ion-label>
-          </ion-item>
-          <div
-            class="content-container"
-            slot="content"
-            *ngFor="let vendor of pendingVendorData"
-          >
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="auto" class="profile-img">
-                <img
-                  [src]="
-                    vendor?.vendorProfileImg
-                      ? vendor?.vendorProfileImg
-                      : config.url.defaultProfile
-                  "
-                  alt="avatar"
-                />
-              </ion-col>
-              <ion-col size="7" class="text">{{ vendor?.WSName }}</ion-col>
-              <ion-col size="3" class="action">
-                <ion-col
-                  (click)="editDetails($event, vendor)"
-                  class="edit-button"
-                  ><img src="assets/icon/enable-edit-button.svg" alt=""
-                /></ion-col>
-                <ion-col
-                  (click)="toDelete = { id: vendor.id }; showConfirm = true"
-                  ><img src="assets/icon/enable-delete-button.svg" alt=""
-                /></ion-col>
-              </ion-col>
-            </ion-row>
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
+      </ion-grid>
+    </div>
+  </section>
+  <section>
+    <div class="search-bar">
+      <ion-searchbar
+        class="ion-text-start custom"
+        animated="true"
+        (ionInput)="searchVendor($event)"
+        placeholder="Search Vendors..."
+      ></ion-searchbar>
+    </div>
+  </section>
+  <section>
+    <div
+      class="row-data-wrapper-container"
+      *ngFor="let vendor of filteredVendors"
+    >
+      <div class="inner-container">
+        <div (click)="openDetails($event, vendor)" class="img">
+          <img [src]="vendor?.vendorProfileImg" alt="avatar" />
+        </div>
+        <div (click)="openDetails($event, vendor)" class="data-text">
+          <p class="text-name">{{ vendor?.WSName }}</p>
+          <p class="address">
+            <span class="address-name">{{ vendor?.WSTown }}</span> |
+            <span><img src="assets/icon/notes.svg" alt="icon" /></span
+            ><span class="no">{{ vendor?.WSCode }}</span> |
+            <span class="price">₹ {{ vendor?.maxCreditLimit }}</span>
+          </p>
+        </div>
+        <div class="action-button">
+          <div class="toogle">
+            <label class="switch">
+              <input
+                type="checkbox"
+                [checked]="vendor?.active"
+                (change)="updVendorStatus($event, vendor.id, !vendor.active)"
+              />
+              <span class="slider round"></span>
+            </label>
           </div>
-        </ion-accordion>
-      </ion-accordion-group>
-    </ion-grid>
-  </div>
-</section>
-<section>
-  <div class="search-bar">
-    <ion-searchbar
-      class="ion-text-start custom"
-      animated="true"
-      (ionInput)="searchVendor($event)"
-      placeholder="Search Vendors..."
-    ></ion-searchbar>
-  </div>
-</section>
-<section>
-  <div
-    class="row-data-wrapper-container"
-    *ngFor="let vendor of filteredVendors"
-  >
-    <div class="inner-container">
-      <div (click)="openDetails($event, vendor)" class="img">
-        <img [src]="vendor?.vendorProfileImg" alt="avatar" />
-      </div>
-      <div (click)="openDetails($event, vendor)" class="data-text">
-        <p class="text-name">{{ vendor?.WSName }}</p>
-        <p class="address">
-          <span class="address-name">{{ vendor?.WSTown }}</span> |
-          <span><img src="assets/icon/notes.svg" alt="icon" /></span
-          ><span class="no">{{ vendor?.WSCode }}</span> |
-          <span class="price">₹ {{ vendor?.maxCreditLimit }}</span>
-        </p>
-      </div>
-      <div class="action-button">
-        <div class="toogle">
-          <label class="switch">
-            <input
-              type="checkbox"
-              [checked]="vendor?.active"
-              (change)="updVendorStatus($event, vendor.id, !vendor.active)"
-            />
-            <span class="slider round"></span>
-          </label>
-        </div>
-        <div (click)="editDetails($event, vendor)" class="edit-button">
-          <img src="assets/icon/enable-edit-button.svg" alt="" />
-        </div>
-        <div
-          (click)="toDelete = { id: vendor.id }; showConfirm = true"
-          class="delete"
-        >
-          <img src="assets/icon/enable-delete-button.svg" alt="" />
+          <div (click)="editDetails($event, vendor)" class="edit-button">
+            <img src="assets/icon/enable-edit-button.svg" alt="" />
+          </div>
+          <div
+            (click)="toDelete = { id: vendor.id }; showConfirm = true"
+            class="delete"
+          >
+            <img src="assets/icon/enable-delete-button.svg" alt="" />
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+</div>
 
 <div class="below-space"></div>
 

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { LaboursComponent } from './labours.component';
+import { VehiclesComponent } from './vehicles.component';
 
 @NgModule({
   imports: [
@@ -13,7 +13,7 @@ import { LaboursComponent } from './labours.component';
     IonicModule,
     SharedModule,
   ],
-  declarations: [LaboursComponent],
-  exports: [LaboursComponent],
+  declarations: [VehiclesComponent],
+  exports: [VehiclesComponent],
 })
-export class LaboursModule {}
+export class VehiclesModule {}
