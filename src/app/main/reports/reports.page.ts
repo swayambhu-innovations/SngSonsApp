@@ -16,7 +16,6 @@ export class ReportsPage implements OnInit {
     { labor: 'Labour Party Wise Expenses Report' },
     { supplier: 'Supplier Wise Report' },
     { receiving: 'Attendance Wise Reports' },
-    
   ];
   id: string = '';
 
