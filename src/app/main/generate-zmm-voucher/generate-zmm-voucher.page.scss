@@ -12,6 +12,57 @@
     );
   
     ion-grid {
+      .disabled-row {
+        ion-col {
+          color: var(--Text3, #9fa7b2) !important;
+          font-size: 14px;
+          font-weight: 400;
+        }
+      }
+  
+      ion-col {
+        display: flex;
+        align-items: center;
+  
+        div {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+  
+        svg {
+          margin-inline: 5px;
+          cursor: pointer;
+  
+          &:focus {
+            border: none;
+            outline: none;
+          }
+        }
+  
+        #heading {
+          color: var(--Primary, #1540bd);
+          font-size: 18px;
+          font-weight: 400;
+        }
+  
+        ion-text {
+          color: var(--Buttons, #1659be);
+          text-align: right;
+          font-size: 12px;
+          font-weight: 400;
+        }
+      }
+  
+      #nav {
+        svg {
+          margin-inline: 0 !important;
+          margin-inline-end: 1.5px !important;
+        }
+      }
+    }
+
+    ion-grid {
       ion-col {
         display: flex;
         align-items: center;

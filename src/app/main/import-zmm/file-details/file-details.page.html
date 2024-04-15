@@ -39,20 +39,85 @@
         style="background-color: transparent"
         [multiple]="true"
       >
-        <ion-accordion value="first">
+        <ion-accordion
+          *ngFor="let shipment of recievings; let i = index"
+          [value]="i"
+        >
           <ion-item slot="header">
-            <ion-label class="label"> Recievings </ion-label>
+            <ion-label class="label">
+              <ion-row
+                class="ion-justify-content-between ion-align-items-center"
+              >
+                <ion-col size="auto"
+                  >{{ shipment.supplierData[0].deliveryNo}}</ion-col
+                >
+                <ion-col size="auto">{{ shipment.dispatchDateType}}</ion-col>
+              </ion-row>
+            </ion-label>
           </ion-item>
-          <div
-            class="content-container"
-            slot="content"
-            *ngFor="let shipment of recievings"
-          >
+          <div class="content-container" slot="content">
             <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="7" class="text">{{ shipment.vehicleNo}}</ion-col>
-              <ion-col size="3" class="action">
-                {{ shipment.products.length }}
-              </ion-col>
+              <ion-col size="auto" class="text"
+                >{{ shipment.recPlantDesc}}</ion-col
+              >
+            </ion-row>
+
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto" class="text"
+                >{{ shipment.supplierData[0].supplierID}}</ion-col
+              >
+              <ion-col size="auto" class="text"
+                >{{ shipment.supplierData[0].supplierName}}</ion-col
+              >
+            </ion-row>
+
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto" class="text"
+                >{{ shipment.dispatchDateType}}</ion-col
+              >
+            </ion-row>
+
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto" class="text"
+                >{{ shipment.expDeliveryDateType}}</ion-col
+              >
+            </ion-row>
+
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto" class="text"
+                >{{ shipment.transporterName}}</ion-col
+              >
+            </ion-row>
+
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto" class="text"
+                >{{ shipment.gateEntryNo}}</ion-col
+              >
+            </ion-row>
+
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto" class="text"
+                >{{ shipment.gateEntryDateType}}</ion-col
+              >
+            </ion-row>
+
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto" class="text"
+                >{{ shipment.supplierData[0].mfgLocation}}</ion-col
+              >
+            </ion-row>
+
+            <p>Product Details</p>
+
+            <ion-row
+              *ngFor="let product of shipment.products; let index = index"
+              class="ion-justify-content-between ion-align-items-center"
+            >
+              <ion-col size="3" class="text">{{ product.productCode}}</ion-col>
+              <ion-col class="prdouctName" size="3" class="text"
+                >{{ product.productName}}</ion-col
+              >
+              <ion-col size="3" class="text">{{ product.quantiity}}</ion-col>
             </ion-row>
           </div>
         </ion-accordion>

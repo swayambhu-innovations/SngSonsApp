@@ -126,15 +126,14 @@ export class ImportZSDPage implements OnInit {
     formatDate: any,
     scope: any
   ) {
-    data = await scope.importExportService.formatShipment(
-      data,
-      fileData,
-      formatDate
-    );
+    data = await scope.importExportService.formatShipment(data, formatDate);
     event.target.value = '';
     if (data.length > 0)
       scope.navCtrl.navigateForward(['/main/import-zsd/file-details'], {
-        state: { ZSDdetail: JSON.stringify(data) },
+        state: {
+          ZSDdetail: JSON.stringify(data),
+          fileData: JSON.stringify(fileData),
+        },
       });
     else scope.notification.showError(Config.messages.noImportZSD);
   }

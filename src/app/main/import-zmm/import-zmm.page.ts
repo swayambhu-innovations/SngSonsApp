@@ -149,15 +149,14 @@ export class ImportZmmPage implements OnInit {
     formatDate: any,
     scope: any
   ) {
-    data = await scope.importExportService.formatRecieving(
-      data,
-      fileData,
-      formatDate
-    );
+    data = await scope.importExportService.formatRecieving(data, formatDate);
     event.target.value = '';
     if (data.length > 0)
       scope.navCtrl.navigateForward(['/main/import-zmm/file-details'], {
-        state: { ZMMdetail: JSON.stringify(data) },
+        state: {
+          ZMMdetail: JSON.stringify(data),
+          fileData: JSON.stringify(fileData),
+        },
       });
     else scope.notification.showError(Config.messages.noImportZMM);
   }

@@ -18,8 +18,6 @@ import {
 } from '@angular/fire/firestore';
 import { isEmpty, groupBy } from 'lodash';
 import { Config } from 'src/app/config';
-import { ShipmentsService } from 'src/app/main/home/tabs/shipments/shipments.service';
-import { ShipmentDetailPage } from 'src/app/main/shipment-detail/shipment-detail.page';
 import { RecievingStatus, ShipmentStatus } from 'src/app/utils/enum';
 import { NotificationService } from 'src/app/utils/notification';
 
@@ -29,8 +27,7 @@ import { NotificationService } from 'src/app/utils/notification';
 export class ImportExportService {
   constructor(
     public firestore: Firestore,
-    private notification: NotificationService,
-    private shipmentService: ShipmentsService
+    private notification: NotificationService
   ) {}
   lastInvInDB: string = '';
   lastExpDelDataInDB: any;
@@ -183,7 +180,7 @@ export class ImportExportService {
           Config.collection.supplierMaster,
           supplierData.supplierID
         ),
-        supplierData
+        { ...supplierData, active: true, createdAt: new Date(), pending: true }
       );
     } else {
       await updateDoc(
@@ -192,7 +189,7 @@ export class ImportExportService {
           Config.collection.supplierMaster,
           supplierData.supplierID
         ),
-        supplierData
+        { ...supplierData, active: true, createdAt: new Date(), pending: true }
       );
     }
   }
@@ -230,7 +227,7 @@ export class ImportExportService {
       );
   }
 
-  formatShipment = async (data: any, fileData: any, formatDate: any) => {
+  formatShipment = async (data: any, formatDate: any) => {
     const shipmentsFromDB: any[] = []; // fetch shipments from DB
     let allShipmentsData: any[] = []; // store all shipments
     try {
@@ -396,9 +393,6 @@ export class ImportExportService {
           vendorData: [...vendorData],
         });
       });
-
-      // storing File metadata
-      this.addFiles(fileData, true);
     } catch (e) {
       console.log(e);
       this.notification.showError(Config.messages.zsdInvalid);
@@ -407,7 +401,7 @@ export class ImportExportService {
     return allShipmentsData;
   };
 
-  formatRecieving = async (data: any, fileData: any, formatDate: any) => {
+  formatRecieving = async (data: any, formatDate: any) => {
     let vehicleGroup: any; // store all vehicles by group got from ZMM
     let supplierGroup: any; // store all suppliers by group got from ZMM
     const recievingFromDB: any[] = []; // fetch recievings from DB
@@ -580,9 +574,6 @@ export class ImportExportService {
           allRecievingsData[index] = recieving;
         });
       }
-
-      // storing File metadata
-      this.addFiles(fileData, false);
     } catch (e) {
       console.log(e);
       this.notification.showError(Config.messages.zmmInvalid);
@@ -648,7 +639,13 @@ export class ImportExportService {
     return lorryNo;
   }
 
-  async addShipments(data: any, scope: any, loader: any, notification: any) {
+  async addShipments(
+    data: any,
+    fileData: any,
+    scope: any,
+    loader: any,
+    notification: any
+  ) {
     loader.present();
 
     const tdata = groupBy(data, 'ShipmentNumber');
@@ -703,6 +700,8 @@ export class ImportExportService {
     )
       .then(() => {
         loader.dismiss();
+        // storing File metadata
+        this.addFiles(fileData, true);
         notification.showSuccess(Config.messages.zsdSuccess);
       })
       .catch((error) => {
@@ -712,16 +711,22 @@ export class ImportExportService {
       });
   }
 
-  async addRecieving(data: any, scope: any, loader: any, notification: any) {
+  async addRecieving(
+    data: any,
+    fileData: any,
+    scope: any,
+    loader: any,
+    notification: any
+  ) {
     loader.present();
 
     await Promise.all(
       data.map(async (item: any) => {
         // adding data to transport master
-        await scope.importExportService.addTransporter({
-          transporterName: item.transporterName,
-          vehicleNo: item.vehicleNo,
-        });
+        // await scope.importExportService.addTransporter({
+        //   transporterName: item.transporterName,
+        //   vehicleNo: item.vehicleNo,
+        // });
 
         // adding data to supplier master
         await item.supplierData.map((supplier: any) => {
@@ -736,6 +741,8 @@ export class ImportExportService {
       })
     )
       .then(() => {
+        // storing File metadata
+        this.addFiles(fileData, false);
         notification.showSuccess(Config.messages.zmmSuccess);
       })
       .catch((error) => {

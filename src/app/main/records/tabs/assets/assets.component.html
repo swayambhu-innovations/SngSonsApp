@@ -19,7 +19,8 @@
 </div>
 
 <div align="center" class="ion-padding-vertical">
+  <app-vehicles *ngIf="tabStatus.vehicles"></app-vehicles>
   <app-site *ngIf="tabStatus.site"></app-site>
-  <!-- <app-suppliers *ngIf="tabStatus.suppliers"></app-suppliers> -->
+
 </div>
 <div class="below-space"></div>

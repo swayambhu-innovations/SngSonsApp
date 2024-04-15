@@ -128,4 +128,24 @@ export class ReceivingsService {
       { ...data }
     );
   }
+
+  async addAccountExpense(
+    accountId: string,
+    expenseId: string,
+    data: any,
+    collectionId: string
+  ) {
+    await setDoc(
+      doc(
+        this.firestore,
+        Config.collection.accountZMM,
+        accountId,
+        'expense',
+        'expense',
+        collectionId,
+        expenseId
+      ),
+      data
+    );
+  }
 }

@@ -12,6 +12,10 @@ const routes: Routes = [
     path: 'add-suppliers',
     loadChildren: () => import('./tabs/parties/tabs/suppliers/add-suppliers/add-suppliers.module').then( m => m.AddSuppliersPageModule)
   },
+  {
+    path: 'supplier-details/:id',
+    loadChildren: () => import('./tabs/parties/tabs/suppliers/supplier-details/supplier-details.module').then( m => m.SupplierDetailsPageModule)
+  },
 ];
 
 @NgModule({

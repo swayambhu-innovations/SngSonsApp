@@ -134,7 +134,6 @@ export class RecievingDetailPage implements OnInit {
   };
 
   openFillVoucherPage() {
-    console.log(this.recievingDetails);
     this.navCtrl.navigateForward(`main/zmm-voucher/${this.id}`, {
       state: { id: this.id },
     });
@@ -187,6 +186,8 @@ export class RecievingDetailPage implements OnInit {
         this.gateEntryDate = new Date(
           parseInt(this.recievingDetails?.gateEntryDate)
         ).toDateString();
+
+        console.log(this.recievingDetails);
       }
     );
 

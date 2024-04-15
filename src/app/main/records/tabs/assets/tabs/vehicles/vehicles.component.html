@@ -1,0 +1,275 @@
+<div class="ion-padding">
+  <section>
+    <div class="add-vehicle-wrapper-container">
+      <div class="inner-container">
+        <div class="label">Create New Vehicle Category</div>
+        <div class="button" (click)="isModalOpen = true">
+          <p class="button-name">Add Category</p>
+          <p class="symbol"><img src="assets/icon/plus-button.svg" alt="" /></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- pending vehicle category -->
+  <section *ngIf="pendingVehicles?.length">
+    <div class="wrapper-container">
+      <ion-grid>
+        <ion-accordion-group
+          style="background-color: transparent"
+          [multiple]="true"
+        >
+          <ion-accordion value="first">
+            <ion-item slot="header">
+              <ion-label class="label">
+                <ion-row class="ion-align-items-center">
+                  <ion-col size="1"
+                    ><img src="assets/icon/red-exclamation.svg" alt=""
+                  /></ion-col>
+                  <ion-col size="7" class="head"
+                    >Pending For Data Entry</ion-col
+                  >
+                  <ion-col size="4" style="text-align: end; color: #1540bd">
+                    {{ pendingVehicles?.length }}
+                  </ion-col>
+                </ion-row>
+              </ion-label>
+            </ion-item>
+            <div
+              class="content-container"
+              slot="content"
+              *ngFor="let vehicle of pendingVehicles"
+            >
+              <ion-row
+                class="ion-justify-content-between ion-align-items-center"
+              >
+                <ion-col size="7" class="text">{{
+                  vehicle.registrationNo
+                }}</ion-col>
+                <ion-col size="3" class="action">
+                  <ion-col
+                    (click)="editPendingVehicle($event, vehicle)"
+                    class="edit-button"
+                    ><img src="assets/icon/enable-edit-button.svg" alt=""
+                  /></ion-col>
+                  <ion-col (click)="deleteId = vehicle.id; showConfirm = true"
+                    ><img src="assets/icon/enable-delete-button.svg" alt=""
+                  /></ion-col>
+                </ion-col>
+              </ion-row>
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
+      </ion-grid>
+    </div>
+  </section>
+
+  <!-- searchbar -->
+  <section>
+    <div class="search-bar">
+      <ion-searchbar
+        class="ion-text-start custom"
+        animated="true"
+        (ionInput)="searchVehicleCategory($event)"
+        placeholder="Search Vehicle Category..."
+      ></ion-searchbar>
+    </div>
+  </section>
+</div>
+
+<!-- complete vehicle category -->
+<section>
+  <div
+    class="row-data-wrapper-container"
+    *ngFor="let vehicleCat of filterdVehicleCategory"
+  >
+    <div class="inner-container">
+      <div
+        class="data-text"
+        (click)="openVehicle(vehicleCat?.id, vehicleCat.categoryName)"
+      >
+        <p class="text-name">{{ vehicleCat.categoryName }}</p>
+        <p class="address">
+          <span class="address-name">{{ vehicleCat.weightCapacity }} Ton</span>
+          <span *ngIf="vehicleCat?.count > 0">
+            |
+            <span class="no"
+              >{{
+                vehicleCat?.count > 1
+                  ? vehicleCat?.count + " Vehicles"
+                  : vehicleCat?.count + " Vehicle"
+              }}
+            </span>
+          </span>
+        </p>
+      </div>
+      <div class="action-button">
+        <div class="toogle">
+          <label class="switch">
+            <input
+              type="checkbox"
+              [checked]="vehicleCat.active"
+              (change)="
+                updVehicleCategoryStatus(
+                  $event,
+                  vehicleCat.id,
+                  !vehicleCat.active
+                )
+              "
+            />
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <div class="edit-button">
+          <img
+            (click)="
+              isModalOpen = true; vehicleCategoryForm.setValue(vehicleCat)
+            "
+            src="assets/icon/enable-edit-button.svg"
+            alt=""
+          />
+        </div>
+        <div class="delete">
+          <img
+            (click)="deleteId = vehicleCat.id; showConfirm = true"
+            src="assets/icon/enable-delete-button.svg"
+            alt=""
+          />
+        </div>
+        <div class="forward-icon">
+          <ion-col size="0.75">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </ion-col>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="below-space"></div>
+
+<ion-modal
+  #modal
+  [isOpen]="isModalOpen"
+  [presentingElement]="presentingElement"
+  class="model"
+>
+  <ng-template>
+    <section>
+      <header>
+        <div class="header">
+          <div
+            class="img"
+            (click)="
+              vehicleCategoryForm.reset(formInitalValue); isModalOpen = false
+            "
+          >
+            <img src="assets/icon/back-button.svg" alt="" />
+          </div>
+          <div class="head">Add New Vehicle Category</div>
+        </div>
+      </header>
+      <form [formGroup]="vehicleCategoryForm" (ngSubmit)="submitForm()">
+        <div class="container">
+          <ion-item lines="none" class="Variable">
+            <ion-input
+              lines="none"
+              label="Category Name"
+              class="custom"
+              labelPlacement="floating"
+              formControlName="categoryName"
+            ></ion-input>
+          </ion-item>
+          <ion-item lines="none" class="Variable">
+            <ion-input
+              lines="none"
+              label="Weight Capacity (Ton)"
+              class="custom"
+              labelPlacement="floating"
+              formControlName="weightCapacity"
+            ></ion-input>
+          </ion-item>
+          <div class="limit">
+            <ion-item lines="none" class="lower">
+              <ion-input
+                lines="none"
+                fill="solid"
+                label="Minimum Fuel (Ltr)"
+                class="custom"
+                labelPlacement="floating"
+                formControlName="minimumFuel"
+              ></ion-input>
+            </ion-item>
+            <ion-item lines="none" class="upper">
+              <ion-input
+                lines="none"
+                label="Maximum Fuel (Ltr)"
+                fill="solid"
+                class="custom"
+                labelPlacement="floating"
+                formControlName="maximumFuel"
+              ></ion-input>
+            </ion-item>
+          </div>
+          <div class="limit">
+            <ion-item lines="none" class="lower">
+              <ion-input
+                lines="none"
+                fill="solid"
+                label="Minimum Toll"
+                class="custom"
+                labelPlacement="floating"
+                formControlName="minimumToll"
+              ></ion-input>
+            </ion-item>
+            <ion-item lines="none" class="upper">
+              <ion-input
+                lines="none"
+                label="Maximum Toll"
+                fill="solid"
+                class="custom"
+                labelPlacement="floating"
+                formControlName="maximumToll"
+              ></ion-input>
+            </ion-item>
+          </div>
+          <ion-item lines="none" class="Variable">
+            <ion-input
+              lines="none"
+              label="Default KOT Capacity"
+              class="custom"
+              labelPlacement="floating"
+              formControlName="defaultKOTCapacity"
+            ></ion-input>
+          </ion-item>
+          <ion-item class="dropdown">
+            <ion-select
+              label="Default Fuel Type"
+              formControlName="defaultFuelType"
+            >
+              <ion-select-option value="Drop Down">Drop Down</ion-select-option>
+              <ion-select-option value="Number">Number</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+        <div class="tab-bar">
+          <ion-button type="submit" shape="round" class="active-btn"
+            >Submit</ion-button
+          >
+          <ion-button
+            shape="round"
+            (click)="
+              vehicleCategoryForm.reset(formInitalValue); isModalOpen = false
+            "
+            >Cancel</ion-button
+          >
+        </div>
+      </form>
+    </section>
+  </ng-template>
+</ion-modal>
+
+<app-confirmation
+  (event)="deleteVehicleCat($event)"
+  [show]="showConfirm"
+></app-confirmation>

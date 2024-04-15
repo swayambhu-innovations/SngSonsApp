@@ -34,7 +34,7 @@ export class SuppliersComponent implements OnInit {
   }
 
   openAddVendorForm() {
-    this.navCtrl.navigateForward('main/settings/vendor-master/add-vendor');
+    this.navCtrl.navigateForward('main/records/add-suppliers');
     this.init();
   }
 
@@ -63,9 +63,9 @@ export class SuppliersComponent implements OnInit {
     this.pendingVendorData = this.vendorData.filter(
       (vendor: any) => vendor?.pending == true
     );
-    // this.vendorData = this.vendorData.filter(
-    //   (vendor: any) => vendor?.pending == false
-    // );
+    this.vendorData = this.vendorData.filter(
+      (vendor: any) => vendor?.pending == false
+    );
     this.filteredVendors = this.vendorData;
   }
 
@@ -81,24 +81,24 @@ export class SuppliersComponent implements OnInit {
     const searchValue = e.detail.value;
     if (searchValue && searchValue.trim() !== '') {
       this.filteredVendors = this.vendorData.filter((vendor: any) =>
-        vendor.WSName.toLowerCase().includes(searchValue.toLowerCase())
+        vendor.supplierName.toLowerCase().includes(searchValue.toLowerCase())
       );
     } else this.filteredVendors = this.vendorData;
   }
 
-  async editDetails(event: any, vendor: any) {
+  async editDetails(event: any, supplier: any) {
     event.stopPropagation();
-    this.navCtrl.navigateForward(['main/settings/vendor-master/add-vendor'], {
-      state: { vendor: JSON.stringify(vendor) },
+    this.navCtrl.navigateForward(['main/records/add-suppliers'], {
+      state: { supplier: JSON.stringify(supplier) },
     });
   }
 
-  async openDetails(event: any, vendor: any) {
+  async openDetails(event: any, supplier: any) {
     event.stopPropagation();
     this.navCtrl.navigateForward(
-      [`main/settings/vendor-master/vendor-details/${vendor.id}`],
+      [`main/records/supplier-details/${supplier.id}`],
       {
-        state: { vendor: JSON.stringify(vendor) },
+        state: { supplier: JSON.stringify(supplier) },
       }
     );
   }

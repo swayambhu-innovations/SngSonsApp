@@ -1,126 +1,136 @@
-<section>
-  <div class="add-vehicle-wrapper-container">
-    <div class="inner-container">
-      <div class="label">
-        Create New <br />
-        Supplier
-      </div>
-      <div (click)="openAddVendorForm()" class="button">
-        <p class="button-name">Add Supplier</p>
-        <p class="symbol"><img src="assets/icon/plus-button.svg" alt="" /></p>
+<div class="ion-padding">
+  <section>
+    <div class="add-vehicle-wrapper-container">
+      <div class="inner-container">
+        <div class="label">
+          Create New <br />
+          Supplier
+        </div>
+        <div (click)="openAddVendorForm()" class="button">
+          <p class="button-name">Add Supplier</p>
+          <p class="symbol"><img src="assets/icon/plus-button.svg" alt="" /></p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section *ngIf="pendingVendorData?.length">
-  <div class="wrapper-container">
-    <ion-grid>
-      <ion-accordion-group
-        style="background-color: transparent"
-        [multiple]="true"
-      >
-        <ion-accordion value="first">
-          <ion-item slot="header">
-            <ion-label class="label">
-              <ion-row class="ion-align-items-center">
-                <ion-col size="1"
-                  ><img src="assets/icon/red-exclamation.svg" alt=""
-                /></ion-col>
-                <ion-col size="7" class="head">Pending For Data Entry</ion-col>
-                <ion-col size="4" style="text-align: end; color: #1540bd">
-                  {{ pendingVendorData?.length }}
+  <section *ngIf="pendingVendorData?.length">
+    <div class="wrapper-container">
+      <ion-grid>
+        <ion-accordion-group
+          style="background-color: transparent"
+          [multiple]="true"
+        >
+          <ion-accordion value="first">
+            <ion-item slot="header">
+              <ion-label class="label">
+                <ion-row class="ion-align-items-center">
+                  <ion-col size="1"
+                    ><img src="assets/icon/red-exclamation.svg" alt=""
+                  /></ion-col>
+                  <ion-col size="7" class="head"
+                    >Pending For Data Entry</ion-col
+                  >
+                  <ion-col size="4" style="text-align: end; color: #1540bd">
+                    {{ pendingVendorData?.length }}
+                  </ion-col>
+                </ion-row>
+              </ion-label>
+            </ion-item>
+            <div
+              class="content-container"
+              slot="content"
+              *ngFor="let supplier of pendingVendorData"
+            >
+              <ion-row
+                class="ion-justify-content-between ion-align-items-center"
+              >
+                <ion-col size="auto" class="profile-img">
+                  <img
+                    [src]="
+                      supplier?.vendorProfileImg
+                        ? supplier?.vendorProfileImg
+                        : config.url.defaultProfile
+                    "
+                    alt="avatar"
+                  />
+                </ion-col>
+                <ion-col size="7" class="text">{{
+                  supplier?.supplierName
+                }}</ion-col>
+                <ion-col size="3" class="action">
+                  <ion-col
+                    (click)="editDetails($event, supplier)"
+                    class="edit-button"
+                    ><img src="assets/icon/enable-edit-button.svg" alt=""
+                  /></ion-col>
+                  <ion-col
+                    (click)="toDelete = { id: supplier.id }; showConfirm = true"
+                    ><img src="assets/icon/enable-delete-button.svg" alt=""
+                  /></ion-col>
                 </ion-col>
               </ion-row>
-            </ion-label>
-          </ion-item>
-          <div
-            class="content-container"
-            slot="content"
-            *ngFor="let supplier of pendingVendorData"
-          >
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="auto" class="profile-img">
-                <img
-                  [src]="
-                    supplier?.vendorProfileImg
-                      ? supplier?.vendorProfileImg
-                      : config.url.defaultProfile
-                  "
-                  alt="avatar"
-                />
-              </ion-col>
-              <ion-col size="7" class="text">{{ supplier?.WSName }}</ion-col>
-              <ion-col size="3" class="action">
-                <ion-col
-                  (click)="editDetails($event, supplier)"
-                  class="edit-button"
-                  ><img src="assets/icon/enable-edit-button.svg" alt=""
-                /></ion-col>
-                <ion-col
-                  (click)="toDelete = { id: supplier.id }; showConfirm = true"
-                  ><img src="assets/icon/enable-delete-button.svg" alt=""
-                /></ion-col>
-              </ion-col>
-            </ion-row>
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
+      </ion-grid>
+    </div>
+  </section>
+
+  <section>
+    <div class="search-bar">
+      <ion-searchbar
+        class="ion-text-start custom"
+        animated="true"
+        (ionInput)="searchVendor($event)"
+        placeholder="Search Suppliers..."
+      ></ion-searchbar>
+    </div>
+  </section>
+
+  <section>
+    <div
+      class="row-data-wrapper-container"
+      *ngFor="let Supplier of filteredVendors"
+    >
+      <div class="inner-container">
+        <div (click)="openDetails($event, Supplier)" class="img">
+          <img [src]="Supplier?.supplierProfileImg" alt="avatar" />
+        </div>
+        <div (click)="openDetails($event, Supplier)" class="data-text">
+          <p class="text-name">{{ Supplier?.supplierName }}</p>
+          <p class="address">
+            <span><img src="assets/icon/notes.svg" alt="icon" /></span
+            ><span class="no">{{ Supplier?.supplierID }}</span>
+          </p>
+        </div>
+        <div class="action-button">
+          <div class="toogle">
+            <label class="switch">
+              <input
+                type="checkbox"
+                [checked]="Supplier?.active"
+                (change)="
+                  updVendorStatus($event, Supplier.id, !Supplier.active)
+                "
+              />
+              <span class="slider round"></span>
+            </label>
           </div>
-        </ion-accordion>
-      </ion-accordion-group>
-    </ion-grid>
-  </div>
-</section>
-<section>
-  <div class="search-bar">
-    <ion-searchbar
-      class="ion-text-start custom"
-      animated="true"
-      (ionInput)="searchVendor($event)"
-      placeholder="Search Suppliers..."
-    ></ion-searchbar>
-  </div>
-</section>
-<section>
-  <div
-    class="row-data-wrapper-container"
-    *ngFor="let Supplier of filteredVendors"
-  >
-    <div class="inner-container">
-      <div (click)="openDetails($event, Supplier)" class="img">
-        <img [src]="Supplier?.vendorProfileImg" alt="avatar" />
-      </div>
-      <div (click)="openDetails($event, Supplier)" class="data-text">
-        <p class="text-name">{{ Supplier?.supplierName }}</p>
-        <p class="address">
-          <span class="address-name">{{ Supplier?.WSTown }}</span> |
-          <span><img src="assets/icon/notes.svg" alt="icon" /></span
-          ><span class="no">{{ Supplier?.WSCode }}</span> |
-          <span class="price">₹ {{ Supplier?.maxCreditLimit }}</span>
-        </p>
-      </div>
-      <div class="action-button">
-        <div class="toogle">
-          <label class="switch">
-            <input
-              type="checkbox"
-              [checked]="Supplier?.active"
-              (change)="updVendorStatus($event, Supplier.id, !Supplier.active)"
-            />
-            <span class="slider round"></span>
-          </label>
-        </div>
-        <div (click)="editDetails($event, Supplier)" class="edit-button">
-          <img src="assets/icon/enable-edit-button.svg" alt="" />
-        </div>
-        <div
-          (click)="toDelete = { id: Supplier.id }; showConfirm = true"
-          class="delete"
-        >
-          <img src="assets/icon/enable-delete-button.svg" alt="" />
+          <div (click)="editDetails($event, Supplier)" class="edit-button">
+            <img src="assets/icon/enable-edit-button.svg" alt="" />
+          </div>
+          <div
+            (click)="toDelete = { id: Supplier.id }; showConfirm = true"
+            class="delete"
+          >
+            <img src="assets/icon/enable-delete-button.svg" alt="" />
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+</div>
 
 <div class="below-space"></div>
 
