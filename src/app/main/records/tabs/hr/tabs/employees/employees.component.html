@@ -447,7 +447,71 @@
               <hr />
               <div class="data-container">
                 <div class="data-name">
-                  <p class="name">Discard Vouchers</p>
+                  <p class="name">Discard ZSD Vouchers</p>
+                </div>
+                <div class="toggle">
+                  <label class="switch">
+                    <input
+                      formControlName="discard_vouchers"
+                      type="checkbox"
+                      [checked]="roleForm.value.discard_vouchers"
+                    />
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+              <hr />
+              <div class="data-container">
+                <div class="data-name">
+                  <p class="name">Upload New ZSD file</p>
+                </div>
+                <div class="toggle">
+                  <label class="switch">
+                    <input
+                      formControlName="upload_new_zsd_file"
+                      type="checkbox"
+                      [checked]="roleForm.value.upload_new_zsd_file"
+                    />
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+              <hr />
+              <div class="data-container">
+                <div class="data-name">
+                  <p class="name">Fill Shipment Voucher</p>
+                </div>
+                <div class="toggle">
+                  <label class="switch">
+                    <input
+                      formControlName="fill_shipment_voucher"
+                      type="checkbox"
+                      [checked]="roleForm.value.fill_shipment_voucher"
+                    />
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+              <hr />
+              <div class="data-container">
+                <div class="data-name">
+                  <p class="name">Fill post Delivery Form</p>
+                </div>
+                <div class="toggle">
+                  <label class="switch">
+                    <input
+                      formControlName="fill_post_delivery_form"
+                      type="checkbox"
+                      [checked]="roleForm.value.fill_post_delivery_form"
+                    />
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+              <hr />
+              <div class="data-container">
+                <div class="data-name">
+                  <p class="name">Discard ZSD Vouchers</p>
                 </div>
                 <div class="toggle">
                   <label class="switch">
