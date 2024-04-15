@@ -216,6 +216,54 @@
       </ion-row>
     </ion-grid>
 
+    <!-- Vehicle Details -->
+    <ion-grid *ngIf="recievingDetails.vehicleDetails" class="ion-margin-bottom">
+      <p class="heading">Vehicle Details</p>
+
+      <ion-row class="ion-justify-content-between ion-align-items-center">
+        <ion-col class="col-head" size="auto">Vehicle</ion-col>
+        <ion-col size="auto">{{recievingDetails.vehicleNo}}</ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-between ion-align-items-center">
+        <ion-col class="col-head" size="auto">Driver Name</ion-col>
+        <ion-col size="auto"
+          >{{recievingDetails.vehicleDetails.driverName}}</ion-col
+        >
+      </ion-row>
+
+      <ion-row class="ion-justify-content-between ion-align-items-center">
+        <ion-col class="col-head" size="auto">Driver Phone No</ion-col>
+        <ion-col size="auto"
+          >{{recievingDetails.vehicleDetails.driveMblNo}}</ion-col
+        >
+      </ion-row>
+    </ion-grid>
+
+    <div *ngIf="recievingDetails.vehicleDetails" class="ion-margin-vertical">
+      <p class="heading">Vehicle Front Photo</p>
+      <img
+        [src]="recievingDetails.vehicleDetails['vehicleFrontImg']"
+        alt="vehicleFront"
+      />
+    </div>
+
+    <div *ngIf="recievingDetails.vehicleDetails" class="ion-margin-vertical">
+      <p class="heading">Vehicle Number Plate Photo</p>
+      <img
+        [src]="recievingDetails.vehicleDetails['vehiclePlateImg']"
+        alt="vehicleNumberPlate"
+      />
+    </div>
+
+    <div *ngIf="recievingDetails.vehicleDetails" class="ion-margin-vertical">
+      <p class="heading">Driver Face Photo</p>
+      <img
+        [src]="recievingDetails.vehicleDetails['driverProfileImg']"
+        alt="driverFace"
+      />
+    </div>
+
     <div class="tab-bar">
       <ion-button
         *ngIf="homeService.userAccessData?.fill_shipment_voucher && (recievingDetails.status == recievingStatus.Pending || recievingDetails.status == recievingStatus.Suspended)"

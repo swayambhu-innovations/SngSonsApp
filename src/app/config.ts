@@ -48,6 +48,7 @@ export const Config = {
   },
   collection: {
     account: 'account',
+    accountZMM: 'account-zmm',
     expenseType: 'expense-type',
     settings: 'settings',
     variables: 'variables',

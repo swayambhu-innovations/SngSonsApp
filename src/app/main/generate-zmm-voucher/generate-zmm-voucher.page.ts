@@ -10,9 +10,12 @@ import { ShipmentDetailService } from '../shipment-detail/shipment-detail.servic
 import { HomeService } from '../home/home.service';
 import { AccountExpenseService } from '../settings/component/account-expense/account-expense.service';
 import { LabourMasterService } from '../settings/component/labour-master/labour-master.service';
-import { ShipmentStatus } from 'src/app/utils/enum';
+import { RecievingStatus } from 'src/app/utils/enum';
 import { Config } from 'src/app/config';
 import * as moment from 'moment';
+import { ReceivingsService } from '../home/tabs/vendors/receivings.service';
+import { RecievingDetailService } from '../recieving-detail/recieving-detail.service';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-generate-zmm-voucher',
@@ -29,28 +32,55 @@ export class GenerateZmmVoucherPage implements OnInit {
   formatDate = formatDate;
   config = Config;
   showConfirm = false;
-  shipmentStatus = ShipmentStatus;
+  RecievingStatus = RecievingStatus;
   isSuspended = false;
   accounts: any[] = [];
   expense: any = {};
   expenseAccount: any = {};
   labours: any[] = [];
+  recievingDetails: any = {};
+  dispatchDate: any;
+  expDeliveryDate: any;
+  gateEntryDate: any;
 
   constructor(
     private navCtrl: NavController,
     private route: ActivatedRoute,
-    private shipmentService: ShipmentsService,
+    private receivingsService: ReceivingsService,
     private loadingController: LoadingController,
     private notification: NotificationService,
-    private shipmentDetailService: ShipmentDetailService,
+    private recievingsService: ReceivingsService,
     public homeService: HomeService,
+    private sharedService: SharedService,
     private accountExpenseService: AccountExpenseService,
     private labourMasterService: LabourMasterService,
+    private recievingDetailService: RecievingDetailService,
     private utilService: UtilService
-  ) {}
+  ) {
+    this.sharedService.refresh.subscribe((data) => {
+      if (data) {
+        this.getRecievingDetails();
+      }
+    });
+  }
+
+  userName: string = '';
+
+  async ngOnInit() {
+    this.loader = await this.loadingController.create({
+      message: Config.messages.pleaseWait,
+    });
+    this.id = this.route.snapshot.paramMap.get('id');
+    const data: any = this.utilService.getUserdata();
+    this.userName = data?.access?.userName || '';
+    await this.getAccounts();
+    await this.getExpense();
+    await this.getLabours();
+    await this.getRecievingDetails();
+  }
 
   voucherForm: FormGroup = new FormGroup({
-    id: new FormControl('', [Validators.required]),
+    id: new FormControl(this.recievingDetails?.id, [Validators.required]),
     dieselExpenseBank: new FormControl('', [Validators.required]),
     dieselExpenseAmount: new FormControl('', [Validators.required]),
     labour: new FormControl('', [Validators.required]),
@@ -67,21 +97,10 @@ export class GenerateZmmVoucherPage implements OnInit {
     otherExpenseBank: new FormControl('', [Validators.required]),
     otherExpenseAmount: new FormControl('', [Validators.required]),
     remark: new FormControl('', []),
-    createdAt: new FormControl('', []),
+    createdAt: new FormControl(new Date(), []),
     createdById: new FormControl('', []),
-    createdByName: new FormControl('', []),
+    createdByName: new FormControl(this.userName, []),
   });
-
-  async ngOnInit() {
-    this.loader = await this.loadingController.create({
-      message: Config.messages.pleaseWait,
-    });
-    this.id = this.route.snapshot.paramMap.get('id');
-    await this.getExpense();
-    await this.getAccounts();
-    await this.getLabours();
-    await this.getShipmentDetails();
-  }
 
   goBack() {
     this.navCtrl.back();
@@ -102,7 +121,7 @@ export class GenerateZmmVoucherPage implements OnInit {
 
   get createdAt() {
     const data = this.voucherForm.value;
-    return formatDate(data.createdAt, 'dd MMM YYYY');
+    return formatDate(data.createdAt, 'DD MMM YYYY');
   }
 
   get createdByName() {
@@ -110,35 +129,31 @@ export class GenerateZmmVoucherPage implements OnInit {
     return data.createdByName;
   }
 
-  async getShipmentDetails() {
+  async getRecievingDetails() {
     this.loader.present();
-    (await this.shipmentService.getShipmentsById(this.id)).docs.map(
-      async (shipment: any) => {
-        const shipmentData = {
-          ...shipment.data(),
-          id: shipment.id,
-          vendor: [],
+    (await this.recievingsService.getRecievingsById(this.id)).docs.map(
+      async (recieving: any) => {
+        const recievingData = {
+          ...recieving.data(),
+          id: recieving.id,
+          supplier: [],
         };
-        this.shipmentDetails = await this.shipmentDetailService.formatShipment(
-          shipmentData
-        );
-        if (this.shipmentDetails.voucherData) {
-          this.voucherForm.patchValue(this.shipmentDetails.voucherData);
-        } else {
-          this.voucherForm.patchValue({
-            id: this.id,
-            createdAt: new Date(),
-            createdById: this.utilService.getUserId(),
-            createdByName: this.utilService.getUserName(),
-            dieselExpenseBank: this.expense['Diesel'].account,
-            labourExpenseBank: this.expense['Labour'].account,
-            khurakiExpenseBank: this.expense['Khuraki'].account,
-            freightExpenseBank: this.expense['Freight'].account,
-            tollExpenseBank: this.expense['Toll'].account,
-            repairExpenseBank: this.expense['Repair'].account,
-            otherExpenseBank: this.expense['Others'].account,
-          });
-        }
+        this.recievingDetails =
+          await this.recievingDetailService.formatReceiving(recievingData);
+
+        this.dispatchDate = new Date(
+          parseInt(this.recievingDetails?.dispatchDate)
+        ).toDateString();
+
+        this.expDeliveryDate = new Date(
+          parseInt(this.recievingDetails?.expDeliverDate)
+        ).toDateString();
+
+        this.gateEntryDate = new Date(
+          parseInt(this.recievingDetails?.gateEntryDate)
+        ).toDateString();
+
+        console.log(this.recievingDetails);
       }
     );
     this.loader.dismiss();
@@ -188,6 +203,12 @@ export class GenerateZmmVoucherPage implements OnInit {
     return true;
   }
   async addVoucher(stat: string) {
+    this.voucherForm.patchValue({
+      id: this.id,
+    });
+
+    console.log(this.voucherForm.value);
+
     if (!this.voucherForm.valid) {
       this.voucherForm.markAllAsTouched();
       this.notification.showError(this.config.messages.fillAllExpenses);
@@ -247,77 +268,77 @@ export class GenerateZmmVoucherPage implements OnInit {
     });
     this.loader.present();
     if (stat === 'Submit') {
-      formData['status'] = ShipmentStatus.PendingPostDelivery;
+      formData['status'] = RecievingStatus.Completed;
     }
-    await this.shipmentService.updShipmentVoucher(this.id, formData);
+    await this.receivingsService.updRecievingVoucher(this.id, formData);
     if (stat === 'Submit') {
-      await this.shipmentService.addAccountExpense(
+      await this.receivingsService.addAccountExpense(
         formData.voucherData.dieselExpenseBank,
         `${this.id}-diesel`,
         {
           amount: formData.voucherData.dieselExpenseAmount,
           date: new Date(),
-          shipmentId: this.id,
+          recievingId: this.id,
         },
         moment(new Date()).format('MMYYYY')
       );
-      await this.shipmentService.addAccountExpense(
+      await this.receivingsService.addAccountExpense(
         formData.voucherData.labourExpenseBank,
         `${this.id}-labour`,
         {
           amount: formData.voucherData.labourExpenseAmount,
           date: new Date(),
-          shipmentId: this.id,
+          recievingId: this.id,
         },
         moment(new Date()).format('MMYYYY')
       );
-      await this.shipmentService.addAccountExpense(
+      await this.receivingsService.addAccountExpense(
         formData.voucherData.khurakiExpenseBank,
         `${this.id}-khuraki`,
         {
           amount: formData.voucherData.khurakiExpenseAmount,
           date: new Date(),
-          shipmentId: this.id,
+          recievingId: this.id,
         },
         moment(new Date()).format('MMYYYY')
       );
-      await this.shipmentService.addAccountExpense(
+      await this.receivingsService.addAccountExpense(
         formData.voucherData.freightExpenseBank,
         `${this.id}-freight`,
         {
           amount: formData.voucherData.freightExpenseAmount,
           date: new Date(),
-          shipmentId: this.id,
+          recievingId: this.id,
         },
         moment(new Date()).format('MMYYYY')
       );
-      await this.shipmentService.addAccountExpense(
+      await this.receivingsService.addAccountExpense(
         formData.voucherData.tollExpenseBank,
         `${this.id}-toll`,
         {
           amount: formData.voucherData.tollExpenseAmount,
           date: new Date(),
-          shipmentId: this.id,
+          recievingId: this.id,
         },
         moment(new Date()).format('MMYYYY')
       );
-      await this.shipmentService.addAccountExpense(
+      await this.receivingsService.addAccountExpense(
         formData.voucherData.repairExpenseBank,
         `${this.id}-repair`,
         {
           amount: formData.voucherData.repairExpenseAmount,
           date: new Date(),
-          shipmentId: this.id,
+          recievingId: this.id,
         },
         moment(new Date()).format('MMYYYY')
       );
-      await this.shipmentService.addAccountExpense(
+      await this.receivingsService.addAccountExpense(
         formData.voucherData.otherExpenseBank,
         `${this.id}-other`,
         {
           amount: formData.voucherData.otherExpenseAmount,
           date: new Date(),
-          shipmentId: this.id,
+          recievingId: this.id,
         },
         moment(new Date()).format('MMYYYY')
       );
