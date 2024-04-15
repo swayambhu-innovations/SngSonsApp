@@ -9,7 +9,7 @@ import {
 import { LoadingController, NavController } from '@ionic/angular';
 import { Config } from 'src/app/config';
 import { ShipmentsService } from 'src/app/main/home/tabs/shipments/shipments.service';
-import { ShipmentStatus } from 'src/app/utils/enum';
+import { RecievingStatus, ShipmentStatus } from 'src/app/utils/enum';
 import { uniq } from 'lodash';
 import { SharedService } from '../../shared.service';
 import { AutoUnsubscribe } from 'src/app/utils/autoUnsubscriber';
@@ -53,7 +53,7 @@ export class RecievingVoucherComponent implements OnChanges, OnInit {
   loader: any;
   recivingsData: any[] = [];
   filteredReceivings: any[] = [];
-  shipmentStatus = ShipmentStatus;
+  recievingStatus = RecievingStatus;
   supplierData: any = {};
 
   async ionViewDidEnter() {
@@ -123,7 +123,6 @@ export class RecievingVoucherComponent implements OnChanges, OnInit {
         return item;
       });
 
-
       const data = {
         ...receiving.data(),
         id: receiving.id,
@@ -134,7 +133,6 @@ export class RecievingVoucherComponent implements OnChanges, OnInit {
         ).join(', '),
         suppliers,
       };
-
 
       this.recivingsData.push({
         _1: data[this.tableData[0].key],

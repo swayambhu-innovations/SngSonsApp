@@ -6,6 +6,7 @@ import { ExcelUploadService } from 'src/app/utils/excel-upload';
 import { NotificationService } from 'src/app/utils/notification';
 import { HomeService } from '../../home/home.service';
 import { ShipmentsService } from '../../home/tabs/shipments/shipments.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-file-details',
@@ -25,6 +26,7 @@ export class FileDetailsPage implements OnInit {
 
   loader: any;
   recievings: any;
+  fileData: any;
 
   async ngOnInit() {
     this.loader = await this.loadingController.create({
@@ -33,15 +35,32 @@ export class FileDetailsPage implements OnInit {
     if (history.state.ZMMdetail) {
       this.recievings = JSON.parse(history.state.ZMMdetail);
     }
+    if (history.state.fileData) {
+      this.fileData = JSON.parse(history.state.fileData);
+    }
 
-    if (this.recievings.length == 0)
+    if (this.recievings.length == 0) {
       this.notification.showError(Config.messages.noImportZMM);
+      this.goBack();
+    } else
+      this.recievings.map((item: any) => {
+        item.dispatchDateType = moment(new Date(item?.dispatchDate)).format(
+          'DD MMM'
+        );
+        item.expDeliveryDateType = moment(
+          new Date(item?.expDeliverDate)
+        ).format('DD MMM');
+        item.gateEntryDateType = moment(new Date(item?.gateEntryDate)).format(
+          'DD MMM'
+        );
+      });
   }
 
   async addZMMinDB() {
     let scope = this;
     await scope.importExportService.addRecieving(
       this.recievings,
+      this.fileData,
       scope,
       scope.loader,
       scope.notification

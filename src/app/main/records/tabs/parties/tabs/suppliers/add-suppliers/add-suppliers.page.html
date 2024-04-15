@@ -1,13 +1,123 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>add-suppliers</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">add-suppliers</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <section>
+    <header class="ion-padding-vertical">
+      <div class="header">
+        <div class="img" (click)="goBack()">
+          <img src="assets/icon/back-button.svg" alt="" />
+        </div>
+        <div class="head">Add New Supplier</div>
+      </div>
+    </header>
+
+    <form [formGroup]="supplierForm" (ngSubmit)="onSubmit()">
+      <div class="container">
+        <ion-item lines="none" class="Variable">
+          <ion-input
+            lines="none"
+            label="GST Number"
+            class="custom"
+            formControlName="GSTNo"
+            labelPlacement="floating"
+            required
+          ></ion-input>
+        </ion-item>
+
+        <ion-item lines="none" class="Variable">
+          <ion-input
+            lines="none"
+            label="Supplier Name"
+            class="custom"
+            formControlName="supplierName"
+            labelPlacement="floating"
+            required
+          ></ion-input>
+        </ion-item>
+
+        <ion-item lines="none" class="Variable">
+          <ion-input
+            lines="none"
+            label="Supplier Code"
+            class="custom"
+            formControlName="supplierID"
+            labelPlacement="floating"
+            required
+          ></ion-input>
+        </ion-item>
+
+        <ion-item lines="none" class="Variable">
+          <ion-input
+            lines="none"
+            label="PAN Number"
+            class="custom"
+            formControlName="panNo"
+            labelPlacement="floating"
+            required
+          ></ion-input>
+        </ion-item>
+
+        <ion-item lines="none" class="Variable">
+          <ion-input
+            lines="none"
+            label="Phone Number"
+            class="custom"
+            type="number"
+            oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10)"
+            formControlName="phoneNO"
+            labelPlacement="floating"
+            required
+          ></ion-input>
+        </ion-item>
+      </div>
+
+      <div class="import-container">
+        <div class="import">
+          <ion-button shape="round">
+            <label for="uploadVendorPic">
+              Upload Photo or Logo
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+              >
+                <path
+                  d="M3.33268 15.8333H16.666V10H18.3327V16.6667C18.3327 17.1269 17.9596 17.5 17.4993 17.5H2.49935C2.03912 17.5 1.66602 17.1269 1.66602 16.6667V10H3.33268V15.8333ZM10.8327 7.5V13.3333H9.16602V7.5H4.99935L9.99935 2.5L14.9993 7.5H10.8327Z"
+                  fill="#1540BD"
+                />
+              </svg>
+            </label>
+          </ion-button>
+          <input
+            type="file"
+            id="uploadVendorPic"
+            (change)="uploadPic($event)"
+            accept="image/x-png,image/gif,image/jpeg"
+            style="display: none"
+          />
+        </div>
+        <div class="export">
+          <ion-button (click)="removePic()" shape="round">
+            <label>
+              Remove
+              <img src="assets/icon/enable-delete-button.svg" alt="" />
+            </label>
+          </ion-button>
+        </div>
+      </div>
+
+      <div class="preview-box">
+        <img [src]="vendorPicSrc" alt="vendor-pic-png" />
+      </div>
+
+      <div class="tab-bar">
+        <ion-button type="submit" shape="round" class="active-btn"
+          >Submit</ion-button
+        >
+        <ion-button (click)="goBack()" shape="round">Cancel</ion-button>
+      </div>
+    </form>
+
+    <div class="below-space"></div>
+  </section>
 </ion-content>

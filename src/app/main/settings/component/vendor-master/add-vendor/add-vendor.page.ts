@@ -51,7 +51,7 @@ export class AddVendorPage implements OnInit {
     });
     if (history.state.vendor) {
       this.vendorData = JSON.parse(history.state.vendor);
-      this.vendorData && this.vendorForm.setValue(this.vendorData);
+      this.vendorData && this.vendorForm.patchValue(this.vendorData);
       this.vendorPicSrc = this.vendorForm.controls['vendorProfileImg'].value;
     }
     this.getHardData();

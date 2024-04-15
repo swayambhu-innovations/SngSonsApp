@@ -25,6 +25,7 @@ export class FileDetailsPage implements OnInit {
 
   loader: any;
   correctShipments: any;
+  fileData: any;
 
   async ngOnInit() {
     this.loader = await this.loadingController.create({
@@ -33,14 +34,22 @@ export class FileDetailsPage implements OnInit {
     if (history.state.ZSDdetail) {
       this.correctShipments = JSON.parse(history.state.ZSDdetail);
     }
-    if (this.correctShipments.length == 0)
+
+    if (history.state.fileData) {
+      this.fileData = JSON.parse(history.state.fileData);
+    }
+
+    if (this.correctShipments.length == 0) {
       this.notification.showError(Config.messages.noImportZSD);
+      this.goBack();
+    }
   }
 
   async addZSDinDB() {
     let scope = this;
     await scope.importExportService.addShipments(
       this.correctShipments,
+      this.fileData,
       scope,
       scope.loader,
       scope.notification

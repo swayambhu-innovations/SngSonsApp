@@ -26,7 +26,13 @@ export class HeadUserBarComponent implements OnInit {
     private loadingController: LoadingController,
     private homeService: HomeService,
     private util: UtilService
-  ) {}
+  ) {
+    this.sharedService.refresh.subscribe((data) => {
+      if (data) {
+        this.getUserName();
+      }
+    });
+  }
 
   notificationCount: number = 8;
 
