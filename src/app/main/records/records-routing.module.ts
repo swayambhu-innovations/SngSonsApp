@@ -15,7 +15,11 @@ const routes: Routes = [
   {
     path: 'supplier-details/:id',
     loadChildren: () => import('./tabs/parties/tabs/suppliers/supplier-details/supplier-details.module').then( m => m.SupplierDetailsPageModule)
+  },  {
+    path: 'add-employee',
+    loadChildren: () => import('./tabs/hr/tabs/employees/add-employee/add-employee.module').then( m => m.AddEmployeePageModule)
   },
+
 ];
 
 @NgModule({
