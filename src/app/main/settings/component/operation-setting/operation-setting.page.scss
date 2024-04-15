@@ -1,5 +1,5 @@
 .card-text {
-    color: #1540bd;
+  color: #1540bd;
   font-size: 18px;
   font-weight: 550;
   padding: 10px 0px 0px 15px;
@@ -18,7 +18,7 @@ ion-card {
   --background: transparent !important;
   padding-top: 10px;
   border-radius: 10px;
-  margin-bottom:20px;
+  margin-bottom: 20px;
 }
 
 .Employee-header {
@@ -26,53 +26,52 @@ ion-card {
   padding-left: 18px;
 }
 
-
-
 .date_range {
-    width: 100%;
-    margin: auto; /* Optional: Set the width of the inner container */
-    background-color: rgba(255, 255, 255, 0.62);
-    border: 1px solid #ced3f1;
-    border-radius: 33px;
-    padding: 7px 7px 7px 0px;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    span {
-      color: #1540bd;
-      font-family: "Merge One";
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-      padding-left: 20px;
+  width: 100%;
+  margin: auto; /* Optional: Set the width of the inner container */
+  background-color: rgba(255, 255, 255, 0.62);
+  border: 1px solid #ced3f1;
+  border-radius: 33px;
+  padding: 7px 7px 7px 0px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  span {
+    color: #1540bd;
+    font-family: "Merge One";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding-left: 20px;
+    margin: 0px;
+
+    p {
+      padding: 0px;
       margin: 0px;
-  
-      p {
-        padding: 0px;
-        margin: 0px;
-        text-align: start;
-      }
-    }
-  
-    .range_date_picker {
-      width: max-content;
-      border-radius: 33px;
-      background-color: #1540bd;
-      color: var(--Text2, #fff);
-      font-family: "Merge One";
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 7px 5px;
-      width: 40vw;
-      gap: 7px;
+      text-align: start;
     }
   }
-  
+
+  .range_date_picker {
+    width: max-content;
+    border-radius: 33px;
+    background-color: #1540bd;
+    color: var(--Text2, #fff);
+    font-family: "Merge One";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 5px;
+    width: 40vw;
+    gap: 7px;
+  }
+}
+
+

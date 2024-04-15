@@ -55,6 +55,7 @@ export const Config = {
     labourMaster: 'labour-master',
     vendorMaster: 'vendor-master',
     role: 'role',
+    areas: 'areas',
     users: 'users',
     supplierMaster: 'supplier-master',
     transporterMaster: 'transporter-master',
