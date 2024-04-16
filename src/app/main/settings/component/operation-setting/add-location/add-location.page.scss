@@ -83,8 +83,11 @@ ion-content {
       line-height: normal;
     }
 
+    .custom_relative{
+      position: relative;
+    }
     .Variable {
-      margin-bottom: 15px;
+      margin-bottom: 15px;   
     }
 
     ion-item {
@@ -162,4 +165,28 @@ ion-content {
   google-map {
     border-radius: 13px;
   }
+}
+
+.vertical_scroll {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+.location_list{
+  width: 95vw;
+  position: absolute;
+  top: 58px;
+  margin-left:3%;
+  background-color: #fff;
+  background: #fff;
+  z-index: 9999;
+  padding: 10px 5px;
+  border-radius: 12px;
+  color:#737373;
+  border: 1px solid rgba(206, 211, 241, 0.62);
+  .row{
+    padding: 5px 5px 1px 5px;
+    border-bottom: 1px solid rgba(206, 211, 241, 0.62);
+  }
+  
 }
