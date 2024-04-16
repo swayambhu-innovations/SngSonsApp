@@ -9,23 +9,41 @@
           <ion-item slot="header">
             <ion-label class="label">
               <ion-row class="ion-align-items-center">
-                <!-- <ion-col size="1"
+                <ion-col size="1"
                   ><img src="assets/icon/red-exclamation.svg" alt=""
-                /></ion-col> -->
-                <ion-col size="7" class="head">Pending For Data Entry</ion-col>
+                /></ion-col>
+                <ion-col size="7" class="head">Pending Maintenance</ion-col>
                 <ion-col size="4" style="text-align: end; color: #1540bd">
                   {{ pendingVendorData?.length }}
                 </ion-col>
               </ion-row>
             </ion-label>
           </ion-item>
-          <div
-            class="content-container"
-            slot="content"
-            *ngFor="let vendor of pendingVendorData"
-          >
-            <ion-row class="ion-justify-content-between ion-align-items-center">
-              <ion-col size="auto" class="profile-img">
+
+          <div class="content-container" slot="content">
+            <ion-item slot="header">
+              <ion-label class="label">
+                <ion-row>
+                  <ion-col size="3" style="color: #9fa7b2" class="head"
+                    >Date</ion-col
+                  >
+                  <ion-col size="3" style="color: #9fa7b2"> Item Name </ion-col>
+
+                  <ion-col size="2" style="color: #9fa7b2"> Activity </ion-col>
+                  <ion-col size="2" style="color: #9fa7b2"> Type </ion-col>
+                  <ion-col size="2" style="color: #9fa7b2"> Assign </ion-col>
+                </ion-row>
+              </ion-label>
+            </ion-item>
+            <ion-row
+              *ngFor="let vendor of pendingVendorData"
+              class="ion-align-items-center"
+            >
+              <ion-col size="3">17</ion-col>
+              <ion-col size="3" class="text">{{ vendor?.WSName }}</ion-col>
+              <ion-col size="2">Fan</ion-col>
+              <ion-col size="1">img</ion-col>
+              <ion-col size="2" class="profile-img">
                 <img
                   [src]="
                     vendor?.vendorProfileImg
@@ -35,8 +53,11 @@
                   alt="avatar"
                 />
               </ion-col>
-              <ion-col size="7" class="text">{{ vendor?.WSName }}</ion-col>
-              <ion-col size="3" class="action">
+              <ion-col size="1"
+                ><img src="assets/icon/forward-arrow.svg" alt=""
+              /></ion-col>
+
+              <!-- <ion-col size="3" class="action">
                 <ion-col
                   (click)="editDetails($event, vendor)"
                   class="edit-button"
@@ -46,7 +67,7 @@
                   (click)="toDelete = { id: vendor.id }; showConfirm = true"
                   ><img src="assets/icon/enable-delete-button.svg" alt=""
                 /></ion-col>
-              </ion-col>
+              </ion-col> -->
             </ion-row>
           </div>
         </ion-accordion>
@@ -77,33 +98,46 @@
         style="background-color: transparent"
         [multiple]="false"
       >
-        <ion-accordion value="first">
+        <ion-accordion
+          value="first"
+          *ngFor="let site of filteredSite; index as i"
+        >
           <ion-item slot="header">
             <ion-label class="label">
               <ion-row class="ion-align-items-center">
-                <ion-col size="5" class="head">Section</ion-col>
-                <ion-col size="3"
-                  ><ion-button class="button">Add Item</ion-button></ion-col
-                >
+                <ion-col size="6" class="head">{{ site.name }}</ion-col>
+                <!-- <ion-col size="3"><ion-button class="button" >Add Item</ion-button></ion-col> -->
 
                 <ion-col size="1" style="padding-left: 5px">
                   <ion-toggle></ion-toggle>
                 </ion-col>
                 <ion-col size="1"></ion-col>
+                <ion-col size="1"></ion-col>
                 <ion-col size="1">
                   <img src="assets/icon/enable-edit-button.svg" alt="" />
                 </ion-col>
+                <ion-col size="1"></ion-col>
                 <ion-col size="1">
                   <img src="assets/icon/enable-delete-button.svg" alt="" />
                 </ion-col>
               </ion-row>
             </ion-label>
           </ion-item>
-          <div
-            class="content-container"
-            slot="content"
-            *ngFor="let vendor of pendingVendorData"
-          >
+
+          <div class="content-container" slot="content">
+            <section>
+              <div class="add-vehicle-wrapper-container">
+                <div class="inner-container">
+                  <div class="label">Create New Item</div>
+                  <div (click)="openAddVendorForm()" class="button">
+                    <p class="button-name">Add Item</p>
+                    <p class="symbol">
+                      <img src="assets/icon/plus-button.svg" alt="" />
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
             <section *ngIf="pendingVendorData?.length">
               <div class="wrapper-container">
                 <ion-grid>
@@ -118,12 +152,12 @@
                             <!-- <ion-col size="1"
                               ><img src="assets/icon/red-exclamation.svg" alt=""
                             /></ion-col> -->
-                            <ion-col size="4" class="head">Section</ion-col>
-                            <ion-col size="4"
+                            <ion-col size="8" class="head">Generator</ion-col>
+                            <!-- <ion-col size="4"
                               ><ion-button class="button"
                                 >Add Item</ion-button
                               ></ion-col
-                            >
+                            > -->
 
                             <ion-col size="1">
                               <ion-toggle></ion-toggle>
@@ -144,45 +178,54 @@
                           </ion-row>
                         </ion-label>
                       </ion-item>
-                      <div
-                        class="content-container"
-                        slot="content"
-                        *ngFor="let vendor of pendingVendorData"
-                      >
-                        <ion-row
-                          class="ion-justify-content-between ion-align-items-center"
-                        >
-                          <ion-col size="auto" class="profile-img">
-                            <img
-                              [src]="
-                                vendor?.vendorProfileImg
-                                  ? vendor?.vendorProfileImg
-                                  : config.url.defaultProfile
-                              "
-                              alt="avatar"
-                            />
-                          </ion-col>
-                          <ion-col size="7" class="text">{{
-                            vendor?.WSName
-                          }}</ion-col>
-                          <ion-col size="3" class="action">
-                            <ion-col
-                              (click)="editDetails($event, vendor)"
-                              class="edit-button"
-                              ><img
-                                src="assets/icon/enable-edit-button.svg"
-                                alt=""
-                            /></ion-col>
-                            <ion-col
-                              (click)="
-                                toDelete = { id: vendor.id }; showConfirm = true
-                              "
-                              ><img
-                                src="assets/icon/enable-delete-button.svg"
-                                alt=""
-                            /></ion-col>
-                          </ion-col>
-                        </ion-row>
+
+                      <div class="content-container" slot="content">
+                        <section>
+                          <div class="add-vehicle-wrapper-container">
+                            <div class="inner-container">
+                              <div class="label">Create New Item</div>
+                              <div (click)="openAddVendorForm()" class="button">
+                                <p class="button-name">Add Item</p>
+                                <p class="symbol">
+                                  <img
+                                    src="assets/icon/plus-button.svg"
+                                    alt=""
+                                  />
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </section>
+                        
+
+
+                        <ion-grid>
+                          <ion-row class="ion-justify-content-between">
+                            <ion-col size="6">Serial Number</ion-col>
+                            <ion-col size="6">7865645566</ion-col>
+                          </ion-row>
+                          <ion-row class="ion-justify-content-between">
+                            <ion-col size="6">Purchase Date</ion-col>
+                            <ion-col size="6">13 Jan 24</ion-col>
+                          </ion-row>
+                          <ion-row class="ion-justify-content-between">
+                            <ion-col size="6">Expiry Date</ion-col>
+                            <ion-col size="6">13 jan 27</ion-col>
+                          </ion-row>
+                          <ion-row class="ion-justify-content-between">
+                            <ion-col size="6">Warranty (in years)</ion-col>
+                            <ion-col size="6">3</ion-col>
+                          </ion-row>
+                          <ion-row class="ion-justify-content-between">
+                            <ion-col size="6">Renewal days</ion-col>
+                            <ion-col size="6">180</ion-col>
+                          </ion-row>
+                          <ion-row class="ion-justify-content-between">
+                            <ion-col size="6">Care Taker</ion-col>
+                            <ion-col size="6">Akash Singh</ion-col>
+                          </ion-row>
+                        </ion-grid>
+
                       </div>
                     </ion-accordion>
                   </ion-accordion-group>
