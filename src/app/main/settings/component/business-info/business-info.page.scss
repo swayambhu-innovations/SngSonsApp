@@ -89,6 +89,8 @@ ion-content {
           justify-content: space-between;
 
           ion-button{
+          width:110px;
+          --padding: 5px 8px;
           color: var(--Primary, #fefefe);
           text-align: center;
           font-size: 9px;
@@ -108,7 +110,7 @@ ion-content {
           padding: 11px 30px 11px 10px;
           gap: 12px;
   
-  
+          
           input {
             background: white;
             border: none;
