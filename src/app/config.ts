@@ -6,6 +6,7 @@ export const Config = {
     organization: 'organization',
     users: 'users',
     areas: 'areas',
+    
   },
   messages: {
     addedSuccessfully: 'Added Successfully',
@@ -64,6 +65,8 @@ export const Config = {
     recievings: 'recievings',
     zsd: 'zsd',
     zmm: 'zmm',
+    site: 'site',
+    items:'items'
   },
   storage: {
     labourParty: 'labourParty-Library',

@@ -4,13 +4,15 @@ import { Config } from 'src/app/config';
 import { VendorMasterService } from 'src/app/main/settings/component/vendor-master/vendor-master.service';
 import { SharedService } from 'src/app/shared/shared.service';
 import { NotificationService } from 'src/app/utils/notification';
+import { SiteService } from './site.service';
+import { collection } from 'firebase/firestore';
 
 @Component({
   selector: 'app-site',
   templateUrl: './site.component.html',
   styleUrls: ['./site.component.scss'],
 })
-export class SiteComponent  implements OnInit {
+export class SiteComponent implements OnInit {
   public vendorData: any; // Store data of all Vendors
   public pendingVendorData: any; // Store data of all pending data of Vendors
   public filteredVendors: any; // Store search result
@@ -24,7 +26,8 @@ export class SiteComponent  implements OnInit {
     private loadingController: LoadingController,
     private navCtrl: NavController,
     private notificationService: NotificationService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private siteService: SiteService
   ) {
     this.sharedService.refresh.subscribe((data) => {
       if (data) {
@@ -32,6 +35,10 @@ export class SiteComponent  implements OnInit {
       }
     });
   }
+
+  allSiteData: any[] = [];
+  filteredSite: any[] = [];
+  variableData: any = {};
 
   openAddVendorForm() {
     this.navCtrl.navigateForward('main/settings/vendor-master/add-vendor');
@@ -43,6 +50,9 @@ export class SiteComponent  implements OnInit {
       message: Config.messages.pleaseWait,
     });
     this.init();
+
+    this.getSite();
+this.getSiteID();
   }
 
   async ionViewDidEnter() {
@@ -115,4 +125,45 @@ export class SiteComponent  implements OnInit {
     }
     this.showConfirm = false;
   }
+
+  async getSite() {
+    const data = await this.siteService.getSite();
+    data.docs.map((site) => {
+      this.allSiteData.push({ ...site.data(), id: site.id });
+    });
+
+    this.filteredSite = this.allSiteData;
+  }
+
+  variables: any[] =[];
+  siteItems: any[]=[];
+  
+  // async getSiteID(siteID: string) {
+  //   const data = await this.siteService.getSite();
+    
+  //   data.docs.map((site) => {
+  //     this.variables.push({ ...site.data(), id: site.id });
+  //     const siteItems=this.siteService.getitems(site.id )
+  //     siteItems.docs.map((site) => {
+        
+  //     });
+  //   });
+    
+  // }
+  async getSiteID() {
+    const data = await this.siteService.getSite();
+    
+    data.docs.map(async (site) => {
+
+      console.log(site.data(),site.id)
+        const siteItems = await this.siteService.getitems(site.id);
+
+        siteItems.docs.map((item:any) => {
+            // this.siteItems.push({ ...item.data(), id: item.id });
+            console.log(item.data(),item.id)
+        });
+        
+        this.variables.push({ ...site.data(), id: site.id });
+    });
+}
 }

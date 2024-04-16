@@ -12,7 +12,7 @@
                 <!-- <ion-col size="1"
                   ><img src="assets/icon/red-exclamation.svg" alt=""
                 /></ion-col> -->
-                <ion-col size="7" class="head">Pending For Data Entry</ion-col>
+                <ion-col size="7" class="head">Pending Maintenance</ion-col>
                 <ion-col size="4" style="text-align: end; color: #1540bd">
                   {{ pendingVendorData?.length }}
                 </ion-col>
@@ -77,12 +77,12 @@
         style="background-color: transparent"
         [multiple]="false"
       >
-        <ion-accordion value="first">
-          <ion-item slot="header">
-            <ion-label class="label">
-              <ion-row class="ion-align-items-center">
+        <ion-accordion value="first" *ngFor="let site of filteredSite; index as i;">
+          <ion-item slot="header" >
+            <ion-label class="label" >
+              <ion-row class="ion-align-items-center" >
 
-                <ion-col size="5" class="head">Section</ion-col>
+                <ion-col size="5" class="head" >{{site.name}}</ion-col>
                 <ion-col size="3"><ion-button class="button" >Add Item</ion-button></ion-col>
 
                 <ion-col size="1" style="padding-left:5px">
