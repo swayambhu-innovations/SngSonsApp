@@ -27,7 +27,7 @@ export class TodayAttendancePage implements OnInit {
 
   userData: any;
   validMarker: boolean = false;
-  currentPosition: google.maps.LatLngLiteral | undefined;
+  currentPosition: google.maps.LatLngLiteral;
   loader: any;
   currentLocation: Subject<Position> = new Subject<Position>();
   workplaceArea: any;
@@ -43,6 +43,7 @@ export class TodayAttendancePage implements OnInit {
       message: Config.messages.markingAttendance,
     });
     this.loader.present();
+
     const data: any = this.utilService.getUserdata();
     this.userData = data?.access;
     this.getArea();
@@ -51,22 +52,11 @@ export class TodayAttendancePage implements OnInit {
       lat: coordinates?.coords.latitude, //here
       lng: coordinates?.coords.longitude, //here
     };
-    // if (this.platform.is("capacitor")) {
-    //   await firstValueFrom(this.currentLocation).then((position: any) => {
-    //     this.currentPosition = {
-    //       lat: coordinates.coords.latitude,//here
-    //       lng: coordinates.coords.longitude,//here
-    //     };
-    //   });
-    // } else
-    //   navigator.geolocation.getCurrentPosition(
-    //     (position: GeolocationPosition) => {
-    //       this.currentPosition = {
-    //         lat: position.coords.latitude,
-    //         lng: position.coords.longitude,
-    //       };
-    //     }
-    //   );
+
+    this.currentPosition.lat =
+      Math.round(this.currentPosition.lat * 10000) / 10000;
+    this.currentPosition.lng =
+      Math.round(this.currentPosition.lng * 10000) / 10000;
 
     this.getUserList();
     this.getAttendance();
@@ -81,10 +71,10 @@ export class TodayAttendancePage implements OnInit {
     });
   }
   async getAttendance() {
-    this.presentCount = 0;
-    this.absentCount = 0;
     const currentDate = new Date();
     const todayDate = currentDate.getDate().toString();
+    this.presentCount = 0;
+    this.absentCount = 0;
 
     await this.TodayAttendanceService.getAttendance().then((data) => {
       data.docs.map((attendance) => {
@@ -135,6 +125,7 @@ export class TodayAttendancePage implements OnInit {
   }
 
   async markEmployeeAttendance(event: CustomEvent, userId: number) {
+    this.loader.present();
     await this.TodayAttendanceService.markEmployeeAttendance(userId, {
       offPremises: 10,
       present: event.detail.value == 'true' ? true : false,
@@ -151,27 +142,29 @@ export class TodayAttendancePage implements OnInit {
     );
 
     this.getAttendance();
+    this.loader.dismiss();
   }
 
   async getArea() {
     await this.locationService.getArea(this.userData?.areaID).then((data) => {
       this.workplaceArea = data.data();
+
+      this.workplaceArea.cordinates.lat =
+        Math.round(this.workplaceArea?.cordinates.lat * 10000) / 10000;
+      this.workplaceArea.cordinates.lng =
+        Math.round(this.workplaceArea?.cordinates.lng * 10000) / 10000;
     });
   }
 
   // geo-fencing
   async getLocation() {
-    let loader = await this.loadingController.create({
-      message: 'Getting location...',
-    });
-    loader.present();
-    const isValid = this.locationService.setPointerOutside(
+    console.log(this.workplaceArea?.cordinates);
+    console.log(this.currentPosition);
+    return this.locationService.setPointerOutside(
       this.workplaceArea?.cordinates,
       this.currentPosition,
       this.workplaceArea?.radius
     );
-    loader.dismiss();
-    return isValid;
   }
 
   async markPresent() {

@@ -1,0 +1,195 @@
+ion-content {
+    --color: #1540bd;
+    font-family: "Merge One";
+    ::placeholder {
+      color: rgba(80, 94, 134, 0.5);
+    }
+  
+    background: linear-gradient(
+      180deg,
+      #d5e6ff -8.94%,
+      #fff 27.36%,
+      #fff 61.93%,
+      #c9deff 101.69%
+    );
+  
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: large;
+  
+      .invalid_msg{
+        width: 75vw;
+        color:#ff6161;
+        font-size: 14px;
+        margin-left: 3%;
+        margin-top: 3px;
+        text-align: left;
+      }
+  
+      .profile_section {
+        width: 328px;
+        height: 191px;
+        object-fit: cover;
+        border-radius: 12px;
+        border: 1px solid rgba(206, 211, 241, 0.62);
+        box-shadow: 0px 4px 60px 0px #c6e0ff;
+      }
+  
+      p {
+        margin-top: 33px;
+        color: var(--Primary, #1540bd);
+        text-align: center;
+        font-family: "Merge One";
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+    }
+  
+    .input_field_section {
+      width: 90%;
+      margin: 3% 5%;
+      font-size: 14px;
+  
+      .label {
+        padding-left: 3%;
+        float: left;
+        color: var(--Text3, #9fa7b2);
+        font-family: "Merge One";
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+  
+      .select_option_field {
+        border-radius: 12px;
+        border: 1px solid rgba(206, 211, 241, 0.62);
+        background: #fff;
+        display: inline-flex;
+        padding: 1px 10px 1px 10px;
+        gap: 12px;
+      }
+  
+      .calendar_icon {
+        padding-top: 5px;
+        padding-right: 6px;
+      }
+  
+      .flex_justify_content {
+        display: flex;
+        width: 90vw;
+        justify-content: space-between;
+        button {
+          background: transparent;
+        }
+      }
+  
+      .input_field_box {
+        border-radius: 12px;
+        border: 1px solid rgba(206, 211, 241, 0.62);
+        background: #fff;
+        display: inline-flex;
+        padding: 11px 30px 11px 10px;
+        gap: 12px;
+  
+        input {
+          background: white;
+          border: none;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+        }
+        .text_box_width {
+          width: 75vw;
+        }
+        .calendar_box_width {
+          width: 57vw;
+          margin: 0px;
+          text-align: left;
+        }
+        input:focus {
+          outline: none;
+        }
+        ion-icon {
+          color: #1540bd;
+        }
+      }
+    }
+  
+    .btn {
+      width: 226px;
+      padding: 8px;
+      border-radius: 60px;
+      background: rgba(168, 205, 255, 0.29);
+      backdrop-filter: blur(15px);
+      margin: 5% 0% 5% 0%;
+      display: flex;
+      gap: 7px;
+  
+      button {
+        width: 100px;
+        height: 40px;
+        border-radius: 50px;
+        background: var(--Primary, #1540bd);
+        color: white;
+      }
+      .cancel_button {
+        background: white;
+        color: #1540bd;
+      }
+    }
+  }
+  
+  .profile_upload {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  
+    .upload_picture_icon {
+      margin-left: 66px;
+    }
+    .remove_picture_icon {
+      margin-left: 9px;
+    }
+  
+    button {
+      display: inline-block;
+      color: #1540bd;
+      padding: 10px 17px;
+      font-family: "Merge One";
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      border-radius: 50px;
+      border: 1px solid rgba(206, 211, 241, 0.62);
+      background: #fff;
+    }
+  }
+  
+  .calendar_label {
+    position: relative;
+  }
+  
+  .calendar_label input[type="date"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .invalid-field {
+    border: 2px solid #ff6161 !important;
+  }
+  
+  ion-select {
+    --highlight-color: none; /* Change the color of the selected highlight */
+  }

@@ -1,0 +1,134 @@
+<ion-content class="">
+  <ion-grid>
+    <ion-row class="ion-justify-content-between ion-align-items-center">
+      <ion-col size="auto">
+        <ion-row class="ion-justify-content-center ion-align-items-center">
+          <ion-col size="auto">
+            <svg
+              xmlns="https://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              viewBox="0 0 26 26"
+              fill="none"
+              (click)="goBack()"
+            >
+              <path
+                d="M11.7301 13.0008L17.0924 18.3629L15.5603 19.895L8.66602 13.0008L15.5603 6.10645L17.0924 7.63851L11.7301 13.0008Z"
+                fill="#1540BD"
+              />
+            </svg>
+          </ion-col>
+          <ion-col size="auto">
+            <div>
+              <ion-text id="heading"> Add Location </ion-text>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col size="auto"> </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <form [formGroup]="locationForm" (ngSubmit)="onSubmit()">
+    <div class="container">
+      <ion-item lines="none" class="Variable">
+        <ion-input
+          lines="none"
+          label="Name of the Location"
+          class="custom"
+          required
+          formControlName="locName"
+          labelPlacement="floating"
+        ></ion-input>
+      </ion-item>
+
+      <!-- <ion-item lines="none" class="Variable">
+        <ion-input
+          #geoInput
+          lines="none"
+          label="Search By Name on Google Maps"
+          class="custom"
+          (ionInput)="getCordinates({ address: $event.target.value?.toString()})"
+          required="true"
+          formControlName="googleLoc"
+          labelPlacement="floating"
+        ></ion-input>
+      </ion-item> -->
+
+      <ion-item lines="none" class="Variable">
+        <ion-input
+          #geoInput
+          lines="none"
+          label="Search By Name on Google Maps"
+          class="custom"
+          (ionInput)="getSuggestion($event)"
+          required="true"
+          formControlName="googleLoc"
+          labelPlacement="floating"
+        ></ion-input>
+      </ion-item>
+
+      <ion-list *ngIf="geoResults.length>0">
+        <ion-item *ngFor="let result of geoResults">
+          <ion-label (click)="setLocation(result.location)">
+            {{ result.displayName }}
+          </ion-label>
+        </ion-item>
+      </ion-list>
+
+      <ion-item lines="none" class="Variable">
+        <ion-input
+          lines="none"
+          type="number"
+          label="Radius (in mts)"
+          class="custom"
+          (ionInput)="setCircle($event.target.value)"
+          required="true"
+          formControlName="radius"
+          labelPlacement="floating"
+        ></ion-input>
+      </ion-item>
+
+      <p (click)="getCurrLocation()" class="current-location">
+        <img src="assets/LocationManagement/location.svg" />
+        <span>Use Current location</span>
+      </p>
+
+      <div class="google-map-container">
+        <google-map
+          height="100%"
+          width="100%"
+          [center]="currentPosition"
+          [zoom]="zoom"
+          (mapClick)="moveMap($event)"
+          (mapMousemove)="move($event)"
+        >
+          <map-marker
+            #markerElem
+            [options]="marker.options"
+            [title]="marker.title"
+            [position]="marker.position"
+            (mapDragend)="newPosition($event)"
+          ></map-marker>
+          <map-polygon [paths]="vertices" />
+          <map-circle
+            [center]="currentPosition"
+            [radius]="circleRadius"
+            [options]="mapOptionsCircle"
+            (circleClick)="moveMap($event)"
+            fillColor="red"
+          />
+        </google-map>
+      </div>
+    </div>
+
+    <div class="tab-bar">
+      <ion-button shape="round" type="submit" class="active-btn"
+        >Submit</ion-button
+      >
+      <ion-button shape="round" (click)="goBack()">Cancel</ion-button>
+    </div>
+  </form>
+
+  <div class="below-space"></div>
+</ion-content>

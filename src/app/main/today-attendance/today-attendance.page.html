@@ -12,7 +12,11 @@
         </div>
       </ion-col>
       <ion-col size="auto">
-        <ion-button *ngIf="!isMarked(this.userData?.phone)" shape="round" (click)="markPresent()">
+        <ion-button
+          *ngIf="!isMarked(this.userData?.phone)"
+          shape="round"
+          (click)="markPresent()"
+        >
           <span>
             Mark Your<br />
             Attendance
@@ -22,7 +26,11 @@
             src="assets\today-attendance\history-w.svg"
           />
         </ion-button>
-        <ion-button id="markedPresent" *ngIf="isMarked(this.userData?.phone)" shape="round">
+        <ion-button
+          id="markedPresent"
+          *ngIf="isMarked(this.userData?.phone)"
+          shape="round"
+        >
           <span> Marked Present </span>
         </ion-button>
       </ion-col>
@@ -66,8 +74,10 @@
         <ion-col>08:45 AM</ion-col>
         <ion-col>05:15 PM</ion-col>
         <ion-col>
-         
-          <div class="mark_attendance_btn"  [style.border]="'1px solid ' + getStatusColor(entry.phone)" >
+          <div
+            class="mark_attendance_btn"
+            [style.border]="'1px solid ' + getStatusColor(entry.phone)"
+          >
             <ion-select
               class="custom-select"
               aria-label="mark attendance"
@@ -83,8 +93,12 @@
         </ion-col>
       </ion-row>
       <ion-row
-        ><ion-col size="12" class="total_day">Total Employees : {{userList.length}}</ion-col>
+        ><ion-col size="12" class="total_day"
+          >Total Employees : {{userList.length}}</ion-col
+        >
       </ion-row>
     </ion-grid>
   </div>
+
+  <div class="below-space"></div>
 </ion-content>
