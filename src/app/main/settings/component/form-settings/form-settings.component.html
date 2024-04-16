@@ -50,15 +50,19 @@
           <div
             class="content-container"
             slot="content"
-            *ngFor="let item of variableData['voucher-pending-form']"
+            *ngFor="
+              let item of variableData[
+                this.config.formSettingVariable.VoucherPendingForm
+              ]
+            "
           >
             <ion-row class="ion-justify-content-between ion-align-items-center">
               <ion-col size="5" class="text"
                 >{{ item?.variableName }}
                 <div class="import-zsd-file" *ngIf="item?.isZSD">
                   *Imported from ZSD
-                </div></ion-col
-              >
+                </div>
+              </ion-col>
               <ion-col
                 size="3"
                 class="type-select drop-down-color"
@@ -176,7 +180,11 @@
           <div
             class="content-container"
             slot="content"
-            *ngFor="let item of variableData['post-dlv-pending-form']"
+            *ngFor="
+              let item of variableData[
+                this.config.formSettingVariable.PostDlvPendingForm
+              ]
+            "
           >
             <ion-row class="ion-justify-content-between ion-align-items-center">
               <ion-col size="5" class="text"
@@ -280,7 +288,7 @@
                   (click)="
                     openModal(
                       $event,
-                      config.formSettingVariable.PostDlvPendingForm
+                      config.formSettingVariable.RecievingVoucherForm
                     )
                   "
                 >
@@ -302,7 +310,11 @@
           <div
             class="content-container"
             slot="content"
-            *ngFor="let item of variableData['post-dlv-pending-form']"
+            *ngFor="
+              let item of variableData[
+                this.config.formSettingVariable.RecievingVoucherForm
+              ]
+            "
           >
             <ion-row class="ion-justify-content-between ion-align-items-center">
               <ion-col size="5" class="text"

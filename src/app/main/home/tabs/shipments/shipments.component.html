@@ -1,5 +1,5 @@
 <ng-container *ngIf="homeService.dashBoardSettingFormData?.shipment_DayWise">
-  <app-day-wise-summary></app-day-wise-summary>
+  <app-day-wise-summary [isDispatch]="true"></app-day-wise-summary>
 </ng-container>
 
 <ng-container *ngIf="homeService.userAccessData?.upload_new_zsd_file">
