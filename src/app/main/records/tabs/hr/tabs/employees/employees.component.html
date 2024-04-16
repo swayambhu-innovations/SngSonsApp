@@ -397,6 +397,7 @@
                 <p>Name</p>
                 <p>Permit</p>
               </div>
+              <div class="vertical_scroll">
               <div class="data-container">
                 <div class="data-name">
                   <p class="name">Upload New ZSD File</p>
@@ -555,6 +556,50 @@
                   </label>
                 </div>
               </div>
+              <hr/>
+              <div class="data-container">
+                <div class="data-name"><p class="name">Punch In All Member Of Department</p></div>
+                <div class="toggle">
+                  <label class="switch">
+                    <input
+                      formControlName="punch_in_all_member_of_department"
+                      type="checkbox"
+                      [checked]="roleForm.value.punch_in_all_member_of_department"
+                    />
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+              <hr/>
+              <div class="data-container">
+                <div class="data-name"><p class="name">Punch In Outside Location</p></div>
+                <div class="toggle">
+                  <label class="switch">
+                    <input
+                      formControlName="punch_in_outside_location"
+                      type="checkbox"
+                      [checked]="roleForm.value.punch_in_outside_location"
+                    />
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+              <hr/>
+              <div class="data-container">
+                <div class="data-name"><p class="name">Punch In Self Presence</p></div>
+                <div class="toggle">
+                  <label class="switch">
+                    <input
+                      formControlName="punch_in_self_presence"
+                      type="checkbox"
+                      [checked]="roleForm.value.punch_in_self_presence"
+                    />
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+              
+            </div>
             </div>
           </div>
 

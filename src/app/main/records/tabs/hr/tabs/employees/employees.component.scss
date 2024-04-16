@@ -404,3 +404,9 @@ ion-grid {
     }
   }
 }
+
+.vertical_scroll {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
