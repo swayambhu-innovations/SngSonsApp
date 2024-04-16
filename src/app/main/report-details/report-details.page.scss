@@ -164,23 +164,40 @@ ion-select.report-sort-by {
   --placeholder-opacity: 1;
   justify-content: center;
   min-height: 20px;
-  .select-wrapper-inner{
+  .select-wrapper-inner {
     width: 100%;
     justify-content: space-between;
   }
 }
 ion-select::part(text) {
-  color: #1540bd;;
+  color: #1540bd;
 }
 
 .wrapper {
   height: 100%;
   overflow-y: scroll;
 }
-.up-arrow-image{
+.up-arrow-image {
   width: 20px;
   margin-right: 4px;
 }
-.up-arrow-image.is-descending{
+.up-arrow-image.is-descending {
   transform: rotate(180deg);
+}
+
+ion-modal {
+  .wrapper {
+    p {
+      text-align: center;
+      color: var(--Primary, #1540bd);
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
+  ion-row {
+    border-bottom: 1px solid rgb(213, 213, 213);
+    padding: 5px;
+  }
 }
