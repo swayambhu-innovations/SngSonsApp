@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { RecordsPageRoutingModule } from './records-routing.module';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { RecordsPage } from './records.page';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PartiesModule } from './tabs/parties/parties.module';
@@ -24,6 +24,7 @@ import { AccountsModule } from './tabs/accounts/accounts.module';
     HrModule,
     SharedModule,
     RecordsPageRoutingModule,
+    ReactiveFormsModule
   ],
   declarations: [RecordsPage],
 })
