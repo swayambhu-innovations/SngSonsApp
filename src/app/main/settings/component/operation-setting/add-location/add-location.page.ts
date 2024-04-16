@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { OperationService } from '../operation.service';
 import { NotificationService } from 'src/app/utils/notification';
 import { LoadingController, NavController } from '@ionic/angular';
@@ -24,8 +24,10 @@ export class AddLocationPage implements OnInit {
     private navCtrl: NavController
   ) {}
 
+  @ViewChild('geoInput') input: ElementRef;
   // Google Map Variables
   infoWindow: google.maps.InfoWindow;
+  autocomplete: any;
   geocoder = new google.maps.Geocoder();
   currentLocation: Subject<Position> = new Subject<Position>(); // Check location for android/ios
   currentPosition: google.maps.LatLngLiteral; // Default data for google map (but will be fetching realtime location on ngInit)
@@ -48,8 +50,16 @@ export class AddLocationPage implements OnInit {
     lat: 26.8381,
     lng: 80.9346001,
   };
+  geoResults: any[] = [];
   isValidMarker: boolean = false; // check whether in required area
   private loader: any;
+  boundOptions: any;
+  defaultBounds = {
+    north: 0,
+    south: 0,
+    east: 0,
+    west: 0,
+  };
 
   //added user data for CRUD
   locationForm: FormGroup = new FormGroup({
@@ -77,8 +87,6 @@ export class AddLocationPage implements OnInit {
       },
       title: 'Selected Location',
     };
-    this.getCurrLocation();
-
     if (history.state.area) {
       this.area = JSON.parse(history.state.area);
       this.locationForm.setValue(this.area);
@@ -86,7 +94,27 @@ export class AddLocationPage implements OnInit {
         this.currentPosition = this.locationForm.value.cordinates;
       this.setCircle();
       this.marker.position = this.currentPosition;
+    } else {
+      this.getCurrLocation();
+      this.setCircle();
+      this.marker.position = this.currentPosition;
     }
+    // this.defaultBounds = {
+    //   north: this.currentPosition?.lat + 0.1,
+    //   south: this.currentPosition?.lat - 0.1,
+    //   east: this.currentPosition?.lng + 0.1,
+    //   west: this.currentPosition?.lng - 0.1,
+    // };
+    // this.boundOptions = {
+    //   bounds: this.defaultBounds,
+    //   componentRestrictions: { country: 'in' },
+    //   fields: ['address_components', 'geometry', 'icon', 'name'],
+    //   strictBounds: false,
+    // };
+    // this.autocomplete = new google.maps.places.Autocomplete(
+    //   this.input?.nativeElement,
+    //   this.boundOptions
+    // );
   }
 
   // get current location
@@ -100,32 +128,9 @@ export class AddLocationPage implements OnInit {
       lat: coordinates?.coords.latitude, //here
       lng: coordinates?.coords.longitude, //here
     };
+    this.setCircle();
     this.marker.position = this.currentPosition;
     this.getLoactionByCordinates(this.currentPosition);
-    // if (this.platform.is("capacitor")) {
-    //   this.currentPosition = {
-    //     lat: coordinates.coords.latitude, //here
-    //     lng: coordinates.coords.longitude, //here
-    //   };
-    //   this.marker.position = this.currentPosition;
-    //   this.getLoactionByCordinates(this.currentPosition);
-    //   // await firstValueFrom(this.currentLocation).then((position: any) => {
-
-    //   // });
-    // } else
-    //   navigator.geolocation.getCurrentPosition(
-    //     (position: GeolocationPosition) => {
-    //       this.currentPosition = {
-    //         lat: position.coords.latitude,
-    //         lng: position.coords.longitude,
-    //       };
-    //       this.marker.position = this.currentPosition;
-    //       this.getLoactionByCordinates(this.currentPosition);
-    //     },
-    //     (error) => {
-    //       this.getCurrLocation();
-    //     }
-    //   );
     loader.dismiss();
   }
 
@@ -139,6 +144,37 @@ export class AddLocationPage implements OnInit {
         lat: position.lat,
         lng: position.lng,
       };
+      this.setCircle();
+      this.marker.position = this.currentPosition;
+    });
+  }
+
+  setLocation(location: any) {
+    this.currentPosition = location;
+    this.setCircle();
+    this.marker.position = this.currentPosition;
+  }
+
+  //searching on suggestion
+  async getSuggestion(e: any) {
+    this.geoResults = [];
+    const { Place } = (await google.maps.importLibrary(
+      'places'
+    )) as google.maps.PlacesLibrary;
+
+    const request = {
+      textQuery: e.target.value,
+      fields: ['displayName', 'location'],
+      language: 'en-US',
+      maxResultCount: 8,
+      region: 'in',
+      useStrictTypeFiltering: false,
+    };
+
+    //@ts-ignore
+    const { places } = await Place.searchByText(request);
+    places.map((item: any) => {
+      this.geoResults.push(item.Fg);
     });
   }
 
@@ -196,7 +232,8 @@ export class AddLocationPage implements OnInit {
       'Location ' + Config.messages.addedSuccessfully
     );
     this.locationForm.reset();
-    this.loader.dismiss();
+    this.goBack();
+    this.loader?.dismiss();
   }
 
   goBack() {

@@ -134,4 +134,9 @@
   </div>
 
   <div class="below-space"></div>
+
+  <app-confirmation
+    (event)="delArea($event)"
+    [show]="showConfirm"
+  ></app-confirmation>
 </ion-content>

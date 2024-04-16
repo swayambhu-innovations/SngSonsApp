@@ -43,11 +43,11 @@ export class OperationSettingPage implements OnInit {
     this.loader.present();
     this.getAllAreas();
     this.getAllEmps();
-
     this.loader.dismiss();
   }
 
   async getAllEmps() {
+    this.allEmpsData = [];
     this.loader.present();
     const data = await this.userPermissionService.getUsers();
     this.allEmpsData = data.docs.map((user) => {
@@ -57,8 +57,8 @@ export class OperationSettingPage implements OnInit {
   }
 
   async getAllAreas() {
-    this.loader.present();
     this.allAreas = [];
+    this.loader?.present();
     await this.operationService.getAreas().then((data) =>
       data.docs.map((area) => {
         this.allAreas.push({ ...area.data(), id: area.id });
@@ -79,14 +79,21 @@ export class OperationSettingPage implements OnInit {
   }
 
   async delArea(confirmation: any) {
+    this.loader.present();
+    this.allEmpsData.map((item) => {
+      if (item.areaID == this.toDelete.id) {
+        this.notificationService.showError("Location can't be Deleted");
+        confirmation = false;
+      }
+    });
+
     if (confirmation) {
-      this.loader.present();
       await this.operationService.deleteArea(this.toDelete.id);
       this.getAllAreas();
-      this.loader.dismiss();
       this.notificationService.showSuccess(Config.messages.deletedSuccessfully);
     }
     this.showConfirm = false;
+    this.loader.dismiss();
   }
 
   async updAreaStatus(event: any, areaID: any, status: boolean) {

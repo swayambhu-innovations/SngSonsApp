@@ -1,6 +1,6 @@
-import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
-import { Position } from "@capacitor/geolocation";
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+import { Position } from '@capacitor/geolocation';
 import {
   Firestore,
   addDoc,
@@ -14,13 +14,13 @@ import {
   setDoc,
   updateDoc,
   where,
-} from "@angular/fire/firestore";
-import { Platform } from "@ionic/angular";
-import { firstValueFrom } from "rxjs";
-import { Config } from "src/app/config";
+} from '@angular/fire/firestore';
+import { Platform } from '@ionic/angular';
+import { firstValueFrom } from 'rxjs';
+import { Config } from 'src/app/config';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class LocationService {
   currentLocation: Subject<Position> = new Subject<Position>();
@@ -29,7 +29,9 @@ export class LocationService {
   constructor(public firestore: Firestore, private platform: Platform) {}
 
   async getArea(areaID: any) {
-    return await getDoc(doc(this.firestore, Config.formSettingVariable.areas, areaID));
+    return await getDoc(
+      doc(this.firestore, Config.formSettingVariable.areas, areaID)
+    );
   }
 
   setPointerOutside(area: any, currPos: any, circleRadius: any): boolean {

@@ -36,6 +36,10 @@ ion-content {
     }
   }
 
+  ion-list {
+    background: transparent !important;
+  }
+
   .current-location {
     background-color: white;
     color: #dd4909;
@@ -151,7 +155,7 @@ ion-content {
 
 #map,
 .google-map-container {
-  height: 250px;
+  height: 275px;
   width: 90%;
   margin: 10px auto;
   border-radius: 13px;

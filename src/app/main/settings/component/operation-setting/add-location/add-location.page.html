@@ -42,8 +42,9 @@
         ></ion-input>
       </ion-item>
 
-      <ion-item lines="none" class="Variable">
+      <!-- <ion-item lines="none" class="Variable">
         <ion-input
+          #geoInput
           lines="none"
           label="Search By Name on Google Maps"
           class="custom"
@@ -52,7 +53,28 @@
           formControlName="googleLoc"
           labelPlacement="floating"
         ></ion-input>
+      </ion-item> -->
+
+      <ion-item lines="none" class="Variable">
+        <ion-input
+          #geoInput
+          lines="none"
+          label="Search By Name on Google Maps"
+          class="custom"
+          (ionInput)="getSuggestion($event)"
+          required="true"
+          formControlName="googleLoc"
+          labelPlacement="floating"
+        ></ion-input>
       </ion-item>
+
+      <ion-list *ngIf="geoResults.length>0">
+        <ion-item *ngFor="let result of geoResults">
+          <ion-label (click)="setLocation(result.location)">
+            {{ result.displayName }}
+          </ion-label>
+        </ion-item>
+      </ion-list>
 
       <ion-item lines="none" class="Variable">
         <ion-input
