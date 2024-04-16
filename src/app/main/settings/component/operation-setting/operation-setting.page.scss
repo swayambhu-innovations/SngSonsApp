@@ -1,7 +1,7 @@
 .card-text {
   color: #1540bd;
   font-size: 18px;
-  font-weight: 550;
+  font-weight: 400;
   padding: 10px 0px 0px 15px;
   font-style: bold;
 }
@@ -14,6 +14,11 @@
   height: 20px;
 }
 
+.time {
+  color: #1540bd;
+  font-size: 16px;
+}
+
 ion-card {
   --background: transparent !important;
   padding-top: 10px;
@@ -23,7 +28,93 @@ ion-card {
 
 .Employee-header {
   color: #1540bd;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
   padding-left: 18px;
+}
+
+.checkbox_container {
+  margin-bottom: 10px;
+
+  ion-grid {
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+    border: 1px solid #e0e8f8;
+    border-radius: 12px;
+    background-color: #ffffff9e;
+
+    .custom-select {
+      --highlight-color: none; /* Change the color of the selected highlight */
+    }
+
+    .grey_heading {
+      color: var(--Text3, #9fa7b2);
+      font-family: "Merge One";
+      font-size: 14px;
+      text-align: center;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+
+    ion-label {
+      padding: 0px;
+      margin: 0px;
+      ion-row {
+        ion-col {
+          color: var(--Primary, #1540bd);
+          font-family: "Merge One";
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+        }
+      }
+      .dropdown_side {
+        display: flex;
+        gap: 3px;
+      }
+    }
+    ion-accordion-group,
+    ion-accordion {
+      border-radius: 12px;
+      padding: 0px;
+      margin: 0px;
+
+      div {
+        ion-row {
+          padding: 2.5px 5px;
+
+          &.deActive {
+            display: none;
+          }
+        }
+        ion-row:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+    ion-col {
+      color: #505e86;
+      font-family: "Merge One";
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      padding: 0px;
+      margin: 0px;
+
+      ion-select-option {
+        width: 100%;
+      }
+    }
+
+    .table {
+      text-align: center;
+    }
+  }
 }
 
 .date_range {
@@ -73,5 +164,3 @@ ion-card {
     gap: 7px;
   }
 }
-
-

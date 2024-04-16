@@ -3,11 +3,13 @@
   <ion-card>
     <ion-text class="card-text">Attendance Punch In Time</ion-text><br />
     <ion-grid>
-      <ion-row>
-        <ion-col>
+      <ion-row class="ion-justify-content-between ion-align-items-center">
+        <ion-col size="5">
           <ion-text class="card-text-details">Start Time </ion-text></ion-col
         >
-        <ion-col>
+
+        <ion-col class="time" size="4"> 9:00 AM </ion-col>
+        <ion-col size="2">
           <ion-img
             class="history-icon"
             src="assets/history.svg"
@@ -15,13 +17,12 @@
           ></ion-img
         ></ion-col>
       </ion-row>
-    </ion-grid>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
+      <ion-row class="ion-justify-content-between ion-align-items-center">
+        <ion-col size="5">
           <ion-text class="card-text-details">End Time </ion-text></ion-col
         >
-        <ion-col>
+        <ion-col class="time" size="4"> 10:00 AM </ion-col>
+        <ion-col size="2">
           <ion-img
             class="history-icon"
             src="assets/history.svg"
@@ -36,7 +37,7 @@
   <div class="ion-padding-horizontal">
     <div class="date_range">
       <span>
-        <p>Total Locations :</p>
+        <p>Total Locations : {{allAreas.length}}</p>
       </span>
       <div class="range_date_picker" (click)="addLocation()">
         Add Location
@@ -51,63 +52,77 @@
         <ion-accordion *ngFor="let area of allAreas">
           <ion-item slot="header">
             <ion-label>
-              <ion-row class="ion-align-items-center">
+              <ion-row
+                class="ion-align-items-center ion-justify-content-between"
+              >
                 <ion-col size="8">{{area.locName}}</ion-col>
-                <ion-col size="1.3">
-                  <label class="switch">
-                    <input
-                      type="checkbox"
-                      [checked]="area.active"
-                      (click)="updAreaStatus($event, area.id, !area.active)"
-                    />
-                    <span class="slider round"></span>
-                  </label>
+                <ion-col size="auto">
+                  <div class="toogle">
+                    <label class="switch">
+                      <input
+                        type="checkbox"
+                        [checked]="area.active"
+                        (click)="updAreaStatus($event, area.id, !area.active)"
+                      />
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
                 </ion-col>
-                <ion-col size="1.3" (click)="editDetails($event, area)"
-                  ><img src="assets/create-department/edit.svg" alt="" />
+                <ion-col size="auto" (click)="editDetails($event, area)"
+                  ><img src="assets/icon/enable-edit-button.svg" alt="" />
                 </ion-col>
                 <ion-col
-                  size="1.3"
-                  (click)="toDelete = { id: area.id }; showConfirm = true"
-                  ><img src="assets/create-department/delete.svg" alt="" />
+                  size="auto"
+                  (click)="toDelete = { id: area.locName }; showConfirm = true"
+                  ><img src="assets/icon/enable-delete-button.svg" alt="" />
                 </ion-col>
               </ion-row>
             </ion-label>
           </ion-item>
 
           <div class="" slot="content">
-            <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-row
+              *ngIf="allEmpsData.length>0"
+              class="ion-justify-content-between ion-align-items-center"
+            >
               <ion-col size="3" class="grey_heading">Emp ID</ion-col>
               <ion-col size="6" class="grey_heading">Name</ion-col>
-              <ion-col size="3" align="end" class="grey_heading"
-                >Action
-              </ion-col>
+              <ion-col size="3" class="grey_heading">Action </ion-col>
+            </ion-row>
+
+            <ion-row
+              class="ion-justify-content-between ion-margin-vertical ion-align-items-center no-records"
+              *ngIf="allEmpsData.length == 0"
+            >
+              <ion-col size="3"></ion-col>
+              <ion-col size="6">No Employees Registered</ion-col>
+              <ion-col size="3"></ion-col>
             </ion-row>
 
             <ion-row
               *ngFor="let emp of allEmpsData"
               class="ion-justify-content-between ion-align-items-center"
+              [ngClass]="{ deActive: emp.areaID !== area.locName }"
             >
-              <ion-col size="3" *ngIf="emp.areaID == area.id"
-                >{{emp.customID}}</ion-col
-              >
-              <ion-col size="6" *ngIf="emp.areaID == area.id"
-                >{{emp.userName}}</ion-col
-              >
-              <ion-col size="3" *ngIf="emp.areaID == area.id">
+              <ion-col class="table" size="3">{{emp.customID}}</ion-col>
+              <ion-col class="table" size="6">{{emp.userName}}</ion-col>
+              <ion-col class="table" size="3">
                 <div class="round">
                   <ion-select
+                    [(ngModel)]="area.locName"
+                    [ngModelOptions]="{standalone: true}"
                     class="custom-select"
                     [value]="emp.areaID"
+                    (ionChange)="updateEmpArea(area.locName ,emp.id)"
                     placeholder="Change Location"
                   >
                     <ion-select-option
-                      class="ion-justify-content-center ion-align-items-center"
+                      class=""
                       *ngFor="let area of allAreas"
-                      [value]="area.id"
-                      (click)="updateEmpArea(area.id,emp)"
-                      >{{area.locName}}</ion-select-option
+                      [value]="area.locName"
                     >
+                      {{area.locName}}
+                    </ion-select-option>
                   </ion-select>
                 </div>
               </ion-col>
