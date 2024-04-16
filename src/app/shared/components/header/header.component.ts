@@ -23,8 +23,6 @@ export class HeaderComponent implements OnInit {
   }
 
   goBack() {
-    this.navCtrl.navigateBack(
-      this.backUrl == '' ? '/main/settings' : this.backUrl
-    );
+    this.navCtrl.back();
   }
 }

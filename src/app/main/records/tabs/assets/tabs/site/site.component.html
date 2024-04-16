@@ -70,7 +70,7 @@
   </div>
 </section>
 
-<section *ngIf="pendingVendorData?.length">
+<section *ngIf="pendingVendorData?.length" class="ion-padding">
   <div class="wrapper-container">
     <ion-grid>
       <ion-accordion-group
@@ -81,23 +81,20 @@
           <ion-item slot="header">
             <ion-label class="label">
               <ion-row class="ion-align-items-center">
-
                 <ion-col size="5" class="head">Section</ion-col>
-                <ion-col size="3"><ion-button class="button" >Add Item</ion-button></ion-col>
+                <ion-col size="3"
+                  ><ion-button class="button">Add Item</ion-button></ion-col
+                >
 
-                <ion-col size="1" style="padding-left:5px">
-                <ion-toggle></ion-toggle>
+                <ion-col size="1" style="padding-left: 5px">
+                  <ion-toggle></ion-toggle>
                 </ion-col>
                 <ion-col size="1"></ion-col>
-                <ion-col size="1"  >
-                  <img src="assets/icon/enable-edit-button.svg" alt=""
-                  />
+                <ion-col size="1">
+                  <img src="assets/icon/enable-edit-button.svg" alt="" />
                 </ion-col>
-                <ion-col size="1" >
-                  <img
-                  src="assets/icon/enable-delete-button.svg"
-                  alt=""
-              />
+                <ion-col size="1">
+                  <img src="assets/icon/enable-delete-button.svg" alt="" />
                 </ion-col>
               </ion-row>
             </ion-label>
@@ -122,21 +119,27 @@
                               ><img src="assets/icon/red-exclamation.svg" alt=""
                             /></ion-col> -->
                             <ion-col size="4" class="head">Section</ion-col>
-                            <ion-col size="4"><ion-button class="button" >Add Item</ion-button></ion-col>
-                           
-                            <ion-col size="1" >
-                            <ion-toggle></ion-toggle>
+                            <ion-col size="4"
+                              ><ion-button class="button"
+                                >Add Item</ion-button
+                              ></ion-col
+                            >
+
+                            <ion-col size="1">
+                              <ion-toggle></ion-toggle>
                             </ion-col>
                             <ion-col size="1"></ion-col>
-                            <ion-col size="1"  >
-                              <img src="assets/icon/enable-edit-button.svg" alt=""
+                            <ion-col size="1">
+                              <img
+                                src="assets/icon/enable-edit-button.svg"
+                                alt=""
                               />
                             </ion-col>
-                            <ion-col size="1" >
+                            <ion-col size="1">
                               <img
-                              src="assets/icon/enable-delete-button.svg"
-                              alt=""
-                          />
+                                src="assets/icon/enable-delete-button.svg"
+                                alt=""
+                              />
                             </ion-col>
                           </ion-row>
                         </ion-label>
@@ -192,7 +195,6 @@
     </ion-grid>
   </div>
 </section>
-
 
 <!-- <section>
   <div

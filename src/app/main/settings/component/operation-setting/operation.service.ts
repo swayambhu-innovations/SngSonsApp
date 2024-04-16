@@ -39,6 +39,12 @@ export class OperationService {
     }
   }
 
+  updateArea(areaID: any, empID: any) {
+    return updateDoc(doc(this.firestore, Config.collection.users, empID), {
+      areaID: areaID,
+    });
+  }
+
   getAreas() {
     return getDocs(collection(this.firestore, Config.collection.areas));
   }
