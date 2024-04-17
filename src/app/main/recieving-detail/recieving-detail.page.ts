@@ -55,6 +55,7 @@ export class RecievingDetailPage implements OnInit {
   dispatchDate: any;
   expDeliveryDate: any;
   gateEntryDate: any;
+  timeStamp: any;
   images: any = {
     vehicleFront: {},
     vehicleNumberPlate: {},
@@ -185,6 +186,10 @@ export class RecievingDetailPage implements OnInit {
 
         this.gateEntryDate = new Date(
           parseInt(this.recievingDetails?.gateEntryDate)
+        ).toDateString();
+
+        this.timeStamp = new Date(
+          parseInt(this.recievingDetails?.voucherData['createdAt'])
         ).toDateString();
 
         console.log(this.recievingDetails);

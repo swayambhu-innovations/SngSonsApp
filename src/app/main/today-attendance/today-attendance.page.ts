@@ -40,17 +40,21 @@ export class TodayAttendancePage implements OnInit {
 
   async ngOnInit() {
     this.loader = await this.loadingController.create({
-      message: Config.messages.markingAttendance,
+      message: Config.messages.pleaseWait,
     });
     this.loader.present();
 
     const data: any = this.utilService.getUserdata();
     this.userData = data?.access;
     this.getArea();
-    const coordinates = await Geolocation.getCurrentPosition();
+    const coordinates = await Geolocation.getCurrentPosition({
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    });
     this.currentPosition = {
       lat: coordinates?.coords.latitude, //here
-      lng: coordinates?.coords.longitude, //here
+      lng: coordinates?.coords.longitude, //here;
     };
 
     this.currentPosition.lat =
@@ -58,8 +62,9 @@ export class TodayAttendancePage implements OnInit {
     this.currentPosition.lng =
       Math.round(this.currentPosition.lng * 10000) / 10000;
 
-    this.getUserList();
-    this.getAttendance();
+    await this.getUserList();
+    await this.getAttendance();
+    // this.notificationService.showError(`${this.currentPosition.lat}`);
     this.loader.dismiss();
   }
 
