@@ -128,7 +128,9 @@ export class ImportZSDPage implements OnInit {
   ) {
     data = await scope.importExportService.formatShipment(data, formatDate);
     event.target.value = '';
-    if (data.length > 0)
+    if (data == false) {
+      scope.notification.showError(Config.messages.zsdInvalid);
+    } else if (data.length > 0)
       scope.navCtrl.navigateForward(['/main/import-zsd/file-details'], {
         state: {
           ZSDdetail: JSON.stringify(data),

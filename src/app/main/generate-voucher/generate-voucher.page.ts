@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController, NavController } from '@ionic/angular';
 import { Config } from 'src/app/config';
+import {
+  FormArray,
+  FormBuilder,
+  FormControlName,
+  FormGroup,
+} from '@angular/forms';
 import { formatDate, formatDateJS } from 'src/app/utils/date-util';
 import { ShipmentStatus } from 'src/app/utils/enum';
 import { ShipmentsService } from '../home/tabs/shipments/shipments.service';
@@ -10,9 +16,10 @@ import { ShipmentDetailService } from '../shipment-detail/shipment-detail.servic
 import { HomeService } from '../home/home.service';
 import { AccountExpenseService } from '../settings/component/account-expense/account-expense.service';
 import { LabourMasterService } from '../settings/component/labour-master/labour-master.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { UtilService } from 'src/app/utils/util';
 import * as moment from 'moment';
+import { FormSettingService } from '../settings/component/form-settings/form-settings.service';
 
 @Component({
   selector: 'app-generate-voucher',
@@ -35,6 +42,7 @@ export class GenerateVoucherPage implements OnInit {
   expense: any = {};
   expenseAccount: any = {};
   labours: any[] = [];
+  variables: any[] = [];
 
   constructor(
     private navCtrl: NavController,
@@ -42,6 +50,8 @@ export class GenerateVoucherPage implements OnInit {
     private shipmentService: ShipmentsService,
     private loadingController: LoadingController,
     private notification: NotificationService,
+    private formBuilder: FormBuilder,
+    private formSettinngs: FormSettingService,
     private shipmentDetailService: ShipmentDetailService,
     public homeService: HomeService,
     private accountExpenseService: AccountExpenseService,
@@ -77,6 +87,7 @@ export class GenerateVoucherPage implements OnInit {
       message: Config.messages.pleaseWait,
     });
     this.id = this.route.snapshot.paramMap.get('id');
+    await this.getVariables();
     await this.getExpense();
     await this.getAccounts();
     await this.getLabours();
@@ -142,6 +153,28 @@ export class GenerateVoucherPage implements OnInit {
       }
     );
     this.loader.dismiss();
+  }
+
+  setForm() {
+    // this.variables.map((variable)=>{
+    //   this.voucherForm.patchValue({
+    //     variable.['variableName']: 
+    //   })
+    // })
+  }
+
+  async getVariables() {
+    try {
+      const data = await this.formSettinngs.getSettings(
+        Config.formSettingVariable.VoucherPendingForm
+      );
+      if (data)
+        data.docs.map((item) => {
+          this.variables.push(item.data());
+        });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async getAccounts() {

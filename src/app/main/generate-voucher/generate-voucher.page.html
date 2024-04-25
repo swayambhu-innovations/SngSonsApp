@@ -716,6 +716,23 @@
         ></ion-input>
       </ion-item>
 
+      <div *ngIf="variables.length>0">
+        <!-- Added Form Settings -->
+        <ion-item *ngFor="let variable of variables" lines="none">
+          <ion-input
+            lines="none"
+            label="Time Stamp"
+            fill="solid"
+            class="custom"
+            labelPlacement="floating"
+            placeholder="Time Stamp"
+            value="*Auto Genrated by System"
+            disabled="true"
+            value="{{createdAt}}"
+          ></ion-input>
+        </ion-item>
+      </div>
+
       <!-- Time Stamp -->
       <ion-item lines="none">
         <ion-input

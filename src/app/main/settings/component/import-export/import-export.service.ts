@@ -230,6 +230,14 @@ export class ImportExportService {
   formatShipment = async (data: any, formatDate: any) => {
     const shipmentsFromDB: any[] = []; // fetch shipments from DB
     let allShipmentsData: any[] = []; // store all shipments
+    let c = 0;
+
+    // validating zsd file
+    data.map((item: any) => {
+      if (item['Custom Invoice No']) c += 1;
+    });
+    if (c == 0) return false;
+
     try {
       // get last custom invoice from DB
       {
@@ -303,6 +311,7 @@ export class ImportExportService {
                 createdAt: new Date(),
                 status: ShipmentStatus.PendingDispatch,
               };
+
               vendorData = [
                 ...item?.vendorData,
                 {
@@ -408,7 +417,13 @@ export class ImportExportService {
     let allVehicles: any[] = [];
     let allSuppliers: any[] = [];
     let allRecievingsData: any[] = []; // store all recievings
+    let c = 0;
 
+    // validating zmm file
+    data.map((item: any) => {
+      if (item['expDeliverDate']) c += 1;
+    });
+    if (c == 0) return false;
     try {
       // remove empty records
       data = data.filter((recieving: any) => {

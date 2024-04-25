@@ -45,8 +45,9 @@ export class FormSettingComponent implements OnInit {
   public config = Config;
   public formVariable = '';
   public variableData: any = {
-    'post-dlv-pending-form': [],
-    'voucher-pending-form': [],
+    [Config.formSettingVariable.VoucherPendingForm]: [],
+    [Config.formSettingVariable.PostDlvPendingForm]: [],
+    [Config.formSettingVariable.RecievingVoucherForm]: [],
   };
   variableId: string = '';
   public showConfirm = false;

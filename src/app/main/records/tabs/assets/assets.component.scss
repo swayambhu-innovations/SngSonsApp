@@ -5,20 +5,26 @@
     align-items: center;
 
     ion-button {
-      width: 99px;
+      width: 20%;
       height: 38.25px;
-      --color: #1659be;
-      --background: rgba(234f, 243, 255, 0.75);
+      --color: #505e86;
+      --background: transparent;
       font-size: 12px;
       font-weight: 400;
-      --border-color: #1659be;
-      --border-style: solid;
-      --border-width: 0.75px;
+      // --border-color: #1659be;
+      // --border-style: solid;
+      // --border-width: 0.75px;
+      --box-shadow: none !important;
+      --outline: none !important;
+      --border-color: rgba(0, 0, 0, 0) !important;
+      // text-transform: capitalize;
 
       &.active {
-        --color: #fff;
-        --background: linear-gradient(266deg, #1540bd 0%, #1786ed 100%);
-        --border-width: 0;
+        // --color: #fff;
+        // --background: linear-gradient(266deg, #1540bd 0%, #1786ed 100%);
+        // --border-width: 0;
+        --color: #1540bd;
+        border-bottom: 4px solid #1540bd;
       }
     }
   }

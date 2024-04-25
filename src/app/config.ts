@@ -1,7 +1,8 @@
 export const Config = {
   formSettingVariable: {
-    PostDlvPendingForm: 'post-dlv-pending-form',
-    VoucherPendingForm: 'voucher-pending-form',
+    PostDlvPendingForm: 'dispatch-post-dlv-pending-form',
+    VoucherPendingForm: 'dispatch-voucher-pending-form',
+    RecievingVoucherForm: 'recieving-voucher-pending-form',
     attendance: 'attendance',
     organization: 'organization',
     users: 'users',

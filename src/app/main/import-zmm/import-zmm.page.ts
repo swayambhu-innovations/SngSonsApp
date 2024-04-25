@@ -28,6 +28,7 @@ export class ImportZmmPage implements OnInit {
   tableData: any[] = [];
   fileDetails: any[] = [];
   filteredRecievings: any[] = [];
+  filteredFiles: any[] = [];
   recievingsData: any[] = [];
   fileCreationDate: any;
   shipmentStatus = ShipmentStatus;
@@ -43,7 +44,7 @@ export class ImportZmmPage implements OnInit {
   }
 
   async getAllFiles() {
-    this.filteredRecievings = [];
+    this.filteredFiles = [];
     await this.importExportService.getZMM().then((dataDB) => {
       if (dataDB)
         dataDB.docs.map((item: any) => this.fileDetails.push(item.data()));
@@ -62,8 +63,8 @@ export class ImportZmmPage implements OnInit {
           parseInt(file?.createdAt)
         ).toDateString();
 
-        this.filteredRecievings = [
-          ...this.filteredRecievings,
+        this.filteredFiles = [
+          ...this.filteredFiles,
           {
             createdAt: this.fileCreationDate,
             fileName: file?.fileName,
@@ -74,7 +75,7 @@ export class ImportZmmPage implements OnInit {
       });
     }
 
-    this.fileDetails = this.filteredRecievings;
+    this.fileDetails = this.filteredFiles;
   }
 
   async getAllRecievings() {
@@ -151,7 +152,9 @@ export class ImportZmmPage implements OnInit {
   ) {
     data = await scope.importExportService.formatRecieving(data, formatDate);
     event.target.value = '';
-    if (data.length > 0)
+    if (data == false) {
+      scope.notification.showError(Config.messages.zmmInvalid);
+    } else if (data.length > 0)
       scope.navCtrl.navigateForward(['/main/import-zmm/file-details'], {
         state: {
           ZMMdetail: JSON.stringify(data),

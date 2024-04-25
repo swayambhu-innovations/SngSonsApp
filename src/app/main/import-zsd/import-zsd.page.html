@@ -92,11 +92,13 @@
         *ngFor="let shipment of filteredShipments; index as i"
         [ngClass]="{ 'd-none': i > 4 }"
       >
-        <ion-col size="4"
-          >{{ shipment.vendorData[0]['CustomInvoiceNo'] }}</ion-col
-        >
-        <ion-col size="5">{{ shipment.vendorData[0]['CustomerName'] }}</ion-col>
-        <ion-col size="3">{{ shipment.vendorData[0]['Area'] }}</ion-col>
+        <ion-col size="4">
+          {{ shipment?.vendorData[0]['CustomInvoiceNo'] }}
+        </ion-col>
+        <ion-col size="5">
+          {{ shipment?.vendorData[0]['CustomerName'] }}
+        </ion-col>
+        <ion-col size="3"> {{ shipment?.vendorData[0]['Area'] }} </ion-col>
       </ion-row>
 
       <!-- <ion-row class="ion-justify-content-end ion-align-items-center">

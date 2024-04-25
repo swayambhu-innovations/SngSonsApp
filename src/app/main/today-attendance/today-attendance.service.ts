@@ -1,4 +1,7 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
+import { Platform } from '@ionic/angular';
+import { Geolocation, Position } from '@capacitor/geolocation';
+import { Subject } from 'rxjs';
 import {
   Firestore,
   addDoc,
@@ -12,15 +15,16 @@ import {
   setDoc,
   updateDoc,
   where,
-} from "@angular/fire/firestore";
-import { Router } from "@angular/router";
-import { Config } from "src/app/config";
+} from '@angular/fire/firestore';
+import { Router } from '@angular/router';
+import { Config } from 'src/app/config';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class TodayAttendanceService {
-  constructor(public firestore: Firestore) {}
+  constructor(public firestore: Firestore,private platform:Platform) {}
+  currentLocation:Subject<Position> = new Subject<Position>();
 
   currentDate = new Date();
 
@@ -31,18 +35,18 @@ export class TodayAttendanceService {
   todayDate = this.currentDate.getDate().toString();
 
   monthsArray: any = [
-    "january",
-    "february",
-    "march",
-    "april",
-    "may",
-    "june",
-    "july",
-    "august",
-    "september",
-    "october",
-    "november",
-    "december",
+    'january',
+    'february',
+    'march',
+    'april',
+    'may',
+    'june',
+    'july',
+    'august',
+    'september',
+    'october',
+    'november',
+    'december',
   ];
 
   getUserList(): any {
@@ -59,6 +63,35 @@ export class TodayAttendanceService {
     );
   }
 
+  async initLocation() {
+    if (this.platform.is('capacitor')) {
+      let permissionRequested = await Geolocation.checkPermissions();
+      if (permissionRequested.location !== 'granted') {
+        permissionRequested = await Geolocation.requestPermissions({
+          permissions: ['coarseLocation', 'location'],
+        });
+      }
+      if (permissionRequested.location !== 'granted') {
+        throw new Error('Permission not granted for location');
+      }
+      this.watchPosition();
+    }
+  }
+
+  watchPosition() {
+    Geolocation.watchPosition(
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 5000 },
+      (position, err) => {
+        if (err) {
+          return;
+        }
+        if (!position) {
+          return;
+        }
+        this.currentLocation.next(position);
+      }
+    );
+  }
 
   // markAttendance(userId: any) {
   //   setDoc(
@@ -83,18 +116,21 @@ export class TodayAttendanceService {
       this.monthsArray[this.currentMonth],
       userId.toString()
     );
-  
+
     getDoc(attendanceRef).then((docSnapshot) => {
       if (docSnapshot.exists()) {
         const attendanceData = docSnapshot.data();
         if (!(this.todayDate in attendanceData)) {
-          setDoc(attendanceRef, {
-            ...attendanceData,
-            [this.todayDate]: { present: true, offPremises: 0 },
-          }, { merge: true }); 
+          setDoc(
+            attendanceRef,
+            {
+              ...attendanceData,
+              [this.todayDate]: { present: true, offPremises: 0 },
+            },
+            { merge: true }
+          );
         }
       } else {
-       
         setDoc(attendanceRef, {
           [this.todayDate]: { present: true, offPremises: 0 },
         });
@@ -102,11 +138,10 @@ export class TodayAttendanceService {
     });
   }
 
-
   async markEmployeeAttendance(userId: any, attendanceData: any) {
     try {
       if (!userId || !attendanceData) {
-        throw new Error("Invalid Data");
+        throw new Error('Invalid Data');
       }
       setDoc(
         doc(
@@ -121,7 +156,7 @@ export class TodayAttendanceService {
         }
       );
     } catch (error) {
-      console.error("Error updating today attendance my admin:", error);
+      console.error('Error updating today attendance my admin:', error);
     }
   }
 }

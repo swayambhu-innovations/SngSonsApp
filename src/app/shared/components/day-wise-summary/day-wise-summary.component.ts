@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { DaywiseSummaryService } from './day-wise-summary-service';
+import { DaywiseSummaryService } from './day-wise-summary.service';
 import { SharedService } from '../../shared.service';
 import { AutoUnsubscribe } from 'src/app/utils/autoUnsubscriber';
 import { LoadingController } from '@ionic/angular';
@@ -21,13 +21,20 @@ export class DayWiseSummaryComponent implements OnInit {
   ) {
     this.sharedService.refresh.subscribe((data) => {
       if (data) {
-        this.daywiseSummaryService.getShipments();
+        if (this.isDispatch) this.daywiseSummaryService.getShipments();
+        else this.daywiseSummaryService.getRecieving();
+        if (this.isAttendance) this.daywiseSummaryService.getRecieving();
       }
     });
   }
 
+  @Input() isDispatch = false;
+  @Input() isAttendance = false;
+
   async ngOnInit() {
-    this.daywiseSummaryService.getShipments();
+    if (this.isDispatch) this.daywiseSummaryService.getShipments();
+    else this.daywiseSummaryService.getRecieving();
+    if (this.isAttendance) this.daywiseSummaryService.getRecieving();
   }
 
   get dateText() {
@@ -47,7 +54,9 @@ export class DayWiseSummaryComponent implements OnInit {
       message: Config.messages.refresh,
     });
     this.loader.present();
-    this.daywiseSummaryService.getShipments();
+    if (this.isDispatch) this.daywiseSummaryService.getShipments();
+    else this.daywiseSummaryService.getRecieving();
+    if (this.isAttendance) this.daywiseSummaryService.getRecieving();
     this.loader.dismiss();
   }
 }
