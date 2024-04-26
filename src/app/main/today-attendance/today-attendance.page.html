@@ -65,8 +65,9 @@
       </ion-row>
       <ion-row
         *ngFor="let entry of userList; let i = index"
-        class="custom-row custom_row_details"
+       
       >
+      <ion-row *ngIf="this.userData?.phone!=entry.id"  class="custom-row custom_row_details">
         <ion-col>{{ entry['customID'] }}</ion-col>
         <ion-col>{{ entry['userName'] }}</ion-col>
         <ion-col>09:00 AM</ion-col>
@@ -91,7 +92,7 @@
             </ion-select>
           </div>
         </ion-col>
-      </ion-row>
+      </ion-row></ion-row>
       <ion-row
         ><ion-col size="12" class="total_day"
           >Total Employees : {{userList.length}}</ion-col

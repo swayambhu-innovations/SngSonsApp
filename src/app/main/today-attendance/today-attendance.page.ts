@@ -56,6 +56,7 @@ export class TodayAttendancePage implements OnInit {
       lat: coordinates?.coords.latitude, //here
       lng: coordinates?.coords.longitude, //here;
     };
+    console.log(this.currentPosition)
 
     this.currentPosition.lat =
       Math.round(this.currentPosition.lat * 10000) / 10000;
@@ -100,8 +101,12 @@ export class TodayAttendancePage implements OnInit {
   }
 
   isMarked(userId: any) {
-    return this.attendanceMap.hasOwnProperty(userId);
+    if(this.attendanceMap.hasOwnProperty(userId)){
+      return this.attendanceMap[userId].present
+    }
+    return false
   }
+
   isPresent(userId: any) {
     if (!this.attendanceMap.hasOwnProperty(userId)) {
       return '';
@@ -163,8 +168,7 @@ export class TodayAttendancePage implements OnInit {
 
   // geo-fencing
   async getLocation() {
-    console.log(this.workplaceArea?.cordinates);
-    console.log(this.currentPosition);
+    console.log(this.workplaceArea,this.currentLocation,this.workplaceArea)
     return this.locationService.setPointerOutside(
       this.workplaceArea?.cordinates,
       this.currentPosition,
@@ -176,6 +180,7 @@ export class TodayAttendancePage implements OnInit {
     this.loader.present();
     this.validMarker = await this.getLocation();
     if (this.validMarker) {
+      console.log(this.validMarker)
       this.attendanceMap[this.userData.phone] = {
         id: this.userData.phone.toString(),
         present: true,
