@@ -1,0 +1,264 @@
+<!-- <ion-content>
+ <app-header-with-back [title]="'Add Item'"></app-header-with-back>
+  <form  [formGroup]="itemForm">
+    <ion-grid>
+        <ion-row class="label"> Name Of Item* </ion-row>
+      <ion-row class="row" >
+        <ion-col size="10" [ngClass]="{'invalid-field': itemForm.controls['itemName'].invalid && itemForm.controls['itemName'].touched}" class="center col_border">
+          <ion-input
+            class="input_field item-has-focus"
+            type="text"
+            placeholder=""
+            formControlName="itemName"
+          ></ion-input>
+        </ion-col>
+        <ion-col size="2" class="toggle_button center">
+          <ion-toggle [checked]="true"></ion-toggle>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="label"> Serial Number* </ion-row>
+      <ion-row class="row">
+        <ion-col size="10" class="center col_border" [ngClass]="{'invalid-field': itemForm.controls['srn'].invalid && itemForm.controls['srn'].touched}">
+          <ion-input
+          formControlName="srn"
+            class="input_field"
+            type="text"
+            placeholder=""
+          ></ion-input>
+        </ion-col>
+        <ion-col size="2" class="toggle_button center">
+          <ion-toggle [checked]="true"></ion-toggle>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="label"> Quantity* </ion-row>
+      <ion-row class="row">
+        <ion-col size="2" class="center"  
+          ><img src="assets/add-item/decrease.svg" alt="" (click)="decreaseQuantity()"
+        /></ion-col>
+        <ion-col size="5" class="col_border center" >
+          <ion-input class="input_field" value="{{itemForm.value.quantity}}"></ion-input>
+        </ion-col>
+        <ion-col size="2" class="center" 
+          ><img src="assets/add-item/increase.svg" alt=""   (click)="increaseQuantity()"
+        /></ion-col>
+        <ion-col size="1"></ion-col>
+        <ion-col size="2" class="toggle_button" class="center">
+          <ion-toggle [checked]="true"></ion-toggle>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="label"> Purchase Date* </ion-row>
+      <ion-row class="row">
+        <ion-col size="10" class="center col_border" [ngClass]="{'invalid-field': itemForm.controls['purchaseDate'].invalid && itemForm.controls['purchaseDate'].touched}">
+          <ion-input class="input_field" type="text" placeholder="" value="{{formatDate(purchaseDate, 'DD MMM YYYY')}}"  readonly>
+            
+          </ion-input>
+          <label class="calendar_label">
+            <img
+              class="calendar_icon"
+              src="assets/add-item/calendar.svg"
+              alt=""
+            />
+            <input
+              class="size"
+              id="dob"
+              formControlName="purchaseDate"
+              type="date"
+              onfocus="this.showPicker()"
+              (change)="updatePurchaseDate($event)"
+              [value]="purchaseDate"
+            />
+          </label>
+        </ion-col>
+        <ion-col size="2" class="toggle_button center">
+          <ion-toggle [checked]="true"></ion-toggle>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="label"> Expiry Date* </ion-row>
+      <ion-row class="row">
+        <ion-col size="10" class="center col_border" [ngClass]="{'invalid-field': itemForm.controls['expiryDate'].invalid && itemForm.controls['expiryDate'].touched}">
+          <ion-input class="input_field" type="text" placeholder="" value="{{ formatDate(expiryDate, 'DD MMM YYYY') }}"  readonly>
+            
+          </ion-input>
+          <label class="calendar_label">
+            <img
+              class="calendar_icon"
+              src="assets/add-item/calendar.svg"
+              alt=""
+            />
+            <input
+              class="size"
+              formControlName="expiryDate"
+              id="dob"
+              type="date"
+              onfocus="this.showPicker()"
+              (change)="updateExpiryDate($event)"
+              [value]="expiryDate"
+            />
+          </label>
+        </ion-col>
+        <ion-col size="2" class="toggle_button center">
+          <ion-toggle [checked]="true"></ion-toggle>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="label"> Warranty (in years)* </ion-row>
+      <ion-row class="row">
+        <ion-col size="10" class="col_border_selectOption_color" [ngClass]="{'col_border_selectOption': !(itemForm.controls['warranty'].invalid && itemForm.controls['warranty'].touched)}">
+          <ion-item>
+            <ion-select 
+            label="Warranty"
+              placeholder=""
+              formControlName="warranty"
+            >
+              <ion-select-option value="2001">2001</ion-select-option>
+              <ion-select-option value="2002">2002</ion-select-option>
+              <ion-select-option value="2003">2003</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col size="2" class="toggle_button center">
+          <ion-toggle [checked]="true"></ion-toggle>
+        </ion-col>
+      </ion-row>
+      <ion-row class="label">Item Type* </ion-row>
+      <ion-row class="row">
+        <ion-col size="10" class="col_border_selectOption_color" [ngClass]="{'col_border_selectOption': !(itemForm.controls['itemType'].invalid && itemForm.controls['itemType'].touched)}" >
+          <ion-item>
+            <ion-select 
+            label="Item Type"
+              placeholder=""
+              formControlName="itemType"
+            >
+              <ion-select-option value="xyz">xyc</ion-select-option>
+              <ion-select-option value="x">x</ion-select-option>
+              <ion-select-option value="y">y</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col size="2" class="toggle_button center">
+          <ion-toggle [checked]="true"></ion-toggle>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="label"> Care Taker* </ion-row>
+      <ion-row class="row">
+        <ion-col size="10" class="col_border_selectOption_color" [ngClass]="{'col_border_selectOption': !(itemForm.controls['careTaker'].invalid && itemForm.controls['careTaker'].touched)}" >
+          <ion-item >
+            <ion-select  
+            label="Care Taker"
+            class="custom-select"
+              placeholder=""
+              formControlName="careTaker"
+            >
+              <ion-select-option value="x">x</ion-select-option>
+              <ion-select-option value="y">y</ion-select-option>
+              <ion-select-option value="z">z</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col size="2" class="toggle_button center">
+          <ion-toggle [checked]="true"></ion-toggle>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="label">Renewal Days* </ion-row>
+      <ion-row class="row">
+        <ion-col size="2" class="center" 
+          ><img src="assets/add-item/decrease.svg" alt="" (click)="decreaseReDays()"
+        /></ion-col>
+        <ion-col size="5" class="col_border center">
+          <ion-input class="input_field" value="{{itemForm.value.renewalDays}}"></ion-input>
+        </ion-col>
+        <ion-col size="2" class="center" 
+          ><img src="assets/add-item/increase.svg" alt=""   (click)="decreaseReDays()"
+        /></ion-col>
+        <ion-col size="1"></ion-col>
+        <ion-col size="2" class="toggle_button" class="center">
+          <ion-toggle [checked]="true"></ion-toggle>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-align-items-center custom_row">
+        <ion-col size="auto" 
+          >Attach Photo </ion-col>
+        <ion-col size="auto" >
+          <ion-button fill="none" shape="round" class="upload_img_btn">
+            Add Photo 
+            
+            <img src="assets/add-item/attachment.svg" alt="" class="margin_left"
+        />
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </form> 
+  <div class="tab-bar" >
+    <ion-button  shape="round" class="active-btn" (click)="onSubmit()"
+      >Submit</ion-button
+    >
+    <ion-button shape="round" 
+      >Cancel</ion-button
+    >
+  </div>  
+  <div class="below-space"></div>
+
+</ion-content> -->
+
+
+
+
+<!-- Mark Maintenance Done -->
+<!-- <ion-modal
+  #modal
+  [isOpen]="true"
+  [initialBreakpoint]="1"
+  [breakpoints]="[7, 1]"
+  class="modal"
+>
+  <ng-template>
+    <form class="modal_section" [formGroup]="maintenanceForm">
+    <p align="center">Mark Maintenance Done</p>
+    <ion-textarea label="Add Note" labelPlacement="floating" formControlName="note"  fill="none" maxlength="150" placeholder="Enter text" [ngClass]="{'invalid-field': maintenanceForm.controls['note'].invalid && maintenanceForm.controls['note'].touched}"></ion-textarea>
+    
+  </form>
+  <div class="tab-bar">
+      <ion-button  shape="round" class="active-btn" (click)="onSubmit()"
+        >Submit</ion-button
+      >
+      <ion-button shape="round" 
+        >Cancel</ion-button
+      >
+    </div>
+  </ng-template>
+</ion-modal> -->
+
+
+
+<!-- Add Activity -->
+<ion-modal
+  #modal
+  [isOpen]="true"
+  [initialBreakpoint]="1"
+  [breakpoints]="[7, 1]"
+  class="modal"
+>
+  <ng-template>
+    <form class="modal_section" >
+    <p align="center">Add Activity</p>
+    
+  </form>
+  <div class="tab-bar">
+      <ion-button  shape="round" class="active-btn" 
+        >Submit</ion-button
+      >
+      <ion-button shape="round" 
+        >Cancel</ion-button
+      >
+    </div>
+  </ng-template>
+</ion-modal>

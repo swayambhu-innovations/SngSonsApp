@@ -77,7 +77,7 @@
         </ion-item>
       </ion-list> -->
 
-        <div class="vertical_scroll vertical_scroll">
+        <div class="vertical_scroll">
           <div class="location_list" *ngIf="geoResults.length>0">
             <div class="" *ngFor="let result of geoResults">
               <div class="row" (click)="setLocation(result.location)">
@@ -87,7 +87,7 @@
           </div>
         </div>
       </div>
-      
+
       <ion-item lines="none" class="Variable">
         <ion-input
           lines="none"

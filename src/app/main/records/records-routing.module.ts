@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'add-employee',
     loadChildren: () => import('./tabs/hr/tabs/employees/add-employee/add-employee.module').then( m => m.AddEmployeePageModule)
   },
+  {
+    path: 'add-item',
+    loadChildren: () => import('./tabs/assets/tabs/site/add-item/add-item.module').then( m => m.AddItemPageModule)
+  },
 
 ];
 
