@@ -32,6 +32,10 @@ export class ImportZmmPage implements OnInit {
   recievingsData: any[] = [];
   fileCreationDate: any;
   shipmentStatus = ShipmentStatus;
+  lastUploadedZMM={
+    date:'',
+    time:''
+  }
 
   async ngOnInit() {
     this.loader = await this.loadingController.create({
@@ -107,7 +111,51 @@ export class ImportZmmPage implements OnInit {
       });
     }
 
+    const lastZMM = this.recievingsData.reduce((latest, current) => {
+      return new Date(current.createdAt) > new Date(latest.createdAt)
+        ? current
+        : latest;
+    }, this.recievingsData[0]);
+
+    this.getLastZMM(lastZMM.createdAt);
+
     this.recievingsData = this.filteredRecievings;
+  }
+
+  getLastZMM(lastZMM:any) {
+    const dateObject = new Date(lastZMM);
+
+    const day = dateObject.getDate();
+    const month = dateObject.getMonth() + 1;
+    const year = dateObject.getFullYear();
+
+    let hours = dateObject.getHours();
+    const minutes = dateObject.getMinutes();
+    const seconds = dateObject.getSeconds();
+
+    const isPM = hours >= 12;
+    const period = isPM ? 'PM' : 'AM';
+
+    hours = hours % 12;
+    hours = hours === 0 ? 12 : hours;
+
+    const formattedDate = `${String(day).padStart(2, '0')}-${String(
+      month
+    ).padStart(2, '0')}-${year}`;
+    const formattedTime = `${String(hours).padStart(2, '0')}:${String(
+      minutes
+    ).padStart(2, '0')}:${String(seconds).padStart(2, '0')} ${period}`;
+   
+    
+    
+    let lastUploadedZMMdate= formattedDate;
+    let lastUploadedZMMtime=formattedTime
+
+    this.lastUploadedZMM = {
+      date: lastUploadedZMMdate,
+      time: lastUploadedZMMtime
+    };
+
   }
 
   searchRecievings(e: any) {

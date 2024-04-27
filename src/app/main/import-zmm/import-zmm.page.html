@@ -40,14 +40,14 @@
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Date :</ion-col>
-        <ion-col size="auto">7th April</ion-col>
+        <ion-col size="auto">{{lastUploadedZMM.date}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto"
           >Time of Uploaded of ZMM File :</ion-col
         >
-        <ion-col size="auto">10:30 AM</ion-col>
+        <ion-col size="auto">{{lastUploadedZMM.time}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
@@ -78,13 +78,15 @@
       placeholder="Search Shipments..."
     ></ion-searchbar>
 
-    <ion-grid>
+    <div class="scroll-wrapper">
+
+      <ion-grid class="custom_grid">
       <ion-row
-        class="disabled-row ion-justify-content-between ion-align-items-center"
+        class="disabled-row ion-justify-content-between ion-align-items-center "
       >
-        <ion-col size="3.5">Vehicle No</ion-col>
-        <ion-col size="3">Gate Entry No</ion-col>
-        <ion-col size="5.5">Supplier Name</ion-col>
+        <ion-col >Vehicle No</ion-col>
+        <ion-col >Gate Entry No</ion-col>
+        <ion-col >Supplier Name</ion-col>
       </ion-row>
 
       <ion-row
@@ -92,9 +94,9 @@
         *ngFor="let receiving of filteredRecievings; index as i"
         [ngClass]="{ 'd-none': i > 4 }"
       >
-        <ion-col size="3.5">{{ receiving.vehicleNo }}</ion-col>
-        <ion-col size="3">{{ receiving.gateEntryNo }}</ion-col>
-        <ion-col size="5.5">{{ receiving.supplierName }}</ion-col>
+        <ion-col >{{ receiving.vehicleNo }}</ion-col>
+        <ion-col >{{ receiving.gateEntryNo }}</ion-col>
+        <ion-col >{{ receiving.supplierName }}</ion-col>
       </ion-row>
 
       <!-- <ion-row class="ion-justify-content-end ion-align-items-center">
@@ -110,11 +112,12 @@
         <ion-col size="3"></ion-col>
       </ion-row>
     </ion-grid>
+    </div>
   </ion-card>
 
   <!-- Recent Added Files -->
   <ion-card class="recent-shipments">
-    <ion-grid>
+    <ion-grid >
       <ion-row class="head ion-justify-content-between ion-align-items-center">
         <ion-col size="auto">Recent Added ZMM Files</ion-col>
         <ion-col size="auto"> </ion-col>
@@ -128,13 +131,15 @@
       placeholder="Search Files..."
     ></ion-searchbar>
 
-    <ion-grid>
+    <div class="scroll-wrapper">
+
+    <ion-grid class="custom_grid">
       <ion-row
         class="disabled-row ion-justify-content-between ion-align-items-center"
       >
-        <ion-col size="5">File Name</ion-col>
-        <ion-col size="4">Date of Upload</ion-col>
-        <ion-col size="2.5">User</ion-col>
+        <ion-col >File Name</ion-col>
+        <ion-col >Date of Upload</ion-col>
+        <ion-col >User</ion-col>
       </ion-row>
 
       <ion-row
@@ -142,9 +147,9 @@
         *ngFor="let file of fileDetails; index as i"
         [ngClass]="{ 'd-none': i > 4 }"
       >
-        <ion-col size="5">{{ file.fileName }}</ion-col>
-        <ion-col size="4">{{ file.createdAt }}</ion-col>
-        <ion-col size="2.5">{{ file.user }}</ion-col>
+        <ion-col >{{ file.fileName }}</ion-col>
+        <ion-col >{{ file.createdAt }}</ion-col>
+        <ion-col >{{ file.user }}</ion-col>
       </ion-row>
 
       <!-- <ion-row class="ion-justify-content-end ion-align-items-center">
@@ -155,11 +160,13 @@
         class="ion-justify-content-between ion-align-items-center no-records"
         *ngIf="filteredRecievings.length == 0"
       >
-        <ion-col size="4"></ion-col>
-        <ion-col size="5">No Records Found</ion-col>
-        <ion-col size="3"></ion-col>
+      <ion-col size="4"></ion-col>
+      <ion-col size="5">No Records Found</ion-col>
+      <ion-col size="3"></ion-col>
       </ion-row>
     </ion-grid>
+  </div>
+
   </ion-card>
 
   <div class="tab-bar">
@@ -175,6 +182,8 @@
     />
     <ion-button (click)="goBack()" shape="round">Suspend</ion-button>
   </div>
+
+ 
 
   <div class="below-space"></div>
 </ion-content>

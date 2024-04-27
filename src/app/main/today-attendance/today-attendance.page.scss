@@ -300,8 +300,9 @@ ion-content {
   //   overflow-y: hidden;
   // }
   
-  .scroll-wrapper {
-    white-space: nowrap; /* Prevent items from wrapping */
-    overflow-x: auto; /* Enable horizontal scrolling */
-    -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS devices */
-  }
+  
+.scroll-wrapper {
+  white-space: nowrap; /* Prevent items from wrapping */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS devices */
+}

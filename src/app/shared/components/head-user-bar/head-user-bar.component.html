@@ -457,7 +457,8 @@
                         </svg>
 
                         <div class="text">
-                          <p>Vehicle Type Wise Expenses</p>
+                          <p class="customStyle">Vehicle Type Wise </p>
+                          <p>Expenses</p>
                           <p class="sub-text">Table View with collpsable</p>
                         </div>
                       </ion-row>
@@ -912,16 +913,15 @@
                 </ion-grid>
               </div>
               <div class="tab-bar">
-                <div>
+                
                   <ion-button type="submit" shape="round" class="active-btn"
                     >Save</ion-button
                   >
                   <ion-button
                     shape="round"
-                    (click)="closeModal(); modal.dismiss()"
+                    (click)="modal.dismiss()"
                     >Cancel</ion-button
-                  >
-                </div>
+                  >       
               </div>
             </div>
           </div>

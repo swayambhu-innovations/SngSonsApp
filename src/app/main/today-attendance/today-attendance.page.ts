@@ -44,7 +44,7 @@ export class TodayAttendancePage implements OnInit {
     });
     this.loader.present();
 
-    const data: any = this.utilService.getUserdata();
+    const data: any = await this.utilService.getUserdata();
     this.userData = data?.access;
     this.getArea();
     const coordinates = await Geolocation.getCurrentPosition({
@@ -135,21 +135,15 @@ export class TodayAttendancePage implements OnInit {
   }
 
   async markEmployeeAttendance(event: CustomEvent, userId: number) {
+   
+
     this.loader.present();
     await this.TodayAttendanceService.markEmployeeAttendance(userId, {
       offPremises: 10,
-      present: event.detail.value == 'true' ? true : false,
+      present: event.detail.value == "true" ? true : false,
     });
-    this.attendanceMap[userId] = {
-      id: userId.toString(),
-      present: event.detail.value == 'true' ? true : false,
-    };
-
-    this.notificationService.showSuccess(
-      event.detail.value == 'true'
-        ? Config.messages.markAttendance
-        : Config.messages.markAbsent
-    );
+    
+    this.notificationService.showSuccess( event.detail.value == "true" ? Config.messages.markAttendance:Config.messages.markAbsent);
 
     this.getAttendance();
     this.loader.dismiss();
@@ -178,17 +172,12 @@ export class TodayAttendancePage implements OnInit {
 
   async markPresent() {
     this.loader.present();
-    this.validMarker = await this.getLocation();
+    // this.validMarker = await this.getLocation();
     if (this.validMarker) {
-      console.log(this.validMarker)
-      this.attendanceMap[this.userData.phone] = {
-        id: this.userData.phone.toString(),
-        present: true,
-      };
-      this.presentCount++;
-      this.TodayAttendanceService.markAttendance(this.userData.phone);
+      await this.TodayAttendanceService.markAttendance(this.userData.phone);
       this.notificationService.showSuccess(Config.messages.markAttendance);
     } else this.notificationService.showError(Config.messages.locationNotFound);
+    this.getAttendance()
     this.loader.dismiss();
   }
 }

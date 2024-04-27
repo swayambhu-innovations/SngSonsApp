@@ -58,21 +58,21 @@ export class EmployeesComponent implements OnInit {
   roleForm: FormGroup = new FormGroup({
     roleName: new FormControl('', [Validators.required]),
     access: new FormGroup({
-      upload_new_zsd_file: new FormControl(true, []),
-      fill_shipment_voucher: new FormControl(true, []),
-      fill_post_delivery_form: new FormControl(true, []),
-      discard_vouchers: new FormControl(true, []),
-      upload_new_zmm_file: new FormControl(true, []),
-      fill_receiving_voucher: new FormControl(true, []),
-      fill_vehicle_entry_details: new FormControl(true, []),
-      discard_zmm_vouchers: new FormControl(true, []),
-      edit_account_settings: new FormControl(true, []),
-      view_reports: new FormControl(true, []),
-      punch_in_all_member_of_department: new FormControl(true, []),
-      punch_in_outside_location: new FormControl(true, []),
-      punch_in_self_presence: new FormControl(true, []),
+      upload_new_zsd_file: new FormControl(false, []),
+      fill_shipment_voucher: new FormControl(false, []),
+      fill_post_delivery_form: new FormControl(false, []),
+      discard_vouchers: new FormControl(false, []),
+      upload_new_zmm_file: new FormControl(false, []),
+      fill_receiving_voucher: new FormControl(false, []),
+      fill_vehicle_entry_details: new FormControl(false, []),
+      discard_zmm_vouchers: new FormControl(false, []),
+      edit_account_settings: new FormControl(false, []),
+      view_reports: new FormControl(false, []),
+      punch_in_all_member_of_department: new FormControl(false, []),
+      punch_in_outside_location: new FormControl(false, []),
+      punch_in_self_presence: new FormControl(false, []),
     }),
-    active: new FormControl(true, []),
+    active: new FormControl(false, []),
     createdAt: new FormControl(new Date(), []),
     id: new FormControl(''),
   });
@@ -230,6 +230,11 @@ export class EmployeesComponent implements OnInit {
   }
 
   editUser(account: any) {
+    const queryParams = {userId:account.id};
+    
+    this.navCtrl.navigateForward(['/main/records/add-employee'], {
+      queryParams: queryParams,
+    });
     this.userForm.patchValue(account);
     this.openUser = true;
   }

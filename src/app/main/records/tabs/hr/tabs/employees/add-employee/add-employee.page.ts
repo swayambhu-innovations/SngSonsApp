@@ -9,6 +9,7 @@ import { AddEmployeeService } from './service/add-employee.service';
 import { Config } from 'src/app/config';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NavController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -25,12 +26,15 @@ export class AddEmployeePage implements OnInit {
     private locationManagementService: LocationManagementService,
     private utilService: UtilService,
     private AddEmployeeService: AddEmployeeService,
+    private route: ActivatedRoute,
+
 
   ) {}
 
   employeeForm: FormGroup = new FormGroup({
     userName: new FormControl('', [Validators.required]),
-    roleName: new FormControl('', [Validators.required]),
+    roleName: new FormControl(''),
+    roleId: new FormControl('', [Validators.required]),
     customID: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     phone: new FormControl('', [Validators.required]),
@@ -42,7 +46,7 @@ export class AddEmployeePage implements OnInit {
     pan: new FormControl('', [Validators.required]),
     doj: new FormControl(new Date(), []),
     salary: new FormControl(''),
-    imageUrl: new FormControl(Config.url.defaultProfile),
+    photoUrl: new FormControl(Config.url.defaultProfile),
     active: new FormControl(true, []),
     createdAt: new FormControl(new Date(), []),
     id: new FormControl(''),
@@ -65,7 +69,8 @@ export class AddEmployeePage implements OnInit {
   ifIDValid: boolean = false;
   public rolesList: any[] = [];
   public roleMapping: any = {};
-
+  editUserData:any;
+  title:string='Add Employee'
 
   async ngOnInit() {
     this.getUsersList();
@@ -83,6 +88,45 @@ export class AddEmployeePage implements OnInit {
       this.empData = JSON.parse(history.state.employee);
       this.empData && this.employeeForm.patchValue({ ...this.empData });
     }
+    
+    this.route.queryParams.subscribe((params) => {
+      if (params && params?.["userId"]) {
+        this.title='Edit Employee'
+        this.AddEmployeeService.getuserData(
+          params?.["userId"]
+        ).then((data: any) => {
+          
+          this.editUserData = data.data();
+          this.employeeForm.setValue( {
+            userName: this.editUserData.userName,
+          roleName: this.editUserData.roleName,
+          customID:this.editUserData.customID,
+          email: this.editUserData.email,
+          phone: this.editUserData.phone,
+          dob: this.editUserData.dob,
+          gender: this.editUserData.gender,
+          areaID: this.editUserData.areaID,
+          address: this.editUserData.address,
+          aadhar: this.editUserData.aadhar,
+          pan: this.editUserData.pan,
+          doj: this.editUserData.doj,
+          salary: this.editUserData.salary,
+          photoUrl: this.editUserData.photoUrl,
+          active: this.editUserData.active,
+          createdAt: this.editUserData.createdAt,
+          id: data.id,
+          bloodGroup: this.editUserData.bloodGroup,
+          weight: this.editUserData.weight,
+          height:this.editUserData.height,
+          pastDisease: this.editUserData.pastDisease,
+          allergy:this.editUserData.allergy,
+          roleId:this.editUserData.roleId,
+        });
+        });
+        
+      }
+      
+    });
   }
 
   
@@ -167,14 +211,14 @@ async getRoles() {
       `${this.employeeForm.value.phone}.${file.name.split('.').pop()}`
     );
     this.employeeForm.patchValue({
-      imageUrl: url,
+      photoUrl: url,
     });
     this.loader.dismiss();
   }
 
   removePhoto(): void {
     this.employeeForm.patchValue({
-      imageUrl: Config.url.defaultProfile,
+      photoUrl: Config.url.defaultProfile,
     });
   }
 
@@ -190,7 +234,12 @@ async getRoles() {
     }
     this.loader.present();
     try {
-      await this.AddEmployeeService.addUser(this.employeeForm.value);
+      for(let i=0;i<this.rolesList.length;i++){
+        if(this.employeeForm.value.roleId==this.rolesList[i].id){
+          this.employeeForm.patchValue({roleName:this.rolesList[i].roleName,roleId:this.rolesList[0].id})
+          await this.AddEmployeeService.addUser({...this.employeeForm.value,access:this.rolesList[i].access});
+        }
+      }
 
       this.notificationService.showSuccess(
         'New Employee ' + Config.messages.addedSuccessfully

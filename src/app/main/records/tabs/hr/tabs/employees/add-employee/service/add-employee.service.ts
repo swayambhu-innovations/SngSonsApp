@@ -44,4 +44,24 @@ export class AddEmployeeService {
       );
     }
   }
+  async getuserData(userId:any){
+      const docRef = doc(
+        collection(this.firestore, Config.collection.users),
+        userId
+      );
+  
+      try {
+        const docSnapshot = await getDoc(docRef);
+        if (docSnapshot.exists()) {
+          return docSnapshot;
+        } else {
+          console.log("Document does not exist!");
+          return null;
+        }
+      } catch (error) {
+        console.error("Error fetching document:", error);
+        throw error;
+      }
+    }
+  
 }

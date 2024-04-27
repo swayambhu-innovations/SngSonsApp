@@ -108,7 +108,7 @@ export class TodayAttendanceService {
   //   );
   // }
 
-  markAttendance(userId: any) {
+  async markAttendance(userId: any) {
     const attendanceRef = doc(
       this.firestore,
       Config.formSettingVariable.attendance,
@@ -117,7 +117,7 @@ export class TodayAttendanceService {
       userId.toString()
     );
 
-    getDoc(attendanceRef).then((docSnapshot) => {
+   await getDoc(attendanceRef).then((docSnapshot) => {
       if (docSnapshot.exists()) {
         const attendanceData = docSnapshot.data();
         if (!(this.todayDate in attendanceData)) {
@@ -131,32 +131,45 @@ export class TodayAttendanceService {
           );
         }
       } else {
-        setDoc(attendanceRef, {
+      setDoc(attendanceRef, {
           [this.todayDate]: { present: true, offPremises: 0 },
         });
       }
     });
   }
 
-  async markEmployeeAttendance(userId: any, attendanceData: any) {
+  async markEmployeeAttendance(userId: any, atdData: any) {
     try {
-      if (!userId || !attendanceData) {
-        throw new Error('Invalid Data');
+      if (!userId || !atdData) {
+        throw new Error("Invalid Data");
       }
-      setDoc(
-        doc(
-          this.firestore,
-          Config.formSettingVariable.attendance,
-          this.currentYear,
-          this.monthsArray[this.currentMonth],
-          userId.toString()
-        ),
-        {
-          [this.todayDate]: attendanceData,
-        }
+      const attendanceDocRef = doc(
+        this.firestore,
+        Config.formSettingVariable.attendance,
+        this.currentYear,
+        this.monthsArray[this.currentMonth],
+        userId.toString()
       );
+
+      const attendanceDoc = await getDoc(attendanceDocRef);
+
+      if (attendanceDoc.exists()) {
+        const attendanceData = attendanceDoc.data();
+
+        atdData = { ...attendanceData, [this.todayDate]: atdData };
+        setDoc(
+          attendanceDocRef,
+          atdData
+        );
+      } else {
+        setDoc(
+          attendanceDocRef,
+          { [this.todayDate]: atdData }
+        );
+      }
     } catch (error) {
-      console.error('Error updating today attendance my admin:', error);
+      console.error("Error updating today attendance my admin:", error);
     }
   }
-}
+  }
+

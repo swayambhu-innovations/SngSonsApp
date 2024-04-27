@@ -168,6 +168,10 @@ ion-modal #select-mode {
     .text {
       margin: 0;
 
+      .customStyle{
+        margin-bottom: 0px;
+      }
+
       p {
         color: var(--Primary, #1540bd);
         font-size: 16px;
@@ -183,6 +187,10 @@ ion-modal #select-mode {
     }
   }
   .tab-bar {
+    width: fit-content;
+    margin: 0 auto;
+    margin-top: 20px;
+
     div {
       display: flex;
       justify-content: center;

@@ -1,5 +1,5 @@
 <ion-content align="center">
-  <app-header-with-back [title]="'Add Employee'"></app-header-with-back>
+  <app-header-with-back [title]="title"></app-header-with-back>
 
   <form [formGroup]="employeeForm">
     <div class="input_field_section">
@@ -23,10 +23,10 @@
     <div id="open-modal" expand="block" class="input_field_section">
       <label for="name" class="label">Role*</label><br />
       <ion-select
-        formControlName="roleName"
+        formControlName="roleId"
         class="select_option_field"
         label="Role"
-        [ngClass]="{'invalid-field': employeeForm.controls['roleName'].invalid && employeeForm.controls['roleName'].touched}"
+        [ngClass]="{'invalid-field': employeeForm.controls['roleId'].invalid && employeeForm.controls['roleId'].touched}"
       >
         <ion-select-option *ngFor="let role of rolesList" value="{{ role.id }}"
           >{{ role.roleName }}</ion-select-option
@@ -373,7 +373,7 @@
       </div>
       <img
         class="profile_section"
-        [src]="employeeForm.value.imageUrl"
+        [src]="employeeForm.value.photoUrl"
         alt="Profile Photo"
       />
     </div>
