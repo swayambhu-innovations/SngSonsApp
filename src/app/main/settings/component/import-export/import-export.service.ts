@@ -239,7 +239,7 @@ export class ImportExportService {
     }
     
   );
-
+ 
     if (c == 0) {
       return false;
     }
@@ -253,11 +253,11 @@ export class ImportExportService {
         });
         if (shipmentsFromDB.length > 0)
           shipmentsFromDB.sort((a: any, b: any) =>
-            a?.vendorData[0]['Custom Invoice No'] >
-            b?.vendorData[0]['Custom Invoice No']
+            a?.vendorData[0]['CustomInvoiceNo'] >
+            b?.vendorData[0]['CustomInvoiceNo']
               ? 1
-              : b?.vendorData[0]['Custom Invoice No'] >
-                a?.vendorData[0]['Custom Invoice No']
+              : b?.vendorData[0]['CustomInvoiceNo'] >
+                a?.vendorData[0]['CustomInvoiceNo']
               ? -1
               : 0
           );
