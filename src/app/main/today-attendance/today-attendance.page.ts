@@ -169,7 +169,6 @@ export class TodayAttendancePage implements OnInit {
       this.workplaceArea?.radius
     );
   }
-
   async markPresent() {
     this.loader.present();
     // this.validMarker = await this.getLocation();
