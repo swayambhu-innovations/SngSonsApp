@@ -229,6 +229,7 @@ ion-content {
 
 .tab-bar {
   width: calc(100% - 20px);
+  margin: auto;
 
   div {
     display: flex;
@@ -260,4 +261,18 @@ ion-content {
     --color: #fff !important;
     margin-right: 10px;
   }
+}
+.scroll-wrapper {
+  white-space: nowrap; /* Prevent items from wrapping */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS devices */
+}
+.custom_grid {
+  width: max-content;
+  ion-col{
+    width: 205px;
+  }
+
+  
+
 }

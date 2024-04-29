@@ -12,6 +12,8 @@ import {FormGroup, FormControl,ReactiveFormsModule} from '@angular/forms';
 import {JsonPipe} from '@angular/common';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatFormFieldModule} from '@angular/material/form-field';
+
+import { MatNativeDateModule } from '@angular/material/core';
 // import {provideNativeDateAdapter} from '@angular/material/core';
 
 
@@ -21,6 +23,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     FormsModule,
     IonicModule,
     AttendanceHistoryPageRoutingModule,
+    MatNativeDateModule,
 MatFormFieldModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, JsonPipe],
   // providers: [provideNativeDateAdapter()],
   declarations: [AttendanceHistoryPage]

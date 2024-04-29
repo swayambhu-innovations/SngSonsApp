@@ -124,37 +124,16 @@ ion-content {
   }
   
   .range_date_picker {
-    width: max-content;
-    border-radius: 33px;
-    background-color: #1540bd;
-    color: var(--Text2, #fff);
-    font-family: "Merge One";
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
     display: flex;
+    width:220px;
+    height: 42px;
+    padding: 16px;
+    justify-content: space-between;
     align-items: center;
-    justify-content: space-around;
-    padding: 10px 15px;
-    gap:5px;
+    flex-shrink: 0;
+    border-radius: 50px;
+    background: var(--Primary, #1540bd);
    
-  
-    label {
-      padding: 0px;
-      margin: 0px;
-    }
-  
-    p {
-      padding: 0px;
-      margin: 0px;
-    }
-    input {
-      width: 0px;
-      height: 0px;
-      padding: 0px;
-      margin: 0px;
-    }
   }
   
   .calendar_label {
@@ -214,3 +193,12 @@ ion-content {
     }
   }
   
+  mat-date-range-input {
+    input,
+    input::placeholder {
+      color: #fff !important;
+    }
+  }
+  mat-datepicker-toggle {
+    color: #fff !important;
+  }

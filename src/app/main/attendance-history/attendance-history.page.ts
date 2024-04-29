@@ -1,32 +1,51 @@
-import { Component, OnInit } from "@angular/core";
-import * as moment from "moment";
-import { Location } from "@angular/common";
+import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
+import { Location } from '@angular/common';
 // import { EditInfoPermissionService } from "../edit-info/edit-info.service";
-import { UtilService } from "src/app/utils/util";
+import { UtilService } from 'src/app/utils/util';
+import { AttendanceHistoryService } from './service/attendance-history.service';
+import { LoadingController } from '@ionic/angular';
+import { Config } from 'src/app/config';
 
 @Component({
-  selector: "app-attendance-history",
-  templateUrl: "./attendance-history.page.html",
-  styleUrls: ["./attendance-history.page.scss"],
+  selector: 'app-attendance-history',
+  templateUrl: './attendance-history.page.html',
+  styleUrls: ['./attendance-history.page.scss'],
 })
 export class AttendanceHistoryPage implements OnInit {
   constructor(
     private location: Location,
     // private editInfoPermissionService: EditInfoPermissionService,
-    private utilService: UtilService
+    private utilService: UtilService,
+    private AttendanceHistoryService: AttendanceHistoryService,
+    private loadingController: LoadingController
   ) {}
   userData: any;
   empData: any;
   loader: any;
   allEmpsData: any[] = [];
+  attendanceHistory: any;
 
   async ngOnInit() {
+    this.loader = await this.loadingController.create({
+      message: Config.messages.pleaseWait,
+    });
+    this.loader.present();
+
     if (history.state.empData) {
       this.empData = JSON.parse(history.state.empData);
     }
 
     const data: any = this.utilService.getUserdata();
     this.userData = data?.access;
+    this.attendanceHistory =
+      await this.AttendanceHistoryService.getAttendanceHistory(
+        this.empData.id,
+        this.startDate,
+        this.lastDate
+      );
+    this.loader.dismiss();
+
     // this.getAllEmps();
   }
 
@@ -37,50 +56,51 @@ export class AttendanceHistoryPage implements OnInit {
   //   });
   // }
 
-  startDate: Date = moment(new Date()).startOf("month").toDate();
-  lastDate: Date = moment(new Date()).startOf("month").toDate();
+  startDate: string = moment(new Date()).startOf('month').format('YYYY/MM/DD');
+  lastDate: string = moment(new Date()).format('YYYY/MM/DD');
 
-  updateStartDate(e: any) {
-    this.startDate = moment(e.target.value).toDate();
+  dateRangeChange(
+    dateRangeStart: HTMLInputElement,
+    dateRangeEnd: HTMLInputElement
+  ) {
+    this.updateStartDate(dateRangeStart.value);
+    this.updateLastDate(dateRangeEnd.value);
   }
-  updateLastDate(e: any) {
-    this.lastDate = moment(e.target.value).toDate();
+  
+
+  async updateStartDate(e: any) {
+    this.startDate =  moment(e ? new Date(e) : new Date()).format(
+      'YYYY-MM-DD'
+    );
+    
+  }
+  
+  async updateLastDate(e: any) {
+    console.log('work')
+    this.lastDate = moment(e ? new Date(e) : new Date()).format(
+      'YYYY-MM-DD'
+    );
+    this.loader = await this.loadingController.create({
+      message: Config.messages.pleaseWait,
+    });
+    this.loader.present();
+
+
+    this.attendanceHistory =
+      await this.AttendanceHistoryService.getAttendanceHistory(
+        this.empData.id,
+        this.startDate,
+        this.lastDate
+      );
+    this.loader.dismiss();
   }
 
   formatDate(date: Date, format: string): string {
     return moment(date).format(format);
   }
 
-  entries = [
-    {
-      "Sl. No.": 1,
-      Date: "13 Jan 2024",
-      Status: true,
-    },
-    {
-      "Sl. No.": 2,
-      Date: "13 Jan 2024",
-      Status: false,
-    },
-    {
-      "Sl. No.": 3,
-      Date: "13 Jan 2024",
-      Status: true,
-    },
-    {
-      "Sl. No.": 4,
-      Date: "13 Jan 2024",
-      Status: false,
-    },
-    {
-      "Sl. No.": 5,
-      Date: "13 Jan 2024",
-      Status: true,
-    },
-  ];
-
   getStatusColor(status: boolean): string {
-    return status ? "#29D25F" : "#EA712E";
+    return status ? '#29D25F' : '#EA712E';
   }
 
   goback() {
