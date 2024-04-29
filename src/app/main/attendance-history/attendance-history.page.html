@@ -34,34 +34,20 @@
       >
 
       <div class="range_date_picker">
-        <label for="startDate">
-          <p>{{ formatDate(startDate, 'DD MMM') }}</p>
-          <label class="calendar_label">
-            <input
-              class="size"
-              id="startDate"
-              type="date"
-              onfocus="this.showPicker()"
-              (change)="updateStartDate($event)"
-              [value]="startDate"
-            />
-          </label>
-        </label>
-        <p>-</p>
-        <label for="lastDate">
-          <p>{{ formatDate(lastDate, 'DD MMM') }}</p>
-          <label class="calendar_label">
-            <input
-              class="size"
-              id="lastDate"
-              type="date"
-              onfocus="this.showPicker()"
-              (change)="updateLastDate($event)"
-              [value]="lastDate"
-            />
-          </label>
-        </label>
-        <img src="assets/attendance-history/range_picker.svg" alt="" />
+        <mat-date-range-input [rangePicker]="dateRangePicker">
+          <input matStartDate [placeholder]="startDate" #dateRangeStart />
+          <input
+            matEndDate
+            [placeholder]="lastDate"
+            #dateRangeEnd
+            (dateChange)="dateRangeChange(dateRangeStart, dateRangeEnd)"
+          />
+        </mat-date-range-input>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="dateRangePicker"
+        ></mat-datepicker-toggle>
+        <mat-date-range-picker #dateRangePicker></mat-date-range-picker>
       </div>
     </div>
   </div>

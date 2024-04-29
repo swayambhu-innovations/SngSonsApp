@@ -56,33 +56,35 @@ export class AttendanceHistoryPage implements OnInit {
   //   });
   // }
 
-  startDate: Date = moment(new Date()).startOf('month').toDate();
-  lastDate: Date = moment(new Date()).endOf('month').toDate();
+  startDate: string = moment(new Date()).startOf('month').format('YYYY/MM/DD');
+  lastDate: string = moment(new Date()).format('YYYY/MM/DD');
 
+  dateRangeChange(
+    dateRangeStart: HTMLInputElement,
+    dateRangeEnd: HTMLInputElement
+  ) {
+    this.updateStartDate(dateRangeStart.value);
+    this.updateLastDate(dateRangeEnd.value);
+  }
   
 
   async updateStartDate(e: any) {
-    this.startDate = moment(e.target.value).toDate();
+    this.startDate =  moment(e ? new Date(e) : new Date()).format(
+      'YYYY-MM-DD'
+    );
+    
+  }
+  
+  async updateLastDate(e: any) {
+    console.log('work')
+    this.lastDate = moment(e ? new Date(e) : new Date()).format(
+      'YYYY-MM-DD'
+    );
     this.loader = await this.loadingController.create({
       message: Config.messages.pleaseWait,
     });
     this.loader.present();
 
-    this.attendanceHistory =
-      await this.AttendanceHistoryService.getAttendanceHistory(
-        this.empData.id,
-        this.startDate,
-        this.lastDate
-      );
-    this.loader.dismiss();
-  }
-  
-  async updateLastDate(e: any) {
-    this.lastDate = moment(e.target.value).toDate();
-    this.loader = await this.loadingController.create({
-      message: Config.messages.pleaseWait,
-    });
-    this.loader.present();
 
     this.attendanceHistory =
       await this.AttendanceHistoryService.getAttendanceHistory(
