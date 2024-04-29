@@ -152,6 +152,7 @@ export class ImportZmmPage implements OnInit {
   ) {
     data = await scope.importExportService.formatRecieving(data, formatDate);
     event.target.value = '';
+    console.log(data)
     if (data == false) {
       scope.notification.showError(Config.messages.zmmInvalid);
     } else if (data.length > 0)
