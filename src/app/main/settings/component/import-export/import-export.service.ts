@@ -228,15 +228,21 @@ export class ImportExportService {
   }
 
   formatShipment = async (data: any, formatDate: any) => {
+   
     const shipmentsFromDB: any[] = []; // fetch shipments from DB
     let allShipmentsData: any[] = []; // store all shipments
     let c = 0;
-
     // validating zsd file
+    
     data.map((item: any) => {
       if (item['Custom Invoice No']) c += 1;
-    });
-    if (c == 0) return false;
+    }
+    
+  );
+ 
+    if (c == 0) {
+      return false;
+    }
 
     try {
       // get last custom invoice from DB
@@ -421,7 +427,7 @@ export class ImportExportService {
 
     // validating zmm file
     data.map((item: any) => {
-      if (item['expDeliverDate']) c += 1;
+      if (item['EXPT.DELIVERY']) c += 1;
     });
     if (c == 0) return false;
     try {
@@ -681,6 +687,8 @@ export class ImportExportService {
       );
     });
 
+
+    //not working 
     await Promise.all(
       data.data.map(async (item: any) => {
         const vehicle = await scope.importExportService.getVehicle(item, scope);
@@ -716,6 +724,7 @@ export class ImportExportService {
       .then(() => {
         loader.dismiss();
         // storing File metadata
+
         this.addFiles(fileData, true);
         notification.showSuccess(Config.messages.zsdSuccess);
       })

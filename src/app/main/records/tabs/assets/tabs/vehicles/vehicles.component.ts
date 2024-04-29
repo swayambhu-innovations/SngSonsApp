@@ -31,7 +31,7 @@ export class VehiclesComponent implements OnInit {
     id: new FormControl(''),
     count: new FormControl(0),
   });
-  public formInitalValue = this.vehicleCategoryForm.value;
+  public formInitialValue = this.vehicleCategoryForm.value;
   public loader: any;
   public vehicleCategory: any;
   public filterdVehicleCategory: any;
@@ -115,7 +115,7 @@ export class VehiclesComponent implements OnInit {
         ? Config.messages.addedSuccessfully
         : Config.messages.updatedSuccessfully
     );
-    this.vehicleCategoryForm.reset(this.formInitalValue);
+    this.vehicleCategoryForm.reset(this.formInitialValue);
     await this.getVehicleCategoryData();
     this.loader.dismiss();
     this.modalCtrl.dismiss();

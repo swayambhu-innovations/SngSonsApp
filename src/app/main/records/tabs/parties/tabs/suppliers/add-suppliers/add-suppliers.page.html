@@ -14,6 +14,10 @@
         <ion-item lines="none" class="Variable">
           <ion-input
             lines="none"
+            oninput="this.value = this.value.toUpperCase(); this.reportValidity();"
+            pattern="^\d{2}[A-Z]{5}\d{4}[A-Z]{1}\d[Z]{1}[A-Z\d]{1}"
+            minlength="15"
+            maxlength="15"
             label="GST Number"
             class="custom"
             formControlName="GSTNo"
@@ -51,6 +55,9 @@
             class="custom"
             formControlName="panNo"
             labelPlacement="floating"
+            maxlength="10"
+            minlength="10"
+            pattern="[A-Z]{5}\d{4}[A-Z]"
             required
           ></ion-input>
         </ion-item>
@@ -58,10 +65,12 @@
         <ion-item lines="none" class="Variable">
           <ion-input
             lines="none"
+            oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10)"
+            minlength="10"
+            maxlength="10"
             label="Phone Number"
             class="custom"
             type="number"
-            oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10)"
             formControlName="phoneNO"
             labelPlacement="floating"
             required

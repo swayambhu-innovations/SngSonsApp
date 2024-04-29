@@ -52,17 +52,24 @@
         </ion-item>
         <ion-item lines="none" class="Variable">
           <ion-input
+            pattern="[A-Z]{5}\d{4}[A-Z]"
             lines="none"
             label="PAN Number"
             class="custom"
             formControlName="panNo"
             labelPlacement="floating"
+            maxlength="10"
+            minlength="10"
             required
           ></ion-input>
         </ion-item>
         <ion-item lines="none" class="Variable">
           <ion-input
+            oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10)"
             lines="none"
+            minlength="10"
+            maxlength="10"
+            type="number"
             label="Phone Number"
             class="custom"
             formControlName="phoneNO"
@@ -75,8 +82,13 @@
             lines="none"
             label="GST Number"
             class="custom"
+            oninput="this.value = this.value.toUpperCase(); this.reportValidity();"
+            pattern="^\d{2}[A-Z]{5}\d{4}[A-Z]{1}\d[Z]{1}[A-Z\d]{1}"
+            minlength="15"
+            maxlength="15"
             formControlName="GSTNo"
             labelPlacement="floating"
+            
             required
           ></ion-input>
         </ion-item>
@@ -94,6 +106,9 @@
             lines="none"
             label="Distance in km"
             class="custom"
+            type="number"
+            oninput="if(this.value.length > 6) this.value = this.value.slice(0, 6)"
+            maxlength="6"
             formControlName="distance"
             labelPlacement="floating"
             required
@@ -158,7 +173,6 @@
         <ion-button (click)="goBack()" shape="round">Cancel</ion-button>
       </div>
     </form>
-
     <div class="below-space"></div>
   </section>
 </ion-content>
