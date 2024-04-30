@@ -8,14 +8,13 @@ import { AttendanceHistoryPageRoutingModule } from './attendance-history-routing
 
 import { AttendanceHistoryPage } from './attendance-history.page';
 
-import {FormGroup, FormControl,ReactiveFormsModule} from '@angular/forms';
-import {JsonPipe} from '@angular/common';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { JsonPipe } from '@angular/common';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { MatNativeDateModule } from '@angular/material/core';
 // import {provideNativeDateAdapter} from '@angular/material/core';
-
 
 @NgModule({
   imports: [
@@ -24,8 +23,13 @@ import { MatNativeDateModule } from '@angular/material/core';
     IonicModule,
     AttendanceHistoryPageRoutingModule,
     MatNativeDateModule,
-MatFormFieldModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, JsonPipe],
+    MatFormFieldModule,
+    MatDatepickerModule,
+    FormsModule,
+    ReactiveFormsModule,
+    JsonPipe,
+  ],
   // providers: [provideNativeDateAdapter()],
-  declarations: [AttendanceHistoryPage]
+  declarations: [AttendanceHistoryPage],
 })
 export class AttendanceHistoryPageModule {}

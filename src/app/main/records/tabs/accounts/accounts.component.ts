@@ -216,7 +216,16 @@ export class AccountsComponent implements OnInit {
   }
 
   editAccount(account: any) {
-    this.accountForm.setValue(account);
+    console.log(account)
+    const obj={
+      accountName: account.accountName,
+      shipmentLimit: account.shipmentLimit,
+      dispenseLimit:account.dispenseLimit,
+      active:account.active,
+      createdAt:account.createdAt,
+      id:account.id
+    }
+    this.accountForm.setValue(obj);
     this.openAccount = true;
   }
 
@@ -271,6 +280,17 @@ export class AccountsComponent implements OnInit {
   }
 
   editExpense(expense: any) {
+    console.log(expense)
+    // obj={
+    //   expenseName: expense.expenseName
+    // accountName: expense.accountName
+    // minDispense: expense.
+    // maxDispense: expense.
+    // account: expense.
+    // active: expense.
+    // createdAt: expense.
+    // id: expense.
+    // }
     this.expenseForm.setValue(expense);
     this.openExpense = true;
   }

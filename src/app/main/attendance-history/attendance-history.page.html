@@ -52,22 +52,32 @@
     </div>
   </div>
 
-  <ion-grid >
-    <ion-row class="ion-justify-content-around" *ngIf="attendanceHistory && attendanceHistory.attendanceHistory">
+  <ion-grid>
+    <ion-row
+      class="ion-justify-content-around"
+      *ngIf="attendanceHistory && attendanceHistory.attendanceHistory"
+    >
       <ion-col size="5.5" align="center" class="total_detail">
         <img src="assets/attendance-history/tick.svg" alt="" />
-        <p class="total_detail_value present">{{attendanceHistory?.totalPresent?attendanceHistory.totalPresent:0}}</p>
+        <p class="total_detail_value present">
+          {{attendanceHistory?.totalPresent?attendanceHistory.totalPresent:0}}
+        </p>
         <p class="total_detail_text">Present</p>
       </ion-col>
       <ion-col size="5.5" align="center" class="total_detail">
         <img src="assets/attendance-history/close.svg" alt="" />
-        <p class="total_detail_value absent">{{attendanceHistory?.totalAbsent?attendanceHistory.totalAbsent:0}}</p>
+        <p class="total_detail_value absent">
+          {{attendanceHistory?.totalAbsent?attendanceHistory.totalAbsent:0}}
+        </p>
         <p class="total_detail_text">Absent</p>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <ion-grid class="custom_grid" *ngIf="attendanceHistory && attendanceHistory.attendanceHistory">
+  <ion-grid
+    class="custom_grid"
+    *ngIf="attendanceHistory && attendanceHistory.attendanceHistory"
+  >
     <ion-row class="custom_grid_heading">
       <ion-col size="2">Sl. No.</ion-col>
       <ion-col size="5">Date</ion-col>
@@ -90,8 +100,9 @@
       </ion-col>
     </ion-row>
     <ion-row
-      ><ion-col size="12" class="total_day">Total : {{attendanceHistory.attendanceHistory
-        .length}} </ion-col>
+      ><ion-col size="12" class="total_day"
+        >Total : {{attendanceHistory.attendanceHistory .length}}
+      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

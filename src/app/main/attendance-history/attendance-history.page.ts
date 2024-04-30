@@ -66,25 +66,18 @@ export class AttendanceHistoryPage implements OnInit {
     this.updateStartDate(dateRangeStart.value);
     this.updateLastDate(dateRangeEnd.value);
   }
-  
 
   async updateStartDate(e: any) {
-    this.startDate =  moment(e ? new Date(e) : new Date()).format(
-      'YYYY-MM-DD'
-    );
-    
+    this.startDate = moment(e ? new Date(e) : new Date()).format('YYYY-MM-DD');
   }
-  
+
   async updateLastDate(e: any) {
-    console.log('work')
-    this.lastDate = moment(e ? new Date(e) : new Date()).format(
-      'YYYY-MM-DD'
-    );
+    console.log('work');
+    this.lastDate = moment(e ? new Date(e) : new Date()).format('YYYY-MM-DD');
     this.loader = await this.loadingController.create({
       message: Config.messages.pleaseWait,
     });
     this.loader.present();
-
 
     this.attendanceHistory =
       await this.AttendanceHistoryService.getAttendanceHistory(

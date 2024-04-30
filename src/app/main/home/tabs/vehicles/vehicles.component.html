@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <app-donut-chart></app-donut-chart>
+    <app-donut-chart (messageEvent)="getAttendanceOnDate($event)" [summary]="summary"></app-donut-chart>
 
     <!-- All Emoloyee Attendance Status Card -->
 

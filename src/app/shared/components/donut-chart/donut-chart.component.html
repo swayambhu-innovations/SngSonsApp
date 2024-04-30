@@ -20,33 +20,33 @@
     </ion-row>
   </ion-grid>
 
-  <ion-grid id="data">
+  <ion-grid id="data" *ngIf="summary">
     <ion-row class="ion-justify-content-between ion-align-items-center">
       <ion-col size="auto">
         <div class="circle dispatch"></div>
-        <span>Present : {{donutChartService.chartData['pending-dispatch'].count}}</span>
+        <span>Present : {{summary.present}}</span>
       </ion-col>
       <ion-col size="auto">
         <div class="circle completed"></div>
-        <span>Pending : {{donutChartService.chartData['completed'].count}}</span>
+        <span>Pending : {{summary.pending}}</span>
       </ion-col>
     </ion-row>
 
     <ion-row class="ion-justify-content-between ion-align-items-center">
       <ion-col size="auto">
         <div class="circle post-delivery"></div>
-        <span>Absent : {{donutChartService.chartData['pending-post-delivery'].count}}</span>
+        <span>Absent : {{summary.absent}}</span>
       </ion-col>
       <!-- <ion-col size="auto">
         <div class="circle suspended"></div>
         <span>Suspended : {{donutChartService.chartData['suspended'].count}}</span>
       </ion-col> -->
     </ion-row>
-    <div class="donut-chart" [hidden]="donutChartService.totalShipment == 0">
+    <div class="donut-chart" [hidden]="summary.present == 0">
       <canvas id="donut-chart" #chart>{{chart}}</canvas>
       <div class="stats">
         <p>Attendance</p>
-        <p class="total">{{donutChartService.totalShipment}}</p>
+        <p class="total">{{summary.total}}</p>
       </div>
     </div>
   </ion-grid>

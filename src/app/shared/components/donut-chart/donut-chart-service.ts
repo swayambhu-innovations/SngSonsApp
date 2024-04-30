@@ -13,25 +13,26 @@ export class DonutChartService {
     'pending-dispatch': {
       count: 0,
       name: 'Pending Dispatch',
-      color: '#DBE5F7',
+      color: '#1540BD',
     },
     'pending-post-delivery': {
       count: 0,
       name: 'Pending Post Delivery',
       color: '#AACBFF',
     },
-    completed: { count: 0, name: 'Completed', color: '#1540BD' },
+    completed: { count: 0, name: 'Completed', color: '#DBE5F7' },
     suspended: { count: 0, name: 'Suspended', color: '#243873' },
   };
   public totalShipment = 0;
   public chart: any;
 
-  async getShipments() {
-    this.chartData['pending-dispatch'].count = 0;
-    this.chartData['pending-post-delivery'].count = 0;
-    this.chartData.completed.count = 0;
+  async getShipments(summary:any) {
+    console.log(summary)
+    this.chartData['pending-dispatch'].count = summary.present;
+    this.chartData['pending-post-delivery'].count = summary.absent;
+    this.chartData.completed.count =  summary.pending;
     this.chartData.suspended.count = 0;
-    this.totalShipment = 0;
+    this.totalShipment = summary.total;
     (
       await this.shipmentsService.getShipmentsByDate(this.selectedDate)
     ).docs.map((shipment: any) => {

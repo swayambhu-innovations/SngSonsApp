@@ -143,6 +143,8 @@ export class HeadUserBarComponent implements OnInit {
     const data: any = this.utilService.getUserdata();
     this.userName = data?.access?.userName || '';
     this.userAvatar = data?.access?.photoURL || '';
+        console.log(data?.access)
+
   }
 
   getDashboardSettingData() {}
