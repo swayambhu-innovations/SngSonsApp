@@ -36,30 +36,63 @@ export class VehicleService {
 
   todayDate = this.currentDate.getDate().toString();
 
+  monthsArray: any = [
+    'january',
+    'february',
+    'march',
+    'april',
+    'may',
+    'june',
+    'july',
+    'august',
+    'september',
+    'october',
+    'november',
+    'december',
+  ];
+
   getAttendance() {
-    const monthsArray: any = [
-      'january',
-      'february',
-      'march',
-      'april',
-      'may',
-      'june',
-      'july',
-      'august',
-      'september',
-      'october',
-      'november',
-      'december',
-    ];
     return getDocs(
       collection(
         this.firestore,
         Config.formSettingVariable.attendance,
         this.currentYear,
-        monthsArray[this.currentMonth]
+        this.monthsArray[this.currentMonth]
       )
     );
   }
+  async getAttendanceOnDate(currDate: string) {
+    try {
+      console.log(`Fetching attendance data for date: ${currDate}`);
+
+      const date = new Date(currDate);
+      if (isNaN(date.getTime())) {
+        throw new Error('Invalid date format');
+      }
+
+      const year = date.getFullYear();
+      const monthIndex = date.getMonth();
+      const monthName = this.monthsArray[monthIndex];
+
+
+      const attendanceCollectionPath = `${Config.formSettingVariable.attendance}/${year}/${monthName}`;
+
+      const attendanceCollection = collection(
+        this.firestore,
+        attendanceCollectionPath
+      );
+
+      const snapshot = await getDocs(attendanceCollection);
+
+     
+
+      return snapshot;
+    } catch (error) {
+      console.error('Error fetching attendance data:', error);
+      throw error;
+    }
+  }
+
   async getOrganizationDetail(orgID: any) {
     let docSnap: any;
     if (orgID) {

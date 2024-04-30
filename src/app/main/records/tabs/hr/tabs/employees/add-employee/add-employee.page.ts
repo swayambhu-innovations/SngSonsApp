@@ -46,7 +46,7 @@ export class AddEmployeePage implements OnInit {
     pan: new FormControl('', [Validators.required]),
     doj: new FormControl(new Date(), []),
     salary: new FormControl(''),
-    photoUrl: new FormControl(Config.url.defaultProfile),
+    photoURL: new FormControl(Config.url.defaultProfile),
     active: new FormControl(true, []),
     createdAt: new FormControl(new Date(), []),
     id: new FormControl(''),
@@ -111,7 +111,7 @@ export class AddEmployeePage implements OnInit {
           pan: this.editUserData.pan,
           doj: this.editUserData.doj,
           salary: this.editUserData.salary,
-          photoUrl: this.editUserData.photoUrl,
+          photoURL: this.editUserData.photoURL,
           active: this.editUserData.active,
           createdAt: this.editUserData.createdAt,
           id: data.id,
@@ -211,14 +211,14 @@ async getRoles() {
       `${this.employeeForm.value.phone}.${file.name.split('.').pop()}`
     );
     this.employeeForm.patchValue({
-      photoUrl: url,
+      photoURL: url,
     });
     this.loader.dismiss();
   }
 
   removePhoto(): void {
     this.employeeForm.patchValue({
-      photoUrl: Config.url.defaultProfile,
+      photoURL: Config.url.defaultProfile,
     });
   }
 
