@@ -188,6 +188,8 @@ export class RecievingDetailPage implements OnInit {
           parseInt(this.recievingDetails?.gateEntryDate)
         ).toDateString();
 
+        console.log(this.recievingDetails?.voucherData)
+
         this.timeStamp = new Date(
           parseInt(this.recievingDetails?.voucherData['createdAt'])
         ).toDateString();
@@ -201,7 +203,6 @@ export class RecievingDetailPage implements OnInit {
 
   async onSubmit() {
     this.sanitizeMobileNo()
-    console.log(this.vehicleForm.value)
 
     if (this.vehicleForm.invalid) {
       this.vehicleForm.markAllAsTouched();
@@ -243,7 +244,7 @@ export class RecievingDetailPage implements OnInit {
 
     this.isGateEntry = false;
     this.notification.showSuccess(this.config.messages.savedSuccessfully);
-    this.getRecievingDetails();
+    await this.getRecievingDetails();
   }
 
   async suspend(confirmation: any) {
@@ -263,14 +264,10 @@ export class RecievingDetailPage implements OnInit {
   sanitizeMobileNo(){
     const driveMblNo = this.vehicleForm.value.driveMblNo.toString();
     if (typeof driveMblNo === 'string' && driveMblNo.length>10) {
-      console.log("work")
-      console.log(driveMblNo)
       const sliced = driveMblNo.slice(0, 10);
-      console.log(sliced)
-
       this.vehicleForm.patchValue({ driveMblNo: sliced });
     } else {
-      console.error('driveMblNo is not a string');
+      console.log('driveMblNo is not a string');
     }
   }
 

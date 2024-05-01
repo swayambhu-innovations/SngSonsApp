@@ -24,6 +24,7 @@ export class DayWiseSummaryComponent implements OnInit {
         if (this.isDispatch) this.daywiseSummaryService.getShipments();
         else this.daywiseSummaryService.getRecieving();
         if (this.isAttendance) this.daywiseSummaryService.getRecieving();
+        console.log(this.isAttendance)
       }
     });
   }
