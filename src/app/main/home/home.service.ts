@@ -8,5 +8,7 @@ import { UtilService } from "src/app/utils/util";
 export class HomeService{
     constructor(private utilService: UtilService){}
     dashBoardSettingFormData:any;
+    
+
     userAccessData = this.utilService.getUserAccessData();
 }

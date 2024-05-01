@@ -81,21 +81,21 @@ export class GenerateZmmVoucherPage implements OnInit {
 
   voucherForm: FormGroup = new FormGroup({
     id: new FormControl(this.recievingDetails?.id, [Validators.required]),
-    dieselExpenseBank: new FormControl('', [Validators.required]),
-    dieselExpenseAmount: new FormControl('', [Validators.required]),
-    labour: new FormControl('', [Validators.required]),
-    labourExpenseBank: new FormControl('', [Validators.required]),
-    labourExpenseAmount: new FormControl('', [Validators.required]),
-    khurakiExpenseBank: new FormControl('', [Validators.required]),
-    khurakiExpenseAmount: new FormControl('', [Validators.required]),
-    freightExpenseBank: new FormControl('', [Validators.required]),
-    freightExpenseAmount: new FormControl('', [Validators.required]),
-    tollExpenseBank: new FormControl('', [Validators.required]),
-    tollExpenseAmount: new FormControl('', [Validators.required]),
-    repairExpenseBank: new FormControl('', [Validators.required]),
-    repairExpenseAmount: new FormControl('', [Validators.required]),
-    otherExpenseBank: new FormControl('', [Validators.required]),
-    otherExpenseAmount: new FormControl('', [Validators.required]),
+    dieselExpenseBank: new FormControl(''),
+    dieselExpenseAmount: new FormControl(0, [Validators.required]),
+    labour: new FormControl(''),
+    labourExpenseBank: new FormControl(''),
+    labourExpenseAmount: new FormControl(0, [Validators.required]),
+    khurakiExpenseBank: new FormControl(''),
+    khurakiExpenseAmount: new FormControl(0, [Validators.required]),
+    freightExpenseBank: new FormControl(''),
+    freightExpenseAmount: new FormControl(0, [Validators.required]),
+    tollExpenseBank: new FormControl(''),
+    tollExpenseAmount: new FormControl(0, [Validators.required]),
+    repairExpenseBank: new FormControl(''),
+    repairExpenseAmount: new FormControl(0, [Validators.required]),
+    otherExpenseBank: new FormControl(''),
+    otherExpenseAmount: new FormControl(0, [Validators.required]),
     remark: new FormControl('', []),
     createdAt: new FormControl(new Date(), []),
     createdById: new FormControl('', []),
@@ -175,6 +175,7 @@ export class GenerateZmmVoucherPage implements OnInit {
         if (data.active) {
           this.expense[data.expenseName] = data;
           this.expenseAccount[data.account] = data;
+          console.log(data)
         }
       }
     );
@@ -191,9 +192,9 @@ export class GenerateZmmVoucherPage implements OnInit {
 
   checkValidAmount(formData: any, bank: string, amount: string, key: string) {
     const expense = this.expenseAccount[formData.voucherData[bank]];
-    if (
-      formData.voucherData[amount] < expense.minDispense ||
-      formData.voucherData[amount] > expense.maxDispense
+    if (formData.voucherData[amount]!=0 &&
+      (formData.voucherData[amount] < expense.minDispense ||
+      formData.voucherData[amount] > expense.maxDispense)
     ) {
       this.notification.showError(
         `${Config.messages.invalidAmount}for ${key} Expense`

@@ -40,6 +40,8 @@ export class ShipmentsComponent implements OnInit {
       message: Config.messages.pleaseWait,
     });
     await this.init();
+    console.log(this.homeService.dashBoardSettingFormData)
+
   }
 
   async init() {

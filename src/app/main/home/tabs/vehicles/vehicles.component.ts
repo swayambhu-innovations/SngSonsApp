@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Config } from 'src/app/config';
 import { LoadingController, NavController } from '@ionic/angular';
 import { VehicleService } from './vehicle.service';
+import { HomeService } from '../../home.service';
 
 @Component({
   selector: 'app-vehicles',
@@ -17,7 +18,8 @@ export class VehiclesComponent implements OnInit {
   constructor(
     public vehicleService: VehicleService,
     private loadingController: LoadingController,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    public homeService:HomeService
   ) {}
   message: string;
 
@@ -39,6 +41,7 @@ export class VehiclesComponent implements OnInit {
     });
 
     this.getAllEmps();
+    console.log(this.homeService.userAccessData)
   }
 
   async getAttendanceOnDate(date: string) {
@@ -110,7 +113,6 @@ export class VehiclesComponent implements OnInit {
       pending: totalPending,
       total: this.allEmpsData.length
     };
-    console.log(this.summary)
   }
 
   async getOrganizations() {

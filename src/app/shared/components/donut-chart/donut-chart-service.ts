@@ -28,11 +28,11 @@ export class DonutChartService {
 
   async getShipments(summary:any) {
     console.log(summary)
-    this.chartData['pending-dispatch'].count = summary.present;
-    this.chartData['pending-post-delivery'].count = summary.absent;
-    this.chartData.completed.count =  summary.pending;
+    this.chartData['pending-dispatch'].count = summary.present?summary.present:0;
+    this.chartData['pending-post-delivery'].count = summary.absent?summary.absent:0;
+    this.chartData.completed.count =  summary.pending?summary.pending:0;
     this.chartData.suspended.count = 0;
-    this.totalShipment = summary.total;
+    this.totalShipment = summary.total?summary.total:0;
     (
       await this.shipmentsService.getShipmentsByDate(this.selectedDate)
     ).docs.map((shipment: any) => {

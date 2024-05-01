@@ -62,7 +62,16 @@ export class TodayAttendanceService {
       )
     );
   }
-
+  // async getAttendanceStatus(){
+  //   return getDocs(
+  //     collection(
+  //       this.firestore,
+  //       Config.formSettingVariable.attendance,
+  //       this.currentYear,
+  //       this.monthsArray[this.currentMonth]
+  //     )
+  //   );
+  // }
   async initLocation() {
     if (this.platform.is('capacitor')) {
       let permissionRequested = await Geolocation.checkPermissions();

@@ -57,8 +57,6 @@ export class DonutChartComponent implements OnInit {
     this.loader = await this.loadingController.create({
       message: Config.messages.refresh,
     });
-    this.loader.present();
     this.donutChartService.getShipments(this.summary);
-    this.loader.dismiss();
   }
 }
