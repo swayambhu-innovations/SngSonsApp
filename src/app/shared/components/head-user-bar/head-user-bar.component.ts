@@ -10,7 +10,8 @@ import { UtilService } from 'src/app/utils/util';
 import { HeadUserBarService } from './head-user-bar.service';
 import { HomeService } from 'src/app/main/home/home.service';
 import { SharedService } from '../../shared.service';
-
+import { Config } from 'src/app/config';
+import { TodayAttendanceService } from 'src/app/main/today-attendance/today-attendance.service';
 @Component({
   selector: 'app-head-user-bar',
   templateUrl: './head-user-bar.component.html',
@@ -25,7 +26,8 @@ export class HeadUserBarComponent implements OnInit {
     private sharedService: SharedService,
     private loadingController: LoadingController,
     private homeService: HomeService,
-    private util: UtilService
+    private util: UtilService,
+    private TodayAttendanceService:TodayAttendanceService
   ) {
     this.sharedService.refresh.subscribe((data) => {
       if (data) {
@@ -41,18 +43,12 @@ export class HeadUserBarComponent implements OnInit {
     shipment_Shipment: true,
     shipment_Expense: true,
     shipment_TodayAvg: true,
-    vehicle_DayWise: true,
-    vehicle_VehicleNo: true,
-    vehicle_VehicleType: true,
-    vehicle_VehicleWise: true,
-    vehicle_PartyWise: true,
-    vehicle_DieselV: true,
-    vehicle_AttachedO: true,
+    attendanceSummaryCard: true,
+    attendanceList: true,
     vendor_DayWise: true,
     vendor_VendorWise: true,
     vendor_VehicleType: true,
     vendor_PartyWiseE: true,
-    vendor_PartyWiseS: true,
     vendor_KOT: true,
   };
   @Input() isHome: boolean = false;
@@ -67,18 +63,16 @@ export class HeadUserBarComponent implements OnInit {
     shipment_Shipment: [true, []],
     shipment_Expense: [false, []],
     shipment_TodayAvg: [false, []],
-    vehicle_DayWise: [true, []],
-    vehicle_VehicleNo: [true, []],
-    vehicle_VehicleType: [false, []],
-    vehicle_VehicleWise: [false, []],
-    vehicle_PartyWise: [false, []],
-    vehicle_DieselV: [false, []],
-    vehicle_AttachedO: [false, []],
+
+    attendanceSummaryCard: [true, []],
+    attendanceList: [true, []],
+
+
     vendor_DayWise: [true, []],
     vendor_VendorWise: [true, []],
     vendor_VehicleType: [false, []],
     vendor_PartyWiseE: [false, []],
-    vendor_PartyWiseS: [false, []],
+    
     vendor_KOT: [false, []],
     tab: [this.tabStatus],
   });
@@ -89,6 +83,8 @@ export class HeadUserBarComponent implements OnInit {
     // this.loader = await this.loadingController.create({
     //   message: 'please wait',
     // });
+    
+    
     this.getUserName();
     this.homeService.dashBoardSettingFormData =
       (await this.headBarService.getDashBoardSetting(this.userId)).data() || {};
@@ -100,8 +96,10 @@ export class HeadUserBarComponent implements OnInit {
     } else {
       this.homeService.dashBoardSettingFormData = this.expertSetting;
     }
-  }
+    // this.TodayAttendanceService.getAttendanceStatus()
 
+  }
+  
   goHome() {
     this.navCtrl.navigateForward('main/home');
   }
@@ -125,6 +123,7 @@ export class HeadUserBarComponent implements OnInit {
       this.modeFormSettings.disable();
     } else {
       if (Object.keys(this.homeService.dashBoardSettingFormData).length) {
+        console.log(this.homeService.dashBoardSettingFormData)
         this.modeFormSettings.patchValue(
           this.homeService.dashBoardSettingFormData
         );
@@ -161,6 +160,9 @@ export class HeadUserBarComponent implements OnInit {
   }
 
   async onSubmit() {
+    this.loader = await this.loadingController.create({
+      message: Config.messages.pleaseWait,
+    });
     this.loader.present();
     this.homeService.dashBoardSettingFormData = this.modeFormSettings.value;
     await this.headBarService.setDashBoardSetting(

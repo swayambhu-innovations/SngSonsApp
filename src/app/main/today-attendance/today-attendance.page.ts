@@ -100,6 +100,7 @@ export class TodayAttendancePage implements OnInit {
     });
   }
 
+
   isMarked(userId: any) {
     if(this.attendanceMap.hasOwnProperty(userId)){
       return this.attendanceMap[userId].present
@@ -172,7 +173,7 @@ export class TodayAttendancePage implements OnInit {
   async markPresent() {
     this.loader.present();
     // this.validMarker = await this.getLocation();
-    if (this.validMarker) {
+    if (true) {
       await this.TodayAttendanceService.markAttendance(this.userData.phone);
       this.notificationService.showSuccess(Config.messages.markAttendance);
     } else this.notificationService.showError(Config.messages.locationNotFound);

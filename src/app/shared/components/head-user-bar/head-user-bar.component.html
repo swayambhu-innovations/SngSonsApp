@@ -141,7 +141,7 @@
           <div class="ion-padding-vertical">
             <!-- <app-simple *ngIf="tabStatus.simple"></app-simple> -->
             <div class="wrapper">
-              <p class="head">Shipments Tab Cards</p>
+              <p class="head">Recieving Tab Cards</p>
               <!-- Day Wise Summary -->
               <div class="tab-card">
                 <ion-grid>
@@ -215,7 +215,7 @@
                         </svg>
 
                         <div class="text">
-                          <p>Shipment Wise Voucher</p>
+                          <p>Recieving Wise Voucher</p>
                           <p class="sub-text">Table List View</p>
                         </div>
                       </ion-row>
@@ -334,7 +334,7 @@
                 </ion-grid>
               </div>
 
-              <p class="head">Vehicles Tab Cards</p>
+              <p class="head">Attendance Tab Cards</p>
 
               <!-- Day Wise Summary -->
               <div class="tab-card">
@@ -361,7 +361,7 @@
                         </svg>
 
                         <div class="text">
-                          <p>Day Wise Summary Chart</p>
+                          <p>Today Summary</p>
                           <p class="sub-text">Pie Chart Card</p>
                         </div>
                       </ion-row>
@@ -374,7 +374,7 @@
                       >
                         <input
                           type="checkbox"
-                          formControlName="vehicle_DayWise"
+                          formControlName="attendanceSummaryCard"
                           [checked]="true"
                         />
                         <span class="slider round"></span>
@@ -409,7 +409,8 @@
                         </svg>
 
                         <div class="text">
-                          <p>Vehicle No. Wise Voucher</p>
+                          <p class="nan-margin-b">All Employee Attendance </p>
+                          <p>Status</p>
                           <p class="sub-text">Table List View</p>
                         </div>
                       </ion-row>
@@ -422,7 +423,7 @@
                       >
                         <input
                           type="checkbox"
-                          formControlName="vehicle_VehicleNo"
+                          formControlName="attendanceList"
                           [checked]="true"
                         />
                         <span class="slider round"></span>
@@ -433,7 +434,7 @@
               </div>
 
               <!-- Vehicle Type Wise Expenses -->
-              <div class="tab-card">
+              <!-- <div class="tab-card">
                 <ion-grid>
                   <ion-row
                     class="ion-justify-content-between ion-align-items-center"
@@ -479,10 +480,10 @@
                     </ion-col>
                   </ion-row>
                 </ion-grid>
-              </div>
+              </div> -->
 
               <!-- Today vs Avg Shipements -->
-              <div class="tab-card">
+              <!-- <div class="tab-card">
                 <ion-grid>
                   <ion-row
                     class="ion-justify-content-between ion-align-items-center"
@@ -527,10 +528,10 @@
                     </ion-col>
                   </ion-row>
                 </ion-grid>
-              </div>
+              </div> -->
 
               <!-- Today vs Avg Shipements -->
-              <div class="tab-card">
+              <!-- <div class="tab-card">
                 <ion-grid>
                   <ion-row
                     class="ion-justify-content-between ion-align-items-center"
@@ -575,10 +576,10 @@
                     </ion-col>
                   </ion-row>
                 </ion-grid>
-              </div>
+              </div> -->
 
               <!-- Today vs Avg Shipements -->
-              <div class="tab-card">
+              <!-- <div class="tab-card">
                 <ion-grid>
                   <ion-row
                     class="ion-justify-content-between ion-align-items-center"
@@ -623,9 +624,9 @@
                     </ion-col>
                   </ion-row>
                 </ion-grid>
-              </div>
+              </div> -->
 
-              <div class="tab-card">
+              <!-- <div class="tab-card">
                 <ion-grid>
                   <ion-row
                     class="ion-justify-content-between ion-align-items-center"
@@ -670,9 +671,9 @@
                     </ion-col>
                   </ion-row>
                 </ion-grid>
-              </div>
+              </div> -->
 
-              <p class="head">Vendors Tab Cards</p>
+              <p class="head">Dispatch Tab Cards</p>
 
               <!-- Day Wise Summary -->
               <div class="tab-card">
@@ -866,7 +867,7 @@
                 </ion-grid>
               </div>
 
-              <div class="tab-card">
+              <!-- <div class="tab-card">
                 <ion-grid>
                   <ion-row
                     class="ion-justify-content-between ion-align-items-center"
@@ -911,7 +912,7 @@
                     </ion-col>
                   </ion-row>
                 </ion-grid>
-              </div>
+              </div> -->
               <div class="tab-bar">
                 
                   <ion-button type="submit" shape="round" class="active-btn"

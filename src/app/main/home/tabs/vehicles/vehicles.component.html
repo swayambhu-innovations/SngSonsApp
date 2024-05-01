@@ -18,11 +18,11 @@
       </div>
     </div>
 
-    <app-donut-chart (messageEvent)="getAttendanceOnDate($event)" [summary]="summary"></app-donut-chart>
+    <app-donut-chart (messageEvent)="getAttendanceOnDate($event)" [summary]="summary" *ngIf="homeService.dashBoardSettingFormData?.attendanceSummaryCard"></app-donut-chart>
 
     <!-- All Emoloyee Attendance Status Card -->
 
-    <ion-card class="employee-attendance-wrapper">
+    <ion-card class="employee-attendance-wrapper" *ngIf="homeService.dashBoardSettingFormData?.attendanceList">
       <ion-card-title
         style="color: #1540bd; font-size: 20px; padding: 10px 0 3% 4.5%"
         >All Employee Attendance Status</ion-card-title

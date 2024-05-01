@@ -15,4 +15,6 @@ export class HeadUserBarService{
     getDashBoardSetting(userId: any) {
         return getDoc(doc(this.firestore , 'users' , userId  , 'dashboardSetting' ,  'setting'))
     }
+
+    
 }

@@ -1,4 +1,4 @@
-<ng-container *ngIf="homeService.dashBoardSettingFormData?.shipment_DayWise">
+<ng-container *ngIf="homeService.dashBoardSettingFormData?.vendor_DayWise">
   <app-day-wise-summary [isDispatch]="true"></app-day-wise-summary>
 </ng-container>
 
@@ -386,19 +386,19 @@
   </ng-template>
 </ion-modal>
 
-<ng-container *ngIf="homeService.dashBoardSettingFormData?.shipment_Shipment">
+<ng-container *ngIf="homeService.dashBoardSettingFormData?.vendor_VendorWise">
   <app-voucher
     [heading]="'Shipment Wise Voucher'"
     [search]="'Shipment'"
     [tableData]="tableData"
   ></app-voucher>
 </ng-container>
-<ng-container *ngIf="homeService.dashBoardSettingFormData?.shipment_Expense">
+<ng-container *ngIf="homeService.dashBoardSettingFormData?.vendor_VehicleType">
   <app-bar-graph-table
     [heading]="'Expenses So Far vs Avg (₹)'"
   ></app-bar-graph-table>
 </ng-container>
-<ng-container *ngIf="homeService.dashBoardSettingFormData?.shipment_TodayAvg">
+<ng-container *ngIf="homeService.dashBoardSettingFormData?.vendor_PartyWiseE">
   <app-bar-graph-table
     [heading]="'Today vs Avg Shipments'"
   ></app-bar-graph-table>
