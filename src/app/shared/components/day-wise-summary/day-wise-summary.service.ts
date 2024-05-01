@@ -99,7 +99,6 @@ export class DaywiseSummaryService {
   }
 
   async getShipments() {
-    console.log(this.chartDataDispatch)
 
     this.chartDataDispatch['pending-dispatch'].count = 0;
     this.chartDataDispatch['pending-post-delivery'].count = 0;

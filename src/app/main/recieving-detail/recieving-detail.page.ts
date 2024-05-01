@@ -79,6 +79,12 @@ export class RecievingDetailPage implements OnInit {
 
   closeModal() {
     this.vehicleForm.reset();
+    this.previewImages={
+      vehicleFront: '',
+      vehicleNumberPlate: '',
+      driverFace: '',
+    };
+    console.log(this.vehicleForm.value)
     this.isGateEntry = false;
   }
 
@@ -98,6 +104,7 @@ export class RecievingDetailPage implements OnInit {
       source: CameraSource.Camera,
       saveToGallery: false,
     });
+    this.isGateEntry = true;
 
     this.loader = await this.loadingController.create({
       message: Config.messages.proccessImg,
