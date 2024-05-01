@@ -200,6 +200,9 @@ export class RecievingDetailPage implements OnInit {
   }
 
   async onSubmit() {
+    this.sanitizeMobileNo()
+    console.log(this.vehicleForm.value)
+
     if (this.vehicleForm.invalid) {
       this.vehicleForm.markAllAsTouched();
       this.notification.showError(Config.messages.fillAllFields);
@@ -257,7 +260,24 @@ export class RecievingDetailPage implements OnInit {
     this.isSuspended = false;
   }
 
+  sanitizeMobileNo(){
+    const driveMblNo = this.vehicleForm.value.driveMblNo.toString();
+    if (typeof driveMblNo === 'string' && driveMblNo.length>10) {
+      console.log("work")
+      console.log(driveMblNo)
+      const sliced = driveMblNo.slice(0, 10);
+      console.log(sliced)
+
+      this.vehicleForm.patchValue({ driveMblNo: sliced });
+    } else {
+      console.error('driveMblNo is not a string');
+    }
+  }
+
   dismissModal = async () => {
+
+    this.sanitizeMobileNo()
+
     this.isSuspended = false;
     this.isGateEntry = false;
     return true;
