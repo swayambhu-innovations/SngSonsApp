@@ -346,7 +346,7 @@
 
     <div class="tab-bar">
       <ion-button
-        *ngIf="homeService.userAccessData?.fill_shipment_voucher && (recievingDetails.status == recievingStatus.Pending || recievingDetails.status == recievingStatus.Suspended)"
+        *ngIf="homeService.userAccessData?.fill_shipment_voucher && recievingDetails.status != recievingStatus.Suspended && (recievingDetails.status == recievingStatus.Pending || recievingDetails.status == recievingStatus.Suspended  )"
         (click)="isGateEntry=true"
         shape="round"
         class="active-btn"
