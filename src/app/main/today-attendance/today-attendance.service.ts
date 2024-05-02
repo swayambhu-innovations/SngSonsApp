@@ -74,26 +74,24 @@ export class TodayAttendanceService {
 
       const docSnapshot = await getDoc(ref);
       if (docSnapshot.exists()) {
-        const attendance=docSnapshot.data()
+        const attendance = docSnapshot.data();
         for (const [key, value] of Object.entries(attendance)) {
-          console.log("Value:", value); 
-          if(key==this.todayDate){
-            if(value.present){
-              return 'Attendance Present'
-            }
-            else{
-              return 'Attendance Absent'
+          console.log('Value:', value);
+          if (key == this.todayDate) {
+            if (value.present) {
+              return 'Attendance Present';
+            } else {
+              return 'Attendance Absent';
             }
           }
-          
         }
       } else {
-        return 'Attendance Pending'
+        return 'Attendance Pending';
       }
     } catch (error) {
       console.error('Error getting document:', error);
     }
-    return
+    return;
   }
   async initLocation() {
     if (this.platform.is('capacitor')) {
@@ -141,7 +139,7 @@ export class TodayAttendanceService {
   // }
 
   async markAttendance(userId: any) {
-    console.log(this.currentMonth);
+    
     const attendanceRef = doc(
       this.firestore,
       Config.formSettingVariable.attendance,

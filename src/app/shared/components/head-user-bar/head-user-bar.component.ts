@@ -104,22 +104,26 @@ export class HeadUserBarComponent implements OnInit {
     const data: any = this.utilService.getUserdata();
     this.TodayAttendanceService.getAttendanceStatus(data?.access.id).then(
       (res: any) => {
-        this.attendanceStatus = res;
-        console.log(this.attendanceStatus)
+        if (res) {
+          this.attendanceStatus = res;
+        } else {
+          this.attendanceStatus = 'Attendance Pending';
+        }
+        console.log(this.attendanceStatus);
       }
     );
   }
 
-  getStyle(){
-    switch (this.attendanceStatus){
+  getStyle() {
+    switch (this.attendanceStatus) {
       case 'Attendance Pending':
-        return '#d97a07'
+        return '#d97a07';
       case 'Attendance Present':
-        return '#29D25F'
+        return '#29D25F';
       case 'Attendance Absent':
-        return '#EA712E'
+        return '#EA712E';
     }
-    return '#d97a07'
+    return '#d97a07';
   }
 
   goHome() {
