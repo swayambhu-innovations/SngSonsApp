@@ -260,14 +260,19 @@ export class GenerateZmmVoucherPage implements OnInit {
         'otherExpenseAmount',
         'Other'
       )
-    ) {
-      return;
+    ) 
+    {
+      return ;
     }
+
+ 
+
+
 
     this.loader = await this.loadingController.create({
       message: Config.messages.pleaseWait,
     });
-    this.loader.present();
+    // this.loader.present();
     if (stat === 'Submit') {
       formData['status'] = RecievingStatus.Completed;
     }
@@ -348,6 +353,7 @@ export class GenerateZmmVoucherPage implements OnInit {
       this.notification.showSuccess(this.config.messages.savedSuccessfully);
     }
     this.loader.dismiss();
+    
   }
 
   dismissModal = async () => {
