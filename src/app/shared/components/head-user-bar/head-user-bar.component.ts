@@ -27,7 +27,7 @@ export class HeadUserBarComponent implements OnInit {
     private loadingController: LoadingController,
     private homeService: HomeService,
     private util: UtilService,
-    private TodayAttendanceService:TodayAttendanceService
+    private TodayAttendanceService: TodayAttendanceService
   ) {
     this.sharedService.refresh.subscribe((data) => {
       if (data) {
@@ -58,6 +58,7 @@ export class HeadUserBarComponent implements OnInit {
   tabStatus: any = 'simple';
   private loader: any;
   userId = this.util.getUserId();
+  attendanceStatus = 'Attendance Pending';
   modeFormSettings = this.fb.group({
     shipment_DayWise: [true, []],
     shipment_Shipment: [true, []],
@@ -67,12 +68,11 @@ export class HeadUserBarComponent implements OnInit {
     attendanceSummaryCard: [true, []],
     attendanceList: [true, []],
 
-
     vendor_DayWise: [true, []],
     vendor_VendorWise: [true, []],
     vendor_VehicleType: [false, []],
     vendor_PartyWiseE: [false, []],
-    
+
     vendor_KOT: [false, []],
     tab: [this.tabStatus],
   });
@@ -83,8 +83,7 @@ export class HeadUserBarComponent implements OnInit {
     // this.loader = await this.loadingController.create({
     //   message: 'please wait',
     // });
-    
-    
+
     this.getUserName();
     this.homeService.dashBoardSettingFormData =
       (await this.headBarService.getDashBoardSetting(this.userId)).data() || {};
@@ -96,10 +95,33 @@ export class HeadUserBarComponent implements OnInit {
     } else {
       this.homeService.dashBoardSettingFormData = this.expertSetting;
     }
-    // this.TodayAttendanceService.getAttendanceStatus()
-
+    this.getAttendanceStatus();
   }
-  
+  ionViewWillEnter() {
+    this.getAttendanceStatus();
+  }
+  getAttendanceStatus() {
+    const data: any = this.utilService.getUserdata();
+    this.TodayAttendanceService.getAttendanceStatus(data?.access.id).then(
+      (res: any) => {
+        this.attendanceStatus = res;
+        console.log(this.attendanceStatus)
+      }
+    );
+  }
+
+  getStyle(){
+    switch (this.attendanceStatus){
+      case 'Attendance Pending':
+        return '#d97a07'
+      case 'Attendance Present':
+        return '#29D25F'
+      case 'Attendance Absent':
+        return '#EA712E'
+    }
+    return '#d97a07'
+  }
+
   goHome() {
     this.navCtrl.navigateForward('main/home');
   }
@@ -123,7 +145,7 @@ export class HeadUserBarComponent implements OnInit {
       this.modeFormSettings.disable();
     } else {
       if (Object.keys(this.homeService.dashBoardSettingFormData).length) {
-        console.log(this.homeService.dashBoardSettingFormData)
+        console.log(this.homeService.dashBoardSettingFormData);
         this.modeFormSettings.patchValue(
           this.homeService.dashBoardSettingFormData
         );
@@ -142,8 +164,6 @@ export class HeadUserBarComponent implements OnInit {
     const data: any = this.utilService.getUserdata();
     this.userName = data?.access?.userName || '';
     this.userAvatar = data?.access?.photoURL || '';
-        console.log(data?.access)
-
   }
 
   getDashboardSettingData() {}

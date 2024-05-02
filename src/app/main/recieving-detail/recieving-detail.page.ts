@@ -75,10 +75,16 @@ export class RecievingDetailPage implements OnInit {
     this.getRecievingDetails();
   }
 
-  async ngOnInit() {}
+  async ngOnInit() {
+  }
 
   closeModal() {
     this.vehicleForm.reset();
+    this.previewImages={
+      vehicleFront: '',
+      vehicleNumberPlate: '',
+      driverFace: '',
+    };
     this.isGateEntry = false;
   }
 
@@ -98,6 +104,7 @@ export class RecievingDetailPage implements OnInit {
       source: CameraSource.Camera,
       saveToGallery: false,
     });
+    this.isGateEntry = true;
 
     this.loader = await this.loadingController.create({
       message: Config.messages.proccessImg,
@@ -173,6 +180,8 @@ export class RecievingDetailPage implements OnInit {
           id: recieving.id,
           supplier: [],
         };
+        
+
         this.recievingDetails =
           await this.recievingDetailService.formatReceiving(recievingData);
 
@@ -188,11 +197,11 @@ export class RecievingDetailPage implements OnInit {
           parseInt(this.recievingDetails?.gateEntryDate)
         ).toDateString();
 
+
         this.timeStamp = new Date(
           parseInt(this.recievingDetails?.voucherData['createdAt'])
         ).toDateString();
 
-        console.log(this.recievingDetails);
       }
     );
 
@@ -200,6 +209,8 @@ export class RecievingDetailPage implements OnInit {
   }
 
   async onSubmit() {
+    this.sanitizeMobileNo()
+
     if (this.vehicleForm.invalid) {
       this.vehicleForm.markAllAsTouched();
       this.notification.showError(Config.messages.fillAllFields);
@@ -240,7 +251,7 @@ export class RecievingDetailPage implements OnInit {
 
     this.isGateEntry = false;
     this.notification.showSuccess(this.config.messages.savedSuccessfully);
-    this.getRecievingDetails();
+    await this.getRecievingDetails();
   }
 
   async suspend(confirmation: any) {
@@ -257,7 +268,20 @@ export class RecievingDetailPage implements OnInit {
     this.isSuspended = false;
   }
 
+  sanitizeMobileNo(){
+    const driveMblNo = this.vehicleForm.value.driveMblNo.toString();
+    if (typeof driveMblNo === 'string' && driveMblNo.length>10) {
+      const sliced = driveMblNo.slice(0, 10);
+      this.vehicleForm.patchValue({ driveMblNo: sliced });
+    } else {
+      console.log('driveMblNo is not a string');
+    }
+  }
+
   dismissModal = async () => {
+
+    this.sanitizeMobileNo()
+
     this.isSuspended = false;
     this.isGateEntry = false;
     return true;

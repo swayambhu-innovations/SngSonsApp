@@ -99,6 +99,7 @@ export class DaywiseSummaryService {
   }
 
   async getShipments() {
+
     this.chartDataDispatch['pending-dispatch'].count = 0;
     this.chartDataDispatch['pending-post-delivery'].count = 0;
     this.chartDataDispatch.completed.count = 0;
@@ -108,6 +109,7 @@ export class DaywiseSummaryService {
       await this.shipmentsService.getShipmentsByDate(this.selectedDate)
     ).docs.map((shipment: any) => {
       const data = shipment.data();
+
       this.chartDataDispatch[data.status].count =
         this.chartDataDispatch[data.status].count + 1;
     });
