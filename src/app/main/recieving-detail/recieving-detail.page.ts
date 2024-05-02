@@ -75,7 +75,8 @@ export class RecievingDetailPage implements OnInit {
     this.getRecievingDetails();
   }
 
-  async ngOnInit() {}
+  async ngOnInit() {
+  }
 
   closeModal() {
     this.vehicleForm.reset();
@@ -84,7 +85,6 @@ export class RecievingDetailPage implements OnInit {
       vehicleNumberPlate: '',
       driverFace: '',
     };
-    console.log(this.vehicleForm.value)
     this.isGateEntry = false;
   }
 
@@ -180,6 +180,8 @@ export class RecievingDetailPage implements OnInit {
           id: recieving.id,
           supplier: [],
         };
+        
+
         this.recievingDetails =
           await this.recievingDetailService.formatReceiving(recievingData);
 
@@ -195,13 +197,11 @@ export class RecievingDetailPage implements OnInit {
           parseInt(this.recievingDetails?.gateEntryDate)
         ).toDateString();
 
-        console.log(this.recievingDetails?.voucherData)
 
         this.timeStamp = new Date(
           parseInt(this.recievingDetails?.voucherData['createdAt'])
         ).toDateString();
 
-        console.log(this.recievingDetails);
       }
     );
 

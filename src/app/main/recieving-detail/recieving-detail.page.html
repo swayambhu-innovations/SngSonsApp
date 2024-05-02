@@ -102,14 +102,14 @@
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Supplier Code</ion-col>
         <ion-col size="auto"
-          >{{recievingDetails?.supplierDetails?.supplierID[0]}}</ion-col
+        >{{recievingDetails.supplierData ? this.recievingDetails.supplierData[0].supplierID:'-'}}</ion-col
         >
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Supplier Name</ion-col>
         <ion-col size="auto"
-          >{{recievingDetails?.supplierDetails?.supplierName[0]}}</ion-col
+          >{{recievingDetails.supplierData ? this.recievingDetails.supplierData[0].supplierName:'-'}}</ion-col
         >
       </ion-row>
 

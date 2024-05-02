@@ -23,8 +23,8 @@ import { Config } from 'src/app/config';
   providedIn: 'root',
 })
 export class TodayAttendanceService {
-  constructor(public firestore: Firestore,private platform:Platform) {}
-  currentLocation:Subject<Position> = new Subject<Position>();
+  constructor(public firestore: Firestore, private platform: Platform) {}
+  currentLocation: Subject<Position> = new Subject<Position>();
 
   currentDate = new Date();
 
@@ -62,15 +62,38 @@ export class TodayAttendanceService {
       )
     );
   }
-  async getAttendanceStatus(){
-    return getDocs(
-      collection(
+  async getAttendanceStatus(id: any) {
+    try {
+      const ref = doc(
         this.firestore,
         Config.formSettingVariable.attendance,
         this.currentYear,
-        this.monthsArray[this.currentMonth]
-      )
-    );
+        this.monthsArray[this.currentMonth],
+        id
+      );
+
+      const docSnapshot = await getDoc(ref);
+      if (docSnapshot.exists()) {
+        const attendance=docSnapshot.data()
+        for (const [key, value] of Object.entries(attendance)) {
+          console.log("Value:", value); 
+          if(key==this.todayDate){
+            if(value.present){
+              return 'Attendance Present'
+            }
+            else{
+              return 'Attendance Absent'
+            }
+          }
+          
+        }
+      } else {
+        return 'Attendance Pending'
+      }
+    } catch (error) {
+      console.error('Error getting document:', error);
+    }
+    return
   }
   async initLocation() {
     if (this.platform.is('capacitor')) {
@@ -118,7 +141,7 @@ export class TodayAttendanceService {
   // }
 
   async markAttendance(userId: any) {
-    console.log(this.currentMonth)
+    console.log(this.currentMonth);
     const attendanceRef = doc(
       this.firestore,
       Config.formSettingVariable.attendance,
@@ -127,7 +150,7 @@ export class TodayAttendanceService {
       userId.toString()
     );
 
-   await getDoc(attendanceRef).then((docSnapshot) => {
+    await getDoc(attendanceRef).then((docSnapshot) => {
       if (docSnapshot.exists()) {
         const attendanceData = docSnapshot.data();
         if (!(this.todayDate in attendanceData)) {
@@ -141,7 +164,7 @@ export class TodayAttendanceService {
           );
         }
       } else {
-      setDoc(attendanceRef, {
+        setDoc(attendanceRef, {
           [this.todayDate]: { present: true, offPremises: 0 },
         });
       }
@@ -151,7 +174,7 @@ export class TodayAttendanceService {
   async markEmployeeAttendance(userId: any, atdData: any) {
     try {
       if (!userId || !atdData) {
-        throw new Error("Invalid Data");
+        throw new Error('Invalid Data');
       }
       const attendanceDocRef = doc(
         this.firestore,
@@ -167,19 +190,12 @@ export class TodayAttendanceService {
         const attendanceData = attendanceDoc.data();
 
         atdData = { ...attendanceData, [this.todayDate]: atdData };
-        setDoc(
-          attendanceDocRef,
-          atdData
-        );
+        setDoc(attendanceDocRef, atdData);
       } else {
-        setDoc(
-          attendanceDocRef,
-          { [this.todayDate]: atdData }
-        );
+        setDoc(attendanceDocRef, { [this.todayDate]: atdData });
       }
     } catch (error) {
-      console.error("Error updating today attendance my admin:", error);
+      console.error('Error updating today attendance my admin:', error);
     }
   }
-  }
-
+}

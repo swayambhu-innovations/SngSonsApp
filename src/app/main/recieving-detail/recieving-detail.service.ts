@@ -25,7 +25,7 @@ export class RecievingDetailService {
     recievingData.supplierDetails = this.supplier;
 
     await recievingData.supplierData.map((i: any, idx: number) => {
-      this.recievingsService.getSuppliers(i.supplierID).then((supplier) => {
+      this.recievingsService.getSuppliers(i.supplierID).then((supplier:any) => {
         const sdata = supplier.data();
         recievingData.supplier.push({ ...sdata, id: supplier.id });
         if (sdata) {

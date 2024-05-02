@@ -3,7 +3,7 @@
     <img (click)="goHome()" [src]="userAvatar" alt="Avatar" />
     <div>
       <p>{{ userName }}</p>
-      <p class="sub">Attendance Pending</p>
+      <p class="sub" [style.background-color]="getStyle()">{{attendanceStatus}}</p>
     </div>
   </div>
   <div class="actions">
