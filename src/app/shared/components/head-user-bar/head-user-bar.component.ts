@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -17,7 +23,7 @@ import { TodayAttendanceService } from 'src/app/main/today-attendance/today-atte
   templateUrl: './head-user-bar.component.html',
   styleUrls: ['./head-user-bar.component.scss'],
 })
-export class HeadUserBarComponent implements OnInit {
+export class HeadUserBarComponent implements OnInit, OnChanges {
   constructor(
     private navCtrl: NavController,
     private utilService: UtilService,
@@ -95,23 +101,22 @@ export class HeadUserBarComponent implements OnInit {
     } else {
       this.homeService.dashBoardSettingFormData = this.expertSetting;
     }
-    this.getAttendanceStatus();
+    this.getAttendanceStatus()
   }
+
   ionViewWillEnter() {
     this.getAttendanceStatus();
   }
-  getAttendanceStatus() {
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes) this.getAttendanceStatus();
+  }
+
+  getAttendanceStatus(){
     const data: any = this.utilService.getUserdata();
-    this.TodayAttendanceService.getAttendanceStatus(data?.access.id).then(
-      (res: any) => {
-        if (res) {
-          this.attendanceStatus = res;
-        } else {
-          this.attendanceStatus = 'Attendance Pending';
-        }
-        console.log(this.attendanceStatus);
-      }
-    );
+    this.TodayAttendanceService.getAttendanceStatus(data?.access.id).subscribe((status) => {
+      this.attendanceStatus = status;
+    });
   }
 
   getStyle() {
