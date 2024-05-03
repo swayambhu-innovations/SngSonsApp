@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { Geolocation, Position } from '@capacitor/geolocation';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import {
   Firestore,
   addDoc,
@@ -11,6 +11,7 @@ import {
   documentId,
   getDoc,
   getDocs,
+  onSnapshot,
   query,
   setDoc,
   updateDoc,
@@ -62,37 +63,36 @@ export class TodayAttendanceService {
       )
     );
   }
-  async getAttendanceStatus(id: any) {
-    try {
-      const ref = doc(
-        this.firestore,
-        Config.formSettingVariable.attendance,
-        this.currentYear,
-        this.monthsArray[this.currentMonth],
-        id
-      );
+  
+  getAttendanceStatus(id: string): Observable<string> {
+    const ref = doc(
+      this.firestore,
+      'attendance', 
+      this.currentYear,
+      this.monthsArray[this.currentMonth],
+      id
+    );
 
-      const docSnapshot = await getDoc(ref);
-      if (docSnapshot.exists()) {
-        const attendance = docSnapshot.data();
-        for (const [key, value] of Object.entries(attendance)) {
-          console.log('Value:', value);
-          if (key == this.todayDate) {
-            if (value.present) {
-              return 'Attendance Present';
-            } else {
-              return 'Attendance Absent';
+    return new Observable((observer) => {
+      onSnapshot(ref, (docSnapshot) => {
+        let status = 'Attendance Pending';
+        if (docSnapshot.exists()) {
+          const attendance = docSnapshot.data();
+          Object.entries(attendance).forEach(([date, data]) => {
+            if (date === this.todayDate) {
+              if (data.present) {
+                status = 'Attendance Present';
+              } else {
+                status = 'Attendance Absent';
+              }
             }
-          }
+          });
         }
-      } else {
-        return 'Attendance Pending';
-      }
-    } catch (error) {
-      console.error('Error getting document:', error);
-    }
-    return;
+        observer.next(status);
+      });
+    });
   }
+
   async initLocation() {
     if (this.platform.is('capacitor')) {
       let permissionRequested = await Geolocation.checkPermissions();
@@ -139,7 +139,6 @@ export class TodayAttendanceService {
   // }
 
   async markAttendance(userId: any) {
-    
     const attendanceRef = doc(
       this.firestore,
       Config.formSettingVariable.attendance,

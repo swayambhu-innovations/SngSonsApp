@@ -32,9 +32,14 @@ export class ImportZmmPage implements OnInit {
   recievingsData: any[] = [];
   fileCreationDate: any;
   shipmentStatus = ShipmentStatus;
+  lastUploadedRecieving = {
+    date: '',
+    time: '',
+    shipmentID:''
+  };
   lastUploadedZMM={
-    date:'',
-    time:''
+    user:'',
+    img:''
   }
 
   async ngOnInit() {
@@ -79,14 +84,28 @@ export class ImportZmmPage implements OnInit {
       });
     }
 
+   
     this.fileDetails = this.filteredFiles;
+
+    if (this.fileDetails) {
+      const lastZMM = this.fileDetails.reduce((latest, current) => {
+        return new Date(current.createdAt) > new Date(latest.createdAt)
+          ? current
+          : latest;
+      }, this.fileDetails[0]);
+      this.lastUploadedZMM={
+        user:lastZMM.user,
+        img:lastZMM.userImage
+      }
+    }
+
   }
 
   async getAllRecievings() {
     this.filteredRecievings = [];
     await this.importExportService.getRecievings().then((dataDB) => {
       if (dataDB)
-        dataDB.docs.map((item: any) => this.recievingsData.push(item.data()));
+        dataDB.docs.map((item: any) => this.recievingsData.push({...item.data(),id:item.id}));
     });
     if (this.recievingsData.length > 0) {
       this.recievingsData.sort((a: any, b: any) =>
@@ -111,19 +130,22 @@ export class ImportZmmPage implements OnInit {
       });
     }
 
-    const lastZMM = this.recievingsData.reduce((latest, current) => {
-      return new Date(current.createdAt) > new Date(latest.createdAt)
-        ? current
-        : latest;
-    }, this.recievingsData[0]);
-
-    this.getLastZMM(lastZMM.createdAt);
+    
+    if (this.filteredRecievings) {
+      const lastRecieving = this.filteredRecievings.reduce((latest, current) => {
+        return new Date(current.createdAt) > new Date(latest.createdAt)
+          ? current
+          : latest;
+      }, this.recievingsData[0]);
+      this.getlastRecieving(lastRecieving);
+    }
 
     this.recievingsData = this.filteredRecievings;
+
   }
 
-  getLastZMM(lastZMM:any) {
-    const dateObject = new Date(lastZMM);
+  getlastRecieving(lastRecieving: any) {
+    const dateObject = new Date(lastRecieving.createdAt);
 
     const day = dateObject.getDate();
     const month = dateObject.getMonth() + 1;
@@ -145,17 +167,15 @@ export class ImportZmmPage implements OnInit {
     const formattedTime = `${String(hours).padStart(2, '0')}:${String(
       minutes
     ).padStart(2, '0')}:${String(seconds).padStart(2, '0')} ${period}`;
-   
-    
-    
-    let lastUploadedZMMdate= formattedDate;
-    let lastUploadedZMMtime=formattedTime
 
-    this.lastUploadedZMM = {
+    let lastUploadedZMMdate = formattedDate;
+    let lastUploadedZMMtime = formattedTime;
+
+    this.lastUploadedRecieving = {
       date: lastUploadedZMMdate,
-      time: lastUploadedZMMtime
+      time: lastUploadedZMMtime,
+      shipmentID:lastRecieving.id
     };
-
   }
 
   searchRecievings(e: any) {
@@ -200,8 +220,7 @@ export class ImportZmmPage implements OnInit {
   ) {
     data = await scope.importExportService.formatRecieving(data, formatDate);
     event.target.value = '';
-    console.log(data)
-    if (data == false) {
+    if (typeof data == 'boolean') {
       scope.notification.showError(Config.messages.zmmInvalid);
     } else if (data.length > 0)
       scope.navCtrl.navigateForward(['/main/import-zmm/file-details'], {
@@ -210,7 +229,8 @@ export class ImportZmmPage implements OnInit {
           fileData: JSON.stringify(fileData),
         },
       });
-    else scope.notification.showError(Config.messages.noImportZMM);
+    else if (data.length == 0)
+      scope.notification.showError(Config.messages.noImportZMM);
   }
 
   goBack() {
