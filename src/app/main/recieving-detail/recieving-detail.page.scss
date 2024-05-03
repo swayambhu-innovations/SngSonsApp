@@ -412,10 +412,8 @@ ion-content {
 
 .overflow,
 .prdouctName {
-  text-overflow: ellipsis;
-  width: 9rem !important;
-  text-wrap: nowrap;
-  overflow: hidden;
+  text-align: left!important;
+    width: 9rem !important;
 }
 
 .products {

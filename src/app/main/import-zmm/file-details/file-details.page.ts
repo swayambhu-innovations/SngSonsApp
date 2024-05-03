@@ -39,6 +39,8 @@ export class FileDetailsPage implements OnInit {
       this.fileData = JSON.parse(history.state.fileData);
     }
 
+    console.log('recieving',this.recievings,'file',this.fileData)
+
     if (this.recievings.length == 0) {
       this.notification.showError(Config.messages.noImportZMM);
       this.goBack();

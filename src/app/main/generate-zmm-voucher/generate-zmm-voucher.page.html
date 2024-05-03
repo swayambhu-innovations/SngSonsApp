@@ -179,7 +179,7 @@
 
             <div class="input-box">
               <input
-                type="tel"
+              type="tel"
                 placeholder="Enter Amount"
                 formControlName="dieselExpenseAmount"
               />
@@ -203,7 +203,7 @@
               class="warning ion-padding"
             >
               Please Enter amount between
-              Rs.{{expenseAccount[voucherForm.controls['dieselExpenseBank'].value]?.minDispense}}
+              Rs.{{expenseAccount[voucherForm.controls['dieselExpenseBank'].value]?.minDispense?expenseAccount[voucherForm.controls['dieselExpenseBank'].value]?.minDispense:''}}
               -
               Rs.{{expenseAccount[voucherForm.controls['dieselExpenseBank'].value]?.maxDispense}}
             </p>
