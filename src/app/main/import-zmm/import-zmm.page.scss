@@ -269,10 +269,17 @@ ion-content {
 }
 .custom_grid {
   width: max-content;
-  ion-col{
-    width: 205px;
+
+  .col-sm {
+    width: 100px;
   }
-
-  
-
+  .col-md{
+    width:155px ;
+  }
+  .col-lg {
+    width: 210px;
+  }
+  .col-xlg {
+    width: 250px;
+  }
 }

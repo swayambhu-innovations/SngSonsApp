@@ -35,28 +35,28 @@
     <ion-grid id="shipment-details" class="ion-margin-bottom">
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Shipment ID :</ion-col>
-        <ion-col size="auto">1000010</ion-col>
+        <ion-col size="auto">{{lastUploadedRecieving.shipmentID}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Date :</ion-col>
-        <ion-col size="auto">{{lastUploadedZMM.date}}</ion-col>
+        <ion-col size="auto">{{lastUploadedRecieving.date}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto"
           >Time of Uploaded of ZMM File :</ion-col
         >
-        <ion-col size="auto">{{lastUploadedZMM.time}}</ion-col>
+        <ion-col size="auto">{{lastUploadedRecieving.time}}</ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Uploaded By :</ion-col>
         <ion-row class="ion-justify-content-between ion-align-items-center">
-          <ion-col size="auto">
-            <img [src]="config.url.defaultProfile" alt="Atul Singh" />
+          <ion-col size="auto" *ngIf="lastUploadedZMM.img">
+            <img [src]="lastUploadedZMM.img ? lastUploadedZMM.img: config.url.defaultProfile" alt="Atul Singh" />
           </ion-col>
-          <ion-col size="auto">Atul Singh</ion-col>
+          <ion-col size="auto">{{lastUploadedZMM.user}}</ion-col>
         </ion-row>
       </ion-row>
     </ion-grid>
@@ -81,22 +81,22 @@
     <div class="scroll-wrapper">
 
       <ion-grid class="custom_grid">
-      <ion-row
+      <ion-row *ngIf="filteredRecievings.length != 0"
         class="disabled-row ion-justify-content-between ion-align-items-center "
       >
-        <ion-col >Vehicle No</ion-col>
-        <ion-col >Gate Entry No</ion-col>
-        <ion-col >Supplier Name</ion-col>
+        <p class="col-sm" >Vehicle No</p>
+        <p  class="col-sm">Gate Entry No</p>
+        <p class="col-xlg">Supplier Name</p>
       </ion-row>
 
-      <ion-row
+      <ion-row 
         class="ion-justify-content-between ion-align-items-center"
         *ngFor="let receiving of filteredRecievings; index as i"
         [ngClass]="{ 'd-none': i > 4 }"
       >
-        <ion-col >{{ receiving.vehicleNo }}</ion-col>
-        <ion-col >{{ receiving.gateEntryNo }}</ion-col>
-        <ion-col >{{ receiving.supplierName }}</ion-col>
+        <p class="col-sm">{{ receiving.vehicleNo }}</p>
+        <p class="col-sm">{{ receiving.gateEntryNo }}</p>
+        <p class="col-xlg" >{{ receiving.supplierName }}</p>
       </ion-row>
 
       <!-- <ion-row class="ion-justify-content-end ion-align-items-center">
@@ -107,9 +107,9 @@
         class="ion-justify-content-between ion-align-items-center no-records"
         *ngIf="filteredRecievings.length == 0"
       >
-        <ion-col size="4"></ion-col>
-        <ion-col size="5">No Records Found</ion-col>
-        <ion-col size="3"></ion-col>
+        <ion-col size="auto"></ion-col>
+        <ion-col size="auto">No Records Found</ion-col>
+        <ion-col size="auto"></ion-col>
       </ion-row>
     </ion-grid>
     </div>
@@ -134,22 +134,22 @@
     <div class="scroll-wrapper">
 
     <ion-grid class="custom_grid">
-      <ion-row
+      <ion-row *ngIf="fileDetails.length != 0"
         class="disabled-row ion-justify-content-between ion-align-items-center"
       >
-        <ion-col >File Name</ion-col>
-        <ion-col >Date of Upload</ion-col>
-        <ion-col >User</ion-col>
+        <p class="col-lg" >File Name</p>
+        <p  class="col-md">Date of Upload</p>
+        <p class="col-lg">User</p>
       </ion-row>
 
-      <ion-row
+      <ion-row 
         class="ion-justify-content-between ion-align-items-center"
         *ngFor="let file of fileDetails; index as i"
         [ngClass]="{ 'd-none': i > 4 }"
       >
-        <ion-col >{{ file.fileName }}</ion-col>
-        <ion-col >{{ file.createdAt }}</ion-col>
-        <ion-col >{{ file.user }}</ion-col>
+        <p class="col-lg" >{{ file.fileName }}</p>
+        <p class="col-md" >{{ file.createdAt }}</p>
+        <p class="col-lg">{{ file.user }}</p>
       </ion-row>
 
       <!-- <ion-row class="ion-justify-content-end ion-align-items-center">
@@ -158,11 +158,11 @@
 
       <ion-row
         class="ion-justify-content-between ion-align-items-center no-records"
-        *ngIf="filteredRecievings.length == 0"
+        *ngIf="fileDetails.length == 0"
       >
-      <ion-col size="4"></ion-col>
-      <ion-col size="5">No Records Found</ion-col>
-      <ion-col size="3"></ion-col>
+      <ion-col size="auto"></ion-col>
+      <ion-col size="auto">No Records Found</ion-col>
+      <ion-col size="auto"></ion-col>
       </ion-row>
     </ion-grid>
   </div>

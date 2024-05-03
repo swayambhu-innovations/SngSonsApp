@@ -265,19 +265,17 @@ export class GenerateZmmVoucherPage implements OnInit {
       return ;
     }
 
- 
-
-
-
     this.loader = await this.loadingController.create({
       message: Config.messages.pleaseWait,
     });
     // this.loader.present();
     if (stat === 'Submit') {
+      console.log('status')
       formData['status'] = RecievingStatus.Completed;
     }
     await this.receivingsService.updRecievingVoucher(this.id, formData);
     if (stat === 'Submit') {
+      if(formData.voucherData.dieselExpenseBank){
       await this.receivingsService.addAccountExpense(
         formData.voucherData.dieselExpenseBank,
         `${this.id}-diesel`,
@@ -287,7 +285,8 @@ export class GenerateZmmVoucherPage implements OnInit {
           recievingId: this.id,
         },
         moment(new Date()).format('MMYYYY')
-      );
+      );}
+      if(formData.voucherData.labourExpenseBank){
       await this.receivingsService.addAccountExpense(
         formData.voucherData.labourExpenseBank,
         `${this.id}-labour`,
@@ -297,7 +296,8 @@ export class GenerateZmmVoucherPage implements OnInit {
           recievingId: this.id,
         },
         moment(new Date()).format('MMYYYY')
-      );
+      );}
+      if(formData.voucherData.khurakiExpenseBank){
       await this.receivingsService.addAccountExpense(
         formData.voucherData.khurakiExpenseBank,
         `${this.id}-khuraki`,
@@ -308,6 +308,8 @@ export class GenerateZmmVoucherPage implements OnInit {
         },
         moment(new Date()).format('MMYYYY')
       );
+    }
+    if(formData.voucherData.freightExpenseBank){
       await this.receivingsService.addAccountExpense(
         formData.voucherData.freightExpenseBank,
         `${this.id}-freight`,
@@ -318,6 +320,8 @@ export class GenerateZmmVoucherPage implements OnInit {
         },
         moment(new Date()).format('MMYYYY')
       );
+    }
+    if(formData.voucherData.tollExpenseBank){
       await this.receivingsService.addAccountExpense(
         formData.voucherData.tollExpenseBank,
         `${this.id}-toll`,
@@ -328,6 +332,8 @@ export class GenerateZmmVoucherPage implements OnInit {
         },
         moment(new Date()).format('MMYYYY')
       );
+    }
+    if(formData.voucherData.repairExpenseBank){
       await this.receivingsService.addAccountExpense(
         formData.voucherData.repairExpenseBank,
         `${this.id}-repair`,
@@ -337,7 +343,9 @@ export class GenerateZmmVoucherPage implements OnInit {
           recievingId: this.id,
         },
         moment(new Date()).format('MMYYYY')
-      );
+      );}
+      
+      if(formData.voucherData.otherExpenseBank){
       await this.receivingsService.addAccountExpense(
         formData.voucherData.otherExpenseBank,
         `${this.id}-other`,
@@ -348,6 +356,7 @@ export class GenerateZmmVoucherPage implements OnInit {
         },
         moment(new Date()).format('MMYYYY')
       );
+    }
       this.isDone = true;
     } else {
       this.notification.showSuccess(this.config.messages.savedSuccessfully);
