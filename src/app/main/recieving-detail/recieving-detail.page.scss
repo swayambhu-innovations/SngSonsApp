@@ -135,6 +135,7 @@ ion-content {
 
 .model {
   --background: white;
+ 
 
   .head1 {
     color: var(--Primary, #1540bd);
@@ -489,3 +490,10 @@ ion-grid {
     }
   }
 }
+
+
+
+
+// ion-content:not(.model-open){
+//   overflow: hidden;
+// }

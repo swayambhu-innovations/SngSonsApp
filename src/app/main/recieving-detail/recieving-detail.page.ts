@@ -29,6 +29,7 @@ export class RecievingDetailPage implements OnInit {
     public homeService: HomeService
   ) {}
 
+
   vehicleForm: FormGroup = new FormGroup({
     driverName: new FormControl('', [Validators.required]),
     driveMblNo: new FormControl('', [Validators.required]),
