@@ -116,7 +116,7 @@ export class HeadUserBarComponent implements OnInit, OnChanges {
     const data: any = this.utilService.getUserdata();
     this.TodayAttendanceService.getAttendanceStatus(data?.access.id).subscribe((status) => {
       this.attendanceStatus = status;
-    });
+    });          
   }
 
   getStyle() {
