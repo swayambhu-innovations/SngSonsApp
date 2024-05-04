@@ -156,142 +156,58 @@
     </ion-grid>
 
     <!-- Expense Details -->
-    <ion-grid class="ion-margin-bottom">
-      <p class="heading">Expense Details</p>
+    <ion-grid class="ion-margin-bottom" *ngIf="recievingDetails.expenseList">
+      <p class="heading" >Expense Details</p>
 
-      <ion-row class="ion-justify-content-between ion-align-items-center">
-        <ion-col class="col-head" size="auto">Labour Expense</ion-col>
+      <ion-row  *ngFor="let expense of recievingDetails.expenseList" class="ion-justify-content-between ion-align-items-center">
+        <ion-col class="col-head" size="auto">{{expense.expenseName
+        }}</ion-col>
+        
         <ion-col
-          *ngIf="!recievingDetails.labourExpenseAmount"
           class="to-be-filled"
           size="auto"
-          >*To be Filled</ion-col
-        >
-        <ion-col
-          *ngIf="recievingDetails.labourExpenseAmount"
-          class="to-be-filled"
-          size="auto"
-          >{{recievingDetails.labourExpenseAmount}}</ion-col
+          >{{expense.amount
+          }}</ion-col
         >
       </ion-row>
-
-      <ion-row class="ion-justify-content-between ion-align-items-center">
-        <ion-col class="col-head" size="auto">Khurakhi Expense</ion-col>
-        <ion-col
-          *ngIf="!recievingDetails.khurakiExpenseAmount"
-          class="to-be-filled"
-          size="auto"
-          >*To be Filled</ion-col
-        >
-        <ion-col
-          *ngIf="recievingDetails.khurakiExpenseAmount"
-          class="to-be-filled"
-          size="auto"
-          >{{recievingDetails.khurakiExpenseAmount}}</ion-col
-        >
-      </ion-row>
-
-      <ion-row class="ion-justify-content-between ion-align-items-center">
-        <ion-col class="col-head" size="auto">Frieght</ion-col>
-        <ion-col
-          *ngIf="!recievingDetails.freightExpenseAmount"
-          class="to-be-filled"
-          size="auto"
-          >*To be Filled</ion-col
-        >
-        <ion-col
-          *ngIf="recievingDetails.freightExpenseAmount"
-          class="to-be-filled"
-          size="auto"
-          >{{recievingDetails.freightExpenseAmount}}</ion-col
-        >
-      </ion-row>
-
-      <ion-row class="ion-justify-content-between ion-align-items-center">
-        <ion-col class="col-head" size="auto">Toll Expense</ion-col>
-        <ion-col
-          *ngIf="!recievingDetails.tollExpenseAmount"
-          class="to-be-filled"
-          size="auto"
-          >*To be Filled</ion-col
-        >
-        <ion-col
-          *ngIf="recievingDetails.tollExpenseAmount"
-          class="to-be-filled"
-          size="auto"
-          >{{recievingDetails.tollExpenseAmount}}</ion-col
-        >
-      </ion-row>
-
-      <ion-row class="ion-justify-content-between ion-align-items-center">
-        <ion-col class="col-head" size="auto">Repairs Expense</ion-col>
-        <ion-col
-          *ngIf="!recievingDetails.repairExpenseAmount"
-          class="to-be-filled"
-          size="auto"
-          >*To be Filled</ion-col
-        >
-        <ion-col
-          *ngIf="recievingDetails.repairExpenseAmount"
-          class="to-be-filled"
-          size="auto"
-          >{{recievingDetails.repairExpenseAmount}}</ion-col
-        >
-      </ion-row>
-
-      <ion-row class="ion-justify-content-between ion-align-items-center">
-        <ion-col class="col-head" size="auto">Others Expense</ion-col>
-        <ion-col
-          *ngIf="!recievingDetails.otherExpenseAmount"
-          class="to-be-filled"
-          size="auto"
-          >*To be Filled</ion-col
-        >
-        <ion-col
-          *ngIf="recievingDetails.otherExpenseAmount"
-          class="to-be-filled"
-          size="auto"
-          >{{recievingDetails.otherExpenseAmount}}</ion-col
-        >
-      </ion-row>
+     
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Total Expense</ion-col>
         <ion-col class="to-be-filled" size="auto"
-          >*To be Calculated by System</ion-col
+          >{{recievingDetails.totalExpense
+          }}</ion-col
         >
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Remark</ion-col>
         <ion-col
-          *ngIf="!recievingDetails.remark"
+          *ngIf="!recievingDetails.voucherData.remark"
           class="to-be-filled"
           size="auto"
-          >*To be Filled</ion-col
+          >*remark is not mentioned</ion-col
         >
         <ion-col
-          *ngIf="recievingDetails.remark"
+          *ngIf="recievingDetails.voucherData.remark"
           class="to-be-filled"
           size="auto"
-          >{{recievingDetails.remark}}</ion-col
+          >{{recievingDetails.voucherData.remark}}</ion-col
         >
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">TimeStamp</ion-col>
-        <ion-col *ngIf="!timeStamp" class="to-be-filled" size="auto"
-          >*To be Calculated</ion-col
-        >
-        <ion-col *ngIf="timeStamp" class="to-be-filled" size="auto"
-          >{{timeStamp}}</ion-col
+        
+        <ion-col  class="to-be-filled" size="auto"
+          >{{timeStampToData(recievingDetails.voucherData.createdAt)}}</ion-col
         >
       </ion-row>
 
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col class="col-head" size="auto">Filled By</ion-col>
         <ion-col class="to-be-filled" size="auto"
-          >*To be Calculated by System</ion-col
+          >{{recievingDetails.voucherData.createdByName}}</ion-col
         >
       </ion-row>
     </ion-grid>

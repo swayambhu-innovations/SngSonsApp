@@ -65,6 +65,7 @@ export class GenerateZmmVoucherPage implements OnInit {
   }
 
   userName: string = '';
+  totalExpense: any = 0;
 
   async ngOnInit() {
     this.loader = await this.loadingController.create({
@@ -74,9 +75,10 @@ export class GenerateZmmVoucherPage implements OnInit {
     const data: any = this.utilService.getUserdata();
     this.userName = data?.access?.userName || '';
     await this.getAccounts();
-    await this.getExpense();
+    // await this.getExpense();
     await this.getLabours();
     await this.getRecievingDetails();
+    await this.getExpenseType();
   }
 
   voucherForm: FormGroup = new FormGroup({
@@ -106,17 +108,75 @@ export class GenerateZmmVoucherPage implements OnInit {
     this.navCtrl.back();
   }
 
-  get totalExpense() {
-    const data = this.voucherForm.value;
-    return (
-      parseFloat(data.dieselExpenseAmount || 0) +
-      parseFloat(data.labourExpenseAmount || 0) +
-      parseFloat(data.khurakiExpenseAmount || 0) +
-      parseFloat(data.freightExpenseAmount || 0) +
-      parseFloat(data.tollExpenseAmount || 0) +
-      parseFloat(data.repairExpenseAmount || 0) +
-      parseFloat(data.otherExpenseAmount || 0)
-    );
+  selectedAccount: any[] = [];
+  expenseList: any[] = [];
+
+  selectAccount(event: any, expense: any) {
+    let account = event.value;
+    let obj = {
+      accountName: account.accountName,
+      accountID: account.id,
+      expenseName: expense.expenseName,
+      expenseID: expense.id,
+      amount: 0,
+    };
+    expense.accountWarning = false;
+    this.selectedAccount.push(obj);
+  }
+
+  updateAccountValue(expense: any, event: any) {
+    console.log(expense, event.target.value);
+    expense.accountWarning = true;
+    let isAccountSelected: boolean = false;
+    if (this.selectedAccount.length > 0) {
+      this.selectedAccount.map((account) => {
+        if (account.expenseID == expense.id) {
+          isAccountSelected = true;
+          const currentAccountAmount = parseFloat(account.amount);
+          const newExpenseValue = parseFloat(event.target.value);
+
+          this.totalExpense =
+            this.totalExpense - currentAccountAmount + newExpenseValue;
+
+          account.amount = newExpenseValue;
+        }
+      });
+      if (!isAccountSelected) {
+        expense.target.value.accountWarning = true;
+      }
+    }
+    if (!isAccountSelected) {
+      expense.accountWarning = true;
+      console.log(expense);
+    } else {
+      expense.accountWarning = false;
+
+      const value = parseFloat(event.target.value);
+
+      if (
+        value != 0 &&
+        (value < expense.minDispense || value > expense.maxDispense)
+      ) {
+        expense.amountWarning = true;
+      } else {
+        expense.amountWarning = false;
+      }
+      console.log('selected account', this.selectedAccount);
+    }
+  }
+
+  async getExpenseType() {
+    const data = await this.accountExpenseService.getExpenseType();
+    this.expenseList = data.docs.map((expense) => {
+      console.log(expense.data());
+      const expenseData = expense.data();
+      return {
+        ...expense.data(),
+        id: expense.id,
+        amountWarning: false,
+        accountWarning: false,
+      };
+    });
   }
 
   get createdAt() {
@@ -168,18 +228,18 @@ export class GenerateZmmVoucherPage implements OnInit {
     });
   }
 
-  async getExpense() {
-    (await this.accountExpenseService.getExpenseType()).docs.map(
-      (item: any) => {
-        const data = { ...item.data(), id: item.id };
-        if (data.active) {
-          this.expense[data.expenseName] = data;
-          this.expenseAccount[data.account] = data;
-          console.log(data)
-        }
-      }
-    );
-  }
+  // async getExpense() {
+  //   (await this.accountExpenseService.getExpenseType()).docs.map(
+  //     (item: any) => {
+  //       const data = { ...item.data(), id: item.id };
+  //       if (data.active) {
+  //         this.expense[data.expenseName] = data;
+  //         this.expenseAccount[data.account] = data;
+  //         console.log(data);
+  //       }
+  //     }
+  //   );
+  // }
 
   async getLabours() {
     (await this.labourMasterService.getLabourParty()).docs.map((item: any) => {
@@ -192,9 +252,10 @@ export class GenerateZmmVoucherPage implements OnInit {
 
   checkValidAmount(formData: any, bank: string, amount: string, key: string) {
     const expense = this.expenseAccount[formData.voucherData[bank]];
-    if (formData.voucherData[amount]!=0 &&
+    if (
+      formData.voucherData[amount] != 0 &&
       (formData.voucherData[amount] < expense.minDispense ||
-      formData.voucherData[amount] > expense.maxDispense)
+        formData.voucherData[amount] > expense.maxDispense)
     ) {
       this.notification.showError(
         `${Config.messages.invalidAmount}for ${key} Expense`
@@ -204,8 +265,10 @@ export class GenerateZmmVoucherPage implements OnInit {
     return true;
   }
   async addVoucher(stat: string) {
+    let submit: boolean = true;
     this.voucherForm.patchValue({
       id: this.id,
+      createdByName: this.userName,
     });
 
     console.log(this.voucherForm.value);
@@ -215,154 +278,143 @@ export class GenerateZmmVoucherPage implements OnInit {
       this.notification.showError(this.config.messages.fillAllExpenses);
       return;
     }
-    const formData: any = { voucherData: this.voucherForm.value };
 
-    if (
-      !this.checkValidAmount(
-        formData,
-        'dieselExpenseBank',
-        'dieselExpenseAmount',
-        'Diesel'
-      ) ||
-      !this.checkValidAmount(
-        formData,
-        'labourExpenseBank',
-        'labourExpenseAmount',
-        'Labour'
-      ) ||
-      !this.checkValidAmount(
-        formData,
-        'khurakiExpenseBank',
-        'khurakiExpenseAmount',
-        'Khuraki'
-      ) ||
-      !this.checkValidAmount(
-        formData,
-        'freightExpenseBank',
-        'freightExpenseAmount',
-        'Freight'
-      ) ||
-      !this.checkValidAmount(
-        formData,
-        'tollExpenseBank',
-        'tollExpenseAmount',
-        'Toll'
-      ) ||
-      !this.checkValidAmount(
-        formData,
-        'repairExpenseBank',
-        'repairExpenseAmount',
-        'Repair'
-      ) ||
-      !this.checkValidAmount(
-        formData,
-        'otherExpenseBank',
-        'otherExpenseAmount',
-        'Other'
-      )
-    ) 
-    {
-      return ;
-    }
+    const formData: any = {
+      voucherData: this.voucherForm.value,
+      expenseList: this.selectedAccount,
+      totalExpense: this.totalExpense,
+    };
 
-    this.loader = await this.loadingController.create({
-      message: Config.messages.pleaseWait,
+    this.selectedAccount.map((selectExpense) => {
+      this.expenseList.map((expense) => {
+        if (selectExpense.expenseID == expense.id) {
+          if (
+            selectExpense.amount != 0 &&
+            (selectExpense.amount < expense.minDispense ||
+              selectExpense.amount > expense.maxDispense)
+          ) {
+            console.log('invalid');
+            submit = false;
+            return;
+          }
+        }
+      });
     });
-    // this.loader.present();
-    if (stat === 'Submit') {
-      console.log('status')
-      formData['status'] = RecievingStatus.Completed;
+
+    console.log(formData);
+
+    if (submit) {
+      this.loader = await this.loadingController.create({
+        message: Config.messages.pleaseWait,
+      });
+      // this.loader.present();
+      if (stat === 'Submit') {
+        console.log('status');
+        formData['status'] = RecievingStatus.Completed;
+      }
+      await this.receivingsService.updRecievingVoucher(this.id, formData);
+      if (stat === 'Submit') {
+        this.selectedAccount.map(async (account) => {
+          await this.receivingsService.addAccountExpense(
+            account.accountID,
+            `${this.id}-${account.expenseName}`,
+            {
+              amount: account.amount,
+              date: new Date(),
+              recievingId: this.id,
+            },
+            moment(new Date()).format('MMYYYY')
+          );
+        });
+
+        //   if(formData.voucherData.dieselExpenseBank){
+        //   await this.receivingsService.addAccountExpense(
+        //     formData.voucherData.dieselExpenseBank,
+        //     `${this.id}-diesel`,
+        //     {
+        //       amount: formData.voucherData.dieselExpenseAmount,
+        //       date: new Date(),
+        //       recievingId: this.id,
+        //     },
+        //     moment(new Date()).format('MMYYYY')
+        //   );}
+        //   if(formData.voucherData.labourExpenseBank){
+        //   await this.receivingsService.addAccountExpense(
+        //     formData.voucherData.labourExpenseBank,
+        //     `${this.id}-labour`,
+        //     {
+        //       amount: formData.voucherData.labourExpenseAmount,
+        //       date: new Date(),
+        //       recievingId: this.id,
+        //     },
+        //     moment(new Date()).format('MMYYYY')
+        //   );}
+        //   if(formData.voucherData.khurakiExpenseBank){
+        //   await this.receivingsService.addAccountExpense(
+        //     formData.voucherData.khurakiExpenseBank,
+        //     `${this.id}-khuraki`,
+        //     {
+        //       amount: formData.voucherData.khurakiExpenseAmount,
+        //       date: new Date(),
+        //       recievingId: this.id,
+        //     },
+        //     moment(new Date()).format('MMYYYY')
+        //   );
+        // }
+        // if(formData.voucherData.freightExpenseBank){
+        //   await this.receivingsService.addAccountExpense(
+        //     formData.voucherData.freightExpenseBank,
+        //     `${this.id}-freight`,
+        //     {
+        //       amount: formData.voucherData.freightExpenseAmount,
+        //       date: new Date(),
+        //       recievingId: this.id,
+        //     },
+        //     moment(new Date()).format('MMYYYY')
+        //   );
+        // }
+        // if(formData.voucherData.tollExpenseBank){
+        //   await this.receivingsService.addAccountExpense(
+        //     formData.voucherData.tollExpenseBank,
+        //     `${this.id}-toll`,
+        //     {
+        //       amount: formData.voucherData.tollExpenseAmount,
+        //       date: new Date(),
+        //       recievingId: this.id,
+        //     },
+        //     moment(new Date()).format('MMYYYY')
+        //   );
+        // }
+        // if(formData.voucherData.repairExpenseBank){
+        //   await this.receivingsService.addAccountExpense(
+        //     formData.voucherData.repairExpenseBank,
+        //     `${this.id}-repair`,
+        //     {
+        //       amount: formData.voucherData.repairExpenseAmount,
+        //       date: new Date(),
+        //       recievingId: this.id,
+        //     },
+        //     moment(new Date()).format('MMYYYY')
+        //   );}
+
+        //   if(formData.voucherData.otherExpenseBank){
+        //   await this.receivingsService.addAccountExpense(
+        //     formData.voucherData.otherExpenseBank,
+        //     `${this.id}-other`,
+        //     {
+        //       amount: formData.voucherData.otherExpenseAmount,
+        //       date: new Date(),
+        //       recievingId: this.id,
+        //     },
+        //     moment(new Date()).format('MMYYYY')
+        //   );
+        // }
+        this.isDone = true;
+      } else {
+        this.notification.showSuccess(this.config.messages.savedSuccessfully);
+      }
+      this.loader.dismiss();
     }
-    await this.receivingsService.updRecievingVoucher(this.id, formData);
-    if (stat === 'Submit') {
-      if(formData.voucherData.dieselExpenseBank){
-      await this.receivingsService.addAccountExpense(
-        formData.voucherData.dieselExpenseBank,
-        `${this.id}-diesel`,
-        {
-          amount: formData.voucherData.dieselExpenseAmount,
-          date: new Date(),
-          recievingId: this.id,
-        },
-        moment(new Date()).format('MMYYYY')
-      );}
-      if(formData.voucherData.labourExpenseBank){
-      await this.receivingsService.addAccountExpense(
-        formData.voucherData.labourExpenseBank,
-        `${this.id}-labour`,
-        {
-          amount: formData.voucherData.labourExpenseAmount,
-          date: new Date(),
-          recievingId: this.id,
-        },
-        moment(new Date()).format('MMYYYY')
-      );}
-      if(formData.voucherData.khurakiExpenseBank){
-      await this.receivingsService.addAccountExpense(
-        formData.voucherData.khurakiExpenseBank,
-        `${this.id}-khuraki`,
-        {
-          amount: formData.voucherData.khurakiExpenseAmount,
-          date: new Date(),
-          recievingId: this.id,
-        },
-        moment(new Date()).format('MMYYYY')
-      );
-    }
-    if(formData.voucherData.freightExpenseBank){
-      await this.receivingsService.addAccountExpense(
-        formData.voucherData.freightExpenseBank,
-        `${this.id}-freight`,
-        {
-          amount: formData.voucherData.freightExpenseAmount,
-          date: new Date(),
-          recievingId: this.id,
-        },
-        moment(new Date()).format('MMYYYY')
-      );
-    }
-    if(formData.voucherData.tollExpenseBank){
-      await this.receivingsService.addAccountExpense(
-        formData.voucherData.tollExpenseBank,
-        `${this.id}-toll`,
-        {
-          amount: formData.voucherData.tollExpenseAmount,
-          date: new Date(),
-          recievingId: this.id,
-        },
-        moment(new Date()).format('MMYYYY')
-      );
-    }
-    if(formData.voucherData.repairExpenseBank){
-      await this.receivingsService.addAccountExpense(
-        formData.voucherData.repairExpenseBank,
-        `${this.id}-repair`,
-        {
-          amount: formData.voucherData.repairExpenseAmount,
-          date: new Date(),
-          recievingId: this.id,
-        },
-        moment(new Date()).format('MMYYYY')
-      );}
-      
-      if(formData.voucherData.otherExpenseBank){
-      await this.receivingsService.addAccountExpense(
-        formData.voucherData.otherExpenseBank,
-        `${this.id}-other`,
-        {
-          amount: formData.voucherData.otherExpenseAmount,
-          date: new Date(),
-          recievingId: this.id,
-        },
-        moment(new Date()).format('MMYYYY')
-      );
-    }
-      this.isDone = true;
-    } else {
-      this.notification.showSuccess(this.config.messages.savedSuccessfully);
-    }
-    this.loader.dismiss();
-    
   }
 
   dismissModal = async () => {
