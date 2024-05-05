@@ -171,12 +171,14 @@ export class GenerateZmmVoucherPage implements OnInit {
       console.log(expense.data());
       const expenseData = expense.data();
       console.log(expenseData)
+      if(expenseData['active']){
       this.expenseList.push({
         ...expense.data(),
         id: expense.id,
         amountWarning: false,
         accountWarning: false,
       });
+    }
     });
   }
 
