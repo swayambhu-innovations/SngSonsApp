@@ -92,8 +92,13 @@ export class AddVendorPage implements OnInit {
   }
 
   async onSubmit() {
+    // Disable navigation
+    this.navCtrl.navigateForward('/current-page');
+  
     if (this.vendorForm.invalid) {
       this.vendorForm.markAllAsTouched();
+      // Re-enable navigation
+      this.navCtrl.navigateRoot('/current-page');
       return;
     }
     try {
@@ -105,13 +110,13 @@ export class AddVendorPage implements OnInit {
         });
       } else
         this.vendorForm.patchValue({ vendorProfileImg: this.vendorPicSrc });
-
+  
       this.vendorForm.patchValue({
         pending: false as boolean,
       });
-
+  
       await this.vendorMasterService.addVendor(this.vendorForm.value);
-
+  
       this.vendorForm.reset();
       this.removePic();
       if (this.vendorForm.controls['id'].value == '')
@@ -126,6 +131,8 @@ export class AddVendorPage implements OnInit {
       this.goBack();
     } catch (error) {
       this.notificationService.showError('Something Went Wrong');
+      // Re-enable navigation
+      this.navCtrl.navigateRoot('/current-page');
       return;
     }
   }
