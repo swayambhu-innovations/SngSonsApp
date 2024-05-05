@@ -167,15 +167,16 @@ export class GenerateZmmVoucherPage implements OnInit {
 
   async getExpenseType() {
     const data = await this.accountExpenseService.getExpenseType();
-    this.expenseList = data.docs.map((expense) => {
+    data.docs.map((expense) => {
       console.log(expense.data());
       const expenseData = expense.data();
-      return {
+      console.log(expenseData)
+      this.expenseList.push({
         ...expense.data(),
         id: expense.id,
         amountWarning: false,
         accountWarning: false,
-      };
+      });
     });
   }
 
