@@ -135,6 +135,11 @@ export class ReceivingsService {
     data: any,
     collectionId: string
   ) {
+    console.log(
+      Config.collection.accountZMM,
+      accountId,
+      collectionId,
+      expenseId)
     await setDoc(
       doc(
         this.firestore,

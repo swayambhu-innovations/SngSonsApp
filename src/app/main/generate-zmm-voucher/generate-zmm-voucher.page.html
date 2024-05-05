@@ -156,9 +156,62 @@
       </ion-grid>
 
       <p class="heading ion-margin-vertical">Cash Expense</p>
+      <div *ngFor="let expense of expenseList">
+        <ion-accordion-group>
+          <ion-accordion value="first">
+            <ion-item slot="header" color="light">
+              <ion-label>{{expense.expenseName}} (₹)</ion-label>
+            </ion-item>
+            <div class="ion-padding" slot="content">
+              <ion-item class="select-dd">
+                <ion-select
+                  label="Select Account"
+                  [value]="expense.accountName"
+                  (ionChange)="selectAccount($event.target, expense)"
+                >
+                  <ion-select-option
+                    *ngFor="let account of accounts"
+                    [value]="account"
+                    >{{account.accountName}}</ion-select-option
+                  >
+                </ion-select>
+              </ion-item>
+
+              <div class="input-box">
+                <input
+                  type="tel"
+                  placeholder="Enter Amount"
+                  (change)="updateAccountValue(expense,$event)"
+                />
+                <button>
+                  <svg
+                    xmlns="https://www.w3.org/2000/svg"
+                    width="26"
+                    height="26"
+                    viewBox="0 0 26 26"
+                    fill="none"
+                  >
+                    <path
+                      d="M14.2699 13.0008L8.9076 18.3629L10.4397 19.895L17.334 13.0008L10.4397 6.10645L8.9076 7.63851L14.2699 13.0008Z"
+                      fill="white"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <p *ngIf="expense.amountWarning" class="warning ion-padding">
+                Please Enter amount between Rs.{{expense.minDispense
+                ?expense.minDispense :''}} - Rs.{{expense.maxDispense}}
+              </p>
+              <p *ngIf="expense.accountWarning" class="warning ion-padding">
+                Please First Select Account
+              </p>
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
+      </div>
 
       <!-- Diesel Expenses -->
-      <ion-accordion-group>
+      <!-- <ion-accordion-group>
         <ion-accordion value="first">
           <ion-item slot="header" color="light">
             <ion-label>Diesel Expense (₹)</ion-label>
@@ -209,10 +262,10 @@
             </p>
           </div>
         </ion-accordion>
-      </ion-accordion-group>
+      </ion-accordion-group>  -->
 
       <!-- Labour Expenses -->
-      <ion-accordion-group>
+      <!-- <ion-accordion-group>
         <ion-accordion value="first">
           <ion-item slot="header" color="light">
             <ion-label>Labour Expense (₹)</ion-label>
@@ -275,10 +328,10 @@
             </p>
           </div>
         </ion-accordion>
-      </ion-accordion-group>
+      </ion-accordion-group> -->
 
       <!-- Khuraki Expenses -->
-      <ion-accordion-group>
+      <!-- <ion-accordion-group>
         <ion-accordion value="first">
           <ion-item slot="header" color="light">
             <ion-label>Khuraki Expense (₹)</ion-label>
@@ -329,10 +382,10 @@
             </p>
           </div>
         </ion-accordion>
-      </ion-accordion-group>
+      </ion-accordion-group> -->
 
       <!-- Freight -->
-      <ion-accordion-group>
+      <!-- <ion-accordion-group>
         <ion-accordion value="first">
           <ion-item slot="header" color="light">
             <ion-label>Freight</ion-label>
@@ -383,10 +436,10 @@
             </p>
           </div>
         </ion-accordion>
-      </ion-accordion-group>
+      </ion-accordion-group> -->
 
       <!-- Toll Expenses -->
-      <ion-accordion-group>
+      <!-- <ion-accordion-group>
         <ion-accordion value="first">
           <ion-item slot="header" color="light">
             <ion-label>Toll Expenses</ion-label>
@@ -437,10 +490,10 @@
             </p>
           </div>
         </ion-accordion>
-      </ion-accordion-group>
+      </ion-accordion-group> -->
 
       <!-- Repair Expenses -->
-      <ion-accordion-group>
+      <!-- <ion-accordion-group>
         <ion-accordion value="first">
           <ion-item slot="header" color="light">
             <ion-label>Repair Expenses</ion-label>
@@ -491,10 +544,10 @@
             </p>
           </div>
         </ion-accordion>
-      </ion-accordion-group>
+      </ion-accordion-group> -->
 
       <!-- Other Expenses -->
-      <ion-accordion-group>
+      <!-- <ion-accordion-group>
         <ion-accordion value="first">
           <ion-item slot="header" color="light">
             <ion-label>Other Expenses</ion-label>
@@ -545,7 +598,7 @@
             </p>
           </div>
         </ion-accordion>
-      </ion-accordion-group>
+      </ion-accordion-group> -->
 
       <!-- Total Expense -->
       <ion-item lines="none">
@@ -606,7 +659,7 @@
     </ion-card>
 
     <div class="tab-bar">
-      <button (click)="addVoucher('Submit')" class="active-btn" >Submit </button>
+      <button (click)="addVoucher('Submit')" class="active-btn">Submit</button>
 
       <button (click)="addVoucher('Draft')">Save Draft</button>
       <button (click)="goBack()">Cancel</button>

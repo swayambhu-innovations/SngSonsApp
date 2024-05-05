@@ -75,12 +75,11 @@ export class RecievingDetailPage implements OnInit {
     this.getRecievingDetails();
   }
 
-  async ngOnInit() {
-  }
+  async ngOnInit() {}
 
   closeModal() {
     this.vehicleForm.reset();
-    this.previewImages={
+    this.previewImages = {
       vehicleFront: '',
       vehicleNumberPlate: '',
       driverFace: '',
@@ -180,7 +179,7 @@ export class RecievingDetailPage implements OnInit {
           id: recieving.id,
           supplier: [],
         };
-        
+        console.log(recievingData);
 
         this.recievingDetails =
           await this.recievingDetailService.formatReceiving(recievingData);
@@ -197,19 +196,32 @@ export class RecievingDetailPage implements OnInit {
           parseInt(this.recievingDetails?.gateEntryDate)
         ).toDateString();
 
-
         this.timeStamp = new Date(
           parseInt(this.recievingDetails?.voucherData['createdAt'])
         ).toDateString();
-
       }
     );
 
     this.loader.dismiss();
   }
 
+  timeStampToData(timestamp: any) {
+    const date = new Date(
+      timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000
+    );
+
+    const options: Intl.DateTimeFormatOptions = {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    };
+
+    const formattedDate = date.toLocaleDateString('en-GB', options);
+
+    return formattedDate;
+  }
   async onSubmit() {
-    this.sanitizeMobileNo()
+    this.sanitizeMobileNo();
 
     if (this.vehicleForm.invalid) {
       this.vehicleForm.markAllAsTouched();
@@ -268,9 +280,9 @@ export class RecievingDetailPage implements OnInit {
     this.isSuspended = false;
   }
 
-  sanitizeMobileNo(){
+  sanitizeMobileNo() {
     const driveMblNo = this.vehicleForm.value.driveMblNo.toString();
-    if (typeof driveMblNo === 'string' && driveMblNo.length>10) {
+    if (typeof driveMblNo === 'string' && driveMblNo.length > 10) {
       const sliced = driveMblNo.slice(0, 10);
       this.vehicleForm.patchValue({ driveMblNo: sliced });
     } else {
@@ -279,8 +291,7 @@ export class RecievingDetailPage implements OnInit {
   }
 
   dismissModal = async () => {
-
-    this.sanitizeMobileNo()
+    this.sanitizeMobileNo();
 
     this.isSuspended = false;
     this.isGateEntry = false;
