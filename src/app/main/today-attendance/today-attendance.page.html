@@ -9,16 +9,34 @@
         </div>
       </ion-col>
       <ion-col size="auto">
-        <ion-button *ngIf="!isMarked(this.userData?.phone)" shape="round" (click)="markPresent()">
+        <ion-button *ngIf="isAttendanceMarked=='pending'" shape="round" (click)="markPresent()">
           <span>
             Mark Your<br />
             Attendance
           </span>
           <img style="padding-left: 10px" src="assets\today-attendance\history-w.svg" />
         </ion-button>
-        <ion-button id="markedPresent" *ngIf="isMarked(this.userData?.phone)" shape="round">
+
+        <ion-button id="markedPresent" *ngIf="isAttendanceMarked=='present'" shape="round">
           <span> Marked Present </span>
         </ion-button>
+
+        <ion-button id="markedAbsent" *ngIf="isAttendanceMarked=='absent'" shape="round">
+          <span> Marked Absent </span>
+        </ion-button>
+
+        <!-- <ion-button id="outOfLocation" *ngIf="isAttendanceMarked=='absent'" shape="round">
+          <span> You Are <br>
+            Out Of Location </span>
+        </ion-button> -->
+
+        <!-- <ion-button id="outOfLocation" *ngIf="isAttendanceMarked=='absent'" shape="round">
+          <span> Time Slot <br>
+          Not Started (9-11 AM)</span>
+        </ion-button> -->
+
+        
+
       </ion-col>
     </ion-row>
   </ion-grid>

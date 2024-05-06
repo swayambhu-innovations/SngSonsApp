@@ -139,6 +139,7 @@ export class TodayAttendanceService {
   // }
 
   async markAttendance(userId: any) {
+    
     const attendanceRef = doc(
       this.firestore,
       Config.formSettingVariable.attendance,
