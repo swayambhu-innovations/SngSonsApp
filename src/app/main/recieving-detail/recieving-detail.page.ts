@@ -98,7 +98,7 @@ export class RecievingDetailPage implements OnInit {
     this.images[imgType] = {};
 
     const image = await Camera.getPhoto({
-      quality: 30,
+      quality: 20,
       allowEditing: false,
       resultType: CameraResultType.DataUrl,
       source: CameraSource.Camera,
