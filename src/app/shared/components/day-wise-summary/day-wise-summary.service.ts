@@ -44,62 +44,92 @@ export class DaywiseSummaryService {
   public totalShipment = 0;
   public chart: any;
 
+
+
   async getRecieving() {
-    this.chartDataRecieving['pending'].count = 0;
-    this.chartDataRecieving['pending-vehicle-entry'].count = 0;
-    this.chartDataRecieving.completed.count = 0;
-    this.chartDataRecieving.suspended.count = 0;
+    this.clearChartData(this.chartDataRecieving);
     this.totalShipment = 0;
-    (
-      await this.recievingService.getReceivingsByDate(this.selectedDate)
-    ).docs.map((shipment: any) => {
-      const data = shipment.data();
-      this.chartDataRecieving[data.status].count =
-        this.chartDataRecieving[data.status].count + 1;
+
+    const receivings = (
+        await this.recievingService.getReceivingsByDate(this.selectedDate)
+    ).docs;
+
+    receivings.map((shipment: any) => {
+        const data = shipment.data();
+       
+        if (data.status === 'pending-vehicle-entry') {
+            this.chartDataRecieving[data.status].count =
+                this.chartDataRecieving[data.status].count + 1;
+        } else {
+         
+            if (this.chartDataRecieving[data.status]) {
+                this.chartDataRecieving[data.status].count =
+                    this.chartDataRecieving[data.status].count + 1;
+            }
+        }
     });
 
+    this.updateTotalShipment(this.chartDataRecieving);
+    this.updateChart();
+}
+
+private clearChartData(chartData: any) {
+    Object.keys(chartData).forEach((key) => {
+        chartData[key].count = 0;
+    });
+}
+
+private updateTotalShipment(chartData: any) {
+    let totShip = 0;
+    Object.keys(chartData).forEach((key) => {
+        totShip += chartData[key].count;
+    });
+    this.totalShipment = totShip;
+}
+
+private updateChart() {
     const labeldata: string[] = [];
     const realdata: any[] = [];
     const colordata: string[] = [];
-    let totShip = 0;
+
     Object.keys(this.chartDataRecieving).forEach((key) => {
-      labeldata.push(this.chartDataRecieving[key].name);
-      realdata.push(this.chartDataRecieving[key].count);
-      colordata.push(this.chartDataRecieving[key].color);
-      totShip += this.chartDataRecieving[key].count;
+        labeldata.push(this.chartDataRecieving[key].name);
+        realdata.push(this.chartDataRecieving[key].count);
+        colordata.push(this.chartDataRecieving[key].color);
     });
-    this.totalShipment = totShip;
 
     const chartExist = Chart.getChart('donut-chart');
     chartExist?.destroy();
     this.chart = new Chart('donut-chart', {
-      type: 'doughnut',
-      data: {
-        labels: labeldata,
-        datasets: [
-          {
-            label: 'Shipments',
-            data: realdata,
-            backgroundColor: colordata,
-          },
-        ],
-      },
-      options: {
-        cutout: 40,
-        rotation: -90,
-        circumference: 180,
-        aspectRatio: 2,
-        plugins: {
-          legend: {
-            display: false,
-          },
+        type: 'doughnut',
+        data: {
+            labels: labeldata,
+            datasets: [
+                {
+                    label: 'Shipments',
+                    data: realdata,
+                    backgroundColor: colordata,
+                },
+            ],
         },
-      },
+        options: {
+            cutout: 40,
+            rotation: -90,
+            circumference: 180,
+            aspectRatio: 2,
+            plugins: {
+                legend: {
+                    display: false,
+                },
+            },
+        },
     });
-  }
+}
+
+
+
 
   async getShipments() {
-
     this.chartDataDispatch['pending-dispatch'].count = 0;
     this.chartDataDispatch['pending-post-delivery'].count = 0;
     this.chartDataDispatch.completed.count = 0;
