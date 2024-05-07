@@ -56,8 +56,8 @@ export class AttendanceHistoryPage implements OnInit {
   //   });
   // }
 
-  startDate: string = moment(new Date()).startOf('month').format('YYYY/MM/DD');
-  lastDate: string = moment(new Date()).format('YYYY/MM/DD');
+  startDate: string = moment(new Date()).startOf('month').format('MM/DD/YYYY');
+  lastDate: string = moment(new Date()).format('MM/DD/YYYY');
 
   dateRangeChange(
     dateRangeStart: HTMLInputElement,

@@ -39,9 +39,9 @@ export class AttendanceHistoryService {
   totalAbsent = 0;
   attendanceHistory: any[] = [];
 
-  capitalizeFirstLetter(str:any) {
+  capitalizeFirstLetter(str: any) {
     return str.charAt(0).toUpperCase() + str.slice(1);
-}
+  }
 
   async getAttendanceHistory(empId: any, startDate: any, endDate: any) {
     this.totalPresent = 0;
@@ -59,7 +59,7 @@ export class AttendanceHistoryService {
 
       for (const month of this.monthsArray) {
         const monthName = this.capitalizeFirstLetter(month.name);
-        
+
         const docRef = doc(
           this.firestore,
           'attendance',
@@ -81,7 +81,14 @@ export class AttendanceHistoryService {
             if (isNaN(comparisonDate.getTime())) {
               console.error('Invalid date string');
             } else {
-              if (dateStart <= comparisonDate && dateEnd >= comparisonDate) {
+              const strippedDateStart = this.stripTime(dateStart);
+              const strippedDateEnd = this.stripTime(dateEnd);
+              const strippedComparisonDate = this.stripTime(comparisonDate);
+
+              if (
+                strippedDateStart <= strippedComparisonDate &&
+                strippedDateEnd >= strippedComparisonDate
+              ) {
                 this.attendanceHistory.push(attendanceRecord);
                 if (item.present) {
                   this.totalPresent += 1;
@@ -90,8 +97,6 @@ export class AttendanceHistoryService {
                 }
               }
             }
-
-            
           }
         }
       }
@@ -102,5 +107,9 @@ export class AttendanceHistoryService {
       totalPresent: this.totalPresent,
       totalAbsent: this.totalAbsent,
     };
+  }
+
+  stripTime(date:Date) {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   }
 }
