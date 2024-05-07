@@ -218,7 +218,7 @@ export class ImportZmmPage implements OnInit {
     formatDate: any,
     scope: any
   ) {
-    data = await scope.importExportService.formatRecieving(data, formatDate);
+    data = await scope.importExportService.formatRecieving(data, formatDate,fileData);
     event.target.value = '';
     if (typeof data == 'boolean') {
       scope.notification.showError(Config.messages.zmmInvalid);

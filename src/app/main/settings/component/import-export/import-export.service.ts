@@ -416,7 +416,7 @@ export class ImportExportService {
     return allShipmentsData;
   };
 
-  formatRecieving = async (data: any, formatDate: any) => {
+  formatRecieving = async (data: any, formatDate: any,fileData:any) => {
     let vehicleGroup: any; // store all vehicles by group got from ZMM
     let supplierGroup: any; // store all suppliers by group got from ZMM
     const recievingFromDB: any[] = []; // fetch recievings from DB
@@ -424,6 +424,10 @@ export class ImportExportService {
     let allSuppliers: any[] = [];
     let allRecievingsData: any[] = []; // store all recievings
     let c = 0;
+
+    console.log(fileData)
+    console.log(data)
+    console.log(formatDate)
 
     // validating zmm file
     data.map((item: any) => {
@@ -506,6 +510,7 @@ export class ImportExportService {
                 expDeliverDate: formatDate(
                   recieving['EXPT.DELIVERY']
                 ).getTime(),
+                lastmodified:fileData.lastModified,
                 vehicleNo: recieving['VEHICLE.NO'],
                 gateEntryDate: formatDate(
                   recieving['Gate Entry Date']

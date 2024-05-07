@@ -202,6 +202,24 @@ ion-content {
         color: #29d25f !important;
       }
     }
+    #markedAbsent {
+      --background: var(--Text2, #fff);
+      --border-width: 1px;
+      --border-color: #EA712E;
+  
+      span {
+        color: #EA712E !important;
+      }
+    }
+    #outOfLocation{
+      --background: var(--Text2, #9FA7B2);
+      --border-width: 1px;
+      --border-color: #FFFFFF;
+  
+      span {
+        color: #FFFFFF !important;
+      }
+    }
   }
   
   .range_date_picker {

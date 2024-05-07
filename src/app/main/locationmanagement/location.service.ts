@@ -41,7 +41,7 @@ export class LocationService {
       currPos?.lat,
       currPos?.lng
     );
-
+    console.log(distanceInMts, circleRadius)
     if (distanceInMts < circleRadius) return true;
     else return false;
   }
