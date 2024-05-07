@@ -59,9 +59,13 @@ export class ExcelUploadService {
       this.getUserName();
       this.displayImage = this.util.getUserPhoto();
 
+      const lastModified = new Date(file.lastModified);
+      
+
       const fileDetail = {
         fileName: filename,
         createdAt: new Date().getTime(),
+        lastModified:lastModified.getTime(),
         user: this.userName,
         userImage: this.displayImage,
       };

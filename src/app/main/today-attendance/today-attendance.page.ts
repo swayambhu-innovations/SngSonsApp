@@ -56,7 +56,9 @@ export class TodayAttendancePage implements OnInit {
       lat: coordinates?.coords.latitude, //here
       lng: coordinates?.coords.longitude, //here;
     };
-    console.log(this.currentPosition)
+
+  console.log("Accuracy:", coordinates.coords.accuracy, "meters")
+
 
     this.currentPosition.lat =
       Math.round(this.currentPosition.lat * 10000) / 10000;
@@ -65,6 +67,7 @@ export class TodayAttendancePage implements OnInit {
 
     await this.getUserList();
     await this.getAttendance();
+    this.getLocation() 
     // this.notificationService.showError(`${this.currentPosition.lat}`);
     this.loader.dismiss();
   }
@@ -98,14 +101,26 @@ export class TodayAttendancePage implements OnInit {
         }
       });
     });
+    this.isMarked(this.userData?.phone)
+
   }
 
 
+  isAttendanceMarked:String="Pending"
   isMarked(userId: any) {
     if(this.attendanceMap.hasOwnProperty(userId)){
-      return this.attendanceMap[userId].present
+      if(this.attendanceMap[userId].present){
+        this.isAttendanceMarked='present'
+      }
+      else{
+        this.isAttendanceMarked='absent'
+
+      }
     }
-    return false
+    else {
+      this.isAttendanceMarked='pending'
+    }
+   
   }
 
   isPresent(userId: any) {
@@ -163,7 +178,7 @@ export class TodayAttendancePage implements OnInit {
 
   // geo-fencing
   async getLocation() {
-    console.log(this.workplaceArea,this.currentLocation,this.workplaceArea)
+    console.log(this.workplaceArea?.cordinates,this.currentPosition,this.workplaceArea?.radius)
     return this.locationService.setPointerOutside(
       this.workplaceArea?.cordinates,
       this.currentPosition,
@@ -172,9 +187,10 @@ export class TodayAttendancePage implements OnInit {
   }
   async markPresent() {
     this.loader.present();
-    // this.validMarker = await this.getLocation();
+     //this.validMarker = await this.getLocation();
     if (true) {
       await this.TodayAttendanceService.markAttendance(this.userData.phone);
+      
       this.notificationService.showSuccess(Config.messages.markAttendance);
     } else this.notificationService.showError(Config.messages.locationNotFound);
     this.getAttendance()

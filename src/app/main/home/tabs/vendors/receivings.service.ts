@@ -41,8 +41,8 @@ export class ReceivingsService {
       return getDocs(
         query(
           collectionGroup(this.firestore, Config.collection.recievings),
-          where('expDeliverDate', '>=', new Date(startDate).getTime()),
-          where('expDeliverDate', '<=', new Date(endDate).getTime()),
+          where('lastmodified', '>=', new Date(startDate).getTime()),
+          where('lastmodified', '<=', new Date(endDate).getTime()),
           where('status', 'in', ['completed', 'suspended'])
         )
       );
@@ -50,8 +50,8 @@ export class ReceivingsService {
       return getDocs(
         query(
           collectionGroup(this.firestore, Config.collection.recievings),
-          where('expDeliverDate', '>=', new Date(startDate).getTime()),
-          where('expDeliverDate', '<=', new Date(endDate).getTime())
+          where('lastmodified', '>=', new Date(startDate).getTime()),
+          where('lastmodified', '<=', new Date(endDate).getTime())
         )
       );
     }
