@@ -8,12 +8,14 @@ import {
   documentId,
   getDoc,
   getDocs,
+  onSnapshot,
   query,
   setDoc,
   updateDoc,
   where,
 } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Config } from 'src/app/config';
 
 @Injectable({
@@ -52,14 +54,19 @@ export class VehicleService {
   ];
 
   getAttendance() {
-    return getDocs(
-      collection(
-        this.firestore,
-        Config.formSettingVariable.attendance,
-        this.currentYear,
-        this.monthsArray[this.currentMonth]
-      )
-    );
+    const res= new Observable((observer)=>{
+      onSnapshot(
+        collection(
+          this.firestore,
+          Config.formSettingVariable.attendance,
+          this.currentYear,
+          this.monthsArray[this.currentMonth]
+        ),res=>{
+            observer.next(res)
+  
+        })
+    }) 
+    return res; 
   }
   async getAttendanceOnDate(currDate: string) {
     try {
