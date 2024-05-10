@@ -57,8 +57,7 @@ export class TodayAttendancePage implements OnInit {
       lng: coordinates?.coords.longitude, //here;
     };
 
-  console.log("Accuracy:", coordinates.coords.accuracy, "meters")
-
+    console.log('Accuracy:', coordinates.coords.accuracy, 'meters');
 
     this.currentPosition.lat =
       Math.round(this.currentPosition.lat * 10000) / 10000;
@@ -67,7 +66,7 @@ export class TodayAttendancePage implements OnInit {
 
     await this.getUserList();
     await this.getAttendance();
-    this.getLocation() 
+    this.getLocation();
     // this.notificationService.showError(`${this.currentPosition.lat}`);
     this.loader.dismiss();
   }
@@ -101,26 +100,20 @@ export class TodayAttendancePage implements OnInit {
         }
       });
     });
-    this.isMarked(this.userData?.phone)
-
+    this.isMarked(this.userData?.phone);
   }
 
-
-  isAttendanceMarked:String="Pending"
+  isAttendanceMarked: String = 'Pending';
   isMarked(userId: any) {
-    if(this.attendanceMap.hasOwnProperty(userId)){
-      if(this.attendanceMap[userId].present){
-        this.isAttendanceMarked='present'
+    if (this.attendanceMap.hasOwnProperty(userId)) {
+      if (this.attendanceMap[userId].present) {
+        this.isAttendanceMarked = 'present';
+      } else {
+        this.isAttendanceMarked = 'absent';
       }
-      else{
-        this.isAttendanceMarked='absent'
-
-      }
+    } else {
+      this.isAttendanceMarked = 'pending';
     }
-    else {
-      this.isAttendanceMarked='pending'
-    }
-   
   }
 
   isPresent(userId: any) {
@@ -151,17 +144,23 @@ export class TodayAttendancePage implements OnInit {
   }
 
   async markEmployeeAttendance(event: CustomEvent, userId: number) {
-   
-
     this.loader.present();
-    await this.TodayAttendanceService.markEmployeeAttendance(userId, {
-      offPremises: 10,
-      present: event.detail.value == "true" ? true : false,
-    });
-    
-    this.notificationService.showSuccess( event.detail.value == "true" ? Config.messages.markAttendance:Config.messages.markAbsent);
 
+    if (event.detail.value == 'true' || event.detail.value == 'false') {
+      await this.TodayAttendanceService.markEmployeeAttendance(userId, {
+        offPremises: 10,
+        present: event.detail.value == 'true' ? true : false,
+      });
+
+      this.notificationService.showSuccess(
+        event.detail.value == 'true'
+          ? Config.messages.markAttendance
+          : Config.messages.markAbsent
+      );
+      
+    }
     this.getAttendance();
+
     this.loader.dismiss();
   }
 
@@ -178,7 +177,11 @@ export class TodayAttendancePage implements OnInit {
 
   // geo-fencing
   async getLocation() {
-    console.log(this.workplaceArea?.cordinates,this.currentPosition,this.workplaceArea?.radius)
+    console.log(
+      this.workplaceArea?.cordinates,
+      this.currentPosition,
+      this.workplaceArea?.radius
+    );
     return this.locationService.setPointerOutside(
       this.workplaceArea?.cordinates,
       this.currentPosition,
@@ -187,13 +190,13 @@ export class TodayAttendancePage implements OnInit {
   }
   async markPresent() {
     this.loader.present();
-     //this.validMarker = await this.getLocation();
+    //this.validMarker = await this.getLocation();
     if (true) {
       await this.TodayAttendanceService.markAttendance(this.userData.phone);
-      
+
       this.notificationService.showSuccess(Config.messages.markAttendance);
     } else this.notificationService.showError(Config.messages.locationNotFound);
-    this.getAttendance()
+    this.getAttendance();
     this.loader.dismiss();
   }
 }
