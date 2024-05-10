@@ -63,6 +63,16 @@ export class TodayAttendanceService {
       )
     );
   }
+
+  async deleteAttendance(userId:any){
+    await getDocs(collection(this.firestore,'attendance')).then((years:any)=>{
+      years.docs.map( async (year:any)=>{
+        this.monthsArray.map(async (month:any)=>{
+             deleteDoc(doc(this.firestore,'attendance',year.id,month,userId)); 
+          })  
+      })
+    })
+  }
   
   getAttendanceStatus(id: string): Observable<string> {
     const ref = doc(
