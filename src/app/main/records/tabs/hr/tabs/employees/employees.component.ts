@@ -7,6 +7,7 @@ import { Config } from 'src/app/config';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { createUserWithEmailAndPassword, getAuth } from '@angular/fire/auth';
 import { NavController } from '@ionic/angular';
+import { TodayAttendanceService } from 'src/app/main/today-attendance/today-attendance.service';
 
 @Component({
   selector: 'app-employees',
@@ -19,7 +20,8 @@ export class EmployeesComponent implements OnInit {
     private loadingController: LoadingController,
     private userPermissionService: UserPermissionService,
     private sharedService: SharedService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private TodayAttendanceService:TodayAttendanceService
   ) {
     this.sharedService.refresh.subscribe((data) => {
       if (data) {
@@ -159,6 +161,7 @@ export class EmployeesComponent implements OnInit {
         await this.getRoles();
       } else {
         await this.userPermissionService.deleteUser(this.toDelete.id);
+        await this.TodayAttendanceService.deleteAttendance(this.toDelete.id);
         await this.getUsers();
       }
 
