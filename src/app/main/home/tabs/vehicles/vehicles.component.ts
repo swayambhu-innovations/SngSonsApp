@@ -19,7 +19,7 @@ export class VehiclesComponent implements OnInit {
     public vehicleService: VehicleService,
     private loadingController: LoadingController,
     private navCtrl: NavController,
-    public homeService:HomeService
+    public homeService: HomeService
   ) {}
   message: string;
 
@@ -41,7 +41,7 @@ export class VehiclesComponent implements OnInit {
     });
 
     this.getAllEmps();
-    console.log(this.homeService.userAccessData)
+    console.log(this.homeService.userAccessData);
   }
 
   async getAttendanceOnDate(date: string) {
@@ -73,46 +73,43 @@ export class VehiclesComponent implements OnInit {
       present: totalPresent,
       absent: totalAbsent,
       pending: totalPending,
-      total: this.allEmpsData.length
+      total: this.allEmpsData.length,
     };
   }
 
   async getAllAttendance() {
-
-    let totalAbsent = 0;
-    let totalPresent = 0;
-    let totalPending = this.allEmpsData.length;
-
-    this.allAttendance = [];
     const currentDate = new Date();
     const todayDate = currentDate.getDate().toString();
-    await this.vehicleService.getAttendance().then((data) => {
-      data.docs.map((attendance) => {
+    this.vehicleService.getAttendance().subscribe((data: any) => {
+      let totalAbsent = 0;
+      let totalPresent = 0;
+      let totalPending = this.allEmpsData.length;
+
+      this.allAttendance = [];
+      data.docs.map((attendance: any) => {
         const temp = attendance.data()[todayDate];
         if (temp?.present !== undefined) {
+          console.log({ id: attendance.id, present: temp.present });
           this.allAttendance.push({ id: attendance.id, present: temp.present });
-          if (temp?.present !== undefined) {
-            this.allAttendance.push({ id: attendance.id, present: temp.present });
-            for (let emp of this.allEmpsData) {
-              if (emp.id == attendance.id) {
-                if (temp.present) {
-                  totalPresent++;
-                } else {
-                  totalAbsent++;
-                }
+          for (let emp of this.allEmpsData) {
+            if (emp.id == attendance.id) {
+              if (temp.present) {
+                totalPresent++;
+              } else {
+                totalAbsent++;
               }
             }
           }
         }
       });
+      totalPending = totalPending - (totalPresent + totalAbsent);
+      this.summary = {
+        present: totalPresent,
+        absent: totalAbsent,
+        pending: totalPending,
+        total: this.allEmpsData.length,
+      };
     });
-    totalPending = totalPending - (totalPresent + totalAbsent);
-    this.summary = {
-      present: totalPresent,
-      absent: totalAbsent,
-      pending: totalPending,
-      total: this.allEmpsData.length
-    };
   }
 
   async getOrganizations() {
@@ -187,7 +184,7 @@ export class VehiclesComponent implements OnInit {
     data.docs.map((employee) => {
       this.allEmpsData.push({ ...employee.data(), id: employee.id });
     });
-    this.getAllAttendance()
+    this.getAllAttendance();
 
     this.filteredEmps = this.allEmpsData;
   }
